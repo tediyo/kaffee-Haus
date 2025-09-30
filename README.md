@@ -1,36 +1,157 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Kaffee Haus - Coffee Shop Website
 
-## Getting Started
+A beautiful, interactive coffee shop website built with Next.js, featuring a stunning 3D coffee shop scene using Three.js and modern UI components.
 
-First, run the development server:
+## ✨ Features
 
+- **3D Interactive Scene**: Immersive Three.js coffee shop environment with realistic lighting and animations
+- **Responsive Design**: Fully responsive across all devices and screen sizes
+- **Modern UI**: Beautiful, animated interface with Framer Motion
+- **Interactive Menu**: Dynamic menu with cart functionality and category filtering
+- **About Page**: Team showcase and company story
+- **Contact Page**: Contact form, location info, and social media links
+- **Smooth Animations**: Engaging micro-interactions throughout the site
+
+## 🚀 Tech Stack
+
+- **Framework**: Next.js 15 with App Router
+- **Language**: TypeScript
+- **Styling**: Tailwind CSS
+- **3D Graphics**: Three.js with React Three Fiber
+- **Animations**: Framer Motion
+- **Icons**: Lucide React
+
+## 🛠️ Installation
+
+1. Clone the repository:
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+git clone <repository-url>
+cd coffee-shop
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+2. Install dependencies:
+```bash
+npm install
+```
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+3. Run the development server:
+```bash
+npm run dev
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+4. Open [http://localhost:3000](http://localhost:3000) in your browser.
 
-## Learn More
+## 📁 Project Structure
 
-To learn more about Next.js, take a look at the following resources:
+```
+coffee-shop/
+├── src/
+│   ├── app/
+│   │   ├── about/
+│   │   │   └── page.tsx          # About page
+│   │   ├── contact/
+│   │   │   └── page.tsx          # Contact page
+│   │   ├── menu/
+│   │   │   └── page.tsx          # Menu page
+│   │   ├── layout.tsx            # Root layout
+│   │   ├── page.tsx              # Home page
+│   │   └── globals.css           # Global styles
+│   └── components/
+│       ├── CoffeeShopScene.tsx   # Three.js 3D scene
+│       ├── HeroSection.tsx       # Hero section component
+│       └── Navigation.tsx        # Navigation component
+├── public/                       # Static assets
+└── README.md
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## 🎨 Key Components
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### CoffeeShopScene.tsx
+- Interactive 3D coffee shop environment
+- Realistic lighting and shadows
+- Animated fairy lights and ambient effects
+- Responsive camera controls
 
-## Deploy on Vercel
+### Navigation.tsx
+- Responsive navigation bar
+- Mobile-friendly hamburger menu
+- Smooth animations and transitions
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### Menu Page
+- Interactive product catalog
+- Category filtering
+- Shopping cart functionality
+- Quantity controls and favorites
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+### About Page
+- Team member profiles
+- Company story and values
+- Statistics and achievements
+- Customer testimonials
+
+### Contact Page
+- Contact form with validation
+- Location and hours information
+- Social media links
+- FAQ section
+
+## 🎯 Features in Detail
+
+### 3D Scene
+The Three.js scene includes:
+- Detailed coffee shop interior
+- Realistic materials and textures
+- Dynamic lighting system
+- Interactive camera controls
+- Animated elements (fairy lights, etc.)
+
+### Responsive Design
+- Mobile-first approach
+- Flexible grid layouts
+- Adaptive typography
+- Touch-friendly interactions
+
+### Animations
+- Page transitions
+- Scroll-triggered animations
+- Hover effects
+- Loading states
+- Micro-interactions
+
+## 🚀 Deployment
+
+The project is ready for deployment on platforms like:
+- Vercel (recommended)
+- Netlify
+- AWS Amplify
+- Any static hosting service
+
+## 📱 Browser Support
+
+- Chrome (latest)
+- Firefox (latest)
+- Safari (latest)
+- Edge (latest)
+
+## 🤝 Contributing
+
+1. Fork the repository
+2. Create a feature branch
+3. Make your changes
+4. Test thoroughly
+5. Submit a pull request
+
+## 📄 License
+
+This project is licensed under the MIT License.
+
+## 🙏 Acknowledgments
+
+- Three.js community for the amazing 3D library
+- Framer Motion for smooth animations
+- Tailwind CSS for utility-first styling
+- Lucide for beautiful icons
+
+---
+
+Built with ❤️ for coffee lovers everywhere ☕
