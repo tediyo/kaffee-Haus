@@ -4,13 +4,12 @@ A beautiful, interactive coffee shop website built with Next.js, featuring a stu
 
 ## ✨ Features
 
-- **3D Interactive Scene**: Immersive Three.js coffee shop environment with realistic lighting and animations
+- **3D Interactive Scene**: Immersive Three.js coffee shop environment with realistic lighting
 - **Responsive Design**: Fully responsive across all devices and screen sizes
-- **Modern UI**: Beautiful, animated interface with Framer Motion
+- **Modern UI**: Beautiful, clean interface with smooth transitions
 - **Interactive Menu**: Dynamic menu with cart functionality and category filtering
 - **About Page**: Team showcase and company story
 - **Contact Page**: Contact form, location info, and social media links
-- **Smooth Animations**: Engaging micro-interactions throughout the site
 
 ## 🚀 Tech Stack
 
@@ -18,7 +17,6 @@ A beautiful, interactive coffee shop website built with Next.js, featuring a stu
 - **Language**: TypeScript
 - **Styling**: Tailwind CSS
 - **3D Graphics**: Three.js with React Three Fiber
-- **Animations**: Framer Motion
 - **Icons**: Lucide React
 
 ## 🛠️ Installation
@@ -69,13 +67,12 @@ coffee-shop/
 ### CoffeeShopScene.tsx
 - Interactive 3D coffee shop environment
 - Realistic lighting and shadows
-- Animated fairy lights and ambient effects
 - Responsive camera controls
 
 ### Navigation.tsx
 - Responsive navigation bar
 - Mobile-friendly hamburger menu
-- Smooth animations and transitions
+- Smooth transitions
 
 ### Menu Page
 - Interactive product catalog
@@ -103,7 +100,6 @@ The Three.js scene includes:
 - Realistic materials and textures
 - Dynamic lighting system
 - Interactive camera controls
-- Animated elements (fairy lights, etc.)
 
 ### Responsive Design
 - Mobile-first approach
@@ -111,12 +107,11 @@ The Three.js scene includes:
 - Adaptive typography
 - Touch-friendly interactions
 
-### Animations
-- Page transitions
-- Scroll-triggered animations
-- Hover effects
-- Loading states
-- Micro-interactions
+### User Experience
+- Clean, modern design
+- Intuitive navigation
+- Responsive layouts
+- Fast loading times
 
 ## 🚀 Deployment
 
@@ -148,7 +143,6 @@ This project is licensed under the MIT License.
 ## 🙏 Acknowledgments
 
 - Three.js community for the amazing 3D library
-- Framer Motion for smooth animations
 - Tailwind CSS for utility-first styling
 - Lucide for beautiful icons
 
