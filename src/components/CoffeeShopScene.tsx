@@ -16,9 +16,10 @@ const CoffeeShopScene = () => {
   useEffect(() => {
     if (!isClient || !mountRef.current) return;
 
-    // Scene setup
+    // Enhanced scene setup
     const scene = new THREE.Scene();
-    scene.background = new THREE.Color(0x614032);
+    scene.background = new THREE.Color(0x2c1810);
+    scene.fog = new THREE.Fog(0x2c1810, 50, 200);
     sceneRef.current = scene;
 
     const aspectRatio = window.innerWidth / window.innerHeight;
@@ -36,10 +37,17 @@ const CoffeeShopScene = () => {
     camera.position.set(200, 200, 200);
     camera.lookAt(0, 10, 0);
 
-    const renderer = new THREE.WebGLRenderer({ antialias: true });
+    const renderer = new THREE.WebGLRenderer({ 
+      antialias: true,
+      alpha: true,
+      powerPreference: "high-performance"
+    });
     renderer.setSize(window.innerWidth, window.innerHeight);
     renderer.shadowMap.enabled = true;
     renderer.shadowMap.type = THREE.PCFSoftShadowMap;
+    renderer.toneMapping = THREE.ACESFilmicToneMapping;
+    renderer.toneMappingExposure = 1.2;
+    renderer.outputColorSpace = THREE.SRGBColorSpace;
     rendererRef.current = renderer;
 
     mountRef.current.appendChild(renderer.domElement);
@@ -51,10 +59,41 @@ const CoffeeShopScene = () => {
       controls.enableDamping = true;
       controls.dampingFactor = 0.05;
 
-      // Ambient light
-      const ambientLight = new THREE.AmbientLight(0x404040, 1);
+      // Enhanced lighting setup
+      const ambientLight = new THREE.AmbientLight(0x404040, 0.4);
       ambientLight.position.set(0, 0, 0);
       scene.add(ambientLight);
+
+      // Main directional light (sunlight)
+      const directionalLight = new THREE.DirectionalLight(0xffffff, 2);
+      directionalLight.position.set(50, 100, 50);
+      directionalLight.castShadow = true;
+      directionalLight.shadow.mapSize.width = 2048;
+      directionalLight.shadow.mapSize.height = 2048;
+      directionalLight.shadow.camera.near = 0.5;
+      directionalLight.shadow.camera.far = 500;
+      directionalLight.shadow.camera.left = -100;
+      directionalLight.shadow.camera.right = 100;
+      directionalLight.shadow.camera.top = 100;
+      directionalLight.shadow.camera.bottom = -100;
+      scene.add(directionalLight);
+
+      // Warm accent light
+      const pointLight1 = new THREE.PointLight(0xffaa44, 1.5, 100);
+      pointLight1.position.set(20, 30, 20);
+      pointLight1.castShadow = true;
+      scene.add(pointLight1);
+
+      // Cool accent light
+      const pointLight2 = new THREE.PointLight(0x4488ff, 0.8, 80);
+      pointLight2.position.set(-20, 25, -20);
+      pointLight2.castShadow = true;
+      scene.add(pointLight2);
+
+      // Rim light for depth
+      const rimLight = new THREE.DirectionalLight(0xffffff, 0.5);
+      rimLight.position.set(-50, 50, -50);
+      scene.add(rimLight);
 
       camera.position.z = 5;
 
@@ -68,23 +107,25 @@ const CoffeeShopScene = () => {
 
         const groundGeometry = new THREE.BoxGeometry(50, 50, 2);
         const groundMaterial = new THREE.MeshStandardMaterial({
-          roughness: 0.7,
-          metalness: 0.3,
+          roughness: 0.8,
+          metalness: 0.1,
+          normalScale: new THREE.Vector2(0.5, 0.5)
         });
         groundMaterial.map = floorTexture;
         groundMaterial.receiveShadow = true;
+        groundMaterial.envMapIntensity = 0.5;
         const ground = new THREE.Mesh(groundGeometry, groundMaterial);
         ground.position.set(0, -5, 0);
         ground.rotation.x = Math.PI / 2;
         room.add(ground);
 
         const wallMaterial = new THREE.MeshStandardMaterial({
-          roughness: 0.8,
-          metalness: 0.3,
+          roughness: 0.9,
+          metalness: 0.05,
+          color: new THREE.Color(0x3d2f1a)
         });
-
-        wallMaterial.color = new THREE.Color(0x2b2002);
         wallMaterial.receiveShadow = true;
+        wallMaterial.envMapIntensity = 0.3;
         const wall1 = new THREE.Mesh(groundGeometry, wallMaterial);
         wall1.rotation.y = -Math.PI / 2;
         wall1.position.y = 21;
@@ -553,8 +594,31 @@ const CoffeeShopScene = () => {
       room.rotation.y = Math.PI / 4;
       scene.add(room);
 
-      // Render the scene once
+      // Enhanced rendering with better camera positioning
       controls.update();
+      
+      // Add some atmospheric particles
+      const particleGeometry = new THREE.BufferGeometry();
+      const particleCount = 100;
+      const positions = new Float32Array(particleCount * 3);
+      
+      for (let i = 0; i < particleCount * 3; i++) {
+        positions[i] = (Math.random() - 0.5) * 200;
+      }
+      
+      particleGeometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+      
+      const particleMaterial = new THREE.PointsMaterial({
+        color: 0xffffff,
+        size: 0.5,
+        transparent: true,
+        opacity: 0.3
+      });
+      
+      const particles = new THREE.Points(particleGeometry, particleMaterial);
+      scene.add(particles);
+      
+      // Render the scene
       renderer.render(scene, camera);
 
       // Handle window resize
