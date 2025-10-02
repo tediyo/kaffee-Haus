@@ -1,7 +1,6 @@
 'use client';
 
 import { useState } from 'react';
-import { motion } from 'framer-motion';
 import Navigation from '@/components/Navigation';
 import { Coffee, Plus, Minus, Star, Heart, Filter } from 'lucide-react';
 
@@ -169,31 +168,21 @@ export default function MenuPage() {
       {/* Hero Section */}
       <section className="pt-20 pb-16 bg-gradient-to-r from-amber-800 to-amber-600">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            className="space-y-6"
-          >
+          <div className="space-y-6">
             <h1 className="text-5xl md:text-6xl font-bold text-white">
               Our Menu
             </h1>
             <p className="text-xl text-amber-100 max-w-2xl mx-auto">
               Discover our carefully crafted selection of coffee, drinks, and pastries
             </p>
-          </motion.div>
+          </div>
         </div>
       </section>
 
       {/* Category Filter */}
       <section className="py-8 bg-white/80 backdrop-blur-sm">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-            className="flex flex-wrap justify-center gap-4"
-          >
+          <div className="flex flex-wrap justify-center gap-4">
             {categories.map((category) => (
               <button
                 key={category.id}
@@ -208,25 +197,17 @@ export default function MenuPage() {
                 <span>{category.name}</span>
               </button>
             ))}
-          </motion.div>
+          </div>
         </div>
       </section>
 
       {/* Menu Items */}
       <section className="py-12">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.6, delay: 0.4 }}
-            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
-          >
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {filteredItems.map((item, index) => (
-              <motion.div
+              <div
                 key={item.id}
-                initial={{ opacity: 0, y: 30 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: index * 0.1 }}
                 className="bg-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 overflow-hidden group"
               >
                 {/* Item Image */}
@@ -315,19 +296,15 @@ export default function MenuPage() {
                     </button>
                   </div>
                 </div>
-              </motion.div>
+              </div>
             ))}
-          </motion.div>
+          </div>
         </div>
       </section>
 
       {/* Cart Summary */}
       {Object.values(quantities).some(qty => qty > 0) && (
-        <motion.div
-          initial={{ opacity: 0, y: 50 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="fixed bottom-6 right-6 bg-white rounded-2xl shadow-2xl p-6 max-w-sm"
-        >
+        <div className="fixed bottom-6 right-6 bg-white rounded-2xl shadow-2xl p-6 max-w-sm">
           <h3 className="text-lg font-bold text-gray-800 mb-4">Your Order</h3>
           <div className="space-y-2 mb-4">
             {Object.entries(quantities).map(([itemId, qty]) => {
@@ -357,7 +334,7 @@ export default function MenuPage() {
               Checkout
             </button>
           </div>
-        </motion.div>
+        </div>
       )}
     </main>
   );

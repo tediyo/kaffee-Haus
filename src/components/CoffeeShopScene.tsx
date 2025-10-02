@@ -7,7 +7,6 @@ const CoffeeShopScene = () => {
   const mountRef = useRef<HTMLDivElement>(null);
   const sceneRef = useRef<THREE.Scene | null>(null);
   const rendererRef = useRef<THREE.WebGLRenderer | null>(null);
-  const animationRef = useRef<number | null>(null);
   const [isClient, setIsClient] = useState(false);
 
   useEffect(() => {
@@ -554,14 +553,9 @@ const CoffeeShopScene = () => {
       room.rotation.y = Math.PI / 4;
       scene.add(room);
 
-      // Animation loop
-      function animate() {
-        animationRef.current = requestAnimationFrame(animate);
-        controls.update();
-        renderer.render(scene, camera);
-      }
-
-      animate();
+      // Render the scene once
+      controls.update();
+      renderer.render(scene, camera);
 
       // Handle window resize
       const handleResize = () => {
@@ -578,9 +572,6 @@ const CoffeeShopScene = () => {
       // Cleanup function
       return () => {
         window.removeEventListener('resize', handleResize);
-        if (animationRef.current) {
-          cancelAnimationFrame(animationRef.current);
-        }
         if (mountRef.current && renderer.domElement) {
           mountRef.current.removeChild(renderer.domElement);
         }
@@ -590,9 +581,6 @@ const CoffeeShopScene = () => {
 
     // Cleanup on unmount
     return () => {
-      if (animationRef.current) {
-        cancelAnimationFrame(animationRef.current);
-      }
       if (mountRef.current && rendererRef.current?.domElement) {
         mountRef.current.removeChild(rendererRef.current.domElement);
       }
