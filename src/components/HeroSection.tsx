@@ -42,26 +42,27 @@ const HeroSection = () => {
       {/* Floating Coffee Beans */}
       <div className="absolute inset-0 z-5 overflow-hidden">
         {[...Array(8)].map((_, i) => {
-          // Use fixed positions to avoid hydration mismatch
+          // Better aligned and proportional positions
           const positions = [
-            { left: '15%', top: '20%' },
-            { left: '85%', top: '30%' },
-            { left: '25%', top: '60%' },
-            { left: '75%', top: '70%' },
-            { left: '45%', top: '15%' },
-            { left: '65%', top: '85%' },
-            { left: '35%', top: '45%' },
-            { left: '90%', top: '55%' }
+            { left: '10%', top: '15%', size: 'text-xl' },
+            { left: '20%', top: '35%', size: 'text-2xl' },
+            { left: '35%', top: '20%', size: 'text-lg' },
+            { left: '50%', top: '40%', size: 'text-xl' },
+            { left: '65%', top: '25%', size: 'text-2xl' },
+            { left: '80%', top: '45%', size: 'text-lg' },
+            { left: '15%', top: '65%', size: 'text-xl' },
+            { left: '85%', top: '70%', size: 'text-2xl' }
           ];
           
           return (
             <div
               key={i}
-              className="absolute text-amber-200/30 text-2xl"
+              className={`absolute text-amber-200/40 ${positions[i].size} transition-all duration-1000 hover:scale-110 hover:text-amber-200/60`}
               style={{
                 left: positions[i].left,
                 top: positions[i].top,
-                animationDelay: `${i * 0.5}s`,
+                animationDelay: `${i * 0.3}s`,
+                transform: 'translate(-50%, -50%)', // Center the emoji
               }}
             >
               ☕
