@@ -2,9 +2,13 @@
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { Menu, X, Coffee, Home, Utensils, Users, MapPin, Bell, Search } from 'lucide-react';
+import { Menu, X, Coffee, Home, Utensils, Users, MapPin, Bell, Search, HelpCircle } from 'lucide-react';
 
-const Navigation = () => {
+interface NavigationProps {
+  onFAQClick?: () => void;
+}
+
+const Navigation = ({ onFAQClick }: NavigationProps) => {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
@@ -75,6 +79,17 @@ const Navigation = () => {
               </Link>
             ))}
             
+            {/* FAQ Button */}
+            {onFAQClick && (
+              <button 
+                onClick={onFAQClick}
+                className="p-2 text-gray-600 hover:text-amber-600 hover:bg-amber-50 rounded-xl transition-all duration-200"
+                title="Frequently Asked Questions"
+              >
+                <HelpCircle className="h-5 w-5" />
+              </button>
+            )}
+
             {/* Notification Bell */}
             <button className="relative p-2 text-gray-600 hover:text-amber-600 hover:bg-amber-50 rounded-xl transition-all duration-200">
               <Bell className="h-5 w-5" />

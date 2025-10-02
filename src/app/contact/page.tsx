@@ -2,7 +2,8 @@
 
 import { useState } from 'react';
 import Navigation from '@/components/Navigation';
-import { MapPin, Phone, Mail, Clock, Send, MessageCircle, Instagram, Facebook, Twitter, CheckCircle, AlertCircle, Star, Coffee, Users, Award } from 'lucide-react';
+import FAQModal from '@/components/FAQModal';
+import { MapPin, Phone, Mail, Clock, Send, MessageCircle, Instagram, Facebook, Twitter, CheckCircle, AlertCircle, Star, Coffee, Users, Award, HelpCircle } from 'lucide-react';
 
 export default function ContactPage() {
   const [formData, setFormData] = useState({
@@ -14,6 +15,7 @@ export default function ContactPage() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
   const [selectedContact, setSelectedContact] = useState(0);
+  const [faqModalOpen, setFaqModalOpen] = useState(false);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setFormData({
@@ -108,7 +110,7 @@ export default function ContactPage() {
 
   return (
     <main className="min-h-screen bg-gradient-to-br from-amber-50 via-orange-50 to-amber-100">
-      <Navigation />
+      <Navigation onFAQClick={() => setFaqModalOpen(true)} />
       
       {/* Enhanced Hero Section */}
       <section className="pt-20 pb-20 bg-gradient-to-r from-amber-800 via-amber-700 to-orange-700 relative overflow-hidden">
@@ -384,24 +386,35 @@ export default function ContactPage() {
               <span className="font-medium">Frequently Asked Questions</span>
             </div>
             <h2 className="text-5xl font-bold text-gray-800 mb-6">Quick Answers</h2>
-            <p className="text-xl text-gray-600">
+            <p className="text-xl text-gray-600 mb-8">
               Find answers to the most common questions about our services
             </p>
+            
+            {/* Interactive FAQ Button */}
+            <button
+              onClick={() => setFaqModalOpen(true)}
+              className="bg-gradient-to-r from-amber-600 to-orange-600 hover:from-amber-700 hover:to-orange-700 text-white px-8 py-4 rounded-2xl font-bold text-lg transition-all duration-300 hover:scale-105 shadow-lg hover:shadow-amber-500/25 flex items-center space-x-3 mx-auto"
+            >
+              <HelpCircle className="h-6 w-6" />
+              <span>Browse All Questions</span>
+            </button>
           </div>
 
-          <div className="space-y-6">
-            {faqs.map((faq, index) => (
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {faqs.slice(0, 4).map((faq, index) => (
               <div
                 key={index}
-                className="bg-gradient-to-r from-amber-50 to-orange-50 rounded-2xl p-8 border border-amber-200/50 hover:shadow-lg transition-all duration-300"
+                className="bg-gradient-to-r from-amber-50 to-orange-50 rounded-2xl p-6 border border-amber-200/50 hover:shadow-lg transition-all duration-300 hover:scale-105 cursor-pointer"
+                onClick={() => setFaqModalOpen(true)}
               >
                 <div className="flex items-start space-x-4">
-                  <div className="w-12 h-12 bg-gradient-to-r from-amber-500 to-orange-500 rounded-full flex items-center justify-center flex-shrink-0">
-                    <faq.icon className="h-6 w-6 text-white" />
+                  <div className="w-10 h-10 bg-gradient-to-r from-amber-500 to-orange-500 rounded-full flex items-center justify-center flex-shrink-0">
+                    <faq.icon className="h-5 w-5 text-white" />
                   </div>
                   <div className="flex-1">
-                    <h3 className="text-xl font-bold text-gray-800 mb-3">{faq.question}</h3>
-                    <p className="text-gray-600 text-lg leading-relaxed">{faq.answer}</p>
+                    <h3 className="text-lg font-bold text-gray-800 mb-2">{faq.question}</h3>
+                    <p className="text-gray-600 text-sm leading-relaxed line-clamp-2">{faq.answer}</p>
+                    <p className="text-amber-600 text-sm font-medium mt-2">Click to read more →</p>
                   </div>
                 </div>
               </div>
@@ -409,6 +422,12 @@ export default function ContactPage() {
           </div>
         </div>
       </section>
+
+      {/* FAQ Modal */}
+      <FAQModal
+        isOpen={faqModalOpen}
+        onClose={() => setFaqModalOpen(false)}
+      />
     </main>
   );
 }
