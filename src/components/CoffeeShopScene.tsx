@@ -7,6 +7,7 @@ const CoffeeShopScene = () => {
   const mountRef = useRef<HTMLDivElement>(null);
   const sceneRef = useRef<THREE.Scene | null>(null);
   const rendererRef = useRef<THREE.WebGLRenderer | null>(null);
+  const animationIdRef = useRef<number | null>(null);
   const [isClient, setIsClient] = useState(false);
 
   useEffect(() => {
@@ -618,8 +619,14 @@ const CoffeeShopScene = () => {
       const particles = new THREE.Points(particleGeometry, particleMaterial);
       scene.add(particles);
       
-      // Render the scene
-      renderer.render(scene, camera);
+      // Render loop
+      const animate = () => {
+        animationIdRef.current = requestAnimationFrame(animate);
+        controls.update();
+        renderer.render(scene, camera);
+      };
+      
+      animate();
 
       // Handle window resize
       const handleResize = () => {
@@ -636,6 +643,9 @@ const CoffeeShopScene = () => {
       // Cleanup function
       return () => {
         window.removeEventListener('resize', handleResize);
+        if (animationIdRef.current) {
+          cancelAnimationFrame(animationIdRef.current);
+        }
         if (mountRef.current && renderer.domElement) {
           mountRef.current.removeChild(renderer.domElement);
         }
@@ -645,6 +655,9 @@ const CoffeeShopScene = () => {
 
     // Cleanup on unmount
     return () => {
+      if (animationIdRef.current) {
+        cancelAnimationFrame(animationIdRef.current);
+      }
       if (mountRef.current && rendererRef.current?.domElement) {
         mountRef.current.removeChild(rendererRef.current.domElement);
       }
