@@ -6,7 +6,6 @@ import Link from 'next/link';
 
 const HeroSection = () => {
   const [currentTime, setCurrentTime] = useState('');
-  const [isHovered, setIsHovered] = useState(false);
   const [isClient, setIsClient] = useState(false);
 
   useEffect(() => {
@@ -28,28 +27,7 @@ const HeroSection = () => {
 
   return (
     <>
-      <style jsx>{`
-        @keyframes float-1 {
-          0%, 100% { transform: translate(-50%, -50%) translateY(0px) rotate(0deg); }
-          50% { transform: translate(-50%, -50%) translateY(-20px) rotate(5deg); }
-        }
-        @keyframes float-2 {
-          0%, 100% { transform: translate(-50%, -50%) translateY(0px) rotate(0deg); }
-          50% { transform: translate(-50%, -50%) translateY(-15px) rotate(-3deg); }
-        }
-        @keyframes float-3 {
-          0%, 100% { transform: translate(-50%, -50%) translateY(0px) rotate(0deg); }
-          50% { transform: translate(-50%, -50%) translateY(-25px) rotate(8deg); }
-        }
-        @keyframes steam {
-          0% { opacity: 0; transform: translateY(0px) scale(0.8); }
-          50% { opacity: 0.6; transform: translateY(-10px) scale(1); }
-          100% { opacity: 0; transform: translateY(-20px) scale(1.2); }
-        }
-        .float-1 { animation: float-1 6s infinite ease-in-out; }
-        .float-2 { animation: float-2 6s infinite ease-in-out; }
-        .float-3 { animation: float-3 6s infinite ease-in-out; }
-      `}</style>
+      {/* Animations removed */}
       <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
       {/* Professional Background Image */}
       <div className="absolute inset-0 z-0">
@@ -63,46 +41,42 @@ const HeroSection = () => {
         <div className="absolute inset-0 bg-gradient-to-br from-black/60 via-amber-900/70 to-black/60" />
         {/* Additional gradient overlay for warmth */}
         <div className="absolute inset-0 bg-gradient-to-br from-amber-900/40 via-amber-800/30 to-amber-700/40" />
-        {/* Animated floating elements */}
+        {/* Static floating elements - no animations */}
         <div className="absolute inset-0 opacity-30">
-          <div className="absolute top-10 left-10 w-32 h-32 bg-amber-300/20 rounded-full blur-xl animate-pulse" />
-          <div className="absolute top-32 right-20 w-24 h-24 bg-amber-200/30 rounded-full blur-lg animate-pulse" style={{ animationDelay: '1s' }} />
-          <div className="absolute bottom-20 left-1/4 w-40 h-40 bg-amber-400/20 rounded-full blur-2xl animate-pulse" style={{ animationDelay: '2s' }} />
-          <div className="absolute bottom-32 right-1/3 w-28 h-28 bg-amber-300/25 rounded-full blur-lg animate-pulse" style={{ animationDelay: '0.5s' }} />
+          <div className="absolute top-10 left-10 w-32 h-32 bg-amber-300/20 rounded-full blur-xl" />
+          <div className="absolute top-32 right-20 w-24 h-24 bg-amber-200/30 rounded-full blur-lg" />
+          <div className="absolute bottom-20 left-1/4 w-40 h-40 bg-amber-400/20 rounded-full blur-2xl" />
+          <div className="absolute bottom-32 right-1/3 w-28 h-28 bg-amber-300/25 rounded-full blur-lg" />
         </div>
       </div>
 
-      {/* Floating Coffee Beans with enhanced animation */}
+      {/* Static Coffee Beans - no animations */}
       <div className="absolute inset-0 z-5 overflow-hidden">
         {[...Array(12)].map((_, i) => {
-          // Better aligned and proportional positions with more variety
+          // Static positions without animations
           const positions = [
-            { left: '8%', top: '12%', size: 'text-xl', animation: 'float-1' },
-            { left: '18%', top: '32%', size: 'text-2xl', animation: 'float-2' },
-            { left: '32%', top: '18%', size: 'text-lg', animation: 'float-3' },
-            { left: '48%', top: '38%', size: 'text-xl', animation: 'float-1' },
-            { left: '62%', top: '22%', size: 'text-2xl', animation: 'float-2' },
-            { left: '78%', top: '42%', size: 'text-lg', animation: 'float-3' },
-            { left: '12%', top: '62%', size: 'text-xl', animation: 'float-1' },
-            { left: '82%', top: '68%', size: 'text-2xl', animation: 'float-2' },
-            { left: '25%', top: '75%', size: 'text-lg', animation: 'float-3' },
-            { left: '70%', top: '8%', size: 'text-xl', animation: 'float-1' },
-            { left: '5%', top: '85%', size: 'text-2xl', animation: 'float-2' },
-            { left: '90%', top: '15%', size: 'text-lg', animation: 'float-3' }
+            { left: '8%', top: '12%', size: 'text-xl' },
+            { left: '18%', top: '32%', size: 'text-2xl' },
+            { left: '32%', top: '18%', size: 'text-lg' },
+            { left: '48%', top: '38%', size: 'text-xl' },
+            { left: '62%', top: '22%', size: 'text-2xl' },
+            { left: '78%', top: '42%', size: 'text-lg' },
+            { left: '12%', top: '62%', size: 'text-xl' },
+            { left: '82%', top: '68%', size: 'text-2xl' },
+            { left: '25%', top: '75%', size: 'text-lg' },
+            { left: '70%', top: '8%', size: 'text-xl' },
+            { left: '5%', top: '85%', size: 'text-2xl' },
+            { left: '90%', top: '15%', size: 'text-lg' }
           ];
           
           return (
             <div
               key={i}
-              className={`absolute text-amber-200/30 ${positions[i].size} transition-all duration-1000 hover:scale-110 hover:text-amber-200/60 ${positions[i].animation}`}
+              className={`absolute text-amber-200/30 ${positions[i].size}`}
               style={{
                 left: positions[i].left,
                 top: positions[i].top,
-                animationDelay: `${i * 0.2}s`,
-                transform: 'translate(-50%, -50%)',
-                animationDuration: '6s',
-                animationIterationCount: 'infinite',
-                animationTimingFunction: 'ease-in-out'
+                transform: 'translate(-50%, -50%)'
               }}
             >
               ☕
@@ -111,7 +85,7 @@ const HeroSection = () => {
         })}
       </div>
 
-      {/* Coffee steam effects */}
+      {/* Static steam effects - no animations */}
       <div className="absolute inset-0 z-5 overflow-hidden pointer-events-none">
         {[...Array(6)].map((_, i) => (
           <div
@@ -119,9 +93,7 @@ const HeroSection = () => {
             className="absolute text-white/20 text-4xl"
             style={{
               left: `${15 + i * 15}%`,
-              top: '60%',
-              animationDelay: `${i * 0.5}s`,
-              animation: 'steam 4s infinite ease-in-out'
+              top: '60%'
             }}
           >
             〰️
@@ -139,7 +111,7 @@ const HeroSection = () => {
         <div className="space-y-8">
           {/* Live Time Display */}
           <div className="inline-flex items-center space-x-2 bg-white/10 backdrop-blur-md rounded-full px-4 py-2 text-white/90 border border-white/20">
-            <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse" />
+            <div className="w-2 h-2 bg-green-400 rounded-full" />
             <span className="text-sm font-medium">
               Open Now{isClient && currentTime ? ` • ${currentTime}` : ''}
             </span>
@@ -185,18 +157,15 @@ const HeroSection = () => {
           <div className="flex flex-col sm:flex-row items-center justify-center space-y-6 sm:space-y-0 sm:space-x-8">
             <Link href="/menu">
               <button 
-                className="group relative bg-gradient-to-r from-amber-600 to-amber-700 hover:from-amber-700 hover:to-amber-800 text-white px-10 py-5 rounded-2xl font-bold text-xl transition-all duration-300 flex items-center space-x-3 shadow-2xl hover:shadow-amber-500/25 hover:scale-105 border border-amber-500/30"
-                onMouseEnter={() => setIsHovered(true)}
-                onMouseLeave={() => setIsHovered(false)}
+                className="group relative bg-gradient-to-r from-amber-600 to-amber-700 hover:from-amber-700 hover:to-amber-800 text-white px-10 py-5 rounded-2xl font-bold text-xl flex items-center space-x-3 shadow-2xl border border-amber-500/30"
               >
                 <span>Explore Menu</span>
-                <ArrowRight className={`h-6 w-6 transition-transform duration-300 ${isHovered ? 'translate-x-2' : ''}`} />
-                <div className="absolute inset-0 bg-gradient-to-r from-amber-400/20 to-amber-300/20 rounded-2xl blur-sm opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                <ArrowRight className="h-6 w-6" />
               </button>
             </Link>
 
-            <button className="group relative bg-white/20 hover:bg-white/30 backdrop-blur-md text-white px-10 py-5 rounded-2xl font-bold text-xl transition-all duration-300 flex items-center space-x-3 border border-white/30 hover:border-white/50 shadow-xl hover:shadow-white/10">
-              <Play className="h-6 w-6 group-hover:scale-110 transition-transform duration-300" />
+            <button className="group relative bg-white/20 hover:bg-white/30 backdrop-blur-md text-white px-10 py-5 rounded-2xl font-bold text-xl flex items-center space-x-3 border border-white/30 hover:border-white/50 shadow-xl">
+              <Play className="h-6 w-6" />
               <span>Watch Story</span>
             </button>
           </div>
@@ -228,9 +197,9 @@ const HeroSection = () => {
             ].map((feature, index) => (
               <div
                 key={feature.title}
-                className={`bg-gradient-to-br ${feature.color} backdrop-blur-sm rounded-3xl p-8 text-center border ${feature.borderColor} hover:shadow-2xl transition-all duration-300 hover:scale-105 group`}
+                className={`bg-gradient-to-br ${feature.color} backdrop-blur-sm rounded-3xl p-8 text-center border ${feature.borderColor} group`}
               >
-                <div className="text-6xl mb-4 group-hover:scale-110 transition-transform duration-300">{feature.icon}</div>
+                <div className="text-6xl mb-4">{feature.icon}</div>
                 <h3 className="text-2xl font-bold text-white mb-3">{feature.title}</h3>
                 <p className="text-white/80 text-lg">{feature.description}</p>
                 <div className="mt-4 flex justify-center">

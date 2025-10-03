@@ -153,7 +153,7 @@ const FAQModal = ({ isOpen, onClose }: FAQModalProps) => {
             </div>
             <button
               onClick={onClose}
-              className="p-2 hover:bg-white/20 rounded-full transition-colors duration-200"
+              className="p-2 hover:bg-white/20 rounded-full"
             >
               <X className="h-6 w-6" />
             </button>
@@ -171,7 +171,7 @@ const FAQModal = ({ isOpen, onClose }: FAQModalProps) => {
                 placeholder="Search questions or topics..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-transparent transition-all duration-200"
+                className="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-xl focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-transparent"
               />
               {/* Search Suggestions */}
               {getSearchSuggestions().length > 0 && (
@@ -195,7 +195,7 @@ const FAQModal = ({ isOpen, onClose }: FAQModalProps) => {
                 <button
                   key={category}
                   onClick={() => setSelectedCategory(category)}
-                  className={`px-4 py-2 rounded-full text-sm font-medium transition-all duration-200 ${
+                  className={`px-4 py-2 rounded-full text-sm font-medium ${
                     selectedCategory === category
                       ? 'bg-amber-600 text-white shadow-lg'
                       : 'bg-white text-gray-700 hover:bg-amber-50 border border-gray-200'
@@ -221,11 +221,11 @@ const FAQModal = ({ isOpen, onClose }: FAQModalProps) => {
               {filteredFAQs.map((faq) => (
                 <div
                   key={faq.id}
-                  className="bg-white border border-gray-200 rounded-2xl overflow-hidden hover:shadow-lg transition-all duration-200"
+                  className="bg-white border border-gray-200 rounded-2xl overflow-hidden hover:shadow-lg"
                 >
                   <button
                     onClick={() => toggleExpanded(faq.id)}
-                    className="w-full p-6 text-left flex items-center justify-between hover:bg-gray-50 transition-colors duration-200"
+                    className="w-full p-6 text-left flex items-center justify-between hover:bg-gray-50"
                   >
                     <div className="flex items-center space-x-4">
                       <div className="w-10 h-10 bg-amber-100 rounded-full flex items-center justify-center">
@@ -272,7 +272,7 @@ const FAQModal = ({ isOpen, onClose }: FAQModalProps) => {
                         <div className="flex items-center justify-between">
                           <button
                             onClick={() => toggleHelpful(faq.id)}
-                            className={`flex items-center space-x-2 px-4 py-2 rounded-full text-sm font-medium transition-all duration-200 ${
+                            className={`flex items-center space-x-2 px-4 py-2 rounded-full text-sm font-medium ${
                               helpfulVotes[faq.id]
                                 ? 'bg-green-100 text-green-700'
                                 : 'bg-gray-100 text-gray-600 hover:bg-green-50 hover:text-green-700'
@@ -283,13 +283,13 @@ const FAQModal = ({ isOpen, onClose }: FAQModalProps) => {
                           </button>
 
                           <div className="flex space-x-2">
-                            <button className="p-2 text-gray-400 hover:text-gray-600 transition-colors duration-200">
+                            <button className="p-2 text-gray-400 hover:text-gray-600">
                               <MessageCircle className="h-4 w-4" />
                             </button>
-                            <button className="p-2 text-gray-400 hover:text-gray-600 transition-colors duration-200">
+                            <button className="p-2 text-gray-400 hover:text-gray-600">
                               <Phone className="h-4 w-4" />
                             </button>
-                            <button className="p-2 text-gray-400 hover:text-gray-600 transition-colors duration-200">
+                            <button className="p-2 text-gray-400 hover:text-gray-600">
                               <Mail className="h-4 w-4" />
                             </button>
                           </div>
@@ -311,11 +311,11 @@ const FAQModal = ({ isOpen, onClose }: FAQModalProps) => {
               <p className="text-gray-600 text-sm">Our team is here to help you 24/7</p>
             </div>
             <div className="flex space-x-3">
-              <button className="bg-amber-600 hover:bg-amber-700 text-white px-6 py-2 rounded-xl font-semibold transition-colors duration-200 flex items-center space-x-2">
+              <button className="bg-amber-600 hover:bg-amber-700 text-white px-6 py-2 rounded-xl font-semibold flex items-center space-x-2">
                 <Phone className="h-4 w-4" />
                 <span>Call Us</span>
               </button>
-              <button className="bg-white hover:bg-gray-50 text-gray-800 px-6 py-2 rounded-xl font-semibold transition-colors duration-200 border border-gray-200 flex items-center space-x-2">
+              <button className="bg-white hover:bg-gray-50 text-gray-800 px-6 py-2 rounded-xl font-semibold border border-gray-200 flex items-center space-x-2">
                 <MessageCircle className="h-4 w-4" />
                 <span>Live Chat</span>
               </button>
