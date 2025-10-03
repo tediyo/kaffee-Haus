@@ -5,6 +5,7 @@ import Navigation from '@/components/Navigation';
 import HeroSection from '@/components/HeroSection';
 import CoffeeShopScene from '@/components/CoffeeShopScene';
 import InteractiveModal from '@/components/InteractiveModal';
+import InteractiveProductShowcase from '@/components/InteractiveProductShowcase';
 import { Coffee, MapPin, Phone, Gift, Star, TrendingUp, Users, Award } from 'lucide-react';
 
 export default function Home() {
@@ -122,6 +123,9 @@ export default function Home() {
           </div>
         </div>
       </div>
+
+      {/* Interactive Product Showcase */}
+      <InteractiveProductShowcase />
 
       {/* Interactive Modal */}
       <InteractiveModal
