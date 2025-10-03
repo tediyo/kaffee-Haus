@@ -87,6 +87,20 @@ export default function Home() {
             </div>
           </button>
 
+          {/* Coffee Cup Decorative Element */}
+          <div className="absolute bottom-20 left-10 pointer-events-auto">
+            <div className="group relative">
+              <img
+                src="/coffee-cup.png"
+                alt="Coffee cup"
+                className="w-24 h-24 object-contain group-hover:scale-110 transition-transform duration-300 drop-shadow-lg"
+              />
+              <div className="absolute -top-2 -right-2 bg-amber-500 text-white text-xs font-bold rounded-full w-6 h-6 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                !
+              </div>
+            </div>
+          </div>
+
           {/* Stats Display */}
           <div className="absolute bottom-20 right-10 pointer-events-auto bg-white/90 backdrop-blur-sm rounded-2xl p-6 shadow-lg">
             <h3 className="font-bold text-gray-800 mb-4 text-center">Today's Stats</h3>
