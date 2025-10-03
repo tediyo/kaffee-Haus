@@ -1,8 +1,8 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import Navigation from '@/components/Navigation';
-import { Coffee, Users, Award, Heart, Clock, MapPin, Star, Sparkles, TrendingUp, Shield, Leaf, Zap } from 'lucide-react';
+import { Coffee, Users, Award, Heart, Clock, MapPin, Star, Sparkles, TrendingUp, Shield, Leaf, Zap, Phone } from 'lucide-react';
 
 const teamMembers = [
   {
@@ -161,58 +161,6 @@ const milestones = [
   { year: '2024', title: 'Innovation', description: 'Leading sustainable coffee practices' }
 ];
 
-// Animated Counter Component
-const AnimatedCounter = ({ end, duration = 2000, suffix = '' }: { end: number; duration?: number; suffix?: string }) => {
-  const [count, setCount] = useState(0);
-  const [isVisible, setIsVisible] = useState(false);
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsVisible(true);
-        }
-      },
-      { threshold: 0.1 }
-    );
-
-    const element = document.getElementById(`counter-${end}`);
-    if (element) {
-      observer.observe(element);
-    }
-
-    return () => {
-      if (element) {
-        observer.unobserve(element);
-      }
-    };
-  }, [end]);
-
-  useEffect(() => {
-    if (!isVisible) return;
-
-    let startTime: number;
-    const animate = (currentTime: number) => {
-      if (!startTime) startTime = currentTime;
-      const progress = Math.min((currentTime - startTime) / duration, 1);
-      
-      const easeOutQuart = 1 - Math.pow(1 - progress, 4);
-      setCount(Math.floor(easeOutQuart * end));
-
-      if (progress < 1) {
-        requestAnimationFrame(animate);
-      }
-    };
-
-    requestAnimationFrame(animate);
-  }, [isVisible, end, duration]);
-
-  return (
-    <span id={`counter-${end}`}>
-      {count.toLocaleString()}{suffix}
-    </span>
-  );
-};
 
 export default function AboutPage() {
   const [selectedTeamMember, setSelectedTeamMember] = useState<number | null>(null);
@@ -301,8 +249,8 @@ export default function AboutPage() {
               <div className="space-y-4">
                 <h3 className="text-2xl font-bold text-gray-800 mb-6">Our Journey</h3>
                 <div className="space-y-4">
-                  {milestones.map((milestone, index) => (
-                    <div key={index} className="flex items-center space-x-4 p-4 bg-gradient-to-r from-amber-50 to-orange-50 rounded-xl border border-amber-200/50">
+                {milestones.map((milestone) => (
+                  <div key={milestone.year} className="flex items-center space-x-4 p-4 bg-gradient-to-r from-amber-50 to-orange-50 rounded-xl border border-amber-200/50">
                       <div className="w-16 h-16 bg-gradient-to-r from-amber-500 to-orange-500 rounded-full flex items-center justify-center text-white font-bold text-lg">
                         {milestone.year}
                       </div>
@@ -321,8 +269,8 @@ export default function AboutPage() {
                 <div className="text-9xl mb-6">☕</div>
                 <h3 className="text-3xl font-bold text-amber-800 mb-4">Our Mission</h3>
                 <p className="text-amber-700 italic text-lg leading-relaxed">
-                  "To create exceptional coffee experiences that bring people together 
-                  and celebrate the simple joy of a perfect cup."
+                  &ldquo;To create exceptional coffee experiences that bring people together 
+                  and celebrate the simple joy of a perfect cup.&rdquo;
                 </p>
                 <div className="mt-8 flex justify-center space-x-4">
                   <div className="w-12 h-12 bg-white/50 rounded-full flex items-center justify-center">
@@ -455,11 +403,7 @@ export default function AboutPage() {
                   <stat.icon className="h-8 w-8 text-white" />
                 </div>
                 <div className="text-4xl font-bold text-white mb-2 group-hover:text-amber-200 transition-colors duration-300">
-                  <AnimatedCounter 
-                    end={stat.number} 
-                    duration={2000 + (index * 200)}
-                    suffix={stat.suffix}
-                  />
+                  {stat.number.toLocaleString()}{stat.suffix}
                 </div>
                 <div className="text-amber-100 text-lg font-semibold mb-2">{stat.label}</div>
                 <div className="text-amber-200/80 text-sm">{stat.description}</div>
@@ -499,79 +443,190 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* Enhanced Location & Hours */}
-      <section className="py-20 bg-gradient-to-br from-amber-50 to-orange-100">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      {/* Enhanced Location & Hours with Interactive Elements */}
+      <section className="py-20 bg-gradient-to-br from-amber-50 to-orange-100 relative overflow-hidden">
+        {/* Background decorative elements */}
+        <div className="absolute inset-0">
+          <div className="absolute top-10 right-10 w-32 h-32 bg-amber-200/20 rounded-full blur-2xl" />
+          <div className="absolute bottom-20 left-10 w-40 h-40 bg-orange-200/20 rounded-full blur-3xl" />
+        </div>
+        
+        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          {/* Section Header */}
+          <div className="text-center mb-16">
+            <div className="inline-flex items-center space-x-2 bg-white/50 backdrop-blur-sm rounded-full px-6 py-3 text-amber-800 mb-6">
+              <MapPin className="h-5 w-5" />
+              <span className="font-medium">Visit Our Coffee Shop</span>
+            </div>
+            <h2 className="text-5xl font-bold text-gray-800 mb-6">Come Experience the Magic</h2>
+            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+              Located in the heart of downtown, we're your perfect escape for great coffee and warm community
+            </p>
+          </div>
+
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16">
+            {/* Location & Hours Info */}
             <div className="space-y-8">
-              <div className="space-y-4">
-                <h2 className="text-5xl font-bold text-gray-800">Visit Us</h2>
-                <div className="w-20 h-1 bg-gradient-to-r from-amber-500 to-orange-500 rounded-full" />
-              </div>
-              
               <div className="space-y-6">
-                <div className="flex items-start space-x-4 p-6 bg-white rounded-2xl shadow-lg border border-amber-200/50">
-                  <div className="w-12 h-12 bg-gradient-to-r from-amber-500 to-orange-500 rounded-full flex items-center justify-center">
-                    <MapPin className="h-6 w-6 text-white" />
-                  </div>
-                  <div>
-                    <p className="font-bold text-gray-800 text-lg">Location</p>
-                    <p className="text-gray-600">123 Coffee Street, Downtown District</p>
-                    <p className="text-gray-600">City, State 12345</p>
+                {/* Location Card */}
+                <div className="group bg-white rounded-3xl p-8 shadow-xl border border-amber-200/50 hover:shadow-2xl transition-all duration-300 hover:scale-105">
+                  <div className="flex items-start space-x-6">
+                    <div className="w-16 h-16 bg-gradient-to-r from-amber-500 to-orange-500 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300 shadow-lg">
+                      <MapPin className="h-8 w-8 text-white" />
+                    </div>
+                    <div className="flex-1">
+                      <h3 className="text-2xl font-bold text-gray-800 mb-4">Our Location</h3>
+                      <div className="space-y-2 text-gray-600">
+                        <p className="text-lg font-semibold">123 Coffee Street</p>
+                        <p className="text-lg">Downtown District</p>
+                        <p className="text-lg">City, State 12345</p>
+                      </div>
+                      <button className="mt-4 bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 text-white px-6 py-3 rounded-xl font-semibold transition-all duration-200 shadow-lg hover:shadow-amber-500/25 flex items-center space-x-2">
+                        <MapPin className="h-5 w-5" />
+                        <span>Get Directions</span>
+                      </button>
+                    </div>
                   </div>
                 </div>
                 
-                <div className="flex items-start space-x-4 p-6 bg-white rounded-2xl shadow-lg border border-amber-200/50">
-                  <div className="w-12 h-12 bg-gradient-to-r from-amber-500 to-orange-500 rounded-full flex items-center justify-center">
-                    <Clock className="h-6 w-6 text-white" />
+                {/* Hours Card */}
+                <div className="group bg-white rounded-3xl p-8 shadow-xl border border-amber-200/50 hover:shadow-2xl transition-all duration-300 hover:scale-105">
+                  <div className="flex items-start space-x-6">
+                    <div className="w-16 h-16 bg-gradient-to-r from-green-500 to-emerald-500 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300 shadow-lg">
+                      <Clock className="h-8 w-8 text-white" />
+                    </div>
+                    <div className="flex-1">
+                      <h3 className="text-2xl font-bold text-gray-800 mb-4">Opening Hours</h3>
+                      <div className="space-y-3 text-gray-600">
+                        <div className="flex justify-between items-center p-3 bg-amber-50 rounded-xl">
+                          <span className="font-semibold">Monday - Friday</span>
+                          <span className="text-amber-700 font-bold">6:00 AM - 8:00 PM</span>
+                        </div>
+                        <div className="flex justify-between items-center p-3 bg-amber-50 rounded-xl">
+                          <span className="font-semibold">Saturday - Sunday</span>
+                          <span className="text-amber-700 font-bold">7:00 AM - 9:00 PM</span>
+                        </div>
+                      </div>
+                      <div className="mt-4 p-3 bg-green-50 rounded-xl border border-green-200">
+                        <div className="flex items-center space-x-2 text-green-700">
+                          <div className="w-2 h-2 bg-green-500 rounded-full animate-pulse" />
+                          <span className="font-semibold">Currently Open</span>
+                        </div>
+                      </div>
+                    </div>
                   </div>
-                  <div>
-                    <p className="font-bold text-gray-800 text-lg">Hours</p>
-                    <div className="text-gray-600 space-y-1">
-                      <p>Monday - Friday: 6:00 AM - 8:00 PM</p>
-                      <p>Saturday - Sunday: 7:00 AM - 9:00 PM</p>
+                </div>
+
+                {/* Contact Info Card */}
+                <div className="group bg-white rounded-3xl p-8 shadow-xl border border-amber-200/50 hover:shadow-2xl transition-all duration-300 hover:scale-105">
+                  <div className="flex items-start space-x-6">
+                    <div className="w-16 h-16 bg-gradient-to-r from-blue-500 to-indigo-500 rounded-2xl flex items-center justify-center group-hover:scale-110 transition-transform duration-300 shadow-lg">
+                      <Phone className="h-8 w-8 text-white" />
+                    </div>
+                    <div className="flex-1">
+                      <h3 className="text-2xl font-bold text-gray-800 mb-4">Contact Us</h3>
+                      <div className="space-y-2 text-gray-600">
+                        <p className="text-lg">(555) 123-4567</p>
+                        <p className="text-lg">hello@kaffeehaus.com</p>
+                      </div>
+                      <button className="mt-4 bg-gradient-to-r from-blue-500 to-indigo-500 hover:from-blue-600 hover:to-indigo-600 text-white px-6 py-3 rounded-xl font-semibold transition-all duration-200 shadow-lg hover:shadow-blue-500/25 flex items-center space-x-2">
+                        <Phone className="h-5 w-5" />
+                        <span>Call Now</span>
+                      </button>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
 
+            {/* Enhanced Customer Reviews */}
             <div className="bg-white rounded-3xl p-8 shadow-2xl border border-amber-200/50">
-              <h3 className="text-3xl font-bold text-gray-800 mb-8 text-center">Customer Reviews</h3>
+              <div className="text-center mb-8">
+                <h3 className="text-3xl font-bold text-gray-800 mb-2">What Our Customers Say</h3>
+                <div className="flex items-center justify-center space-x-2 mb-4">
+                  <div className="flex space-x-1">
+                    {[...Array(5)].map((_, i) => (
+                      <Star key={i} className="h-5 w-5 text-amber-400 fill-current" />
+                    ))}
+                  </div>
+                  <span className="text-lg font-semibold text-gray-700">4.9/5</span>
+                  <span className="text-gray-500">(2,500+ reviews)</span>
+                </div>
+              </div>
+              
               <div className="space-y-6">
                 {[
                   {
                     name: 'Jessica M.',
                     rating: 5,
                     comment: 'The best coffee in town! The atmosphere is perfect for working or catching up with friends.',
-                    date: '2 days ago'
+                    date: '2 days ago',
+                    avatar: '👩‍💼',
+                    verified: true
                   },
                   {
                     name: 'Robert K.',
                     rating: 5,
                     comment: 'Amazing latte art and the staff is incredibly friendly. Highly recommend!',
-                    date: '1 week ago'
+                    date: '1 week ago',
+                    avatar: '👨‍💼',
+                    verified: true
                   },
                   {
                     name: 'Sarah L.',
                     rating: 5,
                     comment: 'Fresh pastries and excellent coffee. This place has become my daily routine.',
-                    date: '3 days ago'
+                    date: '3 days ago',
+                    avatar: '👩‍🎨',
+                    verified: true
+                  },
+                  {
+                    name: 'Michael D.',
+                    rating: 5,
+                    comment: 'Outstanding service and the best cappuccino I&apos;ve ever had. The baristas are true artists!',
+                    date: '5 days ago',
+                    avatar: '👨‍🍳',
+                    verified: true
                   }
                 ].map((review, index) => (
-                  <div key={index} className="border-l-4 border-amber-400 pl-6 py-4 bg-gradient-to-r from-amber-50 to-orange-50 rounded-r-2xl">
-                    <div className="flex items-center space-x-3 mb-3">
-                      <div className="flex space-x-1">
-                        {[...Array(review.rating)].map((_, i) => (
-                          <Star key={i} className="h-4 w-4 text-amber-400 fill-current" />
-                        ))}
+                  <div 
+                    key={index} 
+                    className="group border-l-4 border-amber-400 pl-6 py-6 bg-gradient-to-r from-amber-50 to-orange-50 rounded-r-2xl hover:shadow-lg transition-all duration-300 hover:scale-105"
+                    style={{ animationDelay: `${index * 0.1}s` }}
+                  >
+                    <div className="flex items-center space-x-3 mb-4">
+                      <div className="text-2xl">{review.avatar}</div>
+                      <div className="flex-1">
+                        <div className="flex items-center space-x-2">
+                          <span className="font-bold text-gray-800">{review.name}</span>
+                          {review.verified && (
+                            <div className="w-5 h-5 bg-green-500 rounded-full flex items-center justify-center">
+                              <span className="text-white text-xs">✓</span>
+                            </div>
+                          )}
+                        </div>
+                        <div className="flex items-center space-x-2">
+                          <div className="flex space-x-1">
+                            {[...Array(review.rating)].map((_, i) => (
+                              <Star key={i} className="h-4 w-4 text-amber-400 fill-current" />
+                            ))}
+                          </div>
+                          <span className="text-sm text-gray-500">{review.date}</span>
+                        </div>
                       </div>
-                      <span className="font-semibold text-gray-800">{review.name}</span>
-                      <span className="text-sm text-gray-500">{review.date}</span>
                     </div>
-                    <p className="text-gray-600">{review.comment}</p>
+                    <p className="text-gray-700 leading-relaxed group-hover:text-gray-800 transition-colors duration-300">
+                      &ldquo;{review.comment}&rdquo;
+                    </p>
                   </div>
                 ))}
+              </div>
+
+              {/* View All Reviews Button */}
+              <div className="mt-8 text-center">
+                <button className="bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 text-white px-8 py-3 rounded-xl font-semibold transition-all duration-200 shadow-lg hover:shadow-amber-500/25">
+                  View All Reviews
+                </button>
               </div>
             </div>
           </div>

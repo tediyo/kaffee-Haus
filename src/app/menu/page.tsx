@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import Navigation from '@/components/Navigation';
-import { Coffee, Plus, Minus, Star, Heart, Filter, Search, ShoppingCart, Clock, Flame, Award, TrendingUp } from 'lucide-react';
+import { Coffee, Plus, Minus, Star, Heart, Filter, Search, ShoppingCart, Clock, Flame, Award, TrendingUp, X } from 'lucide-react';
 
 interface MenuItem {
   id: number;
