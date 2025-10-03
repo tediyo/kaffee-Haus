@@ -160,7 +160,7 @@ export default function Home() {
             <div className="relative">
               <div className="bg-white rounded-3xl shadow-2xl overflow-hidden">
                 <div className="h-96 relative">
-                  {/* Embedded Google Maps */}
+                  {/* Embedded Google Maps - Megenagna, Addis Ababa */}
                   <iframe
                     src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3940.5!2d38.8!3d9.0!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x164b8f8a8a8a8a8a%3A0x8a8a8a8a8a8a8a8a!2sMegenagna%2C%20Addis%20Ababa%2C%20Ethiopia!5e0!3m2!1sen!2set!4v1234567890123!5m2!1sen!2set"
                     width="100%"
