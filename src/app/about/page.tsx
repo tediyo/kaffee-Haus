@@ -249,7 +249,7 @@ export default function AboutPage() {
               <div className="grid grid-cols-3 gap-4 my-8">
                 <div className="group relative overflow-hidden rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 hover:scale-105">
                   <img
-                    src="/coffee-cup.png"
+                    src="https://images.unsplash.com/photo-1559056199-641a0ac8b55e?w=400&h=300&fit=crop&crop=center&auto=format&q=80"
                     alt="Coffee beans sourcing"
                     className="w-full h-32 object-cover group-hover:scale-110 transition-transform duration-300"
                   />
@@ -260,7 +260,7 @@ export default function AboutPage() {
                 </div>
                 <div className="group relative overflow-hidden rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 hover:scale-105">
                   <img
-                    src="/coffee-cup.png"
+                    src="https://images.unsplash.com/photo-1447933601403-0c6688de566e?w=400&h=300&fit=crop&crop=center&auto=format&q=80"
                     alt="Coffee roasting process"
                     className="w-full h-32 object-cover group-hover:scale-110 transition-transform duration-300"
                   />
@@ -271,7 +271,7 @@ export default function AboutPage() {
                 </div>
                 <div className="group relative overflow-hidden rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 hover:scale-105">
                   <img
-                    src="/coffee-cup.png"
+                    src="https://images.unsplash.com/photo-1572442388796-11668a67e53d?w=400&h=300&fit=crop&crop=center&auto=format&q=80"
                     alt="Coffee brewing"
                     className="w-full h-32 object-cover group-hover:scale-110 transition-transform duration-300"
                   />
@@ -302,11 +302,11 @@ export default function AboutPage() {
             </div>
             
             <div className="space-y-8">
-              {/* Mission Card with Coffee Cup Image */}
+              {/* Mission Card with Coffee Shop Image */}
               <div className="relative overflow-hidden rounded-3xl shadow-2xl group">
                 <img
-                  src="/coffee-cup.png"
-                  alt="Coffee cup"
+                  src="https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?w=600&h=400&fit=crop&crop=center&auto=format&q=80"
+                  alt="Coffee shop interior"
                   className="w-full h-64 object-cover group-hover:scale-110 transition-transform duration-500"
                 />
                 <div className="absolute inset-0 bg-gradient-to-br from-amber-900/80 via-amber-800/70 to-orange-900/80" />
@@ -335,7 +335,7 @@ export default function AboutPage() {
               <div className="grid grid-cols-2 gap-4">
                 <div className="group relative overflow-hidden rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 hover:scale-105">
                   <img
-                    src="/coffee-cup.png"
+                    src="https://images.unsplash.com/photo-1554118811-1e0d58224f24?w=300&h=200&fit=crop&crop=center&auto=format&q=80"
                     alt="Coffee shop atmosphere"
                     className="w-full h-32 object-cover group-hover:scale-110 transition-transform duration-300"
                   />
@@ -346,7 +346,7 @@ export default function AboutPage() {
                 </div>
                 <div className="group relative overflow-hidden rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 hover:scale-105">
                   <img
-                    src="/coffee-cup.png"
+                    src="https://images.unsplash.com/photo-1509042239860-f550ce710b93?w=300&h=200&fit=crop&crop=center&auto=format&q=80"
                     alt="Coffee beans"
                     className="w-full h-32 object-cover group-hover:scale-110 transition-transform duration-300"
                   />
@@ -383,7 +383,7 @@ export default function AboutPage() {
               >
                 <div className="absolute inset-0 opacity-5 group-hover:opacity-10 transition-opacity duration-300">
                   <img
-                    src="/coffee-cup.png"
+                    src="https://images.unsplash.com/photo-1559056199-641a0ac8b55e?w=200&h=200&fit=crop&crop=center&auto=format&q=80"
                     alt="Coffee background"
                     className="w-full h-full object-cover"
                   />
