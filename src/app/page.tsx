@@ -33,10 +33,10 @@ export default function Home() {
             {/* Coffee Info Button */}
             <button
               onClick={() => openModal('coffee')}
-              className="bg-white/90 backdrop-blur-sm hover:bg-white rounded-2xl p-4 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 group flex-1 min-w-[180px] max-w-[250px]"
+              className="bg-white/90 backdrop-blur-sm hover:bg-white rounded-2xl p-4 shadow-lg hover:shadow-xl group flex-1 min-w-[180px] max-w-[250px]"
             >
               <div className="flex items-center space-x-3">
-                <Coffee className="h-6 w-6 text-amber-600 group-hover:scale-110 transition-transform duration-300 flex-shrink-0" />
+                <Coffee className="h-6 w-6 text-amber-600 flex-shrink-0" />
                 <div className="text-left">
                   <p className="font-semibold text-gray-800">Premium Coffee</p>
                   <p className="text-sm text-gray-600">Learn more</p>
@@ -47,10 +47,10 @@ export default function Home() {
             {/* Location Button */}
             <button
               onClick={() => openModal('location')}
-              className="bg-white/90 backdrop-blur-sm hover:bg-white rounded-2xl p-4 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 group flex-1 min-w-[180px] max-w-[250px]"
+              className="bg-white/90 backdrop-blur-sm hover:bg-white rounded-2xl p-4 shadow-lg hover:shadow-xl group flex-1 min-w-[180px] max-w-[250px]"
             >
               <div className="flex items-center space-x-3">
-                <MapPin className="h-6 w-6 text-green-600 group-hover:scale-110 transition-transform duration-300 flex-shrink-0" />
+                <MapPin className="h-6 w-6 text-green-600 flex-shrink-0" />
                 <div className="text-left">
                   <p className="font-semibold text-gray-800">Visit Us</p>
                   <p className="text-sm text-gray-600">Get directions</p>
@@ -61,10 +61,10 @@ export default function Home() {
             {/* Contact Button */}
             <button
               onClick={() => openModal('contact')}
-              className="bg-white/90 backdrop-blur-sm hover:bg-white rounded-2xl p-4 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 group flex-1 min-w-[180px] max-w-[250px]"
+              className="bg-white/90 backdrop-blur-sm hover:bg-white rounded-2xl p-4 shadow-lg hover:shadow-xl group flex-1 min-w-[180px] max-w-[250px]"
             >
               <div className="flex items-center space-x-3">
-                <Phone className="h-6 w-6 text-blue-600 group-hover:scale-110 transition-transform duration-300 flex-shrink-0" />
+                <Phone className="h-6 w-6 text-blue-600 flex-shrink-0" />
                 <div className="text-left">
                   <p className="font-semibold text-gray-800">Contact Us</p>
                   <p className="text-sm text-gray-600">Get in touch</p>
@@ -76,10 +76,10 @@ export default function Home() {
           {/* Special Offer Button */}
           <button
             onClick={() => openModal('special')}
-            className="absolute top-20 right-10 pointer-events-auto bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 text-white rounded-2xl p-4 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 group"
+            className="absolute top-20 right-10 pointer-events-auto bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 text-white rounded-2xl p-4 shadow-lg hover:shadow-xl group"
           >
             <div className="flex items-center space-x-3">
-              <Gift className="h-6 w-6 group-hover:scale-110 transition-transform duration-300" />
+              <Gift className="h-6 w-6" />
               <div className="text-left">
                 <p className="font-semibold">Special Offer</p>
                 <p className="text-sm text-amber-100">20% off first order</p>
@@ -93,9 +93,9 @@ export default function Home() {
               <img
                 src="/coffee-cup.png"
                 alt="Coffee cup"
-                className="w-24 h-24 object-contain group-hover:scale-110 transition-transform duration-300 drop-shadow-lg"
+                className="w-24 h-24 object-contain drop-shadow-lg"
               />
-              <div className="absolute -top-2 -right-2 bg-amber-500 text-white text-xs font-bold rounded-full w-6 h-6 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+              <div className="absolute -top-2 -right-2 bg-amber-500 text-white text-xs font-bold rounded-full w-6 h-6 flex items-center justify-center">
                 !
               </div>
             </div>
@@ -190,7 +190,7 @@ export default function Home() {
                   
                   {/* Custom Map Marker */}
                   <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
-                    <div className="bg-amber-500 text-white p-2 rounded-full shadow-lg animate-pulse">
+                    <div className="bg-amber-500 text-white p-2 rounded-full shadow-lg">
                       <MapPin className="h-6 w-6" />
                     </div>
                   </div>
@@ -201,10 +201,10 @@ export default function Home() {
                   <div className="flex items-center justify-between mb-4">
                     <h4 className="text-lg font-semibold text-gray-800">Kaffee Haus - Megenagna</h4>
                     <div className="flex space-x-2">
-                      <button className="p-2 bg-amber-100 hover:bg-amber-200 rounded-lg transition-colors duration-200">
+                      <button className="p-2 bg-amber-100 hover:bg-amber-200 rounded-lg">
                         <MapPin className="h-4 w-4 text-amber-600" />
                       </button>
-                      <button className="p-2 bg-amber-100 hover:bg-amber-200 rounded-lg transition-colors duration-200">
+                      <button className="p-2 bg-amber-100 hover:bg-amber-200 rounded-lg">
                         <Phone className="h-4 w-4 text-amber-600" />
                       </button>
                     </div>
@@ -218,11 +218,11 @@ export default function Home() {
                   </div>
                   
                   <div className="mt-4 flex space-x-3">
-                    <button className="flex-1 bg-amber-500 hover:bg-amber-600 text-white py-2 px-4 rounded-lg font-semibold transition-colors duration-200 flex items-center justify-center space-x-2">
+                    <button className="flex-1 bg-amber-500 hover:bg-amber-600 text-white py-2 px-4 rounded-lg font-semibold flex items-center justify-center space-x-2">
                       <MapPin className="h-4 w-4" />
                       <span>Get Directions</span>
                     </button>
-                    <button className="flex-1 bg-white border-2 border-amber-500 text-amber-600 hover:bg-amber-50 py-2 px-4 rounded-lg font-semibold transition-colors duration-200 flex items-center justify-center space-x-2">
+                    <button className="flex-1 bg-white border-2 border-amber-500 text-amber-600 hover:bg-amber-50 py-2 px-4 rounded-lg font-semibold flex items-center justify-center space-x-2">
                       <Phone className="h-4 w-4" />
                       <span>Call Now</span>
                     </button>
@@ -286,7 +286,7 @@ export default function Home() {
                   <img
                     src="/coffee-cup.png"
                     alt="Coffee cup"
-                    className="w-32 h-32 object-contain group-hover:scale-110 transition-transform duration-300 drop-shadow-lg"
+                    className="w-32 h-32 object-contain drop-shadow-lg"
                   />
                   <p className="text-sm text-gray-600 mt-2">Fresh coffee awaits you!</p>
                 </div>

@@ -30,7 +30,7 @@ const Navigation = ({ onFAQClick }: NavigationProps) => {
   ];
 
   return (
-    <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+    <nav className={`fixed top-0 left-0 right-0 z-50 ${
       scrolled 
         ? 'bg-white/95 backdrop-blur-xl shadow-2xl border-b border-amber-200/30' 
         : 'bg-white/90 backdrop-blur-md shadow-lg'
@@ -40,11 +40,11 @@ const Navigation = ({ onFAQClick }: NavigationProps) => {
           {/* Enhanced Logo */}
           <Link href="/" className="flex items-center space-x-3 group">
             <div className="relative">
-              <Coffee className="h-10 w-10 text-amber-600 group-hover:scale-110 transition-transform duration-300" />
-              <div className="absolute -top-1 -right-1 w-3 h-3 bg-green-400 rounded-full animate-pulse" />
+              <Coffee className="h-10 w-10 text-amber-600" />
+              <div className="absolute -top-1 -right-1 w-3 h-3 bg-green-400 rounded-full" />
             </div>
             <div>
-              <span className="text-2xl font-bold text-gray-800 group-hover:text-amber-600 transition-colors duration-300">
+              <span className="text-2xl font-bold text-gray-800 group-hover:text-amber-600">
                 Kaffee Haus
               </span>
               <div className="text-xs text-amber-600 font-medium -mt-1">Premium Coffee</div>
@@ -60,7 +60,7 @@ const Navigation = ({ onFAQClick }: NavigationProps) => {
                 placeholder="Search menu items..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full pl-10 pr-4 py-2 bg-gray-50 border border-gray-200 rounded-full focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-transparent transition-all duration-200"
+                className="w-full pl-10 pr-4 py-2 bg-gray-50 border border-gray-200 rounded-full focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-transparent"
               />
             </div>
           </div>
@@ -71,11 +71,10 @@ const Navigation = ({ onFAQClick }: NavigationProps) => {
               <Link
                 key={item.name}
                 href={item.href}
-                className="group flex items-center space-x-2 px-4 py-2 rounded-xl text-gray-700 hover:bg-amber-50 transition-all duration-200 font-medium relative overflow-hidden"
+                className="group flex items-center space-x-2 px-4 py-2 rounded-xl text-gray-700 hover:bg-amber-50 font-medium relative overflow-hidden"
               >
-                <item.icon className={`h-5 w-5 group-hover:scale-110 transition-transform duration-300 ${item.color}`} />
-                <span className="group-hover:text-amber-600 transition-colors duration-300">{item.name}</span>
-                <div className="absolute inset-0 bg-gradient-to-r from-amber-400/10 to-amber-300/10 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                <item.icon className={`h-5 w-5 ${item.color}`} />
+                <span className="group-hover:text-amber-600">{item.name}</span>
               </Link>
             ))}
             
@@ -83,7 +82,7 @@ const Navigation = ({ onFAQClick }: NavigationProps) => {
             {onFAQClick && (
               <button 
                 onClick={onFAQClick}
-                className="p-2 text-gray-600 hover:text-amber-600 hover:bg-amber-50 rounded-xl transition-all duration-200"
+                className="p-2 text-gray-600 hover:text-amber-600 hover:bg-amber-50 rounded-xl"
                 title="Frequently Asked Questions"
               >
                 <HelpCircle className="h-5 w-5" />
@@ -91,7 +90,7 @@ const Navigation = ({ onFAQClick }: NavigationProps) => {
             )}
 
             {/* Notification Bell */}
-            <button className="relative p-2 text-gray-600 hover:text-amber-600 hover:bg-amber-50 rounded-xl transition-all duration-200">
+            <button className="relative p-2 text-gray-600 hover:text-amber-600 hover:bg-amber-50 rounded-xl">
               <Bell className="h-5 w-5" />
               <div className="absolute -top-1 -right-1 w-3 h-3 bg-red-500 rounded-full flex items-center justify-center">
                 <span className="text-xs text-white font-bold">3</span>
@@ -101,13 +100,13 @@ const Navigation = ({ onFAQClick }: NavigationProps) => {
 
           {/* Mobile menu button */}
           <div className="md:hidden flex items-center space-x-2">
-            <button className="relative p-2 text-gray-600 hover:text-amber-600 hover:bg-amber-50 rounded-xl transition-all duration-200">
+            <button className="relative p-2 text-gray-600 hover:text-amber-600 hover:bg-amber-50 rounded-xl">
               <Bell className="h-5 w-5" />
               <div className="absolute -top-1 -right-1 w-3 h-3 bg-red-500 rounded-full" />
             </button>
             <button
               onClick={() => setIsOpen(!isOpen)}
-              className="p-2 text-gray-700 hover:text-amber-600 hover:bg-amber-50 rounded-xl transition-all duration-200"
+              className="p-2 text-gray-700 hover:text-amber-600 hover:bg-amber-50 rounded-xl"
             >
               {isOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
             </button>
@@ -115,7 +114,7 @@ const Navigation = ({ onFAQClick }: NavigationProps) => {
         </div>
 
         {/* Enhanced Mobile Navigation */}
-        <div className={`md:hidden overflow-hidden transition-all duration-300 ${
+        <div className={`md:hidden overflow-hidden ${
           isOpen ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'
         }`}>
           <div className="px-2 pt-2 pb-3 space-y-1 bg-white/95 backdrop-blur-xl rounded-2xl mt-2 shadow-2xl border border-amber-200/30">
@@ -128,7 +127,7 @@ const Navigation = ({ onFAQClick }: NavigationProps) => {
                   placeholder="Search menu items..."
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
-                  className="w-full pl-10 pr-4 py-2 bg-gray-50 border border-gray-200 rounded-full focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-transparent transition-all duration-200"
+                  className="w-full pl-10 pr-4 py-2 bg-gray-50 border border-gray-200 rounded-full focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-transparent"
                 />
               </div>
             </div>
@@ -138,11 +137,10 @@ const Navigation = ({ onFAQClick }: NavigationProps) => {
                 key={item.name}
                 href={item.href}
                 onClick={() => setIsOpen(false)}
-                className="group flex items-center space-x-3 px-4 py-3 text-gray-700 hover:text-amber-600 hover:bg-gradient-to-r hover:from-amber-50 hover:to-amber-100 rounded-xl transition-all duration-200 relative overflow-hidden"
+                className="group flex items-center space-x-3 px-4 py-3 text-gray-700 hover:text-amber-600 hover:bg-gradient-to-r hover:from-amber-50 hover:to-amber-100 rounded-xl relative overflow-hidden"
               >
-                <item.icon className={`h-5 w-5 group-hover:scale-110 transition-transform duration-300 ${item.color}`} />
+                <item.icon className={`h-5 w-5 ${item.color}`} />
                 <span className="font-medium">{item.name}</span>
-                <div className="absolute inset-0 bg-gradient-to-r from-amber-400/10 to-amber-300/10 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
               </Link>
             ))}
           </div>

@@ -184,7 +184,7 @@ const InteractiveProductShowcase = () => {
           {products.map((product) => (
             <div
               key={product.id}
-              className="group bg-white rounded-3xl shadow-lg hover:shadow-2xl transition-all duration-500 overflow-hidden border border-gray-100 hover:border-amber-200 hover:scale-105 cursor-pointer"
+              className="group bg-white rounded-3xl shadow-lg hover:shadow-2xl overflow-hidden border border-gray-100 hover:border-amber-200 cursor-pointer"
               onClick={() => openProductModal(product)}
             >
               {/* Product Image */}
@@ -192,7 +192,7 @@ const InteractiveProductShowcase = () => {
                 <img
                   src={product.images[0]}
                   alt={product.name}
-                  className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                  className="w-full h-full object-cover"
                 />
                 
                 {/* Overlay Badges */}
@@ -220,7 +220,7 @@ const InteractiveProductShowcase = () => {
                     e.stopPropagation();
                     toggleFavorite(product.id);
                   }}
-                  className="absolute top-4 right-4 p-3 rounded-full bg-white/90 hover:bg-white transition-all duration-200 shadow-lg hover:scale-110"
+                  className="absolute top-4 right-4 p-3 rounded-full bg-white/90 hover:bg-white shadow-lg"
                 >
                   <Heart 
                     className={`h-5 w-5 ${
@@ -232,12 +232,12 @@ const InteractiveProductShowcase = () => {
                 </button>
 
                 {/* Quick View Overlay */}
-                <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 flex items-center justify-center">
                   <div className="flex space-x-4">
-                    <button className="p-3 bg-white rounded-full hover:bg-amber-50 transition-colors duration-200">
+                    <button className="p-3 bg-white rounded-full hover:bg-amber-50">
                       <Eye className="h-5 w-5 text-gray-700" />
                     </button>
-                    <button className="p-3 bg-white rounded-full hover:bg-amber-50 transition-colors duration-200">
+                    <button className="p-3 bg-white rounded-full hover:bg-amber-50">
                       <Share2 className="h-5 w-5 text-gray-700" />
                     </button>
                   </div>
@@ -247,7 +247,7 @@ const InteractiveProductShowcase = () => {
               {/* Product Info */}
               <div className="p-6">
                 <div className="flex items-start justify-between mb-3">
-                  <h3 className="text-xl font-bold text-gray-800 group-hover:text-amber-600 transition-colors duration-300">
+                  <h3 className="text-xl font-bold text-gray-800 group-hover:text-amber-600">
                     {product.name}
                   </h3>
                   <div className="text-right">
@@ -305,7 +305,7 @@ const InteractiveProductShowcase = () => {
                         e.stopPropagation();
                         updateQuantity(product.id, -1);
                       }}
-                      className="p-2 rounded-full bg-gray-100 hover:bg-gray-200 transition-colors duration-200"
+                      className="p-2 rounded-full bg-gray-100 hover:bg-gray-200"
                     >
                       <Minus className="h-4 w-4" />
                     </button>
@@ -317,7 +317,7 @@ const InteractiveProductShowcase = () => {
                         e.stopPropagation();
                         updateQuantity(product.id, 1);
                       }}
-                      className="p-2 rounded-full bg-amber-100 hover:bg-amber-200 transition-colors duration-200"
+                      className="p-2 rounded-full bg-amber-100 hover:bg-amber-200"
                     >
                       <Plus className="h-4 w-4" />
                     </button>
@@ -328,7 +328,7 @@ const InteractiveProductShowcase = () => {
                       e.stopPropagation();
                       updateQuantity(product.id, 1);
                     }}
-                    className="bg-gradient-to-r from-amber-600 to-amber-700 hover:from-amber-700 hover:to-amber-800 text-white px-4 py-2 rounded-xl font-semibold transition-all duration-200 flex items-center space-x-2 shadow-lg hover:shadow-amber-500/25"
+                    className="bg-gradient-to-r from-amber-600 to-amber-700 hover:from-amber-700 hover:to-amber-800 text-white px-4 py-2 rounded-xl font-semibold flex items-center space-x-2 shadow-lg"
                   >
                     <ShoppingCart className="h-4 w-4" />
                     <span>Add</span>
