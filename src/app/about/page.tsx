@@ -10,7 +10,7 @@ const teamMembers = [
     role: 'Head Barista',
     experience: '8 years',
     specialty: 'Latte Art',
-    image: '👩‍🍳',
+    image: 'https://images.unsplash.com/photo-1494790108755-2616b612b786?w=400&h=400&fit=crop&crop=face&auto=format&q=80',
     description: 'Sarah brings passion and precision to every cup, creating beautiful latte art that delights our customers.',
     achievements: ['Latte Art Champion 2023', 'Customer Favorite', 'Training Expert'],
     rating: 4.9
@@ -20,7 +20,7 @@ const teamMembers = [
     role: 'Coffee Roaster',
     experience: '12 years',
     specialty: 'Bean Selection',
-    image: '👨‍🍳',
+    image: 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=400&fit=crop&crop=face&auto=format&q=80',
     description: 'Michael carefully selects and roasts our beans to perfection, ensuring the highest quality in every batch.',
     achievements: ['Master Roaster', 'Bean Sourcing Expert', 'Quality Control'],
     rating: 4.8
@@ -30,7 +30,7 @@ const teamMembers = [
     role: 'Pastry Chef',
     experience: '6 years',
     specialty: 'Fresh Baking',
-    image: '👩‍🍳',
+    image: 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=400&h=400&fit=crop&crop=face&auto=format&q=80',
     description: 'Emma creates delicious pastries daily, using traditional techniques and the finest ingredients.',
     achievements: ['Pastry Artisan', 'Recipe Innovator', 'Fresh Daily'],
     rating: 4.7
@@ -40,7 +40,7 @@ const teamMembers = [
     role: 'Store Manager',
     experience: '10 years',
     specialty: 'Customer Service',
-    image: '👨‍💼',
+    image: 'https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400&h=400&fit=crop&crop=face&auto=format&q=80',
     description: 'David ensures every customer feels welcome and has an exceptional experience at Kaffee Haus.',
     achievements: ['Service Excellence', 'Team Leader', 'Community Builder'],
     rating: 4.9
@@ -245,6 +245,43 @@ export default function AboutPage() {
                 </p>
               </div>
 
+              {/* Interactive Coffee Process Images */}
+              <div className="grid grid-cols-3 gap-4 my-8">
+                <div className="group relative overflow-hidden rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 hover:scale-105">
+                  <img
+                    src="https://images.unsplash.com/photo-1559056199-641a0ac8b55e?w=400&h=300&fit=crop&crop=center&auto=format&q=80"
+                    alt="Coffee beans sourcing"
+                    className="w-full h-32 object-cover group-hover:scale-110 transition-transform duration-300"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
+                  <div className="absolute bottom-2 left-2 text-white text-sm font-semibold">
+                    Bean Sourcing
+                  </div>
+                </div>
+                <div className="group relative overflow-hidden rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 hover:scale-105">
+                  <img
+                    src="https://images.unsplash.com/photo-1447933601403-0c6688de566e?w=400&h=300&fit=crop&crop=center&auto=format&q=80"
+                    alt="Coffee roasting process"
+                    className="w-full h-32 object-cover group-hover:scale-110 transition-transform duration-300"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
+                  <div className="absolute bottom-2 left-2 text-white text-sm font-semibold">
+                    Roasting
+                  </div>
+                </div>
+                <div className="group relative overflow-hidden rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 hover:scale-105">
+                  <img
+                    src="https://images.unsplash.com/photo-1572442388796-11668a67e53d?w=400&h=300&fit=crop&crop=center&auto=format&q=80"
+                    alt="Coffee brewing"
+                    className="w-full h-32 object-cover group-hover:scale-110 transition-transform duration-300"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
+                  <div className="absolute bottom-2 left-2 text-white text-sm font-semibold">
+                    Brewing
+                  </div>
+                </div>
+              </div>
+
               {/* Timeline */}
               <div className="space-y-4">
                 <h3 className="text-2xl font-bold text-gray-800 mb-6">Our Journey</h3>
@@ -264,23 +301,58 @@ export default function AboutPage() {
               </div>
             </div>
             
-            <div className="relative">
-              <div className="bg-gradient-to-br from-amber-200 via-orange-200 to-amber-300 rounded-3xl p-12 text-center shadow-2xl">
-                <div className="text-9xl mb-6">☕</div>
-                <h3 className="text-3xl font-bold text-amber-800 mb-4">Our Mission</h3>
-                <p className="text-amber-700 italic text-lg leading-relaxed">
-                  &ldquo;To create exceptional coffee experiences that bring people together 
-                  and celebrate the simple joy of a perfect cup.&rdquo;
-                </p>
-                <div className="mt-8 flex justify-center space-x-4">
-                  <div className="w-12 h-12 bg-white/50 rounded-full flex items-center justify-center">
-                    <Heart className="h-6 w-6 text-amber-600" />
+            <div className="space-y-8">
+              {/* Mission Card with Coffee Shop Image */}
+              <div className="relative overflow-hidden rounded-3xl shadow-2xl group">
+                <img
+                  src="https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?w=600&h=400&fit=crop&crop=center&auto=format&q=80"
+                  alt="Coffee shop interior"
+                  className="w-full h-64 object-cover group-hover:scale-110 transition-transform duration-500"
+                />
+                <div className="absolute inset-0 bg-gradient-to-br from-amber-900/80 via-amber-800/70 to-orange-900/80" />
+                <div className="absolute inset-0 p-8 flex flex-col justify-center text-center">
+                  <div className="text-6xl mb-4">☕</div>
+                  <h3 className="text-3xl font-bold text-white mb-4">Our Mission</h3>
+                  <p className="text-amber-100 italic text-lg leading-relaxed">
+                    &ldquo;To create exceptional coffee experiences that bring people together 
+                    and celebrate the simple joy of a perfect cup.&rdquo;
+                  </p>
+                  <div className="mt-8 flex justify-center space-x-4">
+                    <div className="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center backdrop-blur-sm">
+                      <Heart className="h-6 w-6 text-amber-200" />
+                    </div>
+                    <div className="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center backdrop-blur-sm">
+                      <Coffee className="h-6 w-6 text-amber-200" />
+                    </div>
+                    <div className="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center backdrop-blur-sm">
+                      <Users className="h-6 w-6 text-amber-200" />
+                    </div>
                   </div>
-                  <div className="w-12 h-12 bg-white/50 rounded-full flex items-center justify-center">
-                    <Coffee className="h-6 w-6 text-amber-600" />
+                </div>
+              </div>
+
+              {/* Coffee Journey Gallery */}
+              <div className="grid grid-cols-2 gap-4">
+                <div className="group relative overflow-hidden rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 hover:scale-105">
+                  <img
+                    src="https://images.unsplash.com/photo-1554118811-1e0d58224f24?w=300&h=200&fit=crop&crop=center&auto=format&q=80"
+                    alt="Coffee shop atmosphere"
+                    className="w-full h-32 object-cover group-hover:scale-110 transition-transform duration-300"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
+                  <div className="absolute bottom-2 left-2 text-white text-sm font-semibold">
+                    Community
                   </div>
-                  <div className="w-12 h-12 bg-white/50 rounded-full flex items-center justify-center">
-                    <Users className="h-6 w-6 text-amber-600" />
+                </div>
+                <div className="group relative overflow-hidden rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 hover:scale-105">
+                  <img
+                    src="https://images.unsplash.com/photo-1509042239860-f550ce710b93?w=300&h=200&fit=crop&crop=center&auto=format&q=80"
+                    alt="Coffee beans"
+                    className="w-full h-32 object-cover group-hover:scale-110 transition-transform duration-300"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
+                  <div className="absolute bottom-2 left-2 text-white text-sm font-semibold">
+                    Quality
                   </div>
                 </div>
               </div>
@@ -307,13 +379,20 @@ export default function AboutPage() {
             {values.map((value, index) => (
               <div
                 key={value.title}
-                className={`bg-gradient-to-br ${value.bgColor} rounded-3xl p-8 text-center hover:shadow-2xl transition-all duration-300 hover:scale-105 border border-white/50 group`}
+                className={`bg-gradient-to-br ${value.bgColor} rounded-3xl p-8 text-center hover:shadow-2xl transition-all duration-300 hover:scale-105 border border-white/50 group relative overflow-hidden`}
               >
-                <div className={`w-20 h-20 rounded-full bg-gradient-to-r ${value.color} flex items-center justify-center mx-auto mb-6 shadow-lg group-hover:scale-110 transition-transform duration-300`}>
+                <div className="absolute inset-0 opacity-5 group-hover:opacity-10 transition-opacity duration-300">
+                  <img
+                    src="https://images.unsplash.com/photo-1559056199-641a0ac8b55e?w=200&h=200&fit=crop&crop=center&auto=format&q=80"
+                    alt="Coffee background"
+                    className="w-full h-full object-cover"
+                  />
+                </div>
+                <div className={`w-20 h-20 rounded-full bg-gradient-to-r ${value.color} flex items-center justify-center mx-auto mb-6 shadow-lg group-hover:scale-110 transition-transform duration-300 relative z-10`}>
                   <value.icon className="h-10 w-10 text-white" />
                 </div>
-                <h3 className="text-2xl font-bold text-gray-800 mb-4">{value.title}</h3>
-                <p className="text-gray-600 leading-relaxed">{value.description}</p>
+                <h3 className="text-2xl font-bold text-gray-800 mb-4 relative z-10">{value.title}</h3>
+                <p className="text-gray-600 leading-relaxed relative z-10">{value.description}</p>
               </div>
             ))}
           </div>
@@ -343,7 +422,16 @@ export default function AboutPage() {
                 }`}
                 onClick={() => setSelectedTeamMember(selectedTeamMember === index ? null : index)}
               >
-                <div className="text-8xl mb-6 group-hover:scale-110 transition-transform duration-300">{member.image}</div>
+                <div className="relative mb-6 group-hover:scale-110 transition-transform duration-300">
+                  <img
+                    src={member.image}
+                    alt={member.name}
+                    className="w-24 h-24 rounded-full object-cover mx-auto shadow-lg border-4 border-amber-200"
+                  />
+                  <div className="absolute -bottom-2 -right-2 w-8 h-8 bg-amber-500 rounded-full flex items-center justify-center">
+                    <Coffee className="h-4 w-4 text-white" />
+                  </div>
+                </div>
                 <h3 className="text-2xl font-bold text-gray-800 mb-2">{member.name}</h3>
                 <p className="text-amber-600 font-semibold mb-2">{member.role}</p>
                 <p className="text-sm text-gray-600 mb-3">{member.experience} experience</p>
