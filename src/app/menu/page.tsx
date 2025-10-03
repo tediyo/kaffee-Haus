@@ -28,7 +28,7 @@ const menuItems: MenuItem[] = [
     price: 3.50,
     category: 'coffee',
     rating: 4.8,
-    image: '☕',
+    image: 'https://images.unsplash.com/photo-1559056199-641a0ac8b55e?w=400&h=300&fit=crop&crop=center&auto=format&q=80',
     isPopular: true,
     prepTime: 2,
     calories: 5,
@@ -41,7 +41,7 @@ const menuItems: MenuItem[] = [
     price: 4.25,
     category: 'coffee',
     rating: 4.9,
-    image: '☕',
+    image: 'https://images.unsplash.com/photo-1572442388796-11668a67e53d?w=400&h=300&fit=crop&crop=center&auto=format&q=80',
     isPopular: true,
     prepTime: 3,
     calories: 120
@@ -53,7 +53,7 @@ const menuItems: MenuItem[] = [
     price: 4.50,
     category: 'coffee',
     rating: 4.7,
-    image: '☕',
+    image: 'https://images.unsplash.com/photo-1561047029-3000c68339ca?w=400&h=300&fit=crop&crop=center&auto=format&q=80',
     prepTime: 4,
     calories: 150
   },
@@ -64,7 +64,7 @@ const menuItems: MenuItem[] = [
     price: 5.00,
     category: 'coffee',
     rating: 4.6,
-    image: '☕',
+    image: 'https://images.unsplash.com/photo-1544787219-7f47ccb76574?w=400&h=300&fit=crop&crop=center&auto=format&q=80',
     prepTime: 5,
     calories: 250
   },
@@ -75,7 +75,7 @@ const menuItems: MenuItem[] = [
     price: 3.75,
     category: 'coffee',
     rating: 4.5,
-    image: '☕',
+    image: 'https://images.unsplash.com/photo-1559056199-641a0ac8b55e?w=400&h=300&fit=crop&crop=center&auto=format&q=80',
     prepTime: 2,
     calories: 10,
     isVegan: true
@@ -87,7 +87,7 @@ const menuItems: MenuItem[] = [
     price: 4.00,
     category: 'coffee',
     rating: 4.7,
-    image: '☕',
+    image: 'https://images.unsplash.com/photo-1572442388796-11668a67e53d?w=400&h=300&fit=crop&crop=center&auto=format&q=80',
     isNew: true,
     prepTime: 3,
     calories: 80,
@@ -100,7 +100,7 @@ const menuItems: MenuItem[] = [
     price: 4.25,
     category: 'cold',
     rating: 4.8,
-    image: '🧊',
+    image: 'https://images.unsplash.com/photo-1517701604599-bb29b565090a?w=400&h=300&fit=crop&crop=center&auto=format&q=80',
     prepTime: 1,
     calories: 5,
     isVegan: true
@@ -112,7 +112,7 @@ const menuItems: MenuItem[] = [
     price: 4.75,
     category: 'cold',
     rating: 4.6,
-    image: '🧊',
+    image: 'https://images.unsplash.com/photo-1517701604599-bb29b565090a?w=400&h=300&fit=crop&crop=center&auto=format&q=80',
     prepTime: 2,
     calories: 120
   },
@@ -123,7 +123,7 @@ const menuItems: MenuItem[] = [
     price: 5.50,
     category: 'cold',
     rating: 4.4,
-    image: '🧊',
+    image: 'https://images.unsplash.com/photo-1517701604599-bb29b565090a?w=400&h=300&fit=crop&crop=center&auto=format&q=80',
     prepTime: 4,
     calories: 350
   },
@@ -134,7 +134,7 @@ const menuItems: MenuItem[] = [
     price: 3.25,
     category: 'pastry',
     rating: 4.5,
-    image: '🥐',
+    image: 'https://images.unsplash.com/photo-1555507036-ab1f4038808a?w=400&h=300&fit=crop&crop=center&auto=format&q=80',
     prepTime: 1,
     calories: 280,
     isGlutenFree: false
@@ -146,7 +146,7 @@ const menuItems: MenuItem[] = [
     price: 2.75,
     category: 'pastry',
     rating: 4.3,
-    image: '🧁',
+    image: 'https://images.unsplash.com/photo-1555507036-ab1f4038808a?w=400&h=300&fit=crop&crop=center&auto=format&q=80',
     prepTime: 1,
     calories: 320
   },
@@ -157,7 +157,7 @@ const menuItems: MenuItem[] = [
     price: 3.50,
     category: 'pastry',
     rating: 4.4,
-    image: '🥯',
+    image: 'https://images.unsplash.com/photo-1555507036-ab1f4038808a?w=400&h=300&fit=crop&crop=center&auto=format&q=80',
     prepTime: 2,
     calories: 300
   }
@@ -317,8 +317,12 @@ export default function MenuPage() {
                 className="group bg-white rounded-3xl shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden border border-gray-100 hover:border-amber-200 hover:scale-105"
               >
                 {/* Enhanced Item Image */}
-                <div className="relative h-56 bg-gradient-to-br from-amber-100 via-orange-100 to-amber-200 flex items-center justify-center">
-                  <span className="text-8xl group-hover:scale-110 transition-transform duration-300">{item.image}</span>
+                <div className="relative h-56 bg-gradient-to-br from-amber-100 via-orange-100 to-amber-200 flex items-center justify-center overflow-hidden">
+                  <img
+                    src={item.image}
+                    alt={item.name}
+                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
+                  />
                   
                   {/* Enhanced Badges */}
                   <div className="absolute top-4 left-4 flex flex-col space-y-2">
@@ -456,7 +460,11 @@ export default function MenuPage() {
               return (
                 <div key={itemId} className="flex justify-between items-center bg-gray-50 rounded-xl p-3">
                   <div className="flex items-center space-x-3">
-                    <span className="text-2xl">{item.image}</span>
+                    <img
+                      src={item.image}
+                      alt={item.name}
+                      className="w-12 h-12 rounded-lg object-cover"
+                    />
                     <div>
                       <span className="text-sm font-medium text-gray-800">{item.name}</span>
                       <div className="text-xs text-gray-500">x{qty}</div>

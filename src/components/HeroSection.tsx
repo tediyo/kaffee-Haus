@@ -27,42 +27,82 @@ const HeroSection = () => {
   }, []);
 
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
-      {/* Animated Background Pattern */}
+    <>
+      <style jsx>{`
+        @keyframes float-1 {
+          0%, 100% { transform: translate(-50%, -50%) translateY(0px) rotate(0deg); }
+          50% { transform: translate(-50%, -50%) translateY(-20px) rotate(5deg); }
+        }
+        @keyframes float-2 {
+          0%, 100% { transform: translate(-50%, -50%) translateY(0px) rotate(0deg); }
+          50% { transform: translate(-50%, -50%) translateY(-15px) rotate(-3deg); }
+        }
+        @keyframes float-3 {
+          0%, 100% { transform: translate(-50%, -50%) translateY(0px) rotate(0deg); }
+          50% { transform: translate(-50%, -50%) translateY(-25px) rotate(8deg); }
+        }
+        @keyframes steam {
+          0% { opacity: 0; transform: translateY(0px) scale(0.8); }
+          50% { opacity: 0.6; transform: translateY(-10px) scale(1); }
+          100% { opacity: 0; transform: translateY(-20px) scale(1.2); }
+        }
+        .float-1 { animation: float-1 6s infinite ease-in-out; }
+        .float-2 { animation: float-2 6s infinite ease-in-out; }
+        .float-3 { animation: float-3 6s infinite ease-in-out; }
+      `}</style>
+      <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
+      {/* Professional Background Image */}
       <div className="absolute inset-0 z-0">
-        <div className="absolute inset-0 bg-gradient-to-br from-amber-900/90 via-amber-800/80 to-amber-700/90" />
-        <div className="absolute inset-0 opacity-20">
-          <div className="absolute top-10 left-10 w-32 h-32 bg-amber-300/20 rounded-full blur-xl" />
-          <div className="absolute top-32 right-20 w-24 h-24 bg-amber-200/30 rounded-full blur-lg" />
-          <div className="absolute bottom-20 left-1/4 w-40 h-40 bg-amber-400/20 rounded-full blur-2xl" />
-          <div className="absolute bottom-32 right-1/3 w-28 h-28 bg-amber-300/25 rounded-full blur-lg" />
+        <div 
+          className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+          style={{
+            backgroundImage: 'url("https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?w=1920&h=1080&fit=crop&crop=center&auto=format&q=80")'
+          }}
+        />
+        {/* Dark overlay for better text readability */}
+        <div className="absolute inset-0 bg-gradient-to-br from-black/60 via-amber-900/70 to-black/60" />
+        {/* Additional gradient overlay for warmth */}
+        <div className="absolute inset-0 bg-gradient-to-br from-amber-900/40 via-amber-800/30 to-amber-700/40" />
+        {/* Animated floating elements */}
+        <div className="absolute inset-0 opacity-30">
+          <div className="absolute top-10 left-10 w-32 h-32 bg-amber-300/20 rounded-full blur-xl animate-pulse" />
+          <div className="absolute top-32 right-20 w-24 h-24 bg-amber-200/30 rounded-full blur-lg animate-pulse" style={{ animationDelay: '1s' }} />
+          <div className="absolute bottom-20 left-1/4 w-40 h-40 bg-amber-400/20 rounded-full blur-2xl animate-pulse" style={{ animationDelay: '2s' }} />
+          <div className="absolute bottom-32 right-1/3 w-28 h-28 bg-amber-300/25 rounded-full blur-lg animate-pulse" style={{ animationDelay: '0.5s' }} />
         </div>
       </div>
 
-      {/* Floating Coffee Beans */}
+      {/* Floating Coffee Beans with enhanced animation */}
       <div className="absolute inset-0 z-5 overflow-hidden">
-        {[...Array(8)].map((_, i) => {
-          // Better aligned and proportional positions
+        {[...Array(12)].map((_, i) => {
+          // Better aligned and proportional positions with more variety
           const positions = [
-            { left: '10%', top: '15%', size: 'text-xl' },
-            { left: '20%', top: '35%', size: 'text-2xl' },
-            { left: '35%', top: '20%', size: 'text-lg' },
-            { left: '50%', top: '40%', size: 'text-xl' },
-            { left: '65%', top: '25%', size: 'text-2xl' },
-            { left: '80%', top: '45%', size: 'text-lg' },
-            { left: '15%', top: '65%', size: 'text-xl' },
-            { left: '85%', top: '70%', size: 'text-2xl' }
+            { left: '8%', top: '12%', size: 'text-xl', animation: 'float-1' },
+            { left: '18%', top: '32%', size: 'text-2xl', animation: 'float-2' },
+            { left: '32%', top: '18%', size: 'text-lg', animation: 'float-3' },
+            { left: '48%', top: '38%', size: 'text-xl', animation: 'float-1' },
+            { left: '62%', top: '22%', size: 'text-2xl', animation: 'float-2' },
+            { left: '78%', top: '42%', size: 'text-lg', animation: 'float-3' },
+            { left: '12%', top: '62%', size: 'text-xl', animation: 'float-1' },
+            { left: '82%', top: '68%', size: 'text-2xl', animation: 'float-2' },
+            { left: '25%', top: '75%', size: 'text-lg', animation: 'float-3' },
+            { left: '70%', top: '8%', size: 'text-xl', animation: 'float-1' },
+            { left: '5%', top: '85%', size: 'text-2xl', animation: 'float-2' },
+            { left: '90%', top: '15%', size: 'text-lg', animation: 'float-3' }
           ];
           
           return (
             <div
               key={i}
-              className={`absolute text-amber-200/40 ${positions[i].size} transition-all duration-1000 hover:scale-110 hover:text-amber-200/60`}
+              className={`absolute text-amber-200/30 ${positions[i].size} transition-all duration-1000 hover:scale-110 hover:text-amber-200/60 ${positions[i].animation}`}
               style={{
                 left: positions[i].left,
                 top: positions[i].top,
-                animationDelay: `${i * 0.3}s`,
-                transform: 'translate(-50%, -50%)', // Center the emoji
+                animationDelay: `${i * 0.2}s`,
+                transform: 'translate(-50%, -50%)',
+                animationDuration: '6s',
+                animationIterationCount: 'infinite',
+                animationTimingFunction: 'ease-in-out'
               }}
             >
               ☕
@@ -71,8 +111,28 @@ const HeroSection = () => {
         })}
       </div>
 
-      {/* Gradient Overlay */}
-      <div className="absolute inset-0 bg-gradient-to-br from-amber-900/80 via-amber-800/70 to-amber-700/80 z-10" />
+      {/* Coffee steam effects */}
+      <div className="absolute inset-0 z-5 overflow-hidden pointer-events-none">
+        {[...Array(6)].map((_, i) => (
+          <div
+            key={`steam-${i}`}
+            className="absolute text-white/20 text-4xl"
+            style={{
+              left: `${15 + i * 15}%`,
+              top: '60%',
+              animationDelay: `${i * 0.5}s`,
+              animation: 'steam 4s infinite ease-in-out'
+            }}
+          >
+            〰️
+          </div>
+        ))}
+      </div>
+
+      {/* Enhanced Gradient Overlay for better text contrast */}
+      <div className="absolute inset-0 bg-gradient-to-br from-black/50 via-amber-900/60 to-black/50 z-10" />
+      {/* Additional warm overlay */}
+      <div className="absolute inset-0 bg-gradient-to-t from-amber-900/30 via-transparent to-amber-800/20 z-10" />
 
       {/* Content */}
       <div className="relative z-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
@@ -203,6 +263,7 @@ const HeroSection = () => {
         </div>
       </div>
     </section>
+    </>
   );
 };
 
