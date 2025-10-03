@@ -27,47 +27,50 @@ export default function Home() {
         
         {/* Interactive Overlay Elements */}
         <div className="absolute inset-0 pointer-events-none">
-          {/* Coffee Info Button */}
-          <button
-            onClick={() => openModal('coffee')}
-            className="absolute top-20 left-10 pointer-events-auto bg-white/90 backdrop-blur-sm hover:bg-white rounded-2xl p-4 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 group"
-          >
-            <div className="flex items-center space-x-3">
-              <Coffee className="h-6 w-6 text-amber-600 group-hover:scale-110 transition-transform duration-300" />
-              <div className="text-left">
-                <p className="font-semibold text-gray-800">Premium Coffee</p>
-                <p className="text-sm text-gray-600">Learn more</p>
+          {/* Horizontal Cards Container */}
+          <div className="absolute top-20 left-1/2 transform -translate-x-1/2 pointer-events-auto flex flex-col md:flex-row gap-4 px-4 w-full max-w-5xl justify-center">
+            {/* Coffee Info Button */}
+            <button
+              onClick={() => openModal('coffee')}
+              className="bg-white/90 backdrop-blur-sm hover:bg-white rounded-2xl p-4 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 group flex-1 min-w-[180px] max-w-[250px]"
+            >
+              <div className="flex items-center space-x-3">
+                <Coffee className="h-6 w-6 text-amber-600 group-hover:scale-110 transition-transform duration-300 flex-shrink-0" />
+                <div className="text-left">
+                  <p className="font-semibold text-gray-800">Premium Coffee</p>
+                  <p className="text-sm text-gray-600">Learn more</p>
+                </div>
               </div>
-            </div>
-          </button>
+            </button>
 
-          {/* Location Button */}
-          <button
-            onClick={() => openModal('location')}
-            className="absolute top-32 left-10 pointer-events-auto bg-white/90 backdrop-blur-sm hover:bg-white rounded-2xl p-4 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 group"
-          >
-            <div className="flex items-center space-x-3">
-              <MapPin className="h-6 w-6 text-green-600 group-hover:scale-110 transition-transform duration-300" />
-              <div className="text-left">
-                <p className="font-semibold text-gray-800">Visit Us</p>
-                <p className="text-sm text-gray-600">Get directions</p>
+            {/* Location Button */}
+            <button
+              onClick={() => openModal('location')}
+              className="bg-white/90 backdrop-blur-sm hover:bg-white rounded-2xl p-4 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 group flex-1 min-w-[180px] max-w-[250px]"
+            >
+              <div className="flex items-center space-x-3">
+                <MapPin className="h-6 w-6 text-green-600 group-hover:scale-110 transition-transform duration-300 flex-shrink-0" />
+                <div className="text-left">
+                  <p className="font-semibold text-gray-800">Visit Us</p>
+                  <p className="text-sm text-gray-600">Get directions</p>
+                </div>
               </div>
-            </div>
-          </button>
+            </button>
 
-          {/* Contact Button */}
-          <button
-            onClick={() => openModal('contact')}
-            className="absolute top-44 left-10 pointer-events-auto bg-white/90 backdrop-blur-sm hover:bg-white rounded-2xl p-4 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 group"
-          >
-            <div className="flex items-center space-x-3">
-              <Phone className="h-6 w-6 text-blue-600 group-hover:scale-110 transition-transform duration-300" />
-              <div className="text-left">
-                <p className="font-semibold text-gray-800">Contact</p>
-                <p className="text-sm text-gray-600">Get in touch</p>
+            {/* Contact Button */}
+            <button
+              onClick={() => openModal('contact')}
+              className="bg-white/90 backdrop-blur-sm hover:bg-white rounded-2xl p-4 shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 group flex-1 min-w-[180px] max-w-[250px]"
+            >
+              <div className="flex items-center space-x-3">
+                <Phone className="h-6 w-6 text-blue-600 group-hover:scale-110 transition-transform duration-300 flex-shrink-0" />
+                <div className="text-left">
+                  <p className="font-semibold text-gray-800">Contact Us</p>
+                  <p className="text-sm text-gray-600">Get in touch</p>
+                </div>
               </div>
-            </div>
-          </button>
+            </button>
+          </div>
 
           {/* Special Offer Button */}
           <button
