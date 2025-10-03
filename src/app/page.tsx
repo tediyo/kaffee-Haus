@@ -6,7 +6,7 @@ import HeroSection from '@/components/HeroSection';
 import CoffeeShopScene from '@/components/CoffeeShopScene';
 import InteractiveModal from '@/components/InteractiveModal';
 import InteractiveProductShowcase from '@/components/InteractiveProductShowcase';
-import { Coffee, MapPin, Phone, Gift, Star, TrendingUp, Users, Award } from 'lucide-react';
+import { Coffee, MapPin, Phone, Gift, Star, TrendingUp, Users, Award, Heart } from 'lucide-react';
 
 export default function Home() {
   const [modalOpen, setModalOpen] = useState(false);
@@ -20,123 +20,242 @@ export default function Home() {
   return (
     <main className="min-h-screen">
       <Navigation />
-      <HeroSection />
       
-      {/* Interactive 3D Scene with Overlay Elements */}
-      <div className="relative">
-        <CoffeeShopScene />
-        
-        {/* Interactive Overlay Elements */}
-        <div className="absolute inset-0 pointer-events-none">
-          {/* Horizontal Cards Container */}
-          <div className="absolute top-20 left-1/2 transform -translate-x-1/2 pointer-events-auto flex flex-col md:flex-row gap-4 px-4 w-full max-w-5xl justify-center">
-            {/* Coffee Info Button */}
-            <button
-              onClick={() => openModal('coffee')}
-              className="bg-white/90 backdrop-blur-sm hover:bg-white rounded-2xl p-4 shadow-lg hover:shadow-xl group flex-1 min-w-[180px] max-w-[250px]"
-            >
-              <div className="flex items-center space-x-3">
-                <Coffee className="h-6 w-6 text-amber-600 flex-shrink-0" />
-                <div className="text-left">
-                  <p className="font-semibold text-gray-800">Premium Coffee</p>
-                  <p className="text-sm text-gray-600">Learn more</p>
-                </div>
-              </div>
-            </button>
+      {/* Hero Section with Cozy Café Background */}
+      <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
+        {/* Cozy Background Image */}
+        <div className="absolute inset-0 z-0">
+          <div 
+            className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+            style={{
+              backgroundImage: 'url("https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?w=1920&h=1080&fit=crop&crop=center&auto=format&q=80")'
+            }}
+          />
+          {/* Warm overlay for better text readability */}
+          <div className="absolute inset-0 bg-gradient-to-br from-black/50 via-amber-900/60 to-black/50" />
+          <div className="absolute inset-0 bg-gradient-to-t from-amber-900/30 via-transparent to-amber-800/20" />
+        </div>
 
-            {/* Location Button */}
-            <button
-              onClick={() => openModal('location')}
-              className="bg-white/90 backdrop-blur-sm hover:bg-white rounded-2xl p-4 shadow-lg hover:shadow-xl group flex-1 min-w-[180px] max-w-[250px]"
-            >
-              <div className="flex items-center space-x-3">
-                <MapPin className="h-6 w-6 text-green-600 flex-shrink-0" />
-                <div className="text-left">
-                  <p className="font-semibold text-gray-800">Visit Us</p>
-                  <p className="text-sm text-gray-600">Get directions</p>
-                </div>
-              </div>
-            </button>
+        {/* Content */}
+        <div className="relative z-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+          <div className="space-y-8">
+            {/* Welcome Badge */}
+            <div className="inline-flex items-center space-x-2 bg-white/10 backdrop-blur-md rounded-full px-6 py-3 text-white/90 border border-white/20">
+              <div className="w-2 h-2 bg-green-400 rounded-full" />
+              <span className="text-sm font-medium">Open Now • 6:00 AM - 8:00 PM</span>
+            </div>
 
-            {/* Contact Button */}
-            <button
-              onClick={() => openModal('contact')}
-              className="bg-white/90 backdrop-blur-sm hover:bg-white rounded-2xl p-4 shadow-lg hover:shadow-xl group flex-1 min-w-[180px] max-w-[250px]"
-            >
-              <div className="flex items-center space-x-3">
-                <Phone className="h-6 w-6 text-blue-600 flex-shrink-0" />
-                <div className="text-left">
-                  <p className="font-semibold text-gray-800">Contact Us</p>
-                  <p className="text-sm text-gray-600">Get in touch</p>
-                </div>
-              </div>
-            </button>
-          </div>
+            {/* Main Heading */}
+            <div className="space-y-6">
+              <h1 className="text-6xl md:text-8xl font-bold text-white leading-tight">
+                Welcome to{' '}
+                <span className="bg-gradient-to-r from-amber-300 via-amber-200 to-amber-100 bg-clip-text text-transparent drop-shadow-2xl">
+                  Kaffee Haus
+                </span>
+              </h1>
 
-          {/* Special Offer Button */}
-          <button
-            onClick={() => openModal('special')}
-            className="absolute top-20 right-10 pointer-events-auto bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 text-white rounded-2xl p-4 shadow-lg hover:shadow-xl group"
-          >
-            <div className="flex items-center space-x-3">
-              <Gift className="h-6 w-6" />
-              <div className="text-left">
-                <p className="font-semibold">Special Offer</p>
-                <p className="text-sm text-amber-100">20% off first order</p>
+              <div className="space-y-4">
+                <p className="text-2xl md:text-3xl text-white/90 font-light">
+                  Brewed with passion since 2010
+                </p>
+                <p className="text-xl md:text-2xl text-white/80 max-w-4xl mx-auto leading-relaxed">
+                  Experience the perfect blend of tradition and innovation in every cup. 
+                  From farm-fresh beans to expertly crafted beverages, we bring you 
+                  the finest coffee experience.
+                </p>
               </div>
             </div>
-          </button>
 
-          {/* Coffee Cup Decorative Element */}
-          <div className="absolute bottom-20 left-10 pointer-events-auto">
-            <div className="group relative">
-              <img
-                src="/coffee-cup.png"
-                alt="Coffee cup"
-                className="w-24 h-24 object-contain drop-shadow-lg"
-              />
-              <div className="absolute -top-2 -right-2 bg-amber-500 text-white text-xs font-bold rounded-full w-6 h-6 flex items-center justify-center">
-                !
-              </div>
+            {/* Call-to-Action Buttons */}
+            <div className="flex flex-col sm:flex-row items-center justify-center space-y-6 sm:space-y-0 sm:space-x-8">
+              <button 
+                onClick={() => window.location.href = '/menu'}
+                className="bg-gradient-to-r from-amber-600 to-amber-700 hover:from-amber-700 hover:to-amber-800 text-white px-10 py-5 rounded-2xl font-bold text-xl flex items-center space-x-3 shadow-2xl border border-amber-500/30"
+              >
+                <Coffee className="h-6 w-6" />
+                <span>View Menu</span>
+              </button>
+
+              <button 
+                onClick={() => openModal('location')}
+                className="bg-white/20 hover:bg-white/30 backdrop-blur-md text-white px-10 py-5 rounded-2xl font-bold text-xl flex items-center space-x-3 border border-white/30 shadow-xl"
+              >
+                <MapPin className="h-6 w-6" />
+                <span>Visit Us</span>
+              </button>
+
+              <button 
+                onClick={() => openModal('special')}
+                className="bg-gradient-to-r from-orange-600 to-red-600 hover:from-orange-700 hover:to-red-700 text-white px-10 py-5 rounded-2xl font-bold text-xl flex items-center space-x-3 shadow-2xl"
+              >
+                <Gift className="h-6 w-6" />
+                <span>Order Now</span>
+              </button>
             </div>
-          </div>
 
-          {/* Stats Display */}
-          <div className="absolute bottom-20 right-10 pointer-events-auto bg-white/90 backdrop-blur-sm rounded-2xl p-6 shadow-lg">
-            <h3 className="font-bold text-gray-800 mb-4 text-center">Today's Stats</h3>
-            <div className="grid grid-cols-2 gap-4">
-              <div className="text-center">
-                <div className="flex items-center justify-center space-x-1 mb-1">
-                  <Users className="h-4 w-4 text-blue-600" />
-                  <span className="text-2xl font-bold text-gray-800">127</span>
-                </div>
-                <p className="text-xs text-gray-600">Customers Served</p>
+            {/* Rating */}
+            <div className="flex items-center justify-center space-x-4 text-white/90">
+              <div className="flex space-x-1">
+                {[...Array(5)].map((_, i) => (
+                  <Star key={i} className="h-6 w-6 fill-amber-400 text-amber-400 drop-shadow-lg" />
+                ))}
               </div>
-              <div className="text-center">
-                <div className="flex items-center justify-center space-x-1 mb-1">
-                  <Coffee className="h-4 w-4 text-amber-600" />
-                  <span className="text-2xl font-bold text-gray-800">89</span>
-                </div>
-                <p className="text-xs text-gray-600">Cups Brewed</p>
-              </div>
-              <div className="text-center">
-                <div className="flex items-center justify-center space-x-1 mb-1">
-                  <Star className="h-4 w-4 text-yellow-600" />
-                  <span className="text-2xl font-bold text-gray-800">4.9</span>
-                </div>
-                <p className="text-xs text-gray-600">Average Rating</p>
-              </div>
-              <div className="text-center">
-                <div className="flex items-center justify-center space-x-1 mb-1">
-                  <TrendingUp className="h-4 w-4 text-green-600" />
-                  <span className="text-2xl font-bold text-gray-800">+12%</span>
-                </div>
-                <p className="text-xs text-gray-600">Growth Today</p>
+              <span className="text-xl font-semibold">4.9/5 from 500+ customers</span>
+              <div className="flex items-center space-x-1 bg-white/10 backdrop-blur-sm rounded-full px-3 py-1">
+                <Heart className="h-4 w-4 text-red-400 fill-current" />
+                <span className="text-sm">Loved by many</span>
               </div>
             </div>
           </div>
         </div>
-      </div>
+
+        {/* Scroll Indicator */}
+        <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 z-20">
+          <div className="flex flex-col items-center space-y-2">
+            <span className="text-white/70 text-sm font-medium">Scroll to explore</span>
+            <div className="w-8 h-12 border-2 border-white/50 rounded-full flex justify-center p-2">
+              <div className="w-1 h-3 bg-white/70 rounded-full" />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Highlights Section */}
+      <section className="py-20 bg-gradient-to-br from-amber-50 via-orange-50 to-amber-100">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-16">
+            <div className="inline-flex items-center space-x-2 bg-white/80 backdrop-blur-sm rounded-full px-6 py-3 text-amber-800 border border-amber-200 mb-6">
+              <Coffee className="h-5 w-5" />
+              <span className="font-semibold">Our Highlights</span>
+              <Star className="h-4 w-4 text-amber-500" />
+            </div>
+            
+            <h2 className="text-5xl md:text-6xl font-bold text-gray-800 mb-6">
+              What Makes Us{' '}
+              <span className="bg-gradient-to-r from-amber-600 to-orange-600 bg-clip-text text-transparent">
+                Special
+              </span>
+            </h2>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {/* Best Sellers */}
+            <div className="bg-white rounded-3xl p-8 shadow-lg border border-amber-200">
+              <div className="text-center mb-6">
+                <div className="w-16 h-16 bg-amber-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <Coffee className="h-8 w-8 text-amber-600" />
+                </div>
+                <h3 className="text-2xl font-bold text-gray-800 mb-2">Best Sellers</h3>
+                <p className="text-gray-600">Our most loved coffee creations</p>
+              </div>
+              
+              <div className="space-y-4">
+                <div className="flex items-center justify-between p-3 bg-amber-50 rounded-xl">
+                  <div>
+                    <h4 className="font-semibold text-gray-800">Ethiopian Yirgacheffe</h4>
+                    <p className="text-sm text-gray-600">Single origin, light roast</p>
+                  </div>
+                  <span className="text-amber-600 font-bold">$24.99</span>
+                </div>
+                <div className="flex items-center justify-between p-3 bg-amber-50 rounded-xl">
+                  <div>
+                    <h4 className="font-semibold text-gray-800">Colombian Supremo</h4>
+                    <p className="text-sm text-gray-600">Rich, full-bodied</p>
+                  </div>
+                  <span className="text-amber-600 font-bold">$22.99</span>
+                </div>
+                <div className="flex items-center justify-between p-3 bg-amber-50 rounded-xl">
+                  <div>
+                    <h4 className="font-semibold text-gray-800">Italian Espresso</h4>
+                    <p className="text-sm text-gray-600">Dark roasted blend</p>
+                  </div>
+                  <span className="text-amber-600 font-bold">$19.99</span>
+                </div>
+              </div>
+            </div>
+
+            {/* Seasonal Offers */}
+            <div className="bg-white rounded-3xl p-8 shadow-lg border border-orange-200">
+              <div className="text-center mb-6">
+                <div className="w-16 h-16 bg-orange-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <Gift className="h-8 w-8 text-orange-600" />
+                </div>
+                <h3 className="text-2xl font-bold text-gray-800 mb-2">Seasonal Offers</h3>
+                <p className="text-gray-600">Limited time specials</p>
+              </div>
+              
+              <div className="space-y-4">
+                <div className="p-4 bg-gradient-to-r from-orange-100 to-amber-100 rounded-xl border border-orange-200">
+                  <div className="flex items-center justify-between mb-2">
+                    <h4 className="font-bold text-orange-800">Winter Blend</h4>
+                    <span className="bg-orange-500 text-white text-xs px-2 py-1 rounded-full">20% OFF</span>
+                  </div>
+                  <p className="text-sm text-orange-700">Warm spices and rich chocolate notes</p>
+                  <div className="flex items-center justify-between mt-2">
+                    <span className="text-orange-600 font-bold">$18.99</span>
+                    <span className="text-xs text-gray-500 line-through">$23.99</span>
+                  </div>
+                </div>
+                
+                <div className="p-4 bg-gradient-to-r from-amber-100 to-yellow-100 rounded-xl border border-amber-200">
+                  <div className="flex items-center justify-between mb-2">
+                    <h4 className="font-bold text-amber-800">Holiday Special</h4>
+                    <span className="bg-amber-500 text-white text-xs px-2 py-1 rounded-full">15% OFF</span>
+                  </div>
+                  <p className="text-sm text-amber-700">Gift sets and holiday treats</p>
+                  <div className="flex items-center justify-between mt-2">
+                    <span className="text-amber-600 font-bold">$29.99</span>
+                    <span className="text-xs text-gray-500 line-through">$35.99</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Why Choose Us */}
+            <div className="bg-white rounded-3xl p-8 shadow-lg border border-green-200">
+              <div className="text-center mb-6">
+                <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                  <Award className="h-8 w-8 text-green-600" />
+                </div>
+                <h3 className="text-2xl font-bold text-gray-800 mb-2">Why Choose Us</h3>
+                <p className="text-gray-600">What sets us apart</p>
+              </div>
+              
+              <div className="space-y-4">
+                <div className="flex items-start space-x-3">
+                  <div className="w-6 h-6 bg-green-100 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
+                    <Coffee className="h-3 w-3 text-green-600" />
+                  </div>
+                  <div>
+                    <h4 className="font-semibold text-gray-800">Fresh Roasted Daily</h4>
+                    <p className="text-sm text-gray-600">Beans roasted in small batches for maximum flavor</p>
+                  </div>
+                </div>
+                
+                <div className="flex items-start space-x-3">
+                  <div className="w-6 h-6 bg-green-100 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
+                    <Users className="h-3 w-3 text-green-600" />
+                  </div>
+                  <div>
+                    <h4 className="font-semibold text-gray-800">Expert Baristas</h4>
+                    <p className="text-sm text-gray-600">Skilled craftspeople behind every cup</p>
+                  </div>
+                </div>
+                
+                <div className="flex items-start space-x-3">
+                  <div className="w-6 h-6 bg-green-100 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
+                    <Heart className="h-3 w-3 text-green-600" />
+                  </div>
+                  <div>
+                    <h4 className="font-semibold text-gray-800">Cozy Atmosphere</h4>
+                    <p className="text-sm text-gray-600">Perfect space to work, relax, or meet friends</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
 
       {/* Interactive Product Showcase */}
       <InteractiveProductShowcase />
