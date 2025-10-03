@@ -159,18 +159,19 @@ export default function Home() {
             {/* Map Container */}
             <div className="relative">
               <div className="bg-white rounded-3xl shadow-2xl overflow-hidden">
-                <div className="h-96 bg-gradient-to-br from-amber-100 to-orange-200 relative">
-                  {/* Interactive Map Placeholder - You can replace with actual map integration */}
-                  <div className="absolute inset-0 flex items-center justify-center">
-                    <div className="text-center">
-                      <MapPin className="h-16 w-16 text-amber-600 mx-auto mb-4" />
-                      <h3 className="text-2xl font-bold text-gray-800 mb-2">Megenagna, Addis Ababa</h3>
-                      <p className="text-gray-600 mb-4">Ethiopia</p>
-                      <div className="bg-amber-500 text-white px-6 py-2 rounded-full text-sm font-semibold">
-                        📍 Exact Location
-                      </div>
-                    </div>
-                  </div>
+                <div className="h-96 relative">
+                  {/* Embedded Google Maps */}
+                  <iframe
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3940.5!2d38.8!3d9.0!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x164b8f8a8a8a8a8a%3A0x8a8a8a8a8a8a8a8a!2sMegenagna%2C%20Addis%20Ababa%2C%20Ethiopia!5e0!3m2!1sen!2set!4v1234567890123!5m2!1sen!2set"
+                    width="100%"
+                    height="100%"
+                    style={{ border: 0 }}
+                    allowFullScreen
+                    loading="lazy"
+                    referrerPolicy="no-referrer-when-downgrade"
+                    className="rounded-t-3xl"
+                    title="Kaffee Haus Location - Megenagna, Addis Ababa"
+                  ></iframe>
                   
                   {/* Map Overlay Elements */}
                   <div className="absolute top-4 left-4 bg-white/90 backdrop-blur-sm rounded-lg px-3 py-2">
@@ -184,6 +185,13 @@ export default function Home() {
                     <div className="flex items-center space-x-2">
                       <Coffee className="h-4 w-4 text-amber-600" />
                       <span className="text-sm font-medium text-gray-700">Coffee Shop</span>
+                    </div>
+                  </div>
+                  
+                  {/* Custom Map Marker */}
+                  <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+                    <div className="bg-amber-500 text-white p-2 rounded-full shadow-lg animate-pulse">
+                      <MapPin className="h-6 w-6" />
                     </div>
                   </div>
                 </div>
