@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import Navigation from '@/components/Navigation';
-import { Coffee, Plus, Minus, Star, Heart, Filter, Search, ShoppingCart, Clock, Flame, Award, TrendingUp } from 'lucide-react';
+import { Coffee, Plus, Minus, Star, Heart, Filter, Search, ShoppingCart, Clock, Flame, Award, TrendingUp, X } from 'lucide-react';
 
 interface MenuItem {
   id: number;
@@ -227,13 +227,27 @@ export default function MenuPage() {
     <main className="min-h-screen bg-gradient-to-br from-amber-50 via-orange-50 to-amber-100">
       <Navigation />
       
-      {/* Enhanced Hero Section */}
-      <section className="pt-20 pb-16 bg-gradient-to-r from-amber-800 via-amber-700 to-orange-700 relative overflow-hidden">
-        <div className="absolute inset-0 bg-black/20" />
-        <div className="absolute inset-0">
-          <div className="absolute top-10 left-10 w-32 h-32 bg-amber-300/20 rounded-full blur-xl" />
-          <div className="absolute top-32 right-20 w-24 h-24 bg-orange-300/30 rounded-full blur-lg" />
-          <div className="absolute bottom-20 left-1/4 w-40 h-40 bg-amber-400/20 rounded-full blur-2xl" />
+      {/* Enhanced Hero Section with Background Image */}
+      <section className="pt-20 pb-16 relative overflow-hidden min-h-[70vh] flex items-center">
+        {/* Professional Background Image */}
+        <div className="absolute inset-0 z-0">
+          <div 
+            className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+            style={{
+              backgroundImage: 'url("https://images.unsplash.com/photo-1509042239860-f550ce710b93?w=1920&h=1080&fit=crop&crop=center&auto=format&q=80")'
+            }}
+          />
+          {/* Dark overlay for better text readability */}
+          <div className="absolute inset-0 bg-gradient-to-br from-black/60 via-amber-900/70 to-black/60" />
+          {/* Additional warm overlay */}
+          <div className="absolute inset-0 bg-gradient-to-br from-amber-900/40 via-amber-800/30 to-amber-700/40" />
+        </div>
+        
+        {/* Animated floating elements */}
+        <div className="absolute inset-0 z-5 overflow-hidden">
+          <div className="absolute top-10 left-10 w-32 h-32 bg-amber-300/20 rounded-full blur-xl animate-pulse" />
+          <div className="absolute top-32 right-20 w-24 h-24 bg-orange-300/30 rounded-full blur-lg animate-pulse" style={{ animationDelay: '1s' }} />
+          <div className="absolute bottom-20 left-1/4 w-40 h-40 bg-amber-400/20 rounded-full blur-2xl animate-pulse" style={{ animationDelay: '2s' }} />
         </div>
         
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
