@@ -331,9 +331,9 @@ export default function Home() {
               <MapPin className="h-5 w-5" />
               <span className="font-medium">Find Us</span>
             </div>
-            <h2 className="text-5xl font-bold text-gray-800 mb-6">Visit Our Coffee Shop</h2>
+            <h2 className="text-5xl font-bold text-gray-800 mb-6">Visit Our Coffee Shops</h2>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              Located in the heart of Megenagna, Addis Ababa - your perfect escape for great coffee and warm community
+              Located in Megenagna and Mexico Square, Addis Ababa - your perfect escape for great coffee and warm community
             </p>
           </div>
 
@@ -342,7 +342,7 @@ export default function Home() {
             <div className="relative">
               <div className="bg-white rounded-3xl shadow-2xl overflow-hidden">
                 <div className="h-96 relative">
-                  {/* Embedded Google Maps - Megenagna, Addis Ababa */}
+                  {/* Embedded Google Maps - Both Locations */}
                   <iframe
                     src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3940.5!2d38.8!3d9.0!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x164b8f8a8a8a8a8a%3A0x8a8a8a8a8a8a8a8a!2sMegenagna%2C%20Addis%20Ababa%2C%20Ethiopia!5e0!3m2!1sen!2set!4v1234567890123!5m2!1sen!2set"
                     width="100%"
@@ -352,7 +352,7 @@ export default function Home() {
                     loading="lazy"
                     referrerPolicy="no-referrer-when-downgrade"
                     className="rounded-t-3xl"
-                    title="Kaffee Haus Location - Megenagna, Addis Ababa"
+                    title="Kaffee Haus Locations - Megenagna & Mexico Square, Addis Ababa"
                   ></iframe>
                   
                   {/* Map Overlay Elements */}
@@ -370,10 +370,24 @@ export default function Home() {
                     </div>
                   </div>
                   
-                  {/* Custom Map Marker */}
+                  {/* Custom Map Markers for Both Locations */}
+                  {/* Megenagna Marker */}
                   <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
                     <div className="bg-amber-500 text-white p-2 rounded-full shadow-lg">
                       <MapPin className="h-6 w-6" />
+                    </div>
+                    <div className="absolute top-full left-1/2 transform -translate-x-1/2 mt-2 bg-amber-500 text-white px-3 py-1 rounded-lg text-sm font-semibold whitespace-nowrap">
+                      Megenagna Branch
+                    </div>
+                  </div>
+                  
+                  {/* Mexico Square Marker */}
+                  <div className="absolute top-1/3 right-1/4 transform -translate-x-1/2 -translate-y-1/2">
+                    <div className="bg-orange-500 text-white p-2 rounded-full shadow-lg">
+                      <MapPin className="h-6 w-6" />
+                    </div>
+                    <div className="absolute top-full left-1/2 transform -translate-x-1/2 mt-2 bg-orange-500 text-white px-3 py-1 rounded-lg text-sm font-semibold whitespace-nowrap">
+                      Mexico Square Branch
                     </div>
                   </div>
                 </div>
@@ -393,7 +407,7 @@ export default function Home() {
                   
                   <div className="relative z-10">
                     <div className="flex items-center justify-between mb-4">
-                      <h4 className="text-lg font-semibold text-gray-800">Kaffee Haus - Megenagna</h4>
+                      <h4 className="text-lg font-semibold text-gray-800">Kaffee Haus Branches</h4>
                       <div className="flex space-x-2">
                         <button className="p-2 bg-amber-100 hover:bg-amber-200 rounded-lg">
                           <MapPin className="h-4 w-4 text-amber-600" />
@@ -404,11 +418,28 @@ export default function Home() {
                       </div>
                     </div>
                     
-                    <div className="space-y-2 text-sm text-gray-600">
-                      <p>📍 Megenagna, Addis Ababa, Ethiopia</p>
-                      <p>🕒 Mon-Fri: 6:00 AM - 8:00 PM</p>
-                      <p>🕒 Sat-Sun: 7:00 AM - 9:00 PM</p>
-                      <p>📞 +251 911 234 567</p>
+                    <div className="space-y-4">
+                      {/* Megenagna Branch */}
+                      <div className="bg-amber-50 rounded-lg p-4">
+                        <h5 className="font-semibold text-amber-800 mb-2">📍 Megenagna Branch</h5>
+                        <div className="space-y-1 text-sm text-gray-600">
+                          <p>📍 Megenagna, Addis Ababa, Ethiopia</p>
+                          <p>🕒 Mon-Fri: 6:00 AM - 8:00 PM</p>
+                          <p>🕒 Sat-Sun: 7:00 AM - 9:00 PM</p>
+                          <p>📞 +251 911 234 567</p>
+                        </div>
+                      </div>
+                      
+                      {/* Mexico Square Branch */}
+                      <div className="bg-orange-50 rounded-lg p-4">
+                        <h5 className="font-semibold text-orange-800 mb-2">📍 Mexico Square Branch</h5>
+                        <div className="space-y-1 text-sm text-gray-600">
+                          <p>📍 Mexico Square, Addis Ababa, Ethiopia</p>
+                          <p>🕒 Mon-Fri: 6:00 AM - 8:00 PM</p>
+                          <p>🕒 Sat-Sun: 7:00 AM - 9:00 PM</p>
+                          <p>📞 +251 911 234 568</p>
+                        </div>
+                      </div>
                     </div>
                     
                     <div className="mt-4 flex space-x-3">
