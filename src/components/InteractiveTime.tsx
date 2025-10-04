@@ -1,7 +1,8 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { Clock, Globe, Settings, ChevronDown, RotateCcw } from 'lucide-react';
+import { Clock, Globe, Settings, ChevronDown, RotateCcw, Watch } from 'lucide-react';
+import AnalogClock from './AnalogClock';
 
 interface TimeFormat {
   id: string;
@@ -63,6 +64,7 @@ const InteractiveTime = () => {
   const [selectedTimezone, setSelectedTimezone] = useState('local');
   const [showSettings, setShowSettings] = useState(false);
   const [isAnimating, setIsAnimating] = useState(false);
+  const [showAnalog, setShowAnalog] = useState(false);
 
   const updateTime = () => {
     const now = new Date();
@@ -129,20 +131,45 @@ const InteractiveTime = () => {
   return (
     <div className="relative">
       {/* Main Time Display */}
-      <div 
-        className="inline-flex items-center space-x-2 bg-white/10 backdrop-blur-md rounded-full px-4 py-2 text-white/90 border border-white/20 cursor-pointer hover:bg-white/20 transition-all duration-300 group"
-        onClick={() => setShowSettings(!showSettings)}
-      >
-        <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse" />
-        <span className="text-sm font-medium">
-          Open Now
-        </span>
-        <div className={`transition-all duration-300 ${isAnimating ? 'scale-95 opacity-70' : 'scale-100 opacity-100'}`}>
-          <span className="text-sm font-mono">
-            {currentTime}
+      <div className="flex flex-col items-center space-y-4">
+        {/* Digital Time Display */}
+        <div 
+          className="inline-flex items-center space-x-2 bg-white/10 backdrop-blur-md rounded-full px-4 py-2 text-white/90 border border-white/20 cursor-pointer hover:bg-white/20 transition-all duration-300 group"
+          onClick={() => setShowSettings(!showSettings)}
+        >
+          <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse" />
+          <span className="text-sm font-medium">
+            Open Now
           </span>
+          <div className={`transition-all duration-300 ${isAnimating ? 'scale-95 opacity-70' : 'scale-100 opacity-100'}`}>
+            <span className="text-sm font-mono">
+              {currentTime}
+            </span>
+          </div>
+          <ChevronDown className={`h-4 w-4 transition-transform duration-300 ${showSettings ? 'rotate-180' : ''}`} />
         </div>
-        <ChevronDown className={`h-4 w-4 transition-transform duration-300 ${showSettings ? 'rotate-180' : ''}`} />
+
+        {/* Analog Clock Toggle */}
+        <button
+          onClick={() => setShowAnalog(!showAnalog)}
+          className="inline-flex items-center space-x-2 bg-white/10 backdrop-blur-md rounded-full px-4 py-2 text-white/90 border border-white/20 hover:bg-white/20 transition-all duration-300 group"
+        >
+          <Watch className="h-4 w-4" />
+          <span className="text-sm font-medium">
+            {showAnalog ? 'Hide' : 'Show'} Wall Clock
+          </span>
+        </button>
+
+        {/* Analog Clock Display */}
+        {showAnalog && (
+          <div className="mt-4">
+            <AnalogClock 
+              size={180} 
+              showDigital={false} 
+              timezone={selectedTimezone === 'local' ? undefined : timezones.find(tz => tz.id === selectedTimezone)?.timezone}
+            />
+          </div>
+        )}
       </div>
 
       {/* Settings Panel */}
