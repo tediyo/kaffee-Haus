@@ -171,42 +171,56 @@ const HeroSection = () => {
           </div>
 
           {/* Enhanced Features */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-20 max-w-5xl mx-auto">
-            {[
-              {
-                title: 'Fresh Roasted',
-                description: 'Daily roasted beans for maximum flavor',
-                icon: '☕',
-                color: 'from-amber-400/20 to-amber-300/20',
-                borderColor: 'border-amber-300/40'
-              },
-              {
-                title: 'Expert Baristas',
-                description: 'Skilled craftspeople behind every cup',
-                icon: '👨‍🍳',
-                color: 'from-orange-400/20 to-orange-300/20',
-                borderColor: 'border-orange-300/40'
-              },
-              {
-                title: 'Cozy Atmosphere',
-                description: 'Perfect space to work, relax, or meet',
-                icon: '🏠',
-                color: 'from-yellow-400/20 to-yellow-300/20',
-                borderColor: 'border-yellow-300/40'
-              }
-            ].map((feature, index) => (
-              <div
-                key={feature.title}
-                className={`bg-gradient-to-br ${feature.color} backdrop-blur-sm rounded-3xl p-8 text-center border ${feature.borderColor} group`}
-              >
-                <div className="text-6xl mb-4">{feature.icon}</div>
-                <h3 className="text-2xl font-bold text-white mb-3">{feature.title}</h3>
-                <p className="text-white/80 text-lg">{feature.description}</p>
-                <div className="mt-4 flex justify-center">
-                  <Award className="h-5 w-5 text-amber-300" />
+          <div className="relative mt-20 max-w-5xl mx-auto">
+            {/* Background Image for Three Cards */}
+            <div className="absolute inset-0 z-0">
+              <div 
+                className="absolute inset-0 bg-cover bg-center bg-no-repeat rounded-3xl"
+                style={{
+                  backgroundImage: 'url("https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=1920&h=1080&fit=crop&crop=center&auto=format&q=80")'
+                }}
+              />
+              {/* Overlay for better card readability */}
+              <div className="absolute inset-0 bg-gradient-to-br from-black/40 via-amber-900/30 to-black/40 rounded-3xl" />
+            </div>
+            
+            <div className="relative z-10 grid grid-cols-1 md:grid-cols-3 gap-8 p-8">
+              {[
+                {
+                  title: 'Fresh Roasted',
+                  description: 'Daily roasted beans for maximum flavor',
+                  icon: '☕',
+                  color: 'from-amber-400/20 to-amber-300/20',
+                  borderColor: 'border-amber-300/40'
+                },
+                {
+                  title: 'Expert Baristas',
+                  description: 'Skilled craftspeople behind every cup',
+                  icon: '👨‍🍳',
+                  color: 'from-orange-400/20 to-orange-300/20',
+                  borderColor: 'border-orange-300/40'
+                },
+                {
+                  title: 'Cozy Atmosphere',
+                  description: 'Perfect space to work, relax, or meet',
+                  icon: '🏠',
+                  color: 'from-yellow-400/20 to-yellow-300/20',
+                  borderColor: 'border-yellow-300/40'
+                }
+              ].map((feature, index) => (
+                <div
+                  key={feature.title}
+                  className={`bg-gradient-to-br ${feature.color} backdrop-blur-sm rounded-3xl p-8 text-center border ${feature.borderColor} group`}
+                >
+                  <div className="text-6xl mb-4">{feature.icon}</div>
+                  <h3 className="text-2xl font-bold text-white mb-3">{feature.title}</h3>
+                  <p className="text-white/80 text-lg">{feature.description}</p>
+                  <div className="mt-4 flex justify-center">
+                    <Award className="h-5 w-5 text-amber-300" />
+                  </div>
                 </div>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
 
           {/* Special Offers Banner */}
