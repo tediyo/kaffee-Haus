@@ -256,10 +256,10 @@ export default function Home() {
                 <div 
                   className="absolute inset-0 bg-cover bg-center bg-no-repeat"
                   style={{
-                    backgroundImage: 'url("https://images.unsplash.com/photo-1509048191080-dc4a3c4c0c0c?w=800&h=600&fit=crop&crop=center&auto=format&q=80")'
+                    backgroundImage: 'url("https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=800&h=600&fit=crop&crop=center&auto=format&q=80")'
                   }}
                 />
-                <div className="absolute inset-0 bg-gradient-to-br from-green-50/90 to-green-100/90" />
+                <div className="absolute inset-0 bg-gradient-to-br from-green-50/50 to-green-100/50" />
               </div>
               
               <div className="relative z-10">
