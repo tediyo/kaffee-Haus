@@ -161,7 +161,7 @@ export default function Home() {
                     backgroundImage: 'url("https://images.unsplash.com/photo-1447933601403-0c6688de566e?w=800&h=600&fit=crop&crop=center&auto=format&q=80")'
                   }}
                 />
-                <div className="absolute inset-0 bg-gradient-to-br from-amber-50/90 to-amber-100/90" />
+                <div className="absolute inset-0 bg-gradient-to-br from-amber-50/60 to-amber-100/60" />
               </div>
               
               <div className="relative z-10">
@@ -209,7 +209,7 @@ export default function Home() {
                     backgroundImage: 'url("https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=800&h=600&fit=crop&crop=center&auto=format&q=80")'
                   }}
                 />
-                <div className="absolute inset-0 bg-gradient-to-br from-orange-50/90 to-orange-100/90" />
+                <div className="absolute inset-0 bg-gradient-to-br from-orange-50/60 to-orange-100/60" />
               </div>
               
               <div className="relative z-10">
@@ -259,7 +259,7 @@ export default function Home() {
                     backgroundImage: 'url("https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=800&h=600&fit=crop&crop=center&auto=format&q=80")'
                   }}
                 />
-                <div className="absolute inset-0 bg-gradient-to-br from-green-50/50 to-green-100/50" />
+                <div className="absolute inset-0 bg-gradient-to-br from-green-50/60 to-green-100/60" />
               </div>
               
               <div className="relative z-10">
