@@ -51,7 +51,7 @@ const Navigation = ({ onFAQClick }: NavigationProps) => {
             </div>
           </Link>
 
-          {/* Search Bar */}
+          {/* Search Bar - Redirects to Menu Page */}
           <div className="hidden md:flex items-center space-x-4 flex-1 max-w-md mx-8">
             <div className="relative w-full">
               <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-gray-400" />
@@ -60,6 +60,11 @@ const Navigation = ({ onFAQClick }: NavigationProps) => {
                 placeholder="Search menu items..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
+                onKeyPress={(e) => {
+                  if (e.key === 'Enter' && searchQuery.trim()) {
+                    window.location.href = `/menu?search=${encodeURIComponent(searchQuery)}`;
+                  }
+                }}
                 className="w-full pl-10 pr-4 py-2 bg-gray-50 border border-gray-200 rounded-full focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-transparent"
               />
             </div>
@@ -127,6 +132,11 @@ const Navigation = ({ onFAQClick }: NavigationProps) => {
                   placeholder="Search menu items..."
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
+                  onKeyPress={(e) => {
+                    if (e.key === 'Enter' && searchQuery.trim()) {
+                      window.location.href = `/menu?search=${encodeURIComponent(searchQuery)}`;
+                    }
+                  }}
                   className="w-full pl-10 pr-4 py-2 bg-gray-50 border border-gray-200 rounded-full focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-transparent"
                 />
               </div>
