@@ -109,10 +109,10 @@ const CommonModal = ({
       />
       
       {/* Modal Container */}
-      <div className={`relative bg-white rounded-3xl w-full ${sizeClasses[size]} max-h-[${maxHeight}] overflow-hidden shadow-2xl ${className}`}>
+      <div className={`relative bg-white rounded-3xl w-full ${sizeClasses[size]} max-h-[${maxHeight}] overflow-hidden shadow-2xl border-2 border-gray-300 ${className}`}>
         {/* Header */}
         {showHeader && (title || subtitle || icon) && (
-          <div className={`bg-gradient-to-r ${headerColorClasses[headerColor]} p-6 text-white`}>
+          <div className={`bg-gradient-to-r ${headerColorClasses[headerColor]} p-6 text-white border-b-2 border-white/30`}>
             <div className="flex items-center justify-between">
               <div className="flex items-center space-x-3">
                 {icon && (
@@ -132,7 +132,7 @@ const CommonModal = ({
               {showCloseButton && (
                 <button
                   onClick={onClose}
-                  className="p-2 hover:bg-white/20 rounded-full transition-colors"
+                  className="p-2 hover:bg-white/20 rounded-full transition-colors border border-white/30"
                 >
                   <X className="h-6 w-6" />
                 </button>
@@ -142,13 +142,13 @@ const CommonModal = ({
         )}
 
         {/* Content */}
-        <div className="overflow-y-auto" style={{ maxHeight: `calc(${maxHeight} - ${showHeader ? '120px' : '0px'})` }}>
+        <div className={`overflow-y-auto ${showHeader && buttons.length > 0 ? 'border-y-2 border-gray-200' : showHeader ? 'border-b-2 border-gray-200' : buttons.length > 0 ? 'border-t-2 border-gray-200' : ''}`} style={{ maxHeight: `calc(${maxHeight} - ${showHeader ? '120px' : '0px'})` }}>
           {children}
         </div>
 
         {/* Footer with Buttons */}
         {buttons.length > 0 && (
-          <div className="p-6 bg-gray-50 border-t">
+          <div className="p-6 bg-gray-50 border-t-2 border-gray-300">
             <div className="flex space-x-3 justify-end">
               {buttons.map((button, index) => (
                 <button
