@@ -3,27 +3,9 @@
 import { useState, useEffect } from 'react';
 import { Coffee, Star, ArrowRight, Play, Sparkles, Heart, Award } from 'lucide-react';
 import Link from 'next/link';
+import InteractiveTime from './InteractiveTime';
 
 const HeroSection = () => {
-  const [currentTime, setCurrentTime] = useState('');
-  const [isClient, setIsClient] = useState(false);
-
-  useEffect(() => {
-    setIsClient(true);
-    const updateTime = () => {
-      const now = new Date();
-      const timeString = now.toLocaleTimeString('en-US', { 
-        hour: '2-digit', 
-        minute: '2-digit',
-        hour12: true 
-      });
-      setCurrentTime(timeString);
-    };
-
-    updateTime();
-    const interval = setInterval(updateTime, 1000);
-    return () => clearInterval(interval);
-  }, []);
 
   return (
     <>
@@ -109,13 +91,8 @@ const HeroSection = () => {
       {/* Content */}
       <div className="relative z-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
         <div className="space-y-8">
-          {/* Live Time Display */}
-          <div className="inline-flex items-center space-x-2 bg-white/10 backdrop-blur-md rounded-full px-4 py-2 text-white/90 border border-white/20">
-            <div className="w-2 h-2 bg-green-400 rounded-full" />
-            <span className="text-sm font-medium">
-              Open Now{isClient && currentTime ? ` • ${currentTime}` : ''}
-            </span>
-          </div>
+          {/* Interactive Time Display */}
+          <InteractiveTime />
 
           {/* Main Heading */}
           <div className="space-y-6">
