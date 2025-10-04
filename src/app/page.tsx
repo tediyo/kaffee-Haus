@@ -6,6 +6,7 @@ import HeroSection from '@/components/HeroSection';
 import CoffeeShopScene from '@/components/CoffeeShopScene';
 import InteractiveModal from '@/components/InteractiveModal';
 import InteractiveProductShowcase from '@/components/InteractiveProductShowcase';
+import InteractiveTime from '@/components/InteractiveTime';
 import { Coffee, MapPin, Phone, Gift, Star, TrendingUp, Users, Award, Heart } from 'lucide-react';
 
 export default function Home() {
@@ -39,11 +40,8 @@ export default function Home() {
         {/* Content */}
         <div className="relative z-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <div className="space-y-8">
-            {/* Welcome Badge */}
-            <div className="inline-flex items-center space-x-2 bg-white/10 backdrop-blur-md rounded-full px-6 py-3 text-white/90 border border-white/20">
-              <div className="w-2 h-2 bg-green-400 rounded-full" />
-              <span className="text-sm font-medium">Open Now • 6:00 AM - 8:00 PM</span>
-            </div>
+            {/* Interactive Time Display */}
+            <InteractiveTime />
 
             {/* Main Heading */}
             <div className="space-y-6">
