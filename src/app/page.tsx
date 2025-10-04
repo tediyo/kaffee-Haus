@@ -415,9 +415,21 @@ export default function Home() {
 
             {/* Location Details */}
             <div className="space-y-8">
-              <div className="bg-white rounded-2xl p-8 shadow-lg">
-                <h3 className="text-2xl font-bold text-gray-800 mb-6">Why Visit Megenagna?</h3>
-                <div className="space-y-4">
+              <div className="relative bg-white rounded-2xl p-8 shadow-lg overflow-hidden">
+                {/* Background Image for Why Visit Megenagna */}
+                <div className="absolute inset-0 z-0">
+                  <div 
+                    className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+                    style={{
+                      backgroundImage: 'url("https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=800&h=600&fit=crop&crop=center&auto=format&q=80")'
+                    }}
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-br from-amber-50/50 to-orange-50/50" />
+                </div>
+                
+                <div className="relative z-10">
+                  <h3 className="text-2xl font-bold text-gray-800 mb-6">Why Visit Megenagna?</h3>
+                  <div className="space-y-4">
                   <div className="flex items-start space-x-3">
                     <div className="w-8 h-8 bg-amber-100 rounded-full flex items-center justify-center flex-shrink-0">
                       <MapPin className="h-4 w-4 text-amber-600" />
@@ -446,6 +458,7 @@ export default function Home() {
                       <h4 className="font-semibold text-gray-800">Authentic Experience</h4>
                       <p className="text-gray-600 text-sm">Experience Ethiopian coffee culture at its finest</p>
                     </div>
+                  </div>
                   </div>
                 </div>
               </div>
