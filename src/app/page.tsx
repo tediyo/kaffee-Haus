@@ -161,7 +161,7 @@ export default function Home() {
                     backgroundImage: 'url("https://images.unsplash.com/photo-1447933601403-0c6688de566e?w=800&h=600&fit=crop&crop=center&auto=format&q=80")'
                   }}
                 />
-                <div className="absolute inset-0 bg-gradient-to-br from-amber-50/90 to-amber-100/90" />
+                <div className="absolute inset-0 bg-gradient-to-br from-amber-50/60 to-amber-100/60" />
               </div>
               
               <div className="relative z-10">
@@ -209,7 +209,7 @@ export default function Home() {
                     backgroundImage: 'url("https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=800&h=600&fit=crop&crop=center&auto=format&q=80")'
                   }}
                 />
-                <div className="absolute inset-0 bg-gradient-to-br from-orange-50/90 to-orange-100/90" />
+                <div className="absolute inset-0 bg-gradient-to-br from-orange-50/60 to-orange-100/60" />
               </div>
               
               <div className="relative z-10">
@@ -259,7 +259,7 @@ export default function Home() {
                     backgroundImage: 'url("https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=800&h=600&fit=crop&crop=center&auto=format&q=80")'
                   }}
                 />
-                <div className="absolute inset-0 bg-gradient-to-br from-green-50/50 to-green-100/50" />
+                <div className="absolute inset-0 bg-gradient-to-br from-green-50/60 to-green-100/60" />
               </div>
               
               <div className="relative z-10">
@@ -312,8 +312,20 @@ export default function Home() {
       <InteractiveProductShowcase />
 
       {/* Location Map Section */}
-      <section className="py-20 bg-gradient-to-br from-amber-50 to-orange-100">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <section className="relative py-20 overflow-hidden">
+        {/* Background Image */}
+        <div className="absolute inset-0 z-0">
+          <div 
+            className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+            style={{
+              backgroundImage: 'url("https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?w=1920&h=1080&fit=crop&crop=center&auto=format&q=80")'
+            }}
+          />
+          {/* Overlay for better text readability */}
+          <div className="absolute inset-0 bg-gradient-to-br from-amber-50/85 to-orange-100/85" />
+        </div>
+        
+        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <div className="inline-flex items-center space-x-2 bg-white/50 backdrop-blur-sm rounded-full px-6 py-3 text-amber-800 mb-6">
               <MapPin className="h-5 w-5" />
@@ -367,35 +379,48 @@ export default function Home() {
                 </div>
                 
                 {/* Map Controls */}
-                <div className="p-6 bg-white">
-                  <div className="flex items-center justify-between mb-4">
-                    <h4 className="text-lg font-semibold text-gray-800">Kaffee Haus - Megenagna</h4>
-                    <div className="flex space-x-2">
-                      <button className="p-2 bg-amber-100 hover:bg-amber-200 rounded-lg">
-                        <MapPin className="h-4 w-4 text-amber-600" />
+                <div className="relative p-6 bg-white overflow-hidden">
+                  {/* Background Image for Map Controls */}
+                  <div className="absolute inset-0 z-0">
+                    <div 
+                      className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+                      style={{
+                        backgroundImage: 'url("https://images.unsplash.com/photo-1447933601403-0c6688de566e?w=800&h=600&fit=crop&crop=center&auto=format&q=80")'
+                      }}
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-br from-amber-50/60 to-orange-50/60" />
+                  </div>
+                  
+                  <div className="relative z-10">
+                    <div className="flex items-center justify-between mb-4">
+                      <h4 className="text-lg font-semibold text-gray-800">Kaffee Haus - Megenagna</h4>
+                      <div className="flex space-x-2">
+                        <button className="p-2 bg-amber-100 hover:bg-amber-200 rounded-lg">
+                          <MapPin className="h-4 w-4 text-amber-600" />
+                        </button>
+                        <button className="p-2 bg-amber-100 hover:bg-amber-200 rounded-lg">
+                          <Phone className="h-4 w-4 text-amber-600" />
+                        </button>
+                      </div>
+                    </div>
+                    
+                    <div className="space-y-2 text-sm text-gray-600">
+                      <p>📍 Megenagna, Addis Ababa, Ethiopia</p>
+                      <p>🕒 Mon-Fri: 6:00 AM - 8:00 PM</p>
+                      <p>🕒 Sat-Sun: 7:00 AM - 9:00 PM</p>
+                      <p>📞 +251 911 234 567</p>
+                    </div>
+                    
+                    <div className="mt-4 flex space-x-3">
+                      <button className="flex-1 bg-amber-500 hover:bg-amber-600 text-white py-2 px-4 rounded-lg font-semibold flex items-center justify-center space-x-2">
+                        <MapPin className="h-4 w-4" />
+                        <span>Get Directions</span>
                       </button>
-                      <button className="p-2 bg-amber-100 hover:bg-amber-200 rounded-lg">
-                        <Phone className="h-4 w-4 text-amber-600" />
+                      <button className="flex-1 bg-white border-2 border-amber-500 text-amber-600 hover:bg-amber-50 py-2 px-4 rounded-lg font-semibold flex items-center justify-center space-x-2">
+                        <Phone className="h-4 w-4" />
+                        <span>Call Now</span>
                       </button>
                     </div>
-                  </div>
-                  
-                  <div className="space-y-2 text-sm text-gray-600">
-                    <p>📍 Megenagna, Addis Ababa, Ethiopia</p>
-                    <p>🕒 Mon-Fri: 6:00 AM - 8:00 PM</p>
-                    <p>🕒 Sat-Sun: 7:00 AM - 9:00 PM</p>
-                    <p>📞 +251 911 234 567</p>
-                  </div>
-                  
-                  <div className="mt-4 flex space-x-3">
-                    <button className="flex-1 bg-amber-500 hover:bg-amber-600 text-white py-2 px-4 rounded-lg font-semibold flex items-center justify-center space-x-2">
-                      <MapPin className="h-4 w-4" />
-                      <span>Get Directions</span>
-                    </button>
-                    <button className="flex-1 bg-white border-2 border-amber-500 text-amber-600 hover:bg-amber-50 py-2 px-4 rounded-lg font-semibold flex items-center justify-center space-x-2">
-                      <Phone className="h-4 w-4" />
-                      <span>Call Now</span>
-                    </button>
                   </div>
                 </div>
               </div>
@@ -403,9 +428,21 @@ export default function Home() {
 
             {/* Location Details */}
             <div className="space-y-8">
-              <div className="bg-white rounded-2xl p-8 shadow-lg">
-                <h3 className="text-2xl font-bold text-gray-800 mb-6">Why Visit Megenagna?</h3>
-                <div className="space-y-4">
+              <div className="relative bg-white rounded-2xl p-8 shadow-lg overflow-hidden">
+                {/* Background Image for Why Visit Megenagna */}
+                <div className="absolute inset-0 z-0">
+                  <div 
+                    className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+                    style={{
+                      backgroundImage: 'url("https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=800&h=600&fit=crop&crop=center&auto=format&q=80")'
+                    }}
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-br from-amber-50/50 to-orange-50/50" />
+                </div>
+                
+                <div className="relative z-10">
+                  <h3 className="text-2xl font-bold text-gray-800 mb-6">Why Visit Megenagna?</h3>
+                  <div className="space-y-4">
                   <div className="flex items-start space-x-3">
                     <div className="w-8 h-8 bg-amber-100 rounded-full flex items-center justify-center flex-shrink-0">
                       <MapPin className="h-4 w-4 text-amber-600" />
@@ -434,6 +471,7 @@ export default function Home() {
                       <h4 className="font-semibold text-gray-800">Authentic Experience</h4>
                       <p className="text-gray-600 text-sm">Experience Ethiopian coffee culture at its finest</p>
                     </div>
+                  </div>
                   </div>
                 </div>
               </div>
