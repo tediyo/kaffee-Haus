@@ -152,115 +152,154 @@ export default function Home() {
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {/* Best Sellers */}
-            <div className="bg-white rounded-3xl p-8 shadow-lg border border-amber-200">
-              <div className="text-center mb-6">
-                <div className="w-16 h-16 bg-amber-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <Coffee className="h-8 w-8 text-amber-600" />
-                </div>
-                <h3 className="text-2xl font-bold text-gray-800 mb-2">Best Sellers</h3>
-                <p className="text-gray-600">Our most loved coffee creations</p>
+            <div className="relative bg-white rounded-3xl p-8 shadow-lg border border-amber-200 overflow-hidden">
+              {/* Background Image for Best Sellers */}
+              <div className="absolute inset-0 z-0">
+                <div 
+                  className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+                  style={{
+                    backgroundImage: 'url("https://images.unsplash.com/photo-1447933601403-0c6688de566e?w=800&h=600&fit=crop&crop=center&auto=format&q=80")'
+                  }}
+                />
+                <div className="absolute inset-0 bg-gradient-to-br from-amber-50/90 to-amber-100/90" />
               </div>
               
-              <div className="space-y-4">
-                <div className="flex items-center justify-between p-3 bg-amber-50 rounded-xl">
-                  <div>
-                    <h4 className="font-semibold text-gray-800">Ethiopian Yirgacheffe</h4>
-                    <p className="text-sm text-gray-600">Single origin, light roast</p>
+              <div className="relative z-10">
+                <div className="text-center mb-6">
+                  <div className="w-16 h-16 bg-amber-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <Coffee className="h-8 w-8 text-amber-600" />
                   </div>
-                  <span className="text-amber-600 font-bold">$24.99</span>
+                  <h3 className="text-2xl font-bold text-gray-800 mb-2">Best Sellers</h3>
+                  <p className="text-gray-600">Our most loved coffee creations</p>
                 </div>
-                <div className="flex items-center justify-between p-3 bg-amber-50 rounded-xl">
-                  <div>
-                    <h4 className="font-semibold text-gray-800">Colombian Supremo</h4>
-                    <p className="text-sm text-gray-600">Rich, full-bodied</p>
+                
+                <div className="space-y-4">
+                  <div className="flex items-center justify-between p-3 bg-amber-50 rounded-xl">
+                    <div>
+                      <h4 className="font-semibold text-gray-800">Ethiopian Yirgacheffe</h4>
+                      <p className="text-sm text-gray-600">Single origin, light roast</p>
+                    </div>
+                    <span className="text-amber-600 font-bold">$24.99</span>
                   </div>
-                  <span className="text-amber-600 font-bold">$22.99</span>
-                </div>
-                <div className="flex items-center justify-between p-3 bg-amber-50 rounded-xl">
-                  <div>
-                    <h4 className="font-semibold text-gray-800">Italian Espresso</h4>
-                    <p className="text-sm text-gray-600">Dark roasted blend</p>
+                  <div className="flex items-center justify-between p-3 bg-amber-50 rounded-xl">
+                    <div>
+                      <h4 className="font-semibold text-gray-800">Colombian Supremo</h4>
+                      <p className="text-sm text-gray-600">Rich, full-bodied</p>
+                    </div>
+                    <span className="text-amber-600 font-bold">$22.99</span>
                   </div>
-                  <span className="text-amber-600 font-bold">$19.99</span>
+                  <div className="flex items-center justify-between p-3 bg-amber-50 rounded-xl">
+                    <div>
+                      <h4 className="font-semibold text-gray-800">Italian Espresso</h4>
+                      <p className="text-sm text-gray-600">Dark roasted blend</p>
+                    </div>
+                    <span className="text-amber-600 font-bold">$19.99</span>
+                  </div>
                 </div>
               </div>
             </div>
 
             {/* Seasonal Offers */}
-            <div className="bg-white rounded-3xl p-8 shadow-lg border border-orange-200">
-              <div className="text-center mb-6">
-                <div className="w-16 h-16 bg-orange-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <Gift className="h-8 w-8 text-orange-600" />
-                </div>
-                <h3 className="text-2xl font-bold text-gray-800 mb-2">Seasonal Offers</h3>
-                <p className="text-gray-600">Limited time specials</p>
+            <div className="relative bg-white rounded-3xl p-8 shadow-lg border border-orange-200 overflow-hidden">
+              {/* Background Image for Seasonal Offers */}
+              <div className="absolute inset-0 z-0">
+                <div 
+                  className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+                  style={{
+                    backgroundImage: 'url("https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=800&h=600&fit=crop&crop=center&auto=format&q=80")'
+                  }}
+                />
+                <div className="absolute inset-0 bg-gradient-to-br from-orange-50/90 to-orange-100/90" />
               </div>
               
-              <div className="space-y-4">
-                <div className="p-4 bg-gradient-to-r from-orange-100 to-amber-100 rounded-xl border border-orange-200">
-                  <div className="flex items-center justify-between mb-2">
-                    <h4 className="font-bold text-orange-800">Winter Blend</h4>
-                    <span className="bg-orange-500 text-white text-xs px-2 py-1 rounded-full">20% OFF</span>
+              <div className="relative z-10">
+                <div className="text-center mb-6">
+                  <div className="w-16 h-16 bg-orange-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <Gift className="h-8 w-8 text-orange-600" />
                   </div>
-                  <p className="text-sm text-orange-700">Warm spices and rich chocolate notes</p>
-                  <div className="flex items-center justify-between mt-2">
-                    <span className="text-orange-600 font-bold">$18.99</span>
-                    <span className="text-xs text-gray-500 line-through">$23.99</span>
-                  </div>
+                  <h3 className="text-2xl font-bold text-gray-800 mb-2">Seasonal Offers</h3>
+                  <p className="text-gray-600">Limited time specials</p>
                 </div>
                 
-                <div className="p-4 bg-gradient-to-r from-amber-100 to-yellow-100 rounded-xl border border-amber-200">
-                  <div className="flex items-center justify-between mb-2">
-                    <h4 className="font-bold text-amber-800">Holiday Special</h4>
-                    <span className="bg-amber-500 text-white text-xs px-2 py-1 rounded-full">15% OFF</span>
+                <div className="space-y-4">
+                  <div className="p-4 bg-gradient-to-r from-orange-100 to-amber-100 rounded-xl border border-orange-200">
+                    <div className="flex items-center justify-between mb-2">
+                      <h4 className="font-bold text-orange-800">Winter Blend</h4>
+                      <span className="bg-orange-500 text-white text-xs px-2 py-1 rounded-full">20% OFF</span>
+                    </div>
+                    <p className="text-sm text-orange-700">Warm spices and rich chocolate notes</p>
+                    <div className="flex items-center justify-between mt-2">
+                      <span className="text-orange-600 font-bold">$18.99</span>
+                      <span className="text-xs text-gray-500 line-through">$23.99</span>
+                    </div>
                   </div>
-                  <p className="text-sm text-amber-700">Gift sets and holiday treats</p>
-                  <div className="flex items-center justify-between mt-2">
-                    <span className="text-amber-600 font-bold">$29.99</span>
-                    <span className="text-xs text-gray-500 line-through">$35.99</span>
+                  
+                  <div className="p-4 bg-gradient-to-r from-amber-100 to-yellow-100 rounded-xl border border-amber-200">
+                    <div className="flex items-center justify-between mb-2">
+                      <h4 className="font-bold text-amber-800">Holiday Special</h4>
+                      <span className="bg-amber-500 text-white text-xs px-2 py-1 rounded-full">15% OFF</span>
+                    </div>
+                    <p className="text-sm text-amber-700">Gift sets and holiday treats</p>
+                    <div className="flex items-center justify-between mt-2">
+                      <span className="text-amber-600 font-bold">$29.99</span>
+                      <span className="text-xs text-gray-500 line-through">$35.99</span>
+                    </div>
                   </div>
                 </div>
               </div>
             </div>
 
             {/* Why Choose Us */}
-            <div className="bg-white rounded-3xl p-8 shadow-lg border border-green-200">
-              <div className="text-center mb-6">
-                <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                  <Award className="h-8 w-8 text-green-600" />
-                </div>
-                <h3 className="text-2xl font-bold text-gray-800 mb-2">Why Choose Us</h3>
-                <p className="text-gray-600">What sets us apart</p>
+            <div className="relative bg-white rounded-3xl p-8 shadow-lg border border-green-200 overflow-hidden">
+              {/* Background Image for Why Choose Us */}
+              <div className="absolute inset-0 z-0">
+                <div 
+                  className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+                  style={{
+                    backgroundImage: 'url("https://images.unsplash.com/photo-1509048191080-dc4a3c4c0c0c?w=800&h=600&fit=crop&crop=center&auto=format&q=80")'
+                  }}
+                />
+                <div className="absolute inset-0 bg-gradient-to-br from-green-50/90 to-green-100/90" />
               </div>
               
-              <div className="space-y-4">
-                <div className="flex items-start space-x-3">
-                  <div className="w-6 h-6 bg-green-100 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
-                    <Coffee className="h-3 w-3 text-green-600" />
+              <div className="relative z-10">
+                <div className="text-center mb-6">
+                  <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+                    <Award className="h-8 w-8 text-green-600" />
                   </div>
-                  <div>
-                    <h4 className="font-semibold text-gray-800">Fresh Roasted Daily</h4>
-                    <p className="text-sm text-gray-600">Beans roasted in small batches for maximum flavor</p>
-                  </div>
+                  <h3 className="text-2xl font-bold text-gray-800 mb-2">Why Choose Us</h3>
+                  <p className="text-gray-600">What sets us apart</p>
                 </div>
                 
-                <div className="flex items-start space-x-3">
-                  <div className="w-6 h-6 bg-green-100 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
-                    <Users className="h-3 w-3 text-green-600" />
+                <div className="space-y-4">
+                  <div className="flex items-start space-x-3">
+                    <div className="w-6 h-6 bg-green-100 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
+                      <Coffee className="h-3 w-3 text-green-600" />
+                    </div>
+                    <div>
+                      <h4 className="font-semibold text-gray-800">Fresh Roasted Daily</h4>
+                      <p className="text-sm text-gray-600">Beans roasted in small batches for maximum flavor</p>
+                    </div>
                   </div>
-                  <div>
-                    <h4 className="font-semibold text-gray-800">Expert Baristas</h4>
-                    <p className="text-sm text-gray-600">Skilled craftspeople behind every cup</p>
+                  
+                  <div className="flex items-start space-x-3">
+                    <div className="w-6 h-6 bg-green-100 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
+                      <Users className="h-3 w-3 text-green-600" />
+                    </div>
+                    <div>
+                      <h4 className="font-semibold text-gray-800">Expert Baristas</h4>
+                      <p className="text-sm text-gray-600">Skilled craftspeople behind every cup</p>
+                    </div>
                   </div>
-                </div>
-                
-                <div className="flex items-start space-x-3">
-                  <div className="w-6 h-6 bg-green-100 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
-                    <Heart className="h-3 w-3 text-green-600" />
-                  </div>
-                  <div>
-                    <h4 className="font-semibold text-gray-800">Cozy Atmosphere</h4>
-                    <p className="text-sm text-gray-600">Perfect space to work, relax, or meet friends</p>
+                  
+                  <div className="flex items-start space-x-3">
+                    <div className="w-6 h-6 bg-green-100 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
+                      <Heart className="h-3 w-3 text-green-600" />
+                    </div>
+                    <div>
+                      <h4 className="font-semibold text-gray-800">Cozy Atmosphere</h4>
+                      <p className="text-sm text-gray-600">Perfect space to work, relax, or meet friends</p>
+                    </div>
                   </div>
                 </div>
               </div>
