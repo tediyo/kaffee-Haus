@@ -379,35 +379,48 @@ export default function Home() {
                 </div>
                 
                 {/* Map Controls */}
-                <div className="p-6 bg-white">
-                  <div className="flex items-center justify-between mb-4">
-                    <h4 className="text-lg font-semibold text-gray-800">Kaffee Haus - Megenagna</h4>
-                    <div className="flex space-x-2">
-                      <button className="p-2 bg-amber-100 hover:bg-amber-200 rounded-lg">
-                        <MapPin className="h-4 w-4 text-amber-600" />
+                <div className="relative p-6 bg-white overflow-hidden">
+                  {/* Background Image for Map Controls */}
+                  <div className="absolute inset-0 z-0">
+                    <div 
+                      className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+                      style={{
+                        backgroundImage: 'url("https://images.unsplash.com/photo-1447933601403-0c6688de566e?w=800&h=600&fit=crop&crop=center&auto=format&q=80")'
+                      }}
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-br from-amber-50/60 to-orange-50/60" />
+                  </div>
+                  
+                  <div className="relative z-10">
+                    <div className="flex items-center justify-between mb-4">
+                      <h4 className="text-lg font-semibold text-gray-800">Kaffee Haus - Megenagna</h4>
+                      <div className="flex space-x-2">
+                        <button className="p-2 bg-amber-100 hover:bg-amber-200 rounded-lg">
+                          <MapPin className="h-4 w-4 text-amber-600" />
+                        </button>
+                        <button className="p-2 bg-amber-100 hover:bg-amber-200 rounded-lg">
+                          <Phone className="h-4 w-4 text-amber-600" />
+                        </button>
+                      </div>
+                    </div>
+                    
+                    <div className="space-y-2 text-sm text-gray-600">
+                      <p>📍 Megenagna, Addis Ababa, Ethiopia</p>
+                      <p>🕒 Mon-Fri: 6:00 AM - 8:00 PM</p>
+                      <p>🕒 Sat-Sun: 7:00 AM - 9:00 PM</p>
+                      <p>📞 +251 911 234 567</p>
+                    </div>
+                    
+                    <div className="mt-4 flex space-x-3">
+                      <button className="flex-1 bg-amber-500 hover:bg-amber-600 text-white py-2 px-4 rounded-lg font-semibold flex items-center justify-center space-x-2">
+                        <MapPin className="h-4 w-4" />
+                        <span>Get Directions</span>
                       </button>
-                      <button className="p-2 bg-amber-100 hover:bg-amber-200 rounded-lg">
-                        <Phone className="h-4 w-4 text-amber-600" />
+                      <button className="flex-1 bg-white border-2 border-amber-500 text-amber-600 hover:bg-amber-50 py-2 px-4 rounded-lg font-semibold flex items-center justify-center space-x-2">
+                        <Phone className="h-4 w-4" />
+                        <span>Call Now</span>
                       </button>
                     </div>
-                  </div>
-                  
-                  <div className="space-y-2 text-sm text-gray-600">
-                    <p>📍 Megenagna, Addis Ababa, Ethiopia</p>
-                    <p>🕒 Mon-Fri: 6:00 AM - 8:00 PM</p>
-                    <p>🕒 Sat-Sun: 7:00 AM - 9:00 PM</p>
-                    <p>📞 +251 911 234 567</p>
-                  </div>
-                  
-                  <div className="mt-4 flex space-x-3">
-                    <button className="flex-1 bg-amber-500 hover:bg-amber-600 text-white py-2 px-4 rounded-lg font-semibold flex items-center justify-center space-x-2">
-                      <MapPin className="h-4 w-4" />
-                      <span>Get Directions</span>
-                    </button>
-                    <button className="flex-1 bg-white border-2 border-amber-500 text-amber-600 hover:bg-amber-50 py-2 px-4 rounded-lg font-semibold flex items-center justify-center space-x-2">
-                      <Phone className="h-4 w-4" />
-                      <span>Call Now</span>
-                    </button>
                   </div>
                 </div>
               </div>
