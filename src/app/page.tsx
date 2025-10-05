@@ -40,8 +40,10 @@ export default function Home() {
         {/* Content */}
         <div className="relative z-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <div className="space-y-8">
-            {/* Interactive Time Display */}
-            <InteractiveTime />
+            {/* Interactive Time Display - Fixed positioning */}
+            <div className="pt-8 pb-4">
+              <InteractiveTime />
+            </div>
 
             {/* Main Heading */}
             <div className="space-y-6">
