@@ -17,7 +17,7 @@ const faqData: FAQItem[] = [
   {
     id: 1,
     question: "Do you offer delivery services?",
-    answer: "Yes! We offer delivery within a 5-mile radius of our location. Orders over $25 qualify for free delivery, and we use eco-friendly packaging. Delivery typically takes 20-30 minutes during peak hours.",
+    answer: "Yes!! We offer delivery within a 5-mile radius of our location. Orders over $25 qualify for free delivery, and we use eco-friendly packaging. Delivery typically takes 20-30 minutes during peak hours.",
     category: "Delivery",
     icon: Coffee,
     helpful: 24,
