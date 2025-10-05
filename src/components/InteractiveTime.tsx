@@ -129,7 +129,7 @@ const InteractiveTime = () => {
   }
 
   return (
-    <div className="relative">
+    <div className="relative z-30">
       {/* Main Time Display */}
       <div className="flex flex-col items-center space-y-4">
         {/* Digital Time Display */}
@@ -174,7 +174,7 @@ const InteractiveTime = () => {
 
       {/* Settings Panel */}
       {showSettings && (
-        <div className="absolute top-full left-0 mt-2 bg-white/95 backdrop-blur-lg rounded-2xl p-6 shadow-2xl border border-white/30 min-w-80 z-50">
+        <div className="absolute top-full left-0 mt-2 bg-white/95 backdrop-blur-lg rounded-2xl p-6 shadow-2xl border border-white/30 min-w-80 z-[60]">
           <div className="space-y-6">
             {/* Header */}
             <div className="flex items-center justify-between">
@@ -258,7 +258,7 @@ const InteractiveTime = () => {
       {/* Click outside to close */}
       {showSettings && (
         <div 
-          className="fixed inset-0 z-40"
+          className="fixed inset-0 z-[55]"
           onClick={() => setShowSettings(false)}
         />
       )}
