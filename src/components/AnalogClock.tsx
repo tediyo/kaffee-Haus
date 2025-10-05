@@ -216,10 +216,10 @@ const AnalogClock = ({ size = 200, showDigital = true, timezone = 'local' }: Clo
 
   return (
     <div className="relative">
-      {/* Clock Container with proper spacing for buttons */}
+      {/* Clock Container with internal controls */}
       <div 
         ref={clockRef}
-        className="relative inline-block cursor-pointer p-8"
+        className="relative inline-block cursor-pointer p-4"
         onClick={handleClockClick}
       >
         <svg
@@ -417,20 +417,20 @@ const AnalogClock = ({ size = 200, showDigital = true, timezone = 'local' }: Clo
           </div>
         )}
 
-        {/* Single Dropdown Control Button */}
-        <div className="absolute -top-16 right-4">
+        {/* Single Dropdown Control Button - Inside Clock */}
+        <div className="absolute top-4 right-4">
           {/* Main Dropdown Button */}
           <button
             onClick={() => setShowDropdown(!showDropdown)}
-            className="p-3 bg-white/95 backdrop-blur-sm rounded-full shadow-xl hover:bg-white transition-all duration-200 hover:scale-110 border border-white/30"
+            className="p-1.5 bg-white/80 backdrop-blur-sm rounded-full shadow-md hover:bg-white/95 transition-all duration-200 hover:scale-110 border border-white/50"
             title="Clock Controls"
           >
-            <MoreVertical className="h-5 w-5 text-gray-700" />
+            <MoreVertical className="h-3.5 w-3.5 text-gray-500" />
           </button>
 
           {/* Dropdown Menu */}
           {showDropdown && (
-            <div className="absolute top-full right-0 mt-2 bg-white/95 backdrop-blur-lg rounded-xl shadow-2xl border border-white/30 min-w-48 z-50">
+            <div className="absolute top-full right-0 mt-2 bg-white/95 backdrop-blur-lg rounded-xl shadow-2xl border border-white/30 min-w-48 z-50 transform -translate-x-1/2">
               <div className="py-2">
                 {/* Pause/Resume Option */}
                 <button
