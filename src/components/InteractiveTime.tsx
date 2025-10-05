@@ -166,7 +166,7 @@ const InteractiveTime = () => {
             <AnalogClock 
               size={180} 
               showDigital={false} 
-              timezone={selectedTimezone === 'local' ? undefined : timezones.find(tz => tz.id === selectedTimezone)?.timezone}
+              timezone={selectedTimezone}
             />
           </div>
         )}
