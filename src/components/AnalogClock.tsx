@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect, useRef } from 'react';
-import { Clock, Settings, RotateCcw, Volume2, VolumeX, Palette, Zap, Pause, Play } from 'lucide-react';
+import { Clock, Settings, RotateCcw, Volume2, VolumeX, Palette, Zap, Pause, Play, MoreVertical } from 'lucide-react';
 
 interface ClockProps {
   size?: number;
@@ -33,6 +33,7 @@ const AnalogClock = ({ size = 200, showDigital = true, timezone = 'local' }: Clo
   const [hoveredHand, setHoveredHand] = useState<string | null>(null);
   const [isDragging, setIsDragging] = useState(false);
   const [dragStartTime, setDragStartTime] = useState<Date | null>(null);
+  const [showDropdown, setShowDropdown] = useState(false);
   const clockRef = useRef<HTMLDivElement>(null);
 
   const timezones = [
@@ -215,10 +216,10 @@ const AnalogClock = ({ size = 200, showDigital = true, timezone = 'local' }: Clo
 
   return (
     <div className="relative">
-      {/* Clock Container */}
+      {/* Clock Container with internal controls */}
       <div 
         ref={clockRef}
-        className="relative inline-block cursor-pointer"
+        className="relative inline-block cursor-pointer p-4"
         onClick={handleClockClick}
       >
         <svg
@@ -416,40 +417,65 @@ const AnalogClock = ({ size = 200, showDigital = true, timezone = 'local' }: Clo
           </div>
         )}
 
-        {/* Interactive Control Buttons */}
-        <div className="absolute -top-2 -right-2 flex space-x-1">
-          {/* Pause/Play Button */}
+        {/* Single Dropdown Control Button - Inside Clock */}
+        <div className="absolute top-4 right-4">
+          {/* Main Dropdown Button */}
           <button
-            onClick={togglePause}
-            className="p-2 bg-white/90 backdrop-blur-sm rounded-full shadow-lg hover:bg-white transition-all duration-200 hover:scale-110"
-            title={isPaused ? 'Resume' : 'Pause'}
+            onClick={() => setShowDropdown(!showDropdown)}
+            className="p-1.5 bg-white/80 backdrop-blur-sm rounded-full shadow-md hover:bg-white/95 transition-all duration-200 hover:scale-110 border border-white/50"
+            title="Clock Controls"
           >
-            {isPaused ? <Play className="h-4 w-4 text-gray-600" /> : <Pause className="h-4 w-4 text-gray-600" />}
+            <MoreVertical className="h-3.5 w-3.5 text-gray-500" />
           </button>
-          
-          {/* Reset Button */}
-          <button
-            onClick={resetTime}
-            className="p-2 bg-white/90 backdrop-blur-sm rounded-full shadow-lg hover:bg-white transition-all duration-200 hover:scale-110"
-            title="Reset to current time"
-          >
-            <RotateCcw className="h-4 w-4 text-gray-600" />
-          </button>
-          
-          {/* Settings Button */}
-          <button
-            onClick={() => setShowSettings(!showSettings)}
-            className="p-2 bg-white/90 backdrop-blur-sm rounded-full shadow-lg hover:bg-white transition-all duration-200 hover:scale-110"
-            title="Settings"
-          >
-            <Settings className="h-4 w-4 text-gray-600" />
-          </button>
+
+          {/* Dropdown Menu */}
+          {showDropdown && (
+            <div className="absolute top-full right-0 mt-2 bg-white/95 backdrop-blur-lg rounded-xl shadow-2xl border border-white/30 min-w-48 z-50 transform -translate-x-1/2">
+              <div className="py-2">
+                {/* Pause/Resume Option */}
+                <button
+                  onClick={() => {
+                    togglePause();
+                    setShowDropdown(false);
+                  }}
+                  className="w-full flex items-center space-x-3 px-4 py-3 text-gray-700 hover:bg-gray-50 transition-colors duration-200"
+                >
+                  {isPaused ? <Play className="h-4 w-4" /> : <Pause className="h-4 w-4" />}
+                  <span className="text-sm font-medium">{isPaused ? 'Resume' : 'Pause'}</span>
+                </button>
+
+                {/* Reset Option */}
+                <button
+                  onClick={() => {
+                    resetTime();
+                    setShowDropdown(false);
+                  }}
+                  className="w-full flex items-center space-x-3 px-4 py-3 text-gray-700 hover:bg-gray-50 transition-colors duration-200"
+                >
+                  <RotateCcw className="h-4 w-4" />
+                  <span className="text-sm font-medium">Reset Time</span>
+                </button>
+
+                {/* Settings Option */}
+                <button
+                  onClick={() => {
+                    setShowSettings(true);
+                    setShowDropdown(false);
+                  }}
+                  className="w-full flex items-center space-x-3 px-4 py-3 text-gray-700 hover:bg-gray-50 transition-colors duration-200"
+                >
+                  <Settings className="h-4 w-4" />
+                  <span className="text-sm font-medium">Settings</span>
+                </button>
+              </div>
+            </div>
+          )}
         </div>
       </div>
 
       {/* Settings Panel */}
       {showSettings && (
-        <div className="absolute top-full right-0 mt-4 bg-white/95 backdrop-blur-lg rounded-2xl p-6 shadow-2xl border border-white/30 min-w-80 z-50">
+        <div className="absolute top-full right-0 mt-6 bg-white/95 backdrop-blur-lg rounded-2xl p-6 shadow-2xl border border-white/30 min-w-80 z-50">
           <div className="space-y-6">
             <div className="flex items-center justify-between">
               <div className="flex items-center space-x-2">
@@ -543,10 +569,13 @@ const AnalogClock = ({ size = 200, showDigital = true, timezone = 'local' }: Clo
       )}
 
       {/* Click outside to close */}
-      {showSettings && (
+      {(showSettings || showDropdown) && (
         <div 
           className="fixed inset-0 z-40"
-          onClick={() => setShowSettings(false)}
+          onClick={() => {
+            setShowSettings(false);
+            setShowDropdown(false);
+          }}
         />
       )}
     </div>
