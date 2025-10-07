@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { motion, useInView } from 'framer-motion';
 import { useRef } from 'react';
+import Image from 'next/image';
 import Navigation from '@/components/Navigation';
 import AnimatedHeroSection from '@/components/AnimatedHeroSection';
 import CoffeeShopScene from '@/components/CoffeeShopScene';
@@ -35,11 +36,11 @@ export default function Home() {
           <div 
             className="absolute inset-0 bg-cover bg-center bg-no-repeat"
             style={{
-              backgroundImage: 'url("https://images.unsplash.com/photo-1447933601403-0c6688de566e?w=1920&h=1080&fit=crop&crop=center&auto=format&q=80")'
+              backgroundImage: 'url("/MN.jpg")'
             }}
           />
           {/* Overlay for better text readability */}
-          <div className="absolute inset-0 bg-gradient-to-br from-amber-50/95 via-orange-50/95 to-amber-100/95" />
+          <div className="absolute inset-0 bg-gradient-to-br from-amber-50/80 via-orange-50/80 to-amber-100/80" />
         </div>
         
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -66,10 +67,10 @@ export default function Home() {
                 <div 
                   className="absolute inset-0 bg-cover bg-center bg-no-repeat"
                   style={{
-                    backgroundImage: 'url("https://images.unsplash.com/photo-1447933601403-0c6688de566e?w=800&h=600&fit=crop&crop=center&auto=format&q=80")'
+                    backgroundImage: 'url("/Tq.jpg")'
                   }}
                 />
-                <div className="absolute inset-0 bg-gradient-to-br from-amber-50/60 to-amber-100/60" />
+                <div className="absolute inset-0 bg-gradient-to-br from-amber-50/40 to-amber-100/40" />
               </div>
               
               <div className="relative z-10">
@@ -114,10 +115,10 @@ export default function Home() {
                 <div 
                   className="absolute inset-0 bg-cover bg-center bg-no-repeat"
                   style={{
-                    backgroundImage: 'url("https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=800&h=600&fit=crop&crop=center&auto=format&q=80")'
+                    backgroundImage: 'url("/TY.jpg")'
                   }}
                 />
-                <div className="absolute inset-0 bg-gradient-to-br from-orange-50/60 to-orange-100/60" />
+                <div className="absolute inset-0 bg-gradient-to-br from-orange-50/40 to-orange-100/40" />
               </div>
               
               <div className="relative z-10">
@@ -164,10 +165,10 @@ export default function Home() {
                 <div 
                   className="absolute inset-0 bg-cover bg-center bg-no-repeat"
                   style={{
-                    backgroundImage: 'url("https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=800&h=600&fit=crop&crop=center&auto=format&q=80")'
+                    backgroundImage: 'url("/TRT.jpg")'
                   }}
                 />
-                <div className="absolute inset-0 bg-gradient-to-br from-green-50/60 to-green-100/60" />
+                <div className="absolute inset-0 bg-gradient-to-br from-green-50/40 to-green-100/40" />
               </div>
               
               <div className="relative z-10">
@@ -223,7 +224,7 @@ export default function Home() {
           <motion.div 
             className="absolute inset-0 bg-cover bg-center bg-no-repeat"
             style={{
-              backgroundImage: 'url("https://images.unsplash.com/photo-1572442388796-11668a67e53d?w=1920&h=1080&fit=crop&crop=center&auto=format&q=80")'
+              backgroundImage: 'url("/mmk.jpg")'
             }}
             animate={{
               scale: [1, 1.05, 1],
@@ -236,7 +237,7 @@ export default function Home() {
           />
           {/* Animated Overlay */}
           <motion.div 
-            className="absolute inset-0 bg-gradient-to-br from-amber-50/95 via-orange-50/95 to-amber-100/95"
+            className="absolute inset-0 bg-gradient-to-br from-amber-50/85 via-orange-50/85 to-amber-100/85"
             animate={{
               opacity: [0.95, 0.98, 0.95],
             }}
@@ -254,8 +255,8 @@ export default function Home() {
                 key={i}
                 className="absolute text-amber-200/30 text-2xl"
                 style={{
-                  left: `${Math.random() * 100}%`,
-                  top: `${Math.random() * 100}%`,
+                  left: `${((i * 37) % 100)}%`,
+                  top: `${((i * 61) % 100)}%`,
                 }}
                 animate={{
                   y: [0, -20, 0],
@@ -263,9 +264,9 @@ export default function Home() {
                   scale: [0.8, 1.2, 0.8],
                 }}
                 transition={{
-                  duration: 8 + Math.random() * 4,
+                  duration: 8 + ((i * 7) % 4),
                   repeat: Infinity,
-                  delay: Math.random() * 2,
+                  delay: ((i * 13) % 20) / 10,
                   ease: "easeInOut"
                 }}
               >
@@ -556,11 +557,11 @@ export default function Home() {
           <div 
             className="absolute inset-0 bg-cover bg-center bg-no-repeat"
             style={{
-              backgroundImage: 'url("https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?w=1920&h=1080&fit=crop&crop=center&auto=format&q=80")'
+              backgroundImage: 'url("/cc.jpg")'
             }}
           />
           {/* Overlay for better text readability */}
-          <div className="absolute inset-0 bg-gradient-to-br from-amber-50/85 to-orange-100/85" />
+          <div className="absolute inset-0 bg-gradient-to-br from-amber-50/70 to-orange-100/70" />
         </div>
         
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -637,10 +638,10 @@ export default function Home() {
                     <div 
                       className="absolute inset-0 bg-cover bg-center bg-no-repeat"
                       style={{
-                        backgroundImage: 'url("https://images.unsplash.com/photo-1447933601403-0c6688de566e?w=800&h=600&fit=crop&crop=center&auto=format&q=80")'
+                        backgroundImage: 'url("/TRT.jpg")'
                       }}
                     />
-                    <div className="absolute inset-0 bg-gradient-to-br from-amber-50/60 to-orange-50/60" />
+                    <div className="absolute inset-0 bg-gradient-to-br from-amber-50/40 to-orange-50/40" />
                   </div>
                   
                   <div className="relative z-10">
@@ -703,10 +704,10 @@ export default function Home() {
                   <div 
                     className="absolute inset-0 bg-cover bg-center bg-no-repeat"
                     style={{
-                      backgroundImage: 'url("https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?w=800&h=600&fit=crop&crop=center&auto=format&q=80")'
+                      backgroundImage: 'url("/MN.jpg")'
                     }}
                   />
-                  <div className="absolute inset-0 bg-gradient-to-br from-amber-50/50 to-orange-50/50" />
+                  <div className="absolute inset-0 bg-gradient-to-br from-amber-50/30 to-orange-50/30" />
                 </div>
                 
                 <div className="relative z-10">
@@ -760,10 +761,13 @@ export default function Home() {
               {/* Coffee Cup Image */}
               <div className="text-center">
                 <div className="inline-block group">
-                  <img
+                  <Image
                     src="/coffee-cup.png"
                     alt="Coffee cup"
+                    width={128}
+                    height={128}
                     className="w-32 h-32 object-contain drop-shadow-lg"
+                    priority
                   />
                   <p className="text-sm text-gray-600 mt-2">Fresh coffee awaits you!</p>
                 </div>

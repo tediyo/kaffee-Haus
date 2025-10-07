@@ -103,8 +103,8 @@ const CoffeeShopScene = () => {
         const room = new THREE.Group();
 
         const loader = new THREE.TextureLoader();
-        const floorTexture = loader.load('https://i.imgur.com/xxUIbgv.jpg');
-        const windowTexture = loader.load('https://i.imgur.com/oUgNt36.png');
+        const floorTexture = loader.load('/coffeeCup.jpg');
+        const windowTexture = loader.load('/ch.png');
 
         const groundGeometry = new THREE.BoxGeometry(50, 50, 2);
         const groundMaterial = new THREE.MeshStandardMaterial({
