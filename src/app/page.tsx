@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import Navigation from '@/components/Navigation';
-import HeroSection from '@/components/HeroSection';
+import AnimatedHeroSection from '@/components/AnimatedHeroSection';
 import CoffeeShopScene from '@/components/CoffeeShopScene';
 import InteractiveModal from '@/components/InteractiveModal';
 import InteractiveProductShowcase from '@/components/InteractiveProductShowcase';
@@ -22,106 +22,13 @@ export default function Home() {
     <main className="min-h-screen">
       <Navigation />
       
-      {/* Hero Section with Cozy Café Background */}
-      <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-20">
-        {/* Cozy Background Image */}
-        <div className="absolute inset-0 z-0">
-          <div 
-            className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-            style={{
-              backgroundImage: 'url("https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?w=1920&h=1080&fit=crop&crop=center&auto=format&q=80")'
-            }}
-          />
-          {/* Warm overlay for better text readability */}
-          <div className="absolute inset-0 bg-gradient-to-br from-black/50 via-amber-900/60 to-black/50" />
-          <div className="absolute inset-0 bg-gradient-to-t from-amber-900/30 via-transparent to-amber-800/20" />
-        </div>
-
-        {/* Content */}
-        <div className="relative z-30 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <div className="space-y-8">
-            {/* Interactive Time Display - Fixed positioning */}
-            <div className="pt-8 pb-4">
-              <InteractiveTime />
-            </div>
-
-            {/* Main Heading */}
-            <div className="space-y-6">
-              <h1 className="text-6xl md:text-8xl font-bold text-white leading-tight">
-                Welcome to{' '}
-                <span className="bg-gradient-to-r from-amber-300 via-amber-200 to-amber-100 bg-clip-text text-transparent drop-shadow-2xl">
-                  Kaffee Haus
-                </span>
-              </h1>
-
-              <div className="space-y-4">
-                <p className="text-2xl md:text-3xl text-white/90 font-light">
-                  Brewed with passion since 2010
-                </p>
-                <p className="text-xl md:text-2xl text-white/80 max-w-4xl mx-auto leading-relaxed">
-                  Experience the perfect blend of tradition and innovation in every cup. 
-                  From farm-fresh beans to expertly crafted beverages, we bring you 
-                  the finest coffee experience.
-                </p>
-              </div>
-            </div>
-
-            {/* Call-to-Action Buttons */}
-            <div className="flex flex-col sm:flex-row items-center justify-center space-y-6 sm:space-y-0 sm:space-x-8">
-              <button 
-                onClick={() => window.location.href = '/menu'}
-                className="bg-gradient-to-r from-amber-600 to-amber-700 hover:from-amber-700 hover:to-amber-800 text-white px-10 py-5 rounded-2xl font-bold text-xl flex items-center space-x-3 shadow-2xl border border-amber-500/30"
-              >
-                <Coffee className="h-6 w-6" />
-                <span>View Menu</span>
-              </button>
-
-              <button 
-                onClick={() => openModal('location')}
-                className="bg-white/20 hover:bg-white/30 backdrop-blur-md text-white px-10 py-5 rounded-2xl font-bold text-xl flex items-center space-x-3 border border-white/30 shadow-xl"
-              >
-                <MapPin className="h-6 w-6" />
-                <span>Visit Us</span>
-              </button>
-
-              <button 
-                onClick={() => openModal('special')}
-                className="bg-gradient-to-r from-orange-600 to-red-600 hover:from-orange-700 hover:to-red-700 text-white px-10 py-5 rounded-2xl font-bold text-xl flex items-center space-x-3 shadow-2xl"
-              >
-                <Gift className="h-6 w-6" />
-                <span>Order Now</span>
-              </button>
-            </div>
-
-            {/* Rating */}
-            <div className="flex items-center justify-center space-x-4 text-white/90">
-              <div className="flex space-x-1">
-                {[...Array(5)].map((_, i) => (
-                  <Star key={i} className="h-6 w-6 fill-amber-400 text-amber-400 drop-shadow-lg" />
-                ))}
-              </div>
-              <span className="text-xl font-semibold">4.9/5 from 500+ customers</span>
-              <div className="flex items-center space-x-1 bg-white/10 backdrop-blur-sm rounded-full px-3 py-1">
-                <Heart className="h-4 w-4 text-red-400 fill-current" />
-                <span className="text-sm">Loved by many</span>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        {/* Scroll Indicator */}
-        <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 z-20">
-          <div className="flex flex-col items-center space-y-2">
-            <span className="text-white/70 text-sm font-medium">Scroll to explore</span>
-            <div className="w-8 h-12 border-2 border-white/50 rounded-full flex justify-center p-2">
-              <div className="w-1 h-3 bg-white/70 rounded-full" />
-            </div>
-          </div>
-        </div>
-      </section>
+      {/* Animated Hero Section */}
+      <div className="pt-20">
+        <AnimatedHeroSection />
+      </div>
 
       {/* Highlights Section */}
-      <section className="relative py-20 overflow-hidden">
+      <section id="menu-section" className="relative py-20 overflow-hidden">
         {/* Background Image */}
         <div className="absolute inset-0 z-0">
           <div 
