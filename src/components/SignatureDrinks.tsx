@@ -166,11 +166,14 @@ const SignatureDrinks = () => {
           0% {
             transform: rotateY(270deg);
           }
-          10% {
+          25% {
             transform: rotateY(0deg);
           }
-          90% {
-            transform: rotateY(0deg);
+          50% {
+            transform: rotateY(90deg);
+          }
+          75% {
+            transform: rotateY(180deg);
           }
           100% {
             transform: rotateY(270deg);
