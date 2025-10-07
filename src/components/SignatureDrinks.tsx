@@ -195,40 +195,6 @@ const SignatureDrinks = () => {
   return (
     <section className="py-20 bg-gradient-to-br from-amber-50 via-orange-50 to-amber-100">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Section Header */}
-        <div className="text-center mb-16">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            className="inline-flex items-center space-x-2 bg-white/80 backdrop-blur-sm rounded-full px-6 py-3 text-amber-800 border border-amber-200 mb-6"
-          >
-            <Coffee className="h-5 w-5" />
-            <span className="font-semibold">Our Signature Drinks</span>
-            <Flame className="h-4 w-4 text-orange-500" />
-          </motion.div>
-          
-          <motion.h2
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
-            className="text-5xl md:text-6xl font-bold text-gray-800 mb-6"
-          >
-            Crafted with{' '}
-            <span className="bg-gradient-to-r from-amber-600 to-orange-600 bg-clip-text text-transparent">
-              Passion
-            </span>
-          </motion.h2>
-          
-          <motion.p
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.4 }}
-            className="text-xl text-gray-600 max-w-3xl mx-auto"
-          >
-            Explore our signature coffee creations, each carefully crafted to perfection
-          </motion.p>
-        </div>
 
         {/* Search Bar */}
         <motion.div
