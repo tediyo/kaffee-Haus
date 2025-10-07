@@ -128,18 +128,19 @@ const AnimatedHeroSection = () => {
         ))}
       </div>
 
+      {/* Interactive Time Display - Right Side */}
+      <motion.div
+        initial={{ opacity: 0, x: 50 }}
+        animate={{ opacity: 1, x: 0 }}
+        transition={{ duration: 0.8 }}
+        className="absolute top-8 right-8 z-30"
+      >
+        <InteractiveTime />
+      </motion.div>
+
       {/* Content */}
       <div className="relative z-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
         <div className="space-y-8">
-          {/* Interactive Time Display */}
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            className="pt-8 pb-4"
-          >
-            <InteractiveTime />
-          </motion.div>
 
           {/* Animated Headlines */}
           <div className="space-y-6">
