@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Coffee, Flame } from 'lucide-react';
+import { Coffee, Flame, Search, X } from 'lucide-react';
 
 interface SignatureDrink {
   id: number;
@@ -125,10 +125,19 @@ const categories = [
 
 const SignatureDrinks = () => {
   const [selectedCategory, setSelectedCategory] = useState('all');
+  const [searchQuery, setSearchQuery] = useState('');
 
-  const filteredDrinks = selectedCategory === 'all' 
-    ? signatureDrinks 
-    : signatureDrinks.filter(drink => drink.category === selectedCategory);
+  const filteredDrinks = signatureDrinks.filter(drink => {
+    const matchesCategory = selectedCategory === 'all' || drink.category === selectedCategory;
+    const matchesSearch = searchQuery === '' || 
+      drink.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      drink.span.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      drink.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      drink.ingredients.some(ingredient => 
+        ingredient.toLowerCase().includes(searchQuery.toLowerCase())
+      );
+    return matchesCategory && matchesSearch;
+  });
 
   return (
     <section className="py-20 bg-gradient-to-br from-amber-50 via-orange-50 to-amber-100">
@@ -168,6 +177,33 @@ const SignatureDrinks = () => {
           </motion.p>
         </div>
 
+        {/* Search Bar */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.5 }}
+          className="flex justify-center mb-8"
+        >
+          <div className="relative w-full max-w-md">
+            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400" />
+            <input
+              type="text"
+              placeholder="Search drinks, ingredients, or descriptions..."
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              className="w-full pl-10 pr-10 py-3 bg-white border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-transparent transition-all duration-200 shadow-sm text-gray-700"
+            />
+            {searchQuery && (
+              <button
+                onClick={() => setSearchQuery('')}
+                className="absolute right-3 top-1/2 transform -translate-y-1/2 p-1 hover:bg-gray-100 rounded-full transition-colors duration-200"
+              >
+                <X className="h-4 w-4 text-gray-400" />
+              </button>
+            )}
+          </div>
+        </motion.div>
+
         {/* Category Filter */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
@@ -191,24 +227,81 @@ const SignatureDrinks = () => {
           ))}
         </motion.div>
 
+        {/* Search Results Info */}
+        {(searchQuery || selectedCategory !== 'all') && (
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+            className="text-center mb-8"
+          >
+            <p className="text-gray-600">
+              {filteredDrinks.length > 0 ? (
+                <>
+                  Showing <span className="font-semibold text-amber-600">{filteredDrinks.length}</span> result{filteredDrinks.length !== 1 ? 's' : ''}
+                  {searchQuery && (
+                    <> for "<span className="font-semibold text-amber-600">{searchQuery}</span>"</>
+                  )}
+                </>
+              ) : (
+                <>
+                  No results found
+                  {searchQuery && (
+                    <> for "<span className="font-semibold text-amber-600">{searchQuery}</span>"</>
+                  )}
+                  {selectedCategory !== 'all' && (
+                    <> in <span className="font-semibold text-amber-600">{categories.find(c => c.id === selectedCategory)?.name}</span></>
+                  )}
+                </>
+              )}
+            </p>
+          </motion.div>
+        )}
+
         {/* Interactive Slideshow Container - Horizontal Layout */}
         <div className="flex flex-wrap justify-center gap-8">
-          {filteredDrinks.map((drink, index) => (
-            <div key={drink.id} className="slideshow-container">
-              <div className="slideshow">
-                <div
-                  className="slide"
-                  style={{ '--i': 0 } as React.CSSProperties}
-                >
-                  <h2>
-                    {drink.name}
-                    <span>{drink.span}</span>
-                  </h2>
-                  <img src={drink.image} alt={drink.name} />
+          {filteredDrinks.length > 0 ? (
+            filteredDrinks.map((drink, index) => (
+              <div key={drink.id} className="slideshow-container">
+                <div className="slideshow">
+                  <div
+                    className="slide"
+                    style={{ '--i': 0 } as React.CSSProperties}
+                  >
+                    <h2>
+                      {drink.name}
+                      <span>{drink.span}</span>
+                    </h2>
+                    <img src={drink.image} alt={drink.name} />
+                  </div>
                 </div>
               </div>
-            </div>
-          ))}
+            ))
+          ) : (
+            <motion.div
+              initial={{ opacity: 0, scale: 0.8 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.5 }}
+              className="text-center py-16"
+            >
+              <div className="w-24 h-24 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-6">
+                <Search className="h-12 w-12 text-gray-400" />
+              </div>
+              <h3 className="text-2xl font-bold text-gray-600 mb-4">No Results Found</h3>
+              <p className="text-gray-500 mb-6 max-w-md mx-auto">
+                Try adjusting your search terms or browse different categories to find what you're looking for.
+              </p>
+              <button
+                onClick={() => {
+                  setSearchQuery('');
+                  setSelectedCategory('all');
+                }}
+                className="bg-amber-500 hover:bg-amber-600 text-white px-6 py-3 rounded-xl font-semibold transition-colors duration-200"
+              >
+                Clear Filters
+              </button>
+            </motion.div>
+          )}
         </div>
 
         {/* Additional Info */}
