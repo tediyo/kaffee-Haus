@@ -1,7 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { Coffee, Flame } from 'lucide-react';
+import { Coffee, Flame, Star, Clock, ShoppingCart } from 'lucide-react';
 
 interface SignatureDrink {
   id: number;
@@ -190,23 +190,27 @@ const SignatureDrinks = () => {
           </motion.p>
         </div>
 
-        {/* Interactive Slideshow Container - Horizontal Layout */}
-        <div className="flex justify-center overflow-hidden">
-          <div className="slideshow-horizontal">
-            {signatureDrinks.map((drink, index) => (
-              <div
-                key={drink.id}
-                className="slide-horizontal"
-                style={{ '--i': index } as React.CSSProperties}
-              >
+        {/* Individual 3D Rotating Cards */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8 max-w-7xl mx-auto">
+          {signatureDrinks.map((drink, index) => (
+            <motion.div
+              key={drink.id}
+              className="rotating-card"
+              initial={{ opacity: 0, y: 50 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: index * 0.1 }}
+              whileHover={{ scale: 1.05 }}
+              style={{ '--i': index } as React.CSSProperties}
+            >
+              <div className="rotating-card-inner">
                 <h2>
                   {drink.name}
                   <span>{drink.span}</span>
                 </h2>
                 <img src={drink.image} alt={drink.name} />
               </div>
-            ))}
-          </div>
+            </motion.div>
+          ))}
         </div>
 
         {/* Additional Info */}
@@ -217,53 +221,52 @@ const SignatureDrinks = () => {
           className="text-center mt-16"
         >
           <p className="text-gray-600 text-lg">
-            Watch our signature drinks rotate in 3D space
+            Watch each card rotate in 3D space to reveal our signature drinks
           </p>
         </motion.div>
       </div>
 
       <style jsx global>{`
-        .slideshow-horizontal {
+        .rotating-card {
           position: relative;
           width: 100%;
-          max-width: 1200px;
           height: 400px;
           transform-style: preserve-3d;
           perspective: 1000px;
           display: flex;
-          justify-content: center;
           align-items: center;
+          justify-content: center;
         }
 
-        .slide-horizontal {
-          position: absolute;
-          width: 250px;
-          height: 350px;
+        .rotating-card-inner {
+          position: relative;
+          width: 100%;
+          height: 100%;
           display: flex;
           align-items: start;
           justify-content: start;
-          transform: rotateY(270deg) translateX(calc(var(--i) * 50px));
+          transform: rotateY(270deg);
           transform-style: preserve-3d;
-          animation: animateHorizontal 60s linear infinite;
-          animation-delay: calc(var(--i) * 2s);
+          animation: rotateCard 8s linear infinite;
+          animation-delay: calc(var(--i) * 0.5s);
         }
 
-        @keyframes animateHorizontal {
+        @keyframes rotateCard {
           0% {
-            transform: rotateY(270deg) translateX(calc(var(--i) * 50px));
+            transform: rotateY(270deg);
           }
-          5% {
-            transform: rotateY(0deg) translateX(calc(var(--i) * 50px));
+          10% {
+            transform: rotateY(0deg);
           }
-          95% {
-            transform: rotateY(0deg) translateX(calc(var(--i) * 50px));
+          90% {
+            transform: rotateY(0deg);
           }
           100% {
-            transform: rotateY(270deg) translateX(calc(var(--i) * 50px));
+            transform: rotateY(270deg);
           }
         }
 
-        .slide-horizontal img {
+        .rotating-card-inner img {
           position: absolute;
           top: 0;
           left: 0;
@@ -274,7 +277,7 @@ const SignatureDrinks = () => {
           box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
         }
 
-        .slide-horizontal h2 {
+        .rotating-card-inner h2 {
           position: relative;
           z-index: 1000;
           color: #000000;
@@ -286,7 +289,7 @@ const SignatureDrinks = () => {
           text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
         }
 
-        .slide-horizontal h2 span {
+        .rotating-card-inner h2 span {
           position: absolute;
           top: 50%;
           left: 0;
@@ -298,22 +301,16 @@ const SignatureDrinks = () => {
 
         /* Responsive adjustments */
         @media (max-width: 768px) {
-          .slideshow-horizontal {
-            height: 300px;
-            max-width: 100%;
+          .rotating-card {
+            height: 350px;
           }
           
-          .slide-horizontal {
-            width: 200px;
-            height: 280px;
-          }
-          
-          .slide-horizontal h2 {
+          .rotating-card-inner h2 {
             font-size: 1.4em;
             transform: rotateY(180deg) translateY(100px) translateZ(40px);
           }
           
-          .slide-horizontal h2 span {
+          .rotating-card-inner h2 span {
             font-size: 1.4em;
             transform: translateZ(40px);
           }
