@@ -1,8 +1,8 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { Coffee, Flame, Search, X } from 'lucide-react';
+import { Coffee, Flame, Search, X, DollarSign } from 'lucide-react';
 
 interface SignatureDrink {
   id: number;
@@ -126,6 +126,18 @@ const categories = [
 const SignatureDrinks = () => {
   const [selectedCategory, setSelectedCategory] = useState('all');
   const [searchQuery, setSearchQuery] = useState('');
+  const [priceRange, setPriceRange] = useState({ min: 0, max: 10 });
+  const [isDragging, setIsDragging] = useState<'min' | 'max' | null>(null);
+  const sliderRef = useRef<HTMLDivElement>(null);
+
+  // Calculate min and max prices from all drinks
+  const minPrice = Math.min(...signatureDrinks.map(drink => drink.price));
+  const maxPrice = Math.max(...signatureDrinks.map(drink => drink.price));
+
+  // Initialize price range
+  useEffect(() => {
+    setPriceRange({ min: minPrice, max: maxPrice });
+  }, [minPrice, maxPrice]);
 
   const filteredDrinks = signatureDrinks.filter(drink => {
     const matchesCategory = selectedCategory === 'all' || drink.category === selectedCategory;
@@ -136,8 +148,49 @@ const SignatureDrinks = () => {
       drink.ingredients.some(ingredient => 
         ingredient.toLowerCase().includes(searchQuery.toLowerCase())
       );
-    return matchesCategory && matchesSearch;
+    const matchesPrice = drink.price >= priceRange.min && drink.price <= priceRange.max;
+    return matchesCategory && matchesSearch && matchesPrice;
   });
+
+  const handleMouseDown = (type: 'min' | 'max') => (e: React.MouseEvent) => {
+    e.preventDefault();
+    setIsDragging(type);
+  };
+
+  const handleMouseMove = (e: MouseEvent) => {
+    if (!isDragging || !sliderRef.current) return;
+
+    const rect = sliderRef.current.getBoundingClientRect();
+    const percentage = Math.max(0, Math.min(1, (e.clientX - rect.left) / rect.width));
+    const newValue = minPrice + percentage * (maxPrice - minPrice);
+
+    if (isDragging === 'min') {
+      setPriceRange(prev => ({ 
+        ...prev, 
+        min: Math.min(newValue, prev.max - 0.1) 
+      }));
+    } else {
+      setPriceRange(prev => ({ 
+        ...prev, 
+        max: Math.max(newValue, prev.min + 0.1) 
+      }));
+    }
+  };
+
+  const handleMouseUp = () => {
+    setIsDragging(null);
+  };
+
+  useEffect(() => {
+    if (isDragging) {
+      document.addEventListener('mousemove', handleMouseMove);
+      document.addEventListener('mouseup', handleMouseUp);
+      return () => {
+        document.removeEventListener('mousemove', handleMouseMove);
+        document.removeEventListener('mouseup', handleMouseUp);
+      };
+    }
+  }, [isDragging]);
 
   return (
     <section className="py-20 bg-gradient-to-br from-amber-50 via-orange-50 to-amber-100">
@@ -201,6 +254,88 @@ const SignatureDrinks = () => {
                 <X className="h-4 w-4 text-gray-400" />
               </button>
             )}
+          </div>
+        </motion.div>
+
+        {/* Price Range Slider */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.55 }}
+          className="flex justify-center mb-8"
+        >
+          <div className="w-full max-w-md">
+            <div className="flex items-center justify-between mb-4">
+              <div className="flex items-center space-x-2">
+                <DollarSign className="h-5 w-5 text-amber-600" />
+                <span className="text-sm font-medium text-gray-700">Price Range</span>
+              </div>
+              <div className="text-sm font-semibold text-amber-600">
+                ${priceRange.min.toFixed(2)} - ${priceRange.max.toFixed(2)}
+              </div>
+            </div>
+            
+            <div className="relative">
+              <div
+                ref={sliderRef}
+                className="relative h-2 bg-gray-200 rounded-full cursor-pointer"
+                onMouseDown={(e) => {
+                  const rect = sliderRef.current?.getBoundingClientRect();
+                  if (!rect) return;
+                  
+                  const percentage = (e.clientX - rect.left) / rect.width;
+                  const newValue = minPrice + percentage * (maxPrice - minPrice);
+                  
+                  // Determine which handle is closer
+                  const minDistance = Math.abs(newValue - priceRange.min);
+                  const maxDistance = Math.abs(newValue - priceRange.max);
+                  
+                  if (minDistance < maxDistance) {
+                    setPriceRange(prev => ({ 
+                      ...prev, 
+                      min: Math.min(newValue, prev.max - 0.1) 
+                    }));
+                  } else {
+                    setPriceRange(prev => ({ 
+                      ...prev, 
+                      max: Math.max(newValue, prev.min + 0.1) 
+                    }));
+                  }
+                }}
+              >
+                {/* Track */}
+                <div className="absolute h-2 bg-gradient-to-r from-amber-400 to-amber-600 rounded-full"
+                     style={{
+                       left: `${((priceRange.min - minPrice) / (maxPrice - minPrice)) * 100}%`,
+                       width: `${((priceRange.max - priceRange.min) / (maxPrice - minPrice)) * 100}%`
+                     }}
+                />
+                
+                {/* Min Handle */}
+                <div
+                  className="absolute w-6 h-6 bg-amber-600 rounded-full shadow-lg cursor-grab active:cursor-grabbing transform -translate-y-2 -translate-x-1/2 hover:scale-110 transition-transform duration-200"
+                  style={{
+                    left: `${((priceRange.min - minPrice) / (maxPrice - minPrice)) * 100}%`
+                  }}
+                  onMouseDown={handleMouseDown('min')}
+                />
+                
+                {/* Max Handle */}
+                <div
+                  className="absolute w-6 h-6 bg-amber-600 rounded-full shadow-lg cursor-grab active:cursor-grabbing transform -translate-y-2 -translate-x-1/2 hover:scale-110 transition-transform duration-200"
+                  style={{
+                    left: `${((priceRange.max - minPrice) / (maxPrice - minPrice)) * 100}%`
+                  }}
+                  onMouseDown={handleMouseDown('max')}
+                />
+              </div>
+              
+              {/* Price Labels */}
+              <div className="flex justify-between mt-2 text-xs text-gray-500">
+                <span>${minPrice.toFixed(2)}</span>
+                <span>${maxPrice.toFixed(2)}</span>
+              </div>
+            </div>
           </div>
         </motion.div>
 
@@ -295,6 +430,7 @@ const SignatureDrinks = () => {
                 onClick={() => {
                   setSearchQuery('');
                   setSelectedCategory('all');
+                  setPriceRange({ min: minPrice, max: maxPrice });
                 }}
                 className="bg-amber-500 hover:bg-amber-600 text-white px-6 py-3 rounded-xl font-semibold transition-colors duration-200"
               >
