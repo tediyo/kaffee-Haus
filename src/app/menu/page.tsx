@@ -1,8 +1,8 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import Navigation from '@/components/Navigation';
-import { Coffee, Plus, Minus, Star, Heart, Filter, Search, ShoppingCart, Clock, Flame, Award, TrendingUp, X } from 'lucide-react';
+import { Coffee, Plus, Minus, Star, Heart, ShoppingCart, Clock, Flame, Award, TrendingUp, X } from 'lucide-react';
 import SignatureDrinks from '@/components/SignatureDrinks';
 
 interface MenuItem {
@@ -164,52 +164,14 @@ const menuItems: MenuItem[] = [
   }
 ];
 
-const categories = [
-  { id: 'all', name: 'All Items', icon: '🍽️', color: 'from-gray-500 to-gray-600' },
-  { id: 'coffee', name: 'Hot Coffee', icon: '☕', color: 'from-amber-500 to-amber-600' },
-  { id: 'cold', name: 'Cold Drinks', icon: '🧊', color: 'from-blue-500 to-blue-600' },
-  { id: 'pastry', name: 'Pastries', icon: '🥐', color: 'from-orange-500 to-orange-600' }
-];
 
 export default function MenuPage() {
-  const [selectedCategory, setSelectedCategory] = useState('all');
   const [quantities, setQuantities] = useState<{ [key: number]: number }>({});
   const [favorites, setFavorites] = useState<number[]>([1, 2]);
-  const [searchQuery, setSearchQuery] = useState('');
-  const [sortBy, setSortBy] = useState('popular');
 
-  // Handle URL search parameters
-  useEffect(() => {
-    const urlParams = new URLSearchParams(window.location.search);
-    const searchParam = urlParams.get('search');
-    if (searchParam) {
-      setSearchQuery(searchParam);
-    }
-  }, []);
-
-  const filteredItems = selectedCategory === 'all' 
-    ? menuItems 
-    : menuItems.filter(item => item.category === selectedCategory);
-
-  const searchFilteredItems = searchQuery 
-    ? filteredItems.filter(item => 
-        item.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        item.description.toLowerCase().includes(searchQuery.toLowerCase())
-      )
-    : filteredItems;
-
-  const sortedItems = [...searchFilteredItems].sort((a, b) => {
-    switch (sortBy) {
-      case 'price-low':
-        return a.price - b.price;
-      case 'price-high':
-        return b.price - a.price;
-      case 'rating':
-        return b.rating - a.rating;
-      case 'popular':
-      default:
-        return (b.isPopular ? 1 : 0) - (a.isPopular ? 1 : 0);
-    }
+  // Sort items by popularity by default
+  const sortedItems = [...menuItems].sort((a, b) => {
+    return (b.isPopular ? 1 : 0) - (a.isPopular ? 1 : 0);
   });
 
   const updateQuantity = (itemId: number, change: number) => {
@@ -282,54 +244,6 @@ export default function MenuPage() {
         </div>
       </section>
 
-      {/* Enhanced Search and Filters */}
-      <section className="py-8 bg-white/80 backdrop-blur-sm border-b border-amber-200/30">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex flex-col lg:flex-row gap-6 items-center">
-            {/* Search Bar */}
-            <div className="relative flex-1 max-w-md">
-              <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400" />
-              <input
-                type="text"
-                placeholder="Search menu items..."
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full pl-10 pr-4 py-3 bg-white border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-transparent transition-all duration-200 shadow-sm"
-              />
-            </div>
-
-            {/* Sort Dropdown */}
-            <select
-              value={sortBy}
-              onChange={(e) => setSortBy(e.target.value)}
-              className="px-4 py-3 bg-white border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-transparent transition-all duration-200 shadow-sm"
-            >
-              <option value="popular">Most Popular</option>
-              <option value="rating">Highest Rated</option>
-              <option value="price-low">Price: Low to High</option>
-              <option value="price-high">Price: High to Low</option>
-            </select>
-
-            {/* Category Filter */}
-            <div className="flex flex-wrap gap-3">
-              {categories.map((category) => (
-                <button
-                  key={category.id}
-                  onClick={() => setSelectedCategory(category.id)}
-                  className={`flex items-center space-x-2 px-6 py-3 rounded-xl font-medium transition-all duration-300 ${
-                    selectedCategory === category.id
-                      ? `bg-gradient-to-r ${category.color} text-white shadow-lg scale-105`
-                      : 'bg-white text-gray-700 hover:bg-amber-50 border border-gray-200 hover:border-amber-300'
-                  }`}
-                >
-                  <span className="text-xl">{category.icon}</span>
-                  <span>{category.name}</span>
-                </button>
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
 
       {/* Signature Drinks Section */}
       <SignatureDrinks />

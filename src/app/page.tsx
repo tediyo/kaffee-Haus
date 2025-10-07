@@ -5,7 +5,6 @@ import Navigation from '@/components/Navigation';
 import AnimatedHeroSection from '@/components/AnimatedHeroSection';
 import CoffeeShopScene from '@/components/CoffeeShopScene';
 import InteractiveModal from '@/components/InteractiveModal';
-import InteractiveProductShowcase from '@/components/InteractiveProductShowcase';
 import InteractiveTime from '@/components/InteractiveTime';
 import { Coffee, MapPin, Phone, Gift, Star, TrendingUp, Users, Award, Heart } from 'lucide-react';
 
@@ -215,8 +214,153 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Interactive Product Showcase */}
-      <InteractiveProductShowcase />
+      {/* Coffee History Section */}
+      <section className="relative py-20 overflow-hidden">
+        {/* Background Image */}
+        <div className="absolute inset-0 z-0">
+          <div 
+            className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+            style={{
+              backgroundImage: 'url("https://images.unsplash.com/photo-1447933601403-0c6688de566e?w=1920&h=1080&fit=crop&crop=center&auto=format&q=80")'
+            }}
+          />
+          {/* Overlay for better text readability */}
+          <div className="absolute inset-0 bg-gradient-to-br from-amber-50/95 via-orange-50/95 to-amber-100/95" />
+        </div>
+        
+        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-16">
+            <div className="inline-flex items-center space-x-2 bg-white/80 backdrop-blur-sm rounded-full px-6 py-3 text-amber-800 border border-amber-200 mb-6">
+              <Coffee className="h-5 w-5" />
+              <span className="font-semibold">Coffee Heritage</span>
+              <Award className="h-4 w-4 text-amber-500" />
+            </div>
+            
+            <h2 className="text-5xl md:text-6xl font-bold text-gray-800 mb-6">
+              The Rich{' '}
+              <span className="bg-gradient-to-r from-amber-600 to-orange-600 bg-clip-text text-transparent">
+                History
+              </span>
+            </h2>
+            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+              Discover the fascinating journey of coffee from ancient Ethiopia to your cup today
+            </p>
+          </div>
+
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            {/* Timeline */}
+            <div className="space-y-8">
+              <div className="relative">
+                {/* Timeline Line */}
+                <div className="absolute left-8 top-0 bottom-0 w-0.5 bg-gradient-to-b from-amber-400 to-orange-400"></div>
+                
+                {/* Timeline Items */}
+                <div className="space-y-12">
+                  <div className="relative flex items-start space-x-6">
+                    <div className="flex-shrink-0 w-16 h-16 bg-amber-500 rounded-full flex items-center justify-center text-white font-bold text-lg shadow-lg">
+                      850
+                    </div>
+                    <div className="bg-white/80 backdrop-blur-sm rounded-2xl p-6 shadow-lg border border-amber-200">
+                      <h3 className="text-xl font-bold text-gray-800 mb-2">Discovery in Ethiopia</h3>
+                      <p className="text-gray-600">Legend says a goat herder named Kaldi discovered coffee when his goats became energetic after eating coffee berries.</p>
+                    </div>
+                  </div>
+
+                  <div className="relative flex items-start space-x-6">
+                    <div className="flex-shrink-0 w-16 h-16 bg-amber-500 rounded-full flex items-center justify-center text-white font-bold text-lg shadow-lg">
+                      1500
+                    </div>
+                    <div className="bg-white/80 backdrop-blur-sm rounded-2xl p-6 shadow-lg border border-amber-200">
+                      <h3 className="text-xl font-bold text-gray-800 mb-2">Spread to Arabia</h3>
+                      <p className="text-gray-600">Coffee cultivation began in Yemen, and the first coffeehouses opened in Mecca, becoming centers of social activity.</p>
+                    </div>
+                  </div>
+
+                  <div className="relative flex items-start space-x-6">
+                    <div className="flex-shrink-0 w-16 h-16 bg-amber-500 rounded-full flex items-center justify-center text-white font-bold text-lg shadow-lg">
+                      1600
+                    </div>
+                    <div className="bg-white/80 backdrop-blur-sm rounded-2xl p-6 shadow-lg border border-amber-200">
+                      <h3 className="text-xl font-bold text-gray-800 mb-2">European Introduction</h3>
+                      <p className="text-gray-600">Coffee reached Europe through Venice, and the first European coffeehouse opened in Oxford, England.</p>
+                    </div>
+                  </div>
+
+                  <div className="relative flex items-start space-x-6">
+                    <div className="flex-shrink-0 w-16 h-16 bg-amber-500 rounded-full flex items-center justify-center text-white font-bold text-lg shadow-lg">
+                      1700
+                    </div>
+                    <div className="bg-white/80 backdrop-blur-sm rounded-2xl p-6 shadow-lg border border-amber-200">
+                      <h3 className="text-xl font-bold text-gray-800 mb-2">Global Expansion</h3>
+                      <p className="text-gray-600">Coffee cultivation spread to the Americas, with Brazil becoming the world's largest coffee producer.</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Coffee Culture Info */}
+            <div className="space-y-8">
+              <div className="bg-white/80 backdrop-blur-sm rounded-3xl p-8 shadow-lg border border-amber-200">
+                <h3 className="text-2xl font-bold text-gray-800 mb-6">Coffee Culture Today</h3>
+                <div className="space-y-6">
+                  <div className="flex items-start space-x-4">
+                    <div className="w-12 h-12 bg-amber-100 rounded-full flex items-center justify-center flex-shrink-0">
+                      <Coffee className="h-6 w-6 text-amber-600" />
+                    </div>
+                    <div>
+                      <h4 className="font-semibold text-gray-800 mb-2">Third Wave Coffee</h4>
+                      <p className="text-gray-600 text-sm">Focus on high-quality beans, artisanal roasting, and brewing methods that highlight coffee's unique flavors.</p>
+                    </div>
+                  </div>
+                  
+                  <div className="flex items-start space-x-4">
+                    <div className="w-12 h-12 bg-amber-100 rounded-full flex items-center justify-center flex-shrink-0">
+                      <Users className="h-6 w-6 text-amber-600" />
+                    </div>
+                    <div>
+                      <h4 className="font-semibold text-gray-800 mb-2">Social Connection</h4>
+                      <p className="text-gray-600 text-sm">Coffeehouses continue to be places where people gather, work, and build community.</p>
+                    </div>
+                  </div>
+                  
+                  <div className="flex items-start space-x-4">
+                    <div className="w-12 h-12 bg-amber-100 rounded-full flex items-center justify-center flex-shrink-0">
+                      <Award className="h-6 w-6 text-amber-600" />
+                    </div>
+                    <div>
+                      <h4 className="font-semibold text-gray-800 mb-2">Sustainability</h4>
+                      <p className="text-gray-600 text-sm">Growing emphasis on fair trade, organic farming, and environmental responsibility in coffee production.</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div className="bg-gradient-to-r from-amber-500 to-orange-500 rounded-3xl p-8 text-white">
+                <h3 className="text-2xl font-bold mb-4">Fun Coffee Facts</h3>
+                <ul className="space-y-3 text-amber-100">
+                  <li className="flex items-center space-x-3">
+                    <div className="w-2 h-2 bg-white rounded-full"></div>
+                    <span>Brazil produces 1/3 of the world's coffee</span>
+                  </li>
+                  <li className="flex items-center space-x-3">
+                    <div className="w-2 h-2 bg-white rounded-full"></div>
+                    <span>Coffee is the second most traded commodity after oil</span>
+                  </li>
+                  <li className="flex items-center space-x-3">
+                    <div className="w-2 h-2 bg-white rounded-full"></div>
+                    <span>The word "coffee" comes from the Arabic "qahwah"</span>
+                  </li>
+                  <li className="flex items-center space-x-3">
+                    <div className="w-2 h-2 bg-white rounded-full"></div>
+                    <span>It takes 5 years for a coffee tree to produce fruit</span>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
 
       {/* Location Map Section */}
       <section className="relative py-20 overflow-hidden">
