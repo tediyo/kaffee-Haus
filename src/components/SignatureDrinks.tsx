@@ -1,5 +1,6 @@
 'use client';
 
+import { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Coffee, Flame } from 'lucide-react';
 
@@ -13,6 +14,7 @@ interface SignatureDrink {
   rating: number;
   prepTime: number;
   description: string;
+  category: string;
 }
 
 const signatureDrinks: SignatureDrink[] = [
@@ -25,7 +27,8 @@ const signatureDrinks: SignatureDrink[] = [
     price: 4.50,
     rating: 4.9,
     prepTime: 3,
-    description: 'Premium single origin coffee with bright acidity and floral aromas'
+    description: 'Premium single origin coffee with bright acidity and floral aromas',
+    category: 'coffee'
   },
   {
     id: 2,
@@ -36,7 +39,8 @@ const signatureDrinks: SignatureDrink[] = [
     price: 4.25,
     rating: 4.8,
     prepTime: 4,
-    description: 'Rich and full-bodied with chocolate undertones'
+    description: 'Rich and full-bodied with chocolate undertones',
+    category: 'coffee'
   },
   {
     id: 3,
@@ -47,7 +51,8 @@ const signatureDrinks: SignatureDrink[] = [
     price: 3.75,
     rating: 4.7,
     prepTime: 2,
-    description: 'Classic Italian espresso with perfect crema and bold flavor'
+    description: 'Classic Italian espresso with perfect crema and bold flavor',
+    category: 'coffee'
   },
   {
     id: 4,
@@ -58,11 +63,72 @@ const signatureDrinks: SignatureDrink[] = [
     price: 4.50,
     rating: 4.9,
     prepTime: 5,
-    description: 'Perfectly balanced espresso with beautiful foam art'
+    description: 'Perfectly balanced espresso with beautiful foam art',
+    category: 'coffee'
+  },
+  {
+    id: 5,
+    name: 'Iced',
+    span: 'Latte',
+    image: 'https://images.unsplash.com/photo-1517701604599-bb29b565090a?w=400&h=600&fit=crop&crop=center&auto=format&q=80',
+    ingredients: ['Cold Espresso', 'Milk', 'Ice', 'Refreshing'],
+    price: 4.75,
+    rating: 4.6,
+    prepTime: 2,
+    description: 'Cold espresso with milk over ice for a refreshing drink',
+    category: 'cold'
+  },
+  {
+    id: 6,
+    name: 'Cold Brew',
+    span: 'Perfection',
+    image: 'https://images.unsplash.com/photo-1517701604599-bb29b565090a?w=400&h=600&fit=crop&crop=center&auto=format&q=80',
+    ingredients: ['Cold Extracted', 'Smooth Finish', 'Low Acidity', 'Refreshing'],
+    price: 4.00,
+    rating: 4.8,
+    prepTime: 1,
+    description: 'Smooth cold-extracted coffee with low acidity',
+    category: 'cold'
+  },
+  {
+    id: 7,
+    name: 'Croissant',
+    span: 'Delight',
+    image: 'https://images.unsplash.com/photo-1555507036-ab1f4038808a?w=400&h=600&fit=crop&crop=center&auto=format&q=80',
+    ingredients: ['Buttery', 'Flaky', 'Fresh Baked', 'Golden'],
+    price: 3.25,
+    rating: 4.5,
+    prepTime: 1,
+    description: 'Buttery, flaky pastry perfect with coffee',
+    category: 'pastry'
+  },
+  {
+    id: 8,
+    name: 'Muffin',
+    span: 'Fresh',
+    image: 'https://images.unsplash.com/photo-1555507036-ab1f4038808a?w=400&h=600&fit=crop&crop=center&auto=format&q=80',
+    ingredients: ['Blueberry', 'Fresh Baked', 'Moist', 'Sweet'],
+    price: 2.75,
+    rating: 4.3,
+    prepTime: 1,
+    description: 'Fresh baked blueberry muffin',
+    category: 'pastry'
   }
 ];
 
+const categories = [
+  { id: 'all', name: 'All Items', icon: '🍽️', color: 'from-gray-500 to-gray-600' },
+  { id: 'coffee', name: 'Hot Coffee', icon: '☕', color: 'from-amber-500 to-amber-600' },
+  { id: 'cold', name: 'Cold Drinks', icon: '🧊', color: 'from-blue-500 to-blue-600' },
+  { id: 'pastry', name: 'Pastries', icon: '🥐', color: 'from-orange-500 to-orange-600' }
+];
+
 const SignatureDrinks = () => {
+  const [selectedCategory, setSelectedCategory] = useState('all');
+
+  const filteredDrinks = selectedCategory === 'all' 
+    ? signatureDrinks 
+    : signatureDrinks.filter(drink => drink.category === selectedCategory);
 
   return (
     <section className="py-20 bg-gradient-to-br from-amber-50 via-orange-50 to-amber-100">
@@ -102,9 +168,32 @@ const SignatureDrinks = () => {
           </motion.p>
         </div>
 
+        {/* Category Filter */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.6 }}
+          className="flex flex-wrap justify-center gap-4 mb-12"
+        >
+          {categories.map((category) => (
+            <button
+              key={category.id}
+              onClick={() => setSelectedCategory(category.id)}
+              className={`flex items-center space-x-2 px-6 py-3 rounded-xl font-medium transition-all duration-300 ${
+                selectedCategory === category.id
+                  ? `bg-gradient-to-r ${category.color} text-white shadow-lg scale-105`
+                  : 'bg-white text-gray-700 hover:bg-amber-50 border border-gray-200 hover:border-amber-300'
+              }`}
+            >
+              <span className="text-xl">{category.icon}</span>
+              <span>{category.name}</span>
+            </button>
+          ))}
+        </motion.div>
+
         {/* Interactive Slideshow Container - Horizontal Layout */}
         <div className="flex flex-wrap justify-center gap-8">
-          {signatureDrinks.map((drink, index) => (
+          {filteredDrinks.map((drink, index) => (
             <div key={drink.id} className="slideshow-container">
               <div className="slideshow">
                 <div
