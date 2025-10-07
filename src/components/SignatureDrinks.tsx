@@ -1,7 +1,8 @@
 'use client';
 
+import { useState, useRef, useEffect } from 'react';
 import { motion } from 'framer-motion';
-import { Coffee, Flame } from 'lucide-react';
+import { Coffee, Flame, Search, X, DollarSign } from 'lucide-react';
 
 interface SignatureDrink {
   id: number;
@@ -13,6 +14,7 @@ interface SignatureDrink {
   rating: number;
   prepTime: number;
   description: string;
+  category: string;
 }
 
 const signatureDrinks: SignatureDrink[] = [
@@ -25,7 +27,8 @@ const signatureDrinks: SignatureDrink[] = [
     price: 4.50,
     rating: 4.9,
     prepTime: 3,
-    description: 'Premium single origin coffee with bright acidity and floral aromas'
+    description: 'Premium single origin coffee with bright acidity and floral aromas',
+    category: 'coffee'
   },
   {
     id: 2,
@@ -36,7 +39,8 @@ const signatureDrinks: SignatureDrink[] = [
     price: 4.25,
     rating: 4.8,
     prepTime: 4,
-    description: 'Rich and full-bodied with chocolate undertones'
+    description: 'Rich and full-bodied with chocolate undertones',
+    category: 'coffee'
   },
   {
     id: 3,
@@ -47,7 +51,8 @@ const signatureDrinks: SignatureDrink[] = [
     price: 3.75,
     rating: 4.7,
     prepTime: 2,
-    description: 'Classic Italian espresso with perfect crema and bold flavor'
+    description: 'Classic Italian espresso with perfect crema and bold flavor',
+    category: 'coffee'
   },
   {
     id: 4,
@@ -58,11 +63,134 @@ const signatureDrinks: SignatureDrink[] = [
     price: 4.50,
     rating: 4.9,
     prepTime: 5,
-    description: 'Perfectly balanced espresso with beautiful foam art'
+    description: 'Perfectly balanced espresso with beautiful foam art',
+    category: 'coffee'
+  },
+  {
+    id: 5,
+    name: 'Iced',
+    span: 'Latte',
+    image: 'https://images.unsplash.com/photo-1517701604599-bb29b565090a?w=400&h=600&fit=crop&crop=center&auto=format&q=80',
+    ingredients: ['Cold Espresso', 'Milk', 'Ice', 'Refreshing'],
+    price: 4.75,
+    rating: 4.6,
+    prepTime: 2,
+    description: 'Cold espresso with milk over ice for a refreshing drink',
+    category: 'cold'
+  },
+  {
+    id: 6,
+    name: 'Cold Brew',
+    span: 'Perfection',
+    image: 'https://images.unsplash.com/photo-1517701604599-bb29b565090a?w=400&h=600&fit=crop&crop=center&auto=format&q=80',
+    ingredients: ['Cold Extracted', 'Smooth Finish', 'Low Acidity', 'Refreshing'],
+    price: 4.00,
+    rating: 4.8,
+    prepTime: 1,
+    description: 'Smooth cold-extracted coffee with low acidity',
+    category: 'cold'
+  },
+  {
+    id: 7,
+    name: 'Croissant',
+    span: 'Delight',
+    image: 'https://images.unsplash.com/photo-1555507036-ab1f4038808a?w=400&h=600&fit=crop&crop=center&auto=format&q=80',
+    ingredients: ['Buttery', 'Flaky', 'Fresh Baked', 'Golden'],
+    price: 3.25,
+    rating: 4.5,
+    prepTime: 1,
+    description: 'Buttery, flaky pastry perfect with coffee',
+    category: 'pastry'
+  },
+  {
+    id: 8,
+    name: 'Muffin',
+    span: 'Fresh',
+    image: 'https://images.unsplash.com/photo-1555507036-ab1f4038808a?w=400&h=600&fit=crop&crop=center&auto=format&q=80',
+    ingredients: ['Blueberry', 'Fresh Baked', 'Moist', 'Sweet'],
+    price: 2.75,
+    rating: 4.3,
+    prepTime: 1,
+    description: 'Fresh baked blueberry muffin',
+    category: 'pastry'
   }
 ];
 
+const categories = [
+  { id: 'all', name: 'All Items', icon: '🍽️', color: 'from-gray-500 to-gray-600' },
+  { id: 'coffee', name: 'Hot Coffee', icon: '☕', color: 'from-amber-500 to-amber-600' },
+  { id: 'cold', name: 'Cold Drinks', icon: '🧊', color: 'from-blue-500 to-blue-600' },
+  { id: 'pastry', name: 'Pastries', icon: '🥐', color: 'from-orange-500 to-orange-600' }
+];
+
 const SignatureDrinks = () => {
+  const [selectedCategory, setSelectedCategory] = useState('all');
+  const [searchQuery, setSearchQuery] = useState('');
+  const [priceRange, setPriceRange] = useState({ min: 0, max: 10 });
+  const [isDragging, setIsDragging] = useState<'min' | 'max' | null>(null);
+  const sliderRef = useRef<HTMLDivElement>(null);
+
+  // Calculate min and max prices from all drinks
+  const minPrice = Math.min(...signatureDrinks.map(drink => drink.price));
+  const maxPrice = Math.max(...signatureDrinks.map(drink => drink.price));
+
+  // Initialize price range
+  useEffect(() => {
+    setPriceRange({ min: minPrice, max: maxPrice });
+  }, [minPrice, maxPrice]);
+
+  const filteredDrinks = signatureDrinks.filter(drink => {
+    const matchesCategory = selectedCategory === 'all' || drink.category === selectedCategory;
+    const matchesSearch = searchQuery === '' || 
+      drink.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      drink.span.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      drink.description.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      drink.ingredients.some(ingredient => 
+        ingredient.toLowerCase().includes(searchQuery.toLowerCase())
+      );
+    const matchesPrice = drink.price >= priceRange.min && drink.price <= priceRange.max;
+    return matchesCategory && matchesSearch && matchesPrice;
+  });
+
+  const handleMouseDown = (type: 'min' | 'max') => (e: React.MouseEvent) => {
+    e.preventDefault();
+    setIsDragging(type);
+  };
+
+  const handleMouseMove = (e: MouseEvent) => {
+    if (!isDragging || !sliderRef.current) return;
+
+    const rect = sliderRef.current.getBoundingClientRect();
+    const percentage = Math.max(0, Math.min(1, (e.clientX - rect.left) / rect.width));
+    const newValue = minPrice + percentage * (maxPrice - minPrice);
+
+    if (isDragging === 'min') {
+      setPriceRange(prev => ({ 
+        ...prev, 
+        min: Math.min(newValue, prev.max - 0.1) 
+      }));
+    } else {
+      setPriceRange(prev => ({ 
+        ...prev, 
+        max: Math.max(newValue, prev.min + 0.1) 
+      }));
+    }
+  };
+
+  const handleMouseUp = () => {
+    setIsDragging(null);
+  };
+
+  useEffect(() => {
+    if (isDragging) {
+      document.addEventListener('mousemove', handleMouseMove);
+      document.addEventListener('mouseup', handleMouseUp);
+      return () => {
+        document.removeEventListener('mousemove', handleMouseMove);
+        document.removeEventListener('mouseup', handleMouseUp);
+      };
+    }
+  }, [isDragging]);
 
   return (
     <section className="py-20 bg-gradient-to-br from-amber-50 via-orange-50 to-amber-100">
@@ -102,24 +230,214 @@ const SignatureDrinks = () => {
           </motion.p>
         </div>
 
-        {/* Interactive Slideshow Container - Horizontal Layout */}
-        <div className="flex flex-wrap justify-center gap-8">
-          {signatureDrinks.map((drink, index) => (
-            <div key={drink.id} className="slideshow-container">
-              <div className="slideshow">
-                <div
-                  className="slide"
-                  style={{ '--i': 0 } as React.CSSProperties}
-                >
-                  <h2>
-                    {drink.name}
-                    <span>{drink.span}</span>
-                  </h2>
-                  <img src={drink.image} alt={drink.name} />
-                </div>
+        {/* Search Bar */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.5 }}
+          className="flex justify-center mb-8"
+        >
+          <div className="relative w-full max-w-md">
+            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400" />
+            <input
+              type="text"
+              placeholder="Search drinks, ingredients, or descriptions..."
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              className="w-full pl-10 pr-10 py-3 bg-white border border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-transparent transition-all duration-200 shadow-sm text-gray-700"
+            />
+            {searchQuery && (
+              <button
+                onClick={() => setSearchQuery('')}
+                className="absolute right-3 top-1/2 transform -translate-y-1/2 p-1 hover:bg-gray-100 rounded-full transition-colors duration-200"
+              >
+                <X className="h-4 w-4 text-gray-400" />
+              </button>
+            )}
+          </div>
+        </motion.div>
+
+        {/* Price Range Slider */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.55 }}
+          className="flex justify-center mb-8"
+        >
+          <div className="w-full max-w-md">
+            <div className="flex items-center justify-between mb-4">
+              <div className="flex items-center space-x-2">
+                <DollarSign className="h-5 w-5 text-amber-600" />
+                <span className="text-sm font-medium text-gray-700">Price Range</span>
+              </div>
+              <div className="text-sm font-semibold text-amber-600">
+                ${priceRange.min.toFixed(2)} - ${priceRange.max.toFixed(2)}
               </div>
             </div>
+            
+            <div className="relative">
+              <div
+                ref={sliderRef}
+                className="relative h-2 bg-gray-200 rounded-full cursor-pointer"
+                onMouseDown={(e) => {
+                  const rect = sliderRef.current?.getBoundingClientRect();
+                  if (!rect) return;
+                  
+                  const percentage = (e.clientX - rect.left) / rect.width;
+                  const newValue = minPrice + percentage * (maxPrice - minPrice);
+                  
+                  // Determine which handle is closer
+                  const minDistance = Math.abs(newValue - priceRange.min);
+                  const maxDistance = Math.abs(newValue - priceRange.max);
+                  
+                  if (minDistance < maxDistance) {
+                    setPriceRange(prev => ({ 
+                      ...prev, 
+                      min: Math.min(newValue, prev.max - 0.1) 
+                    }));
+                  } else {
+                    setPriceRange(prev => ({ 
+                      ...prev, 
+                      max: Math.max(newValue, prev.min + 0.1) 
+                    }));
+                  }
+                }}
+              >
+                {/* Track */}
+                <div className="absolute h-2 bg-gradient-to-r from-amber-400 to-amber-600 rounded-full"
+                     style={{
+                       left: `${((priceRange.min - minPrice) / (maxPrice - minPrice)) * 100}%`,
+                       width: `${((priceRange.max - priceRange.min) / (maxPrice - minPrice)) * 100}%`
+                     }}
+                />
+                
+                {/* Min Handle */}
+                <div
+                  className="absolute w-6 h-6 bg-amber-600 rounded-full shadow-lg cursor-grab active:cursor-grabbing transform -translate-y-2 -translate-x-1/2 hover:scale-110 transition-transform duration-200"
+                  style={{
+                    left: `${((priceRange.min - minPrice) / (maxPrice - minPrice)) * 100}%`
+                  }}
+                  onMouseDown={handleMouseDown('min')}
+                />
+                
+                {/* Max Handle */}
+                <div
+                  className="absolute w-6 h-6 bg-amber-600 rounded-full shadow-lg cursor-grab active:cursor-grabbing transform -translate-y-2 -translate-x-1/2 hover:scale-110 transition-transform duration-200"
+                  style={{
+                    left: `${((priceRange.max - minPrice) / (maxPrice - minPrice)) * 100}%`
+                  }}
+                  onMouseDown={handleMouseDown('max')}
+                />
+              </div>
+              
+              {/* Price Labels */}
+              <div className="flex justify-between mt-2 text-xs text-gray-500">
+                <span>${minPrice.toFixed(2)}</span>
+                <span>${maxPrice.toFixed(2)}</span>
+              </div>
+            </div>
+          </div>
+        </motion.div>
+
+        {/* Category Filter */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, delay: 0.6 }}
+          className="flex flex-wrap justify-center gap-4 mb-12"
+        >
+          {categories.map((category) => (
+            <button
+              key={category.id}
+              onClick={() => setSelectedCategory(category.id)}
+              className={`flex items-center space-x-2 px-6 py-3 rounded-xl font-medium transition-all duration-300 ${
+                selectedCategory === category.id
+                  ? `bg-gradient-to-r ${category.color} text-white shadow-lg scale-105`
+                  : 'bg-white text-gray-700 hover:bg-amber-50 border border-gray-200 hover:border-amber-300'
+              }`}
+            >
+              <span className="text-xl">{category.icon}</span>
+              <span>{category.name}</span>
+            </button>
           ))}
+        </motion.div>
+
+        {/* Search Results Info */}
+        {(searchQuery || selectedCategory !== 'all') && (
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+            className="text-center mb-8"
+          >
+            <p className="text-gray-600">
+              {filteredDrinks.length > 0 ? (
+                <>
+                  Showing <span className="font-semibold text-amber-600">{filteredDrinks.length}</span> result{filteredDrinks.length !== 1 ? 's' : ''}
+                  {searchQuery && (
+                    <> for "<span className="font-semibold text-amber-600">{searchQuery}</span>"</>
+                  )}
+                </>
+              ) : (
+                <>
+                  No results found
+                  {searchQuery && (
+                    <> for "<span className="font-semibold text-amber-600">{searchQuery}</span>"</>
+                  )}
+                  {selectedCategory !== 'all' && (
+                    <> in <span className="font-semibold text-amber-600">{categories.find(c => c.id === selectedCategory)?.name}</span></>
+                  )}
+                </>
+              )}
+            </p>
+          </motion.div>
+        )}
+
+        {/* Interactive Slideshow Container - Horizontal Layout */}
+        <div className="flex flex-wrap justify-center gap-8">
+          {filteredDrinks.length > 0 ? (
+            filteredDrinks.map((drink, index) => (
+              <div key={drink.id} className="slideshow-container">
+                <div className="slideshow">
+                  <div
+                    className="slide"
+                    style={{ '--i': 0 } as React.CSSProperties}
+                  >
+                    <h2>
+                      {drink.name}
+                      <span>{drink.span}</span>
+                    </h2>
+                    <img src={drink.image} alt={drink.name} />
+                  </div>
+                </div>
+              </div>
+            ))
+          ) : (
+            <motion.div
+              initial={{ opacity: 0, scale: 0.8 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.5 }}
+              className="text-center py-16"
+            >
+              <div className="w-24 h-24 bg-gray-100 rounded-full flex items-center justify-center mx-auto mb-6">
+                <Search className="h-12 w-12 text-gray-400" />
+              </div>
+              <h3 className="text-2xl font-bold text-gray-600 mb-4">No Results Found</h3>
+              <p className="text-gray-500 mb-6 max-w-md mx-auto">
+                Try adjusting your search terms or browse different categories to find what you're looking for.
+              </p>
+              <button
+                onClick={() => {
+                  setSearchQuery('');
+                  setSelectedCategory('all');
+                  setPriceRange({ min: minPrice, max: maxPrice });
+                }}
+                className="bg-amber-500 hover:bg-amber-600 text-white px-6 py-3 rounded-xl font-semibold transition-colors duration-200"
+              >
+                Clear Filters
+              </button>
+            </motion.div>
+          )}
         </div>
 
         {/* Additional Info */}
