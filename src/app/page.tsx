@@ -40,7 +40,7 @@ export default function Home() {
             }}
           />
           {/* Overlay for better text readability */}
-          <div className="absolute inset-0 bg-gradient-to-br from-amber-50/95 via-orange-50/95 to-amber-100/95" />
+          <div className="absolute inset-0 bg-gradient-to-br from-amber-50/80 via-orange-50/80 to-amber-100/80" />
         </div>
         
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -70,7 +70,7 @@ export default function Home() {
                     backgroundImage: 'url("/Tq.jpg")'
                   }}
                 />
-                <div className="absolute inset-0 bg-gradient-to-br from-amber-50/60 to-amber-100/60" />
+                <div className="absolute inset-0 bg-gradient-to-br from-amber-50/40 to-amber-100/40" />
               </div>
               
               <div className="relative z-10">
@@ -118,7 +118,7 @@ export default function Home() {
                     backgroundImage: 'url("/TY.jpg")'
                   }}
                 />
-                <div className="absolute inset-0 bg-gradient-to-br from-orange-50/60 to-orange-100/60" />
+                <div className="absolute inset-0 bg-gradient-to-br from-orange-50/40 to-orange-100/40" />
               </div>
               
               <div className="relative z-10">
@@ -168,7 +168,7 @@ export default function Home() {
                     backgroundImage: 'url("/TRT.jpg")'
                   }}
                 />
-                <div className="absolute inset-0 bg-gradient-to-br from-green-50/60 to-green-100/60" />
+                <div className="absolute inset-0 bg-gradient-to-br from-green-50/40 to-green-100/40" />
               </div>
               
               <div className="relative z-10">
@@ -237,7 +237,7 @@ export default function Home() {
           />
           {/* Animated Overlay */}
           <motion.div 
-            className="absolute inset-0 bg-gradient-to-br from-amber-50/95 via-orange-50/95 to-amber-100/95"
+            className="absolute inset-0 bg-gradient-to-br from-amber-50/85 via-orange-50/85 to-amber-100/85"
             animate={{
               opacity: [0.95, 0.98, 0.95],
             }}
@@ -255,8 +255,8 @@ export default function Home() {
                 key={i}
                 className="absolute text-amber-200/30 text-2xl"
                 style={{
-                  left: `${Math.random() * 100}%`,
-                  top: `${Math.random() * 100}%`,
+                  left: `${((i * 37) % 100)}%`,
+                  top: `${((i * 61) % 100)}%`,
                 }}
                 animate={{
                   y: [0, -20, 0],
@@ -264,9 +264,9 @@ export default function Home() {
                   scale: [0.8, 1.2, 0.8],
                 }}
                 transition={{
-                  duration: 8 + Math.random() * 4,
+                  duration: 8 + ((i * 7) % 4),
                   repeat: Infinity,
-                  delay: Math.random() * 2,
+                  delay: ((i * 13) % 20) / 10,
                   ease: "easeInOut"
                 }}
               >
@@ -561,7 +561,7 @@ export default function Home() {
             }}
           />
           {/* Overlay for better text readability */}
-          <div className="absolute inset-0 bg-gradient-to-br from-amber-50/85 to-orange-100/85" />
+          <div className="absolute inset-0 bg-gradient-to-br from-amber-50/70 to-orange-100/70" />
         </div>
         
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -641,7 +641,7 @@ export default function Home() {
                         backgroundImage: 'url("/TRT.jpg")'
                       }}
                     />
-                    <div className="absolute inset-0 bg-gradient-to-br from-amber-50/60 to-orange-50/60" />
+                    <div className="absolute inset-0 bg-gradient-to-br from-amber-50/40 to-orange-50/40" />
                   </div>
                   
                   <div className="relative z-10">
@@ -707,7 +707,7 @@ export default function Home() {
                       backgroundImage: 'url("/MN.jpg")'
                     }}
                   />
-                  <div className="absolute inset-0 bg-gradient-to-br from-amber-50/50 to-orange-50/50" />
+                  <div className="absolute inset-0 bg-gradient-to-br from-amber-50/30 to-orange-50/30" />
                 </div>
                 
                 <div className="relative z-10">
