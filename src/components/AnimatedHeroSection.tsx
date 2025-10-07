@@ -144,15 +144,6 @@ const AnimatedHeroSection = () => {
 
           {/* Animated Headlines */}
           <div className="space-y-6">
-            <motion.div
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.8 }}
-              className="inline-flex items-center space-x-2 bg-gradient-to-r from-amber-400/20 to-amber-300/20 backdrop-blur-sm rounded-full px-8 py-4 text-white/95 border border-amber-300/30 shadow-lg"
-            >
-              <Coffee className="h-6 w-6 text-amber-300" />
-              <span className="font-semibold text-lg">Premium Coffee Experience</span>
-            </motion.div>
 
             <div className="h-32 flex items-center justify-center">
               <AnimatePresence mode="wait">
