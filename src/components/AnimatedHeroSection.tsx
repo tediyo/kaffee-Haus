@@ -295,52 +295,9 @@ const AnimatedHeroSection = () => {
             </motion.button>
           </motion.div>
 
-          {/* Special Offers Banner */}
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 1.2 }}
-            className="mt-16 bg-gradient-to-r from-amber-600/20 to-amber-500/20 backdrop-blur-sm rounded-2xl p-6 border border-amber-400/30"
-          >
-            <div className="flex items-center justify-center space-x-4">
-              <motion.div
-                animate={{ rotate: [0, 10, -10, 0] }}
-                transition={{ duration: 2, repeat: Infinity }}
-              >
-                <Gift className="h-6 w-6 text-amber-300" />
-              </motion.div>
-              <span className="text-white text-lg font-semibold">
-                Special Offer: 20% off your first order with code WELCOME20
-              </span>
-              <motion.div
-                animate={{ rotate: [0, -10, 10, 0] }}
-                transition={{ duration: 2, repeat: Infinity, delay: 1 }}
-              >
-                <Gift className="h-6 w-6 text-amber-300" />
-              </motion.div>
-            </div>
-          </motion.div>
         </div>
       </div>
 
-      {/* Enhanced Scroll Indicator */}
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8, delay: 1.5 }}
-        className="absolute bottom-8 left-1/2 transform -translate-x-1/2 z-20"
-      >
-        <div className="flex flex-col items-center space-y-2">
-          <span className="text-white/70 text-sm font-medium">Scroll to explore</span>
-          <motion.div
-            animate={{ y: [0, 8, 0] }}
-            transition={{ duration: 2, repeat: Infinity }}
-            className="w-8 h-12 border-2 border-white/50 rounded-full flex justify-center p-2"
-          >
-            <div className="w-1 h-3 bg-white/70 rounded-full" />
-          </motion.div>
-        </div>
-      </motion.div>
     </section>
   );
 };
