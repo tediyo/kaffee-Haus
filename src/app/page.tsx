@@ -26,7 +26,7 @@ export default function Home() {
       {/* Animated Hero Section */}
       <div className="pt-20">
         <AnimatedHeroSection />
-      </div>
+        </div>
 
       {/* Highlights Section */}
       <section id="menu-section" className="relative py-20 overflow-hidden">
@@ -223,7 +223,7 @@ export default function Home() {
           <motion.div 
             className="absolute inset-0 bg-cover bg-center bg-no-repeat"
             style={{
-              backgroundImage: 'url("https://images.unsplash.com/photo-1447933601403-0c6688de566e?w=1920&h=1080&fit=crop&crop=center&auto=format&q=80")'
+              backgroundImage: 'url("https://images.unsplash.com/photo-1572442388796-11668a67e53d?w=1920&h=1080&fit=crop&crop=center&auto=format&q=80")'
             }}
             animate={{
               scale: [1, 1.05, 1],
