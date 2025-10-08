@@ -409,7 +409,7 @@ export default function AboutPage() {
                   key={value.title}
                   className={`bg-gradient-to-br ${value.bgColor} rounded-3xl p-8 text-center hover:shadow-2xl transition-all duration-300 hover:scale-105 border border-white/50 group relative overflow-hidden`}
                 >
-                  <div className="absolute inset-0 opacity-5 group-hover:opacity-10 transition-opacity duration-300">
+                  <div className="absolute inset-0 opacity-20 group-hover:opacity-30 transition-opacity duration-300">
                     <img
                       src={backgroundImages[index]}
                       alt={`${value.title} background`}
