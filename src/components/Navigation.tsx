@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { Menu, X, Coffee, Home, Utensils, Users, MapPin, Bell, Search, HelpCircle } from 'lucide-react';
+import { Menu, X, Coffee, Home, Utensils, Users, MapPin, Search, HelpCircle } from 'lucide-react';
 
 interface NavigationProps {
   onFAQClick?: () => void;
@@ -93,22 +93,10 @@ const Navigation = ({ onFAQClick }: NavigationProps) => {
                 <HelpCircle className="h-5 w-5" />
               </button>
             )}
-
-            {/* Notification Bell */}
-            <button className="relative p-2 text-gray-600 hover:text-amber-600 hover:bg-amber-50 rounded-xl">
-              <Bell className="h-5 w-5" />
-              <div className="absolute -top-1 -right-1 w-3 h-3 bg-red-500 rounded-full flex items-center justify-center">
-                <span className="text-xs text-white font-bold">3</span>
-              </div>
-            </button>
           </div>
 
           {/* Mobile menu button */}
           <div className="md:hidden flex items-center space-x-2">
-            <button className="relative p-2 text-gray-600 hover:text-amber-600 hover:bg-amber-50 rounded-xl">
-              <Bell className="h-5 w-5" />
-              <div className="absolute -top-1 -right-1 w-3 h-3 bg-red-500 rounded-full" />
-            </button>
             <button
               onClick={() => setIsOpen(!isOpen)}
               className="p-2 text-gray-700 hover:text-amber-600 hover:bg-amber-50 rounded-xl"
