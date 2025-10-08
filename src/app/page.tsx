@@ -186,7 +186,7 @@ export default function Home() {
                       <Coffee className="h-3 w-3 text-green-600" />
                     </div>
                     <div>
-                      <h4 className="font-semibold text-gray-800">Fresh Roasted Daily</h4>
+                      <h4 className="font-semibold text-gray-800">Fresh Roasted coffee Daily</h4>
                       <p className="text-sm text-gray-600">Beans roasted in small batches for maximum flavor</p>
                     </div>
                   </div>
