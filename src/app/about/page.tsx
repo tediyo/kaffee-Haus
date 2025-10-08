@@ -395,25 +395,35 @@ export default function AboutPage() {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {values.map((value, index) => (
-              <div
-                key={value.title}
-                className={`bg-gradient-to-br ${value.bgColor} rounded-3xl p-8 text-center hover:shadow-2xl transition-all duration-300 hover:scale-105 border border-white/50 group relative overflow-hidden`}
-              >
-                <div className="absolute inset-0 opacity-5 group-hover:opacity-10 transition-opacity duration-300">
-                  <img
-                    src="https://images.unsplash.com/photo-1559056199-641a0ac8b55e?w=200&h=200&fit=crop&crop=center&auto=format&q=80"
-                    alt="Coffee background"
-                    className="w-full h-full object-cover"
-                  />
+            {values.map((value, index) => {
+              // Different background images for each value card
+              const backgroundImages = [
+                'https://images.unsplash.com/photo-1559056199-641a0ac8b55e?w=400&h=300&fit=crop&crop=center&auto=format&q=80', // Quality - Coffee beans
+                'https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?w=400&h=300&fit=crop&crop=center&auto=format&q=80', // Community - Coffee shop interior
+                'https://images.unsplash.com/photo-1447933601403-0c6688de566e?w=400&h=300&fit=crop&crop=center&auto=format&q=80', // Sustainability - Coffee roasting
+                'https://images.unsplash.com/photo-1572442388796-11668a67e53d?w=400&h=300&fit=crop&crop=center&auto=format&q=80'  // Expert Team - Barista at work
+              ];
+              
+              return (
+                <div
+                  key={value.title}
+                  className={`bg-gradient-to-br ${value.bgColor} rounded-3xl p-8 text-center hover:shadow-2xl transition-all duration-300 hover:scale-105 border border-white/50 group relative overflow-hidden`}
+                >
+                  <div className="absolute inset-0 opacity-5 group-hover:opacity-10 transition-opacity duration-300">
+                    <img
+                      src={backgroundImages[index]}
+                      alt={`${value.title} background`}
+                      className="w-full h-full object-cover"
+                    />
+                  </div>
+                  <div className={`w-20 h-20 rounded-full bg-gradient-to-r ${value.color} flex items-center justify-center mx-auto mb-6 shadow-lg group-hover:scale-110 transition-transform duration-300 relative z-10`}>
+                    <value.icon className="h-10 w-10 text-white" />
+                  </div>
+                  <h3 className="text-2xl font-bold text-gray-800 mb-4 relative z-10">{value.title}</h3>
+                  <p className="text-gray-600 leading-relaxed relative z-10">{value.description}</p>
                 </div>
-                <div className={`w-20 h-20 rounded-full bg-gradient-to-r ${value.color} flex items-center justify-center mx-auto mb-6 shadow-lg group-hover:scale-110 transition-transform duration-300 relative z-10`}>
-                  <value.icon className="h-10 w-10 text-white" />
-                </div>
-                <h3 className="text-2xl font-bold text-gray-800 mb-4 relative z-10">{value.title}</h3>
-                <p className="text-gray-600 leading-relaxed relative z-10">{value.description}</p>
-              </div>
-            ))}
+              );
+            })}
           </div>
         </div>
       </section>
