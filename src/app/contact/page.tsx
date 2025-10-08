@@ -160,7 +160,16 @@ export default function ContactPage() {
 
       {/* Enhanced Contact Information */}
       <section className="py-20 bg-white relative">
-        <div className="absolute inset-0 bg-gradient-to-br from-amber-50/50 to-orange-50/50" />
+        {/* Background Image */}
+        <div className="absolute inset-0 z-0">
+          <div 
+            className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+            style={{
+              backgroundImage: 'url("/Tq.jpg")'
+            }}
+          />
+          <div className="absolute inset-0 bg-gradient-to-br from-amber-50/50 to-orange-50/50" />
+        </div>
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <div className="inline-flex items-center space-x-2 bg-amber-100 rounded-full px-6 py-3 text-amber-800 mb-6">
@@ -201,8 +210,18 @@ export default function ContactPage() {
       </section>
 
       {/* Enhanced Contact Form & Map */}
-      <section className="py-20 bg-gradient-to-br from-amber-50 to-orange-100">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <section className="py-20 bg-gradient-to-br from-amber-50 to-orange-100 relative">
+        {/* Background Image */}
+        <div className="absolute inset-0 z-0">
+          <div 
+            className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+            style={{
+              backgroundImage: 'url("https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?w=1920&h=1080&fit=crop&crop=center&auto=format&q=80")'
+            }}
+          />
+          <div className="absolute inset-0 bg-gradient-to-br from-amber-50/80 to-orange-100/80" />
+        </div>
+        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16">
             {/* Enhanced Contact Form */}
             <div className="bg-white rounded-3xl p-10 shadow-2xl border border-amber-200/50">
@@ -392,8 +411,18 @@ export default function ContactPage() {
       </section>
 
       {/* Enhanced FAQ Section */}
-      <section className="py-20 bg-white">
-        <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+      <section className="py-20 bg-white relative">
+        {/* Background Image */}
+        <div className="absolute inset-0 z-0">
+          <div 
+            className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+            style={{
+              backgroundImage: 'url("/TRT.jpg")'
+            }}
+          />
+          <div className="absolute inset-0 bg-gradient-to-br from-white/90 to-white/80" />
+        </div>
+        <div className="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <div className="inline-flex items-center space-x-2 bg-amber-100 rounded-full px-6 py-3 text-amber-800 mb-6">
               <MessageCircle className="h-5 w-5" />
