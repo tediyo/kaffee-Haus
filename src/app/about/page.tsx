@@ -217,7 +217,16 @@ export default function AboutPage() {
 
       {/* Enhanced Story Section */}
       <section className="py-20 bg-white relative">
-        <div className="absolute inset-0 bg-gradient-to-br from-amber-50/50 to-orange-50/50" />
+        {/* Background Image */}
+        <div className="absolute inset-0 z-0">
+          <div 
+            className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+            style={{
+              backgroundImage: 'url("/ch.png")'
+            }}
+          />
+          <div className="absolute inset-0 bg-gradient-to-br from-amber-50/50 to-orange-50/50" />
+        </div>
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
             <div className="space-y-8">
@@ -362,8 +371,18 @@ export default function AboutPage() {
       </section>
 
       {/* Enhanced Values Section */}
-      <section className="py-20 bg-gradient-to-br from-amber-50 to-orange-100">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <section className="py-20 bg-gradient-to-br from-amber-50 to-orange-100 relative">
+        {/* Background Image */}
+        <div className="absolute inset-0 z-0">
+          <div 
+            className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+            style={{
+              backgroundImage: 'url("https://images.unsplash.com/photo-1559056199-641a0ac8b55e?w=1920&h=1080&fit=crop&crop=center&auto=format&q=80")'
+            }}
+          />
+          <div className="absolute inset-0 bg-gradient-to-br from-amber-50/80 to-orange-100/80" />
+        </div>
+        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <div className="inline-flex items-center space-x-2 bg-white/50 backdrop-blur-sm rounded-full px-6 py-3 text-amber-800 mb-6">
               <Award className="h-5 w-5" />
@@ -400,8 +419,18 @@ export default function AboutPage() {
       </section>
 
       {/* Enhanced Team Section */}
-      <section className="py-20 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <section className="py-20 bg-white relative">
+        {/* Background Image */}
+        <div className="absolute inset-0 z-0">
+          <div 
+            className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+            style={{
+              backgroundImage: 'url("/coffeeCup.jpg")'
+            }}
+          />
+          <div className="absolute inset-0 bg-gradient-to-br from-white/90 to-white/80" />
+        </div>
+        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <div className="inline-flex items-center space-x-2 bg-amber-100 rounded-full px-6 py-3 text-amber-800 mb-6">
               <Users className="h-5 w-5" />
