@@ -399,7 +399,7 @@ export default function ContactPage() {
           />
           <div className="absolute inset-0 bg-gradient-to-br from-amber-50/80 to-orange-100/80" />
         </div>
-        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
             <div className="inline-flex items-center space-x-2 bg-white/50 backdrop-blur-sm rounded-full px-6 py-3 text-amber-800 mb-6">
               <MapPin className="h-5 w-5" />
