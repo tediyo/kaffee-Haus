@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import Navigation from '@/components/Navigation';
+import InteractiveMap from '@/components/InteractiveMap';
 import { MessageCircle, Star, MapPin, Phone, Mail, Clock, Send, Instagram, Facebook, Twitter, CheckCircle, AlertCircle, Coffee, Users, Award, HelpCircle } from 'lucide-react';
 
 export default function ContactPage() {
@@ -220,26 +221,7 @@ export default function ContactPage() {
             </p>
           </div>
 
-          <div className="bg-white rounded-3xl shadow-2xl border border-amber-200/50 overflow-hidden">
-            <div className="h-96 bg-gradient-to-br from-amber-100 to-orange-100 flex items-center justify-center">
-              <div className="text-center">
-                <MapPin className="h-16 w-16 text-amber-600 mx-auto mb-4" />
-                <h3 className="text-2xl font-bold text-gray-800 mb-2">Interactive Map</h3>
-                <p className="text-gray-600 mb-4">Map showing all our branch locations</p>
-                <div className="grid grid-cols-2 gap-4 max-w-md mx-auto">
-                  {branches.map((branch, index) => (
-                    <div key={branch.id} className="bg-white/70 rounded-lg p-3 text-left">
-                      <div className="flex items-center space-x-2 mb-1">
-                        <div className="w-3 h-3 bg-amber-500 rounded-full"></div>
-                        <span className="font-semibold text-sm text-gray-800">{branch.name}</span>
-                      </div>
-                      <p className="text-xs text-gray-600">{branch.address}</p>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </div>
-          </div>
+          <InteractiveMap branches={branches} />
         </div>
       </section>
 
