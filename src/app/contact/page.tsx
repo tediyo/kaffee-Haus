@@ -42,65 +42,65 @@ export default function ContactPage() {
   const branches = [
     {
       id: 1,
-      name: 'Downtown Main Branch',
-      address: '123 Coffee Street, Downtown District',
-      city: 'City, State 12345',
-      phone: '(555) 123-4567',
-      email: 'downtown@kaffeehaus.com',
+      name: 'Bole Main Branch',
+      address: 'Bole Road, Near Edna Mall',
+      city: 'Addis Ababa, Ethiopia',
+      phone: '+251 11 123 4567',
+      email: 'bole@kaffeehaus.com',
       hours: {
-        weekdays: '6:00 AM - 8:00 PM',
-        weekends: '7:00 AM - 9:00 PM'
+        weekdays: '6:00 AM - 10:00 PM',
+        weekends: '7:00 AM - 11:00 PM'
       },
       features: ['WiFi', 'Outdoor Seating', 'Parking', 'Pet Friendly'],
-      coordinates: { lat: 40.7128, lng: -74.0060 },
+      coordinates: { lat: 8.9806, lng: 38.7578 },
       isMain: true,
       image: 'https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?w=600&h=400&fit=crop&crop=center&auto=format&q=80'
     },
     {
       id: 2,
-      name: 'University Campus Branch',
-      address: '456 Student Plaza, University District',
-      city: 'City, State 12345',
-      phone: '(555) 123-4568',
+      name: 'Addis Ababa University Branch',
+      address: 'Sidist Kilo, University Area',
+      city: 'Addis Ababa, Ethiopia',
+      phone: '+251 11 123 4568',
       email: 'university@kaffeehaus.com',
       hours: {
-        weekdays: '5:30 AM - 10:00 PM',
-        weekends: '7:00 AM - 11:00 PM'
+        weekdays: '5:30 AM - 11:00 PM',
+        weekends: '7:00 AM - 12:00 AM'
       },
       features: ['Study Areas', 'WiFi', 'Student Discounts', 'Late Hours'],
-      coordinates: { lat: 40.7589, lng: -73.9851 },
+      coordinates: { lat: 9.0400, lng: 38.7500 },
       isMain: false,
       image: 'https://images.unsplash.com/photo-1554118811-1e0d58224f24?w=600&h=400&fit=crop&crop=center&auto=format&q=80'
     },
     {
       id: 3,
-      name: 'Shopping Mall Branch',
-      address: '789 Mall Drive, Shopping District',
-      city: 'City, State 12345',
-      phone: '(555) 123-4569',
-      email: 'mall@kaffeehaus.com',
+      name: 'Merkato Branch',
+      address: 'Merkato Market Area, Near Commercial Bank',
+      city: 'Addis Ababa, Ethiopia',
+      phone: '+251 11 123 4569',
+      email: 'merkato@kaffeehaus.com',
       hours: {
-        weekdays: '8:00 AM - 9:00 PM',
-        weekends: '9:00 AM - 10:00 PM'
+        weekdays: '7:00 AM - 9:00 PM',
+        weekends: '8:00 AM - 10:00 PM'
       },
-      features: ['Mall Access', 'WiFi', 'Grab & Go', 'Family Friendly'],
-      coordinates: { lat: 40.7505, lng: -73.9934 },
+      features: ['Market Access', 'WiFi', 'Grab & Go', 'Family Friendly'],
+      coordinates: { lat: 9.0200, lng: 38.7200 },
       isMain: false,
       image: 'https://images.unsplash.com/photo-1447933601403-0c6688de566e?w=600&h=400&fit=crop&crop=center&auto=format&q=80'
     },
     {
       id: 4,
-      name: 'Airport Terminal Branch',
-      address: 'Terminal 2, Gate A15, Airport Plaza',
-      city: 'City, State 12345',
-      phone: '(555) 123-4570',
+      name: 'Bole Airport Branch',
+      address: 'Terminal 1, Departure Hall, Bole International Airport',
+      city: 'Addis Ababa, Ethiopia',
+      phone: '+251 11 123 4570',
       email: 'airport@kaffeehaus.com',
       hours: {
-        weekdays: '4:00 AM - 11:00 PM',
-        weekends: '4:00 AM - 11:00 PM'
+        weekdays: '4:00 AM - 12:00 AM',
+        weekends: '4:00 AM - 12:00 AM'
       },
       features: ['24/7 Access', 'Quick Service', 'Travel Snacks', 'Mobile Ordering'],
-      coordinates: { lat: 40.6892, lng: -74.1745 },
+      coordinates: { lat: 8.9779, lng: 38.7993 },
       isMain: false,
       image: 'https://images.unsplash.com/photo-1572442388796-11668a67e53d?w=600&h=400&fit=crop&crop=center&auto=format&q=80'
     }

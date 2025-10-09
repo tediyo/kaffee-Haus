@@ -71,14 +71,63 @@ const InteractiveMap: React.FC<InteractiveMapProps> = ({
           {/* Map Container */}
           <div 
             ref={mapRef}
-            className="h-full w-full"
-            style={{
-              backgroundImage: `url(https://api.mapbox.com/styles/v1/mapbox/streets-v11/static/${centerLng},${centerLat},10,0/600x600@2x?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw)`,
-              backgroundSize: 'cover',
-              backgroundPosition: 'center',
-              backgroundRepeat: 'no-repeat'
-            }}
-          />
+            className="h-full w-full bg-gradient-to-br from-blue-100 via-green-100 to-yellow-100 relative"
+          >
+            {/* Map Grid Pattern */}
+            <div className="absolute inset-0 opacity-30">
+              <div className="grid grid-cols-12 h-full">
+                {Array.from({ length: 144 }).map((_, i) => (
+                  <div key={i} className="border border-gray-300/20" />
+                ))}
+              </div>
+            </div>
+            
+            {/* Map Title */}
+            <div className="absolute top-4 left-4 bg-white/90 backdrop-blur-sm rounded-lg p-3 shadow-lg">
+              <h4 className="text-sm font-bold text-gray-800">Addis Ababa Map</h4>
+              <p className="text-xs text-gray-600">Kaffee Haus locations in Ethiopia</p>
+            </div>
+            
+            {/* Streets and Roads */}
+            <div className="absolute inset-0">
+              {/* Main roads - Bole Road, Ring Road, etc. */}
+              <div className="absolute top-1/3 left-0 right-0 h-1 bg-gray-400/40"></div>
+              <div className="absolute top-2/3 left-0 right-0 h-1 bg-gray-400/40"></div>
+              <div className="absolute left-1/3 top-0 bottom-0 w-1 bg-gray-400/40"></div>
+              <div className="absolute left-2/3 top-0 bottom-0 w-1 bg-gray-400/40"></div>
+              
+              {/* Secondary roads */}
+              <div className="absolute top-1/6 left-0 right-0 h-0.5 bg-gray-300/30"></div>
+              <div className="absolute top-5/6 left-0 right-0 h-0.5 bg-gray-300/30"></div>
+              <div className="absolute left-1/6 top-0 bottom-0 w-0.5 bg-gray-300/30"></div>
+              <div className="absolute left-5/6 top-0 bottom-0 w-0.5 bg-gray-300/30"></div>
+            </div>
+            
+            {/* Ethiopian Landmarks */}
+            <div className="absolute inset-0">
+              {/* Entoto Mountains (North) */}
+              <div className="absolute top-2 left-1/2 w-16 h-8 bg-green-300/40 rounded-full transform -translate-x-1/2"></div>
+              <div className="absolute top-1 left-1/2 text-xs text-green-700 font-bold transform -translate-x-1/2">Entoto</div>
+              
+              {/* Bole Airport (East) */}
+              <div className="absolute top-1/4 right-4 w-8 h-8 bg-blue-200/60 rounded-full flex items-center justify-center">
+                <div className="text-xs">✈️</div>
+              </div>
+              <div className="absolute top-1/4 right-12 text-xs text-blue-700 font-bold">Bole Airport</div>
+              
+              {/* Merkato Market (West) */}
+              <div className="absolute bottom-1/3 left-4 w-6 h-6 bg-yellow-200/60 rounded-full flex items-center justify-center">
+                <div className="text-xs">🏪</div>
+              </div>
+              <div className="absolute bottom-1/3 left-12 text-xs text-yellow-700 font-bold">Merkato</div>
+              
+              {/* University Area (North-Center) */}
+              <div className="absolute top-1/2 left-1/3 w-6 h-6 bg-purple-200/60 rounded-full flex items-center justify-center">
+                <div className="text-xs">🎓</div>
+              </div>
+              <div className="absolute top-1/2 left-1/3 text-xs text-purple-700 font-bold transform translate-y-6">AAU</div>
+            </div>
+          </div>
           
           {/* Custom Markers Overlay */}
           <div className="absolute inset-0 pointer-events-none">
@@ -92,8 +141,8 @@ const InteractiveMap: React.FC<InteractiveMapProps> = ({
                     : 'bg-white border-amber-400 hover:bg-amber-100'
                 }`}
                 style={{
-                  left: `${30 + (index * 20)}%`,
-                  top: `${40 + (index % 3) * 15}%`
+                  left: `${25 + (index * 18)}%`,
+                  top: `${35 + (index % 2) * 20}%`
                 }}
               >
                 <div className="w-full h-full flex items-center justify-center">
