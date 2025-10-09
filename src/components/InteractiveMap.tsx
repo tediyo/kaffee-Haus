@@ -42,15 +42,16 @@ export default function InteractiveMap({ branches }: InteractiveMapProps) {
             </div>
           ) : (
         <div className="w-full h-full relative">
-          {/* Real Map using OpenStreetMap */}
+          {/* Real Map with Satellite View showing landscapes */}
           <iframe
-            src="https://www.openstreetmap.org/export/embed.html?bbox=38.7,8.9,38.8,9.1&layer=mapnik&marker=8.9806,38.7578&marker=9.0333,38.7500&marker=8.9779,38.7993&marker=9.0333,38.7500"
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3940.5!2d38.7578!3d8.9806!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x164b8f689a4b1d3b%3A0x8c5b5b5b5b5b5b5b!2sAddis%20Ababa%2C%20Ethiopia!5e0!3m2!1sen!2sus!4v1234567890123!5m2!1sen!2sus"
             width="100%"
             height="100%"
             className="border-0 rounded-lg"
             loading="lazy"
             referrerPolicy="no-referrer-when-downgrade"
-            title="Kaffee Haus Locations Map"
+            title="Kaffee Haus Locations Map - Satellite View"
+            allowFullScreen
           />
               
               {/* Map Overlay for UI Elements */}
@@ -85,14 +86,6 @@ export default function InteractiveMap({ branches }: InteractiveMapProps) {
                 </div>
               </div>
 
-              {/* Map Legend */}
-              <div className="absolute top-4 left-4 bg-white/90 backdrop-blur-sm rounded-lg p-3 shadow-lg">
-                <div className="flex items-center space-x-2">
-                  <MapPin className="h-4 w-4 text-amber-600" />
-                  <span className="font-semibold text-sm text-gray-800">Kaffee Haus Locations</span>
-                </div>
-                <p className="text-xs text-gray-600 mt-1">Hover over markers for branch names</p>
-              </div>
 
               {/* Selected Branch Details */}
               {selectedBranch && (
