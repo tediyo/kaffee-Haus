@@ -198,33 +198,6 @@ export default function ContactPage() {
         </div>
       </section>
 
-      {/* Map Section */}
-      <section className="py-20 bg-gradient-to-br from-amber-50 to-orange-100 relative">
-        <div className="absolute inset-0 z-0">
-          <div 
-            className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-            style={{
-              backgroundImage: 'url("https://images.unsplash.com/photo-1559056199-641a0ac8b55e?w=1920&h=1080&fit=crop&crop=center&auto=format&q=80")'
-            }}
-          />
-          <div className="absolute inset-0 bg-gradient-to-br from-amber-50/80 to-orange-100/80" />
-        </div>
-        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <div className="inline-flex items-center space-x-2 bg-white/50 backdrop-blur-sm rounded-full px-6 py-3 text-amber-800 mb-6">
-              <MapPin className="h-5 w-5" />
-              <span className="font-medium">Interactive Map</span>
-            </div>
-            <h2 className="text-5xl font-bold text-gray-800 mb-6">Our Locations</h2>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              Explore our branches across Addis Ababa on the map below
-            </p>
-          </div>
-
-          <InteractiveMap branches={branches} />
-        </div>
-      </section>
-
       {/* Contact Form & Social Media Section */}
       <section className="py-20 bg-white relative">
         <div className="absolute inset-0 z-0">
@@ -439,6 +412,33 @@ export default function ContactPage() {
               </div>
             </div>
           </div>
+        </div>
+      </section>
+
+      {/* Map Section */}
+      <section className="py-20 bg-gradient-to-br from-amber-50 to-orange-100 relative">
+        <div className="absolute inset-0 z-0">
+          <div 
+            className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+            style={{
+              backgroundImage: 'url("https://images.unsplash.com/photo-1559056199-641a0ac8b55e?w=1920&h=1080&fit=crop&crop=center&auto=format&q=80")'
+            }}
+          />
+          <div className="absolute inset-0 bg-gradient-to-br from-amber-50/80 to-orange-100/80" />
+        </div>
+        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-12">
+            <div className="inline-flex items-center space-x-2 bg-white/50 backdrop-blur-sm rounded-full px-6 py-3 text-amber-800 mb-6">
+              <MapPin className="h-5 w-5" />
+              <span className="font-medium">Interactive Map</span>
+            </div>
+            <h2 className="text-5xl font-bold text-gray-800 mb-6">Our Locations</h2>
+            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+              Explore our branches across Addis Ababa on the map below
+            </p>
+          </div>
+
+          <InteractiveMap branches={branches} />
         </div>
       </section>
     </main>
