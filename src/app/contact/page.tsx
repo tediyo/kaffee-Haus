@@ -1,8 +1,9 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Navigation from '@/components/Navigation';
 import FAQModal from '@/components/FAQModal';
+import InteractiveMap from '@/components/InteractiveMap';
 import { MapPin, Phone, Mail, Clock, Send, MessageCircle, Instagram, Facebook, Twitter, CheckCircle, AlertCircle, Star, Coffee, Users, Award, HelpCircle } from 'lucide-react';
 
 export default function ContactPage() {
@@ -584,115 +585,12 @@ export default function ContactPage() {
               <p className="text-amber-100">Explore our branches across the city</p>
             </div>
             
-            {/* Map Display */}
-            <div className="h-[600px] relative bg-gradient-to-br from-amber-100 to-orange-100">
-              {/* Map Background */}
-              <div className="absolute inset-0 bg-gradient-to-br from-amber-200 via-orange-200 to-amber-300">
-                {/* Map Grid Pattern */}
-                <div className="absolute inset-0 opacity-20">
-                  <div className="grid grid-cols-12 h-full">
-                    {Array.from({ length: 144 }).map((_, i) => (
-                      <div key={i} className="border border-amber-300/30" />
-                    ))}
-                  </div>
-                </div>
-                
-                {/* Map Title */}
-                <div className="absolute top-8 left-8 bg-white/90 backdrop-blur-sm rounded-2xl p-4 shadow-lg">
-                  <h4 className="text-lg font-bold text-amber-800 mb-2">City Map</h4>
-                  <p className="text-sm text-amber-700">Coffee shop locations</p>
-                </div>
-
-                {/* Branch Markers */}
-                {branches.map((branch, index) => (
-                  <button
-                    key={branch.id}
-                    onClick={() => setSelectedBranch(index)}
-                    className={`absolute w-12 h-12 rounded-full border-4 transition-all duration-300 hover:scale-125 shadow-lg ${
-                      selectedBranch === index 
-                        ? 'bg-amber-500 border-amber-700 shadow-2xl' 
-                        : 'bg-white border-amber-400 hover:bg-amber-100'
-                    }`}
-                    style={{
-                      left: `${15 + (index * 22)}%`,
-                      top: `${25 + (index % 3) * 20}%`
-                    }}
-                  >
-                    <div className="w-full h-full flex items-center justify-center">
-                      <Coffee className={`h-6 w-6 ${selectedBranch === index ? 'text-white' : 'text-amber-600'}`} />
-                    </div>
-                    
-                    {/* Branch Label */}
-                    <div className={`absolute -bottom-8 left-1/2 transform -translate-x-1/2 whitespace-nowrap px-3 py-1 rounded-lg text-xs font-bold transition-all duration-300 ${
-                      selectedBranch === index 
-                        ? 'bg-amber-500 text-white shadow-lg' 
-                        : 'bg-white/90 text-amber-700'
-                    }`}>
-                      {branch.name.split(' ')[0]}
-                    </div>
-                  </button>
-                ))}
-
-                {/* Map Legend */}
-                <div className="absolute bottom-8 right-8 bg-white/90 backdrop-blur-sm rounded-2xl p-4 shadow-lg">
-                  <h5 className="text-sm font-bold text-amber-800 mb-2">Legend</h5>
-                  <div className="space-y-1 text-xs text-amber-700">
-                    <div className="flex items-center space-x-2">
-                      <div className="w-4 h-4 bg-amber-500 rounded-full border-2 border-amber-700"></div>
-                      <span>Selected Branch</span>
-                    </div>
-                    <div className="flex items-center space-x-2">
-                      <div className="w-4 h-4 bg-white rounded-full border-2 border-amber-400"></div>
-                      <span>Other Branches</span>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Selected Branch Info Panel */}
-                {selectedBranch !== null && (
-                  <div className="absolute top-8 right-8 bg-white/95 backdrop-blur-sm rounded-2xl p-6 shadow-2xl max-w-sm">
-                    <div className="flex items-center space-x-3 mb-4">
-                      <div className="w-12 h-12 bg-amber-500 rounded-full flex items-center justify-center">
-                        <Coffee className="h-6 w-6 text-white" />
-                      </div>
-                      <div>
-                        <h4 className="text-lg font-bold text-gray-800">{branches[selectedBranch].name}</h4>
-                        <p className="text-sm text-amber-600">
-                          {branches[selectedBranch].isMain ? 'Main Branch' : 'Branch Location'}
-                        </p>
-                      </div>
-                    </div>
-                    
-                    <div className="space-y-3 text-sm">
-                      <div className="flex items-start space-x-2">
-                        <MapPin className="h-4 w-4 text-amber-600 mt-0.5 flex-shrink-0" />
-                        <div>
-                          <p className="font-medium text-gray-800">{branches[selectedBranch].address}</p>
-                          <p className="text-gray-600">{branches[selectedBranch].city}</p>
-                        </div>
-                      </div>
-                      
-                      <div className="flex items-center space-x-2">
-                        <Phone className="h-4 w-4 text-amber-600" />
-                        <span className="text-gray-700">{branches[selectedBranch].phone}</span>
-                      </div>
-                      
-                      <div className="flex items-center space-x-2">
-                        <Clock className="h-4 w-4 text-amber-600" />
-                        <div>
-                          <p className="text-gray-700">Mon-Fri: {branches[selectedBranch].hours.weekdays}</p>
-                          <p className="text-gray-700">Sat-Sun: {branches[selectedBranch].hours.weekends}</p>
-                        </div>
-                      </div>
-                    </div>
-                    
-                    <button className="w-full mt-4 bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 text-white py-2 rounded-xl font-semibold transition-all duration-200 hover:scale-105 shadow-lg">
-                      Get Directions
-                    </button>
-                  </div>
-                )}
-              </div>
-            </div>
+            {/* Interactive Map */}
+            <InteractiveMap
+              branches={branches}
+              selectedBranch={selectedBranch}
+              onBranchSelect={setSelectedBranch}
+            />
           </div>
         </div>
       </section>
