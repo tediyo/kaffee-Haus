@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import Navigation from '@/components/Navigation';
-import { Coffee, Users, Award, Heart, Clock, MapPin, Star, Sparkles, TrendingUp, Shield, Leaf, Zap, Phone } from 'lucide-react';
+import { Coffee, Users, Award, Heart, Clock, MapPin, Star, Sparkles, Phone, Leaf } from 'lucide-react';
 
 const teamMembers = [
   {
@@ -78,80 +78,6 @@ const values = [
   }
 ];
 
-const stats = [
-  { 
-    number: 500, 
-    suffix: '+', 
-    label: 'Happy Customers Daily', 
-    icon: Users, 
-    color: 'text-blue-600',
-    bgColor: 'from-blue-500 to-blue-600',
-    description: 'Served with love every day'
-  },
-  { 
-    number: 15, 
-    suffix: '+', 
-    label: 'Years of Experience', 
-    icon: Award, 
-    color: 'text-amber-600',
-    bgColor: 'from-amber-500 to-amber-600',
-    description: 'Perfecting our craft since 2008'
-  },
-  { 
-    number: 50, 
-    suffix: '+', 
-    label: 'Coffee Varieties', 
-    icon: Coffee, 
-    color: 'text-green-600',
-    bgColor: 'from-green-500 to-green-600',
-    description: 'From around the world'
-  },
-  { 
-    number: 4.9, 
-    suffix: '/5', 
-    label: 'Average Rating', 
-    icon: Star, 
-    color: 'text-yellow-600',
-    bgColor: 'from-yellow-500 to-yellow-600',
-    description: 'Based on 2,500+ reviews'
-  },
-  { 
-    number: 10000, 
-    suffix: '+', 
-    label: 'Cups Served Monthly', 
-    icon: TrendingUp, 
-    color: 'text-purple-600',
-    bgColor: 'from-purple-500 to-purple-600',
-    description: 'And counting!'
-  },
-  { 
-    number: 25, 
-    suffix: '+', 
-    label: 'Team Members', 
-    icon: Heart, 
-    color: 'text-red-600',
-    bgColor: 'from-red-500 to-red-600',
-    description: 'Passionate coffee lovers'
-  },
-  { 
-    number: 98, 
-    suffix: '%', 
-    label: 'Customer Satisfaction', 
-    icon: Shield, 
-    color: 'text-indigo-600',
-    bgColor: 'from-indigo-500 to-indigo-600',
-    description: 'We measure what matters'
-  },
-  { 
-    number: 5, 
-    suffix: '+', 
-    label: 'Awards Won', 
-    icon: Zap, 
-    color: 'text-orange-600',
-    bgColor: 'from-orange-500 to-orange-600',
-    description: 'Recognition for excellence'
-  }
-];
 
 const milestones = [
   { year: '2008', title: 'Founded', description: 'Started as a small corner shop with big dreams' },
@@ -498,77 +424,6 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* Enhanced Stats Section with Animated Counters */}
-      <section className="py-20 bg-gradient-to-r from-amber-800 to-orange-700 relative overflow-hidden">
-        <div className="absolute inset-0 bg-black/20" />
-        <div className="absolute inset-0">
-          <div className="absolute top-10 left-10 w-32 h-32 bg-amber-300/20 rounded-full blur-xl animate-pulse" />
-          <div className="absolute bottom-20 right-20 w-40 h-40 bg-orange-300/20 rounded-full blur-2xl animate-pulse" style={{ animationDelay: '1s' }} />
-          <div className="absolute top-1/2 left-1/4 w-24 h-24 bg-amber-400/15 rounded-full blur-lg animate-pulse" style={{ animationDelay: '2s' }} />
-        </div>
-        
-        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <div className="inline-flex items-center space-x-2 bg-white/20 backdrop-blur-sm rounded-full px-6 py-3 text-white/90 mb-6">
-              <TrendingUp className="h-5 w-5" />
-              <span className="font-medium">By the Numbers</span>
-            </div>
-            <h2 className="text-5xl font-bold text-white mb-6">Our Impact</h2>
-            <p className="text-xl text-amber-100 max-w-3xl mx-auto">
-              The numbers that tell our story of growth and community impact
-            </p>
-          </div>
-
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-6">
-            {stats.map((stat, index) => (
-              <div
-                key={stat.label}
-                className="group text-center bg-white/10 backdrop-blur-sm rounded-3xl p-6 border border-white/20 hover:bg-white/20 transition-all duration-500 hover:scale-105 hover:shadow-2xl"
-                style={{ animationDelay: `${index * 0.1}s` }}
-              >
-                <div className={`w-16 h-16 rounded-full bg-gradient-to-r ${stat.bgColor} flex items-center justify-center mx-auto mb-4 group-hover:scale-110 transition-transform duration-300 shadow-lg`}>
-                  <stat.icon className="h-8 w-8 text-white" />
-                </div>
-                <div className="text-4xl font-bold text-white mb-2 group-hover:text-amber-200 transition-colors duration-300">
-                  {stat.number.toLocaleString()}{stat.suffix}
-                </div>
-                <div className="text-amber-100 text-lg font-semibold mb-2">{stat.label}</div>
-                <div className="text-amber-200/80 text-sm">{stat.description}</div>
-                
-                {/* Progress bar for visual appeal */}
-                <div className="mt-4 w-full bg-white/20 rounded-full h-1">
-                  <div 
-                    className={`bg-gradient-to-r ${stat.bgColor} h-1 rounded-full transition-all duration-1000 group-hover:scale-x-110`}
-                    style={{ 
-                      width: `${Math.min((stat.number / 1000) * 100, 100)}%`,
-                      animationDelay: `${index * 0.2}s`
-                    }}
-                  />
-                </div>
-              </div>
-            ))}
-          </div>
-
-          {/* Additional Impact Metrics */}
-          <div className="mt-16 grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div className="text-center bg-white/5 backdrop-blur-sm rounded-2xl p-6 border border-white/10">
-              <div className="text-3xl font-bold text-white mb-2">15+</div>
-              <div className="text-amber-100 text-lg">Local Partners</div>
-              <div className="text-amber-200/70 text-sm">Supporting our community</div>
-            </div>
-            <div className="text-center bg-white/5 backdrop-blur-sm rounded-2xl p-6 border border-white/10">
-              <div className="text-3xl font-bold text-white mb-2">$50K+</div>
-              <div className="text-amber-100 text-lg">Community Investment</div>
-              <div className="text-amber-200/70 text-sm">Giving back annually</div>
-            </div>
-            <div className="text-center bg-white/5 backdrop-blur-sm rounded-2xl p-6 border border-white/10">
-              <div className="text-3xl font-bold text-white mb-2">24/7</div>
-              <div className="text-amber-100 text-lg">Customer Support</div>
-              <div className="text-amber-200/70 text-sm">Always here for you</div>
-            </div>
-          </div>
-        </div>
-      </section>
 
       {/* Enhanced Location & Hours with Interactive Elements */}
       <section className="py-20 bg-gradient-to-br from-amber-50 to-orange-100 relative overflow-hidden">
