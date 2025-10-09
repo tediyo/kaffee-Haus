@@ -3,6 +3,13 @@
 import { useEffect, useRef, useState } from 'react';
 import { MapPin, Coffee, Phone, Clock } from 'lucide-react';
 
+// Extend Window interface for Google Maps
+declare global {
+  interface Window {
+    google: any;
+  }
+}
+
 interface Branch {
   id: number;
   name: string;
