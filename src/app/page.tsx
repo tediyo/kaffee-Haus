@@ -158,61 +158,6 @@ export default function Home() {
               </div>
             </div>
 
-            {/* Why Choose Us */}
-            <div className="relative bg-white rounded-3xl p-8 shadow-lg border border-green-200 overflow-hidden">
-              {/* Background Image for Why Choose Us */}
-              <div className="absolute inset-0 z-0">
-                <div 
-                  className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-                  style={{
-                    backgroundImage: 'url("/TRT.jpg")'
-                  }}
-                />
-                <div className="absolute inset-0 bg-gradient-to-br from-green-50/40 to-green-100/40" />
-              </div>
-              
-              <div className="relative z-10">
-                <div className="text-center mb-6">
-                  <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                    <Award className="h-8 w-8 text-green-600" />
-                  </div>
-                  <h3 className="text-2xl font-bold text-gray-800 mb-2">Why Choose Us</h3>
-                  <p className="text-gray-600">What sets us apart</p>
-                </div>
-                
-                <div className="space-y-4">
-                  <div className="flex items-start space-x-3">
-                    <div className="w-6 h-6 bg-green-100 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
-                      <Coffee className="h-3 w-3 text-green-600" />
-                    </div>
-                    <div>
-                      <h4 className="font-semibold text-gray-800">Fresh Roasted coffee Daily</h4>
-                      <p className="text-sm text-gray-600">Beans roasted in small batches for maximum flavor</p>
-                    </div>
-                  </div>
-                  
-                  <div className="flex items-start space-x-3">
-                    <div className="w-6 h-6 bg-green-100 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
-                      <Users className="h-3 w-3 text-green-600" />
-                    </div>
-                    <div>
-                      <h4 className="font-semibold text-gray-800">Expert Baristas</h4>
-                      <p className="text-sm text-gray-600">Skilled craftspeople behind every cup</p>
-                    </div>
-                  </div>
-                  
-                  <div className="flex items-start space-x-3">
-                    <div className="w-6 h-6 bg-green-100 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
-                      <Heart className="h-3 w-3 text-green-600" />
-                    </div>
-                    <div>
-                      <h4 className="font-semibold text-gray-800">Cozy Atmosphere</h4>
-                      <p className="text-sm text-gray-600">Perfect space to work, relax, or meet friends</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
           </div>
         </div>
       </section>
