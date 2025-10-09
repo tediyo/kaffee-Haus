@@ -1,7 +1,9 @@
 'use client';
 
+import { useState } from 'react';
 import Navigation from '@/components/Navigation';
-import { Coffee, Award, Heart, Sparkles, Leaf, Users } from 'lucide-react';
+import FAQModal from '@/components/FAQModal';
+import { Coffee, Award, Heart, Sparkles, Leaf, Users, MessageCircle, Star, HelpCircle } from 'lucide-react';
 
 
 const values = [
@@ -44,8 +46,37 @@ const milestones = [
   { year: '2024', title: 'Innovation', description: 'Leading sustainable coffee practices' }
 ];
 
+const faqs = [
+  {
+    question: "Do you offer delivery services?",
+    answer: "Yes! We offer delivery within a 5-mile radius. Orders over $25 qualify for free delivery.",
+    icon: Coffee
+  },
+  {
+    question: "Can I reserve a table for a group?",
+    answer: "Absolutely! We recommend calling ahead for groups of 6 or more to ensure we can accommodate you.",
+    icon: Users
+  },
+  {
+    question: "Do you have WiFi available?",
+    answer: "Yes, we provide free high-speed WiFi for all our customers. Perfect for remote work or studying.",
+    icon: MessageCircle
+  },
+  {
+    question: "Are you pet-friendly?",
+    answer: "Yes! We welcome well-behaved pets in our outdoor seating area. We even have special treats for your furry friends.",
+    icon: Award
+  },
+  {
+    question: "Do you cater events?",
+    answer: "We do! We offer catering services for meetings, parties, and special events. Contact us for custom packages.",
+    icon: Coffee
+  }
+];
+
 
 export default function AboutPage() {
+  const [faqModalOpen, setFaqModalOpen] = useState(false);
 
   return (
     <main className="min-h-screen bg-gradient-to-br from-amber-50 via-orange-50 to-amber-100">
@@ -309,6 +340,68 @@ export default function AboutPage() {
           </div>
         </div>
       </section>
+
+      {/* Enhanced FAQ Section */}
+      <section className="py-20 bg-white relative">
+        {/* Background Image */}
+        <div className="absolute inset-0 z-0">
+          <div 
+            className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+            style={{
+              backgroundImage: 'url("/TRT.jpg")'
+            }}
+          />
+          <div className="absolute inset-0 bg-gradient-to-br from-white/90 to-white/80" />
+        </div>
+        <div className="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-16">
+            <div className="inline-flex items-center space-x-2 bg-amber-100 rounded-full px-6 py-3 text-amber-800 mb-6">
+              <MessageCircle className="h-5 w-5" />
+              <span className="font-medium">Frequently Asked Questions</span>
+            </div>
+            <h2 className="text-5xl font-bold text-gray-800 mb-6">Quick Answers</h2>
+            <p className="text-xl text-gray-600 mb-8">
+              Find answers to the most common questions about our services
+            </p>
+            
+            {/* Interactive FAQ Button */}
+            <button
+              onClick={() => setFaqModalOpen(true)}
+              className="bg-gradient-to-r from-amber-600 to-orange-600 hover:from-amber-700 hover:to-orange-700 text-white px-8 py-4 rounded-2xl font-bold text-lg transition-all duration-300 hover:scale-105 shadow-lg hover:shadow-amber-500/25 flex items-center space-x-3 mx-auto"
+            >
+              <HelpCircle className="h-6 w-6" />
+              <span>Browse All Questions</span>
+            </button>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {faqs.slice(0, 4).map((faq, index) => (
+              <div
+                key={index}
+                className="bg-gradient-to-r from-amber-50 to-orange-50 rounded-2xl p-6 border border-amber-200/50 hover:shadow-lg transition-all duration-300 hover:scale-105 cursor-pointer"
+                onClick={() => setFaqModalOpen(true)}
+              >
+                <div className="flex items-start space-x-4">
+                  <div className="w-10 h-10 bg-gradient-to-r from-amber-500 to-orange-500 rounded-full flex items-center justify-center flex-shrink-0">
+                    <faq.icon className="h-5 w-5 text-white" />
+                  </div>
+                  <div className="flex-1">
+                    <h3 className="text-lg font-bold text-gray-800 mb-2">{faq.question}</h3>
+                    <p className="text-gray-600 text-sm leading-relaxed line-clamp-2">{faq.answer}</p>
+                    <p className="text-amber-600 text-sm font-medium mt-2">Click to read more →</p>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* FAQ Modal */}
+      <FAQModal
+        isOpen={faqModalOpen}
+        onClose={() => setFaqModalOpen(false)}
+      />
 
     </main>
   );
