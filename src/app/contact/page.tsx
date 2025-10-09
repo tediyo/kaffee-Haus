@@ -383,33 +383,6 @@ export default function ContactPage() {
                 </div>
               </div>
 
-              {/* Contact Hours */}
-              <div className="bg-gradient-to-br from-amber-600 to-orange-600 rounded-3xl p-8 text-white shadow-2xl">
-                <h3 className="text-3xl font-bold mb-6 text-center">Visit Us</h3>
-                <div className="space-y-4">
-                  <div className="flex items-center space-x-4 p-4 bg-white/10 rounded-2xl">
-                    <Clock className="h-6 w-6" />
-                    <div>
-                      <p className="font-semibold">Main Branch Hours</p>
-                      <p className="text-sm text-amber-200">Mon-Fri: 6AM-10PM, Sat-Sun: 7AM-11PM</p>
-                    </div>
-                  </div>
-                  <div className="flex items-center space-x-4 p-4 bg-white/10 rounded-2xl">
-                    <Coffee className="h-6 w-6" />
-                    <div>
-                      <p className="font-semibold">Best Time to Visit</p>
-                      <p className="text-sm text-amber-200">Early morning for fresh pastries</p>
-                    </div>
-                  </div>
-                  <div className="flex items-center space-x-4 p-4 bg-white/10 rounded-2xl">
-                    <Users className="h-6 w-6" />
-                    <div>
-                      <p className="font-semibold">Group Reservations</p>
-                      <p className="text-sm text-amber-200">Call ahead for 6+ people</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
             </div>
           </div>
         </div>
