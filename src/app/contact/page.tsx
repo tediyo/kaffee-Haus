@@ -3,47 +3,12 @@
 import { useState } from 'react';
 import Navigation from '@/components/Navigation';
 import FAQModal from '@/components/FAQModal';
-import { Phone, Mail, Clock, MessageCircle, Instagram, Facebook, Twitter, Star, Users, Award, HelpCircle, Coffee } from 'lucide-react';
+import { MessageCircle, Star, Users, Award, HelpCircle, Coffee } from 'lucide-react';
 
 export default function ContactPage() {
-  const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    subject: '',
-    message: ''
-  });
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
   const [faqModalOpen, setFaqModalOpen] = useState(false);
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value
-    });
-  };
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setIsSubmitting(true);
-    
-    // Simulate form submission
-    await new Promise(resolve => setTimeout(resolve, 2000));
-    
-    setIsSubmitting(false);
-    setSubmitStatus('success');
-    setFormData({ name: '', email: '', subject: '', message: '' });
-    
-    // Reset status after 3 seconds
-    setTimeout(() => setSubmitStatus('idle'), 3000);
-  };
-
-
-  const socialLinks = [
-    { icon: Instagram, href: '#', label: 'Instagram', color: 'from-pink-500 to-rose-600' },
-    { icon: Facebook, href: '#', label: 'Facebook', color: 'from-blue-600 to-blue-700' },
-    { icon: Twitter, href: '#', label: 'Twitter', color: 'from-sky-500 to-blue-600' }
-  ];
 
   const faqs = [
     {
