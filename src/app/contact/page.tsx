@@ -3,8 +3,7 @@
 import { useState, useEffect } from 'react';
 import Navigation from '@/components/Navigation';
 import FAQModal from '@/components/FAQModal';
-import InteractiveMap from '@/components/InteractiveMap';
-import { MapPin, Phone, Mail, Clock, Send, MessageCircle, Instagram, Facebook, Twitter, CheckCircle, AlertCircle, Star, Coffee, Users, Award, HelpCircle } from 'lucide-react';
+import { Phone, Mail, Clock, Send, MessageCircle, Instagram, Facebook, Twitter, CheckCircle, AlertCircle, Star, Users, Award, HelpCircle } from 'lucide-react';
 
 export default function ContactPage() {
   const [formData, setFormData] = useState({
@@ -39,75 +38,6 @@ export default function ContactPage() {
     setTimeout(() => setSubmitStatus('idle'), 3000);
   };
 
-  const branches = [
-    {
-      id: 1,
-      name: 'Bole Main Branch',
-      address: 'Bole Road, Near Edna Mall',
-      city: 'Addis Ababa, Ethiopia',
-      phone: '+251 11 123 4567',
-      email: 'bole@kaffeehaus.com',
-      hours: {
-        weekdays: '6:00 AM - 10:00 PM',
-        weekends: '7:00 AM - 11:00 PM'
-      },
-      features: ['WiFi', 'Outdoor Seating', 'Parking', 'Pet Friendly'],
-      coordinates: { lat: 8.9806, lng: 38.7578 },
-      isMain: true,
-      image: 'https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?w=600&h=400&fit=crop&crop=center&auto=format&q=80'
-    },
-    {
-      id: 2,
-      name: 'Addis Ababa University Branch',
-      address: 'Sidist Kilo, University Area',
-      city: 'Addis Ababa, Ethiopia',
-      phone: '+251 11 123 4568',
-      email: 'university@kaffeehaus.com',
-      hours: {
-        weekdays: '5:30 AM - 11:00 PM',
-        weekends: '7:00 AM - 12:00 AM'
-      },
-      features: ['Study Areas', 'WiFi', 'Student Discounts', 'Late Hours'],
-      coordinates: { lat: 9.0400, lng: 38.7500 },
-      isMain: false,
-      image: 'https://images.unsplash.com/photo-1554118811-1e0d58224f24?w=600&h=400&fit=crop&crop=center&auto=format&q=80'
-    },
-    {
-      id: 3,
-      name: 'Merkato Branch',
-      address: 'Merkato Market Area, Near Commercial Bank',
-      city: 'Addis Ababa, Ethiopia',
-      phone: '+251 11 123 4569',
-      email: 'merkato@kaffeehaus.com',
-      hours: {
-        weekdays: '7:00 AM - 9:00 PM',
-        weekends: '8:00 AM - 10:00 PM'
-      },
-      features: ['Market Access', 'WiFi', 'Grab & Go', 'Family Friendly'],
-      coordinates: { lat: 9.0200, lng: 38.7200 },
-      isMain: false,
-      image: 'https://images.unsplash.com/photo-1447933601403-0c6688de566e?w=600&h=400&fit=crop&crop=center&auto=format&q=80'
-    },
-    {
-      id: 4,
-      name: 'Bole Airport Branch',
-      address: 'Terminal 1, Departure Hall, Bole International Airport',
-      city: 'Addis Ababa, Ethiopia',
-      phone: '+251 11 123 4570',
-      email: 'airport@kaffeehaus.com',
-      hours: {
-        weekdays: '4:00 AM - 12:00 AM',
-        weekends: '4:00 AM - 12:00 AM'
-      },
-      features: ['24/7 Access', 'Quick Service', 'Travel Snacks', 'Mobile Ordering'],
-      coordinates: { lat: 8.9779, lng: 38.7993 },
-      isMain: false,
-      image: 'https://images.unsplash.com/photo-1572442388796-11668a67e53d?w=600&h=400&fit=crop&crop=center&auto=format&q=80'
-    }
-  ];
-
-  const [selectedBranch, setSelectedBranch] = useState(0);
-  const [mapLoaded, setMapLoaded] = useState(false);
 
   const socialLinks = [
     { icon: Instagram, href: '#', label: 'Instagram', color: 'from-pink-500 to-rose-600' },
@@ -193,114 +123,6 @@ export default function ContactPage() {
         </div>
       </section>
 
-      {/* Branches Section */}
-      <section className="py-20 bg-white relative">
-        {/* Background Image */}
-        <div className="absolute inset-0 z-0">
-          <div 
-            className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-            style={{
-              backgroundImage: 'url("/Tq.jpg")'
-            }}
-          />
-          <div className="absolute inset-0 bg-gradient-to-br from-amber-50/50 to-orange-50/50" />
-        </div>
-        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <div className="inline-flex items-center space-x-2 bg-amber-100 rounded-full px-6 py-3 text-amber-800 mb-6">
-              <MapPin className="h-5 w-5" />
-              <span className="font-medium">Our Locations</span>
-            </div>
-            <h2 className="text-5xl font-bold text-gray-800 mb-6">Find Us Near You</h2>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              Visit any of our convenient locations across the city
-            </p>
-          </div>
-
-          {/* Branch Cards */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {branches.map((branch, index) => (
-              <div
-                key={branch.id}
-                className={`bg-white rounded-3xl p-6 shadow-lg border-2 transition-all duration-300 hover:shadow-2xl hover:scale-105 cursor-pointer ${
-                  selectedBranch === index 
-                    ? 'border-amber-500 shadow-2xl ring-2 ring-amber-200' 
-                    : 'border-amber-200/50 hover:border-amber-300'
-                }`}
-                onClick={() => setSelectedBranch(index)}
-              >
-                {/* Branch Image */}
-                <div className="relative mb-4 rounded-2xl overflow-hidden">
-                  <img
-                    src={branch.image}
-                    alt={branch.name}
-                    className="w-full h-32 object-cover"
-                  />
-                  {branch.isMain && (
-                    <div className="absolute top-2 left-2 bg-amber-500 text-white px-2 py-1 rounded-full text-xs font-bold">
-                      Main Branch
-                    </div>
-                  )}
-                </div>
-
-                {/* Branch Info */}
-                <div className="space-y-3">
-                  <h3 className="text-xl font-bold text-gray-800">{branch.name}</h3>
-                  
-                  <div className="space-y-2 text-sm text-gray-600">
-                    <div className="flex items-start space-x-2">
-                      <MapPin className="h-4 w-4 text-amber-600 mt-0.5 flex-shrink-0" />
-                      <div>
-                        <p className="font-medium">{branch.address}</p>
-                        <p>{branch.city}</p>
-                      </div>
-                    </div>
-                    
-                    <div className="flex items-center space-x-2">
-                      <Phone className="h-4 w-4 text-amber-600" />
-                      <span>{branch.phone}</span>
-                    </div>
-                    
-                    <div className="flex items-center space-x-2">
-                      <Mail className="h-4 w-4 text-amber-600" />
-                      <span className="text-xs">{branch.email}</span>
-                    </div>
-                  </div>
-
-                  {/* Hours */}
-                  <div className="space-y-1">
-                    <div className="flex items-center space-x-2">
-                      <Clock className="h-4 w-4 text-amber-600" />
-                      <span className="text-sm font-medium text-gray-700">Hours</span>
-                    </div>
-                    <div className="text-xs text-gray-600 pl-6">
-                      <p>Mon-Fri: {branch.hours.weekdays}</p>
-                      <p>Sat-Sun: {branch.hours.weekends}</p>
-                    </div>
-                  </div>
-
-                  {/* Features */}
-                  <div className="flex flex-wrap gap-1">
-                    {branch.features.map((feature, i) => (
-                      <span
-                        key={i}
-                        className="text-xs bg-amber-100 text-amber-700 px-2 py-1 rounded-full"
-                      >
-                        {feature}
-                      </span>
-                    ))}
-                  </div>
-
-                  {/* Action Button */}
-                  <button className="w-full mt-4 bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 text-white py-2 rounded-xl font-semibold transition-all duration-200 hover:scale-105 shadow-lg">
-                    Get Directions
-                  </button>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
 
       {/* Enhanced Contact Form & Map */}
       <section className="py-20 bg-gradient-to-br from-amber-50 to-orange-100 relative">
@@ -564,36 +386,6 @@ export default function ContactPage() {
         </div>
       </section>
 
-      {/* Interactive Map Section */}
-      <section className="py-20 bg-white relative">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <div className="inline-flex items-center space-x-2 bg-amber-100 rounded-full px-6 py-3 text-amber-800 mb-6">
-              <MapPin className="h-5 w-5" />
-              <span className="font-medium">Interactive Map</span>
-            </div>
-            <h2 className="text-5xl font-bold text-gray-800 mb-6">Find Our Locations</h2>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              Click on any location marker to see branch details
-            </p>
-          </div>
-
-          {/* Map Container */}
-          <div className="bg-white rounded-3xl shadow-2xl overflow-hidden border border-amber-200/50">
-            <div className="p-6 bg-gradient-to-r from-amber-500 to-orange-500">
-              <h3 className="text-2xl font-bold text-white mb-2">Kaffee Haus Locations</h3>
-              <p className="text-amber-100">Explore our branches across the city</p>
-            </div>
-            
-            {/* Interactive Map */}
-            <InteractiveMap
-              branches={branches}
-              selectedBranch={selectedBranch}
-              onBranchSelect={setSelectedBranch}
-            />
-          </div>
-        </div>
-      </section>
 
       {/* FAQ Modal */}
       <FAQModal
