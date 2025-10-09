@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react';
 import Navigation from '@/components/Navigation';
 import FAQModal from '@/components/FAQModal';
-import { Phone, Mail, Clock, Send, MessageCircle, Instagram, Facebook, Twitter, CheckCircle, AlertCircle, Star, Users, Award, HelpCircle } from 'lucide-react';
+import { Phone, Mail, Clock, Send, MessageCircle, Instagram, Facebook, Twitter, CheckCircle, AlertCircle, Star, Users, Award, HelpCircle, Coffee } from 'lucide-react';
 
 export default function ContactPage() {
   const [formData, setFormData] = useState({
@@ -139,113 +139,150 @@ export default function ContactPage() {
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16">
             {/* Enhanced Contact Form */}
-            <div className="bg-white rounded-3xl p-10 shadow-2xl border border-amber-200/50">
-              <div className="space-y-6">
-                <div>
-                  <h3 className="text-4xl font-bold text-gray-800 mb-2">Send us a Message</h3>
-                  <p className="text-gray-600 text-lg">We'll get back to you within 24 hours</p>
+            <div className="bg-white rounded-xl p-4 shadow-lg border border-amber-200/50 relative overflow-hidden">
+              {/* Decorative Elements */}
+              <div className="absolute top-0 right-0 w-16 h-16 bg-gradient-to-br from-amber-100 to-orange-100 rounded-full -translate-y-8 translate-x-8 opacity-40"></div>
+              <div className="absolute bottom-0 left-0 w-12 h-12 bg-gradient-to-tr from-amber-100 to-orange-100 rounded-full translate-y-6 -translate-x-6 opacity-40"></div>
+              
+              <div className="relative z-10 space-y-3">
+                <div className="text-center">
+                  <div className="inline-flex items-center justify-center w-8 h-8 bg-gradient-to-r from-amber-500 to-orange-500 rounded-full mb-1">
+                    <MessageCircle className="h-4 w-4 text-white" />
+                  </div>
+                  <h3 className="text-lg font-bold text-gray-800 mb-1">Send us a Message</h3>
+                  <p className="text-gray-600 text-xs mb-2">We'll get back to you within 24 hours</p>
+                  <div className="w-8 h-0.5 bg-gradient-to-r from-amber-500 to-orange-500 rounded-full mx-auto"></div>
                 </div>
                 
-                <form onSubmit={handleSubmit} className="space-y-6">
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div>
-                      <label htmlFor="name" className="block text-sm font-semibold text-gray-700 mb-2">
+                <form onSubmit={handleSubmit} className="space-y-3">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                    <div className="space-y-1">
+                      <label htmlFor="name" className="block text-xs font-bold text-gray-800 mb-1 flex items-center">
+                        <span className="w-1 h-1 bg-amber-500 rounded-full mr-1"></span>
                         Full Name *
                       </label>
-                      <input
-                        type="text"
-                        id="name"
-                        name="name"
-                        value={formData.name}
-                        onChange={handleInputChange}
-                        required
-                        className="w-full px-4 py-4 border border-gray-300 rounded-xl focus:ring-2 focus:ring-amber-500 focus:border-transparent transition-all duration-200 text-lg"
-                        placeholder="Your full name"
-                      />
+                      <div className="relative group">
+                        <input
+                          type="text"
+                          id="name"
+                          name="name"
+                          value={formData.name}
+                          onChange={handleInputChange}
+                          required
+                          className="w-full px-3 py-2 border border-gray-200 rounded-lg focus:ring-1 focus:ring-amber-500/20 focus:border-amber-500 transition-all duration-200 text-sm bg-gray-50 hover:bg-white"
+                          placeholder="Your full name"
+                        />
+                        <div className="absolute inset-y-0 right-0 flex items-center pr-2">
+                          <Users className="h-3 w-3 text-gray-400 group-focus-within:text-amber-500 transition-colors" />
+                        </div>
+                      </div>
                     </div>
-                    <div>
-                      <label htmlFor="email" className="block text-sm font-semibold text-gray-700 mb-2">
+                    <div className="space-y-1">
+                      <label htmlFor="email" className="block text-xs font-bold text-gray-800 mb-1 flex items-center">
+                        <span className="w-1 h-1 bg-amber-500 rounded-full mr-1"></span>
                         Email Address *
                       </label>
-                      <input
-                        type="email"
-                        id="email"
-                        name="email"
-                        value={formData.email}
-                        onChange={handleInputChange}
-                        required
-                        className="w-full px-4 py-4 border border-gray-300 rounded-xl focus:ring-2 focus:ring-amber-500 focus:border-transparent transition-all duration-200 text-lg"
-                        placeholder="your@email.com"
-                      />
+                      <div className="relative group">
+                        <input
+                          type="email"
+                          id="email"
+                          name="email"
+                          value={formData.email}
+                          onChange={handleInputChange}
+                          required
+                          className="w-full px-3 py-2 border border-gray-200 rounded-lg focus:ring-1 focus:ring-amber-500/20 focus:border-amber-500 transition-all duration-200 text-sm bg-gray-50 hover:bg-white"
+                          placeholder="your@email.com"
+                        />
+                        <div className="absolute inset-y-0 right-0 flex items-center pr-2">
+                          <Mail className="h-3 w-3 text-gray-400 group-focus-within:text-amber-500 transition-colors" />
+                        </div>
+                      </div>
                     </div>
                   </div>
 
-                  <div>
-                    <label htmlFor="subject" className="block text-sm font-semibold text-gray-700 mb-2">
+                  <div className="space-y-1">
+                    <label htmlFor="subject" className="block text-xs font-bold text-gray-800 mb-1 flex items-center">
+                      <span className="w-1 h-1 bg-amber-500 rounded-full mr-1"></span>
                       Subject *
                     </label>
-                    <input
-                      type="text"
-                      id="subject"
-                      name="subject"
-                      value={formData.subject}
-                      onChange={handleInputChange}
-                      required
-                      className="w-full px-4 py-4 border border-gray-300 rounded-xl focus:ring-2 focus:ring-amber-500 focus:border-transparent transition-all duration-200 text-lg"
-                      placeholder="What's this about?"
-                    />
+                    <div className="relative group">
+                      <input
+                        type="text"
+                        id="subject"
+                        name="subject"
+                        value={formData.subject}
+                        onChange={handleInputChange}
+                        required
+                        className="w-full px-3 py-2 border border-gray-200 rounded-lg focus:ring-1 focus:ring-amber-500/20 focus:border-amber-500 transition-all duration-200 text-sm bg-gray-50 hover:bg-white"
+                        placeholder="What's this about?"
+                      />
+                      <div className="absolute inset-y-0 right-0 flex items-center pr-2">
+                        <MessageCircle className="h-3 w-3 text-gray-400 group-focus-within:text-amber-500 transition-colors" />
+                      </div>
+                    </div>
                   </div>
 
-                  <div>
-                    <label htmlFor="message" className="block text-sm font-semibold text-gray-700 mb-2">
+                  <div className="space-y-1">
+                    <label htmlFor="message" className="block text-xs font-bold text-gray-800 mb-1 flex items-center">
+                      <span className="w-1 h-1 bg-amber-500 rounded-full mr-1"></span>
                       Message *
                     </label>
-                    <textarea
-                      id="message"
-                      name="message"
-                      value={formData.message}
-                      onChange={handleInputChange}
-                      required
-                      rows={6}
-                      className="w-full px-4 py-4 border border-gray-300 rounded-xl focus:ring-2 focus:ring-amber-500 focus:border-transparent transition-all duration-200 resize-none text-lg"
-                      placeholder="Tell us what's on your mind..."
-                    />
+                    <div className="relative group">
+                      <textarea
+                        id="message"
+                        name="message"
+                        value={formData.message}
+                        onChange={handleInputChange}
+                        required
+                        rows={3}
+                        className="w-full px-3 py-2 border border-gray-200 rounded-lg focus:ring-1 focus:ring-amber-500/20 focus:border-amber-500 transition-all duration-200 resize-none text-sm bg-gray-50 hover:bg-white"
+                        placeholder="Tell us what's on your mind..."
+                      />
+                      <div className="absolute top-2 right-2">
+                        <Send className="h-3 w-3 text-gray-400 group-focus-within:text-amber-500 transition-colors" />
+                      </div>
+                    </div>
                   </div>
 
                   <button
                     type="submit"
                     disabled={isSubmitting}
-                    className={`w-full py-4 rounded-xl font-bold text-xl transition-all duration-200 flex items-center justify-center space-x-3 shadow-lg ${
+                    className={`w-full py-2 rounded-lg font-bold text-sm transition-all duration-200 flex items-center justify-center space-x-1 shadow-md transform relative overflow-hidden ${
                       isSubmitting
-                        ? 'bg-gray-400 text-gray-200 cursor-not-allowed'
-                        : 'bg-gradient-to-r from-amber-600 to-amber-700 hover:from-amber-700 hover:to-amber-800 text-white hover:scale-105 hover:shadow-amber-500/25'
+                        ? 'bg-gray-400 text-gray-200 cursor-not-allowed scale-95'
+                        : 'bg-gradient-to-r from-amber-600 to-orange-600 hover:from-amber-700 hover:to-orange-700 text-white hover:scale-105 hover:shadow-lg hover:shadow-amber-500/25 active:scale-95'
                     }`}
                   >
-                    {isSubmitting ? (
-                      <>
-                        <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin" />
-                        <span>Sending...</span>
-                      </>
-                    ) : (
-                      <>
-                        <Send className="h-6 w-6" />
-                        <span>Send Message</span>
-                      </>
+                    {!isSubmitting && (
+                      <div className="absolute inset-0 bg-gradient-to-r from-amber-400 to-orange-400 opacity-0 hover:opacity-20 transition-opacity duration-200"></div>
                     )}
+                    <div className="relative z-10 flex items-center space-x-1">
+                      {isSubmitting ? (
+                        <>
+                          <div className="w-3 h-3 border-2 border-white border-t-transparent rounded-full animate-spin" />
+                          <span>Sending...</span>
+                        </>
+                      ) : (
+                        <>
+                          <Send className="h-3 w-3" />
+                          <span>Send Message</span>
+                        </>
+                      )}
+                    </div>
                   </button>
 
                   {/* Status Messages */}
                   {submitStatus === 'success' && (
-                    <div className="flex items-center space-x-2 text-green-600 bg-green-50 p-4 rounded-xl">
-                      <CheckCircle className="h-5 w-5" />
-                      <span>Message sent successfully! We'll get back to you soon.</span>
+                    <div className="flex items-center space-x-3 text-green-700 bg-gradient-to-r from-green-50 to-emerald-50 p-3 rounded-xl border border-green-200 shadow-lg mt-3">
+                      <CheckCircle className="h-5 w-5 text-green-600" />
+                      <span className="font-semibold text-sm">Message sent successfully! We'll get back to you soon.</span>
                     </div>
                   )}
                   
                   {submitStatus === 'error' && (
-                    <div className="flex items-center space-x-2 text-red-600 bg-red-50 p-4 rounded-xl">
-                      <AlertCircle className="h-5 w-5" />
-                      <span>Something went wrong. Please try again.</span>
+                    <div className="flex items-center space-x-3 text-red-700 bg-gradient-to-r from-red-50 to-pink-50 p-3 rounded-xl border border-red-200 shadow-lg mt-3">
+                      <AlertCircle className="h-5 w-5 text-red-600" />
+                      <span className="font-semibold text-sm">Something went wrong. Please try again.</span>
                     </div>
                   )}
                 </form>
