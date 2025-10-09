@@ -14,7 +14,6 @@ export default function ContactPage() {
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
-  const [selectedContact, setSelectedContact] = useState(0);
   const [faqModalOpen, setFaqModalOpen] = useState(false);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -39,40 +38,75 @@ export default function ContactPage() {
     setTimeout(() => setSubmitStatus('idle'), 3000);
   };
 
-  const contactInfo = [
+  const branches = [
     {
-      icon: MapPin,
-      title: 'Visit Us',
-      details: ['123 Coffee Street', 'Downtown District', 'City, State 12345'],
-      color: 'from-red-500 to-pink-600',
-      bgColor: 'from-red-50 to-pink-100',
-      action: 'Get Directions'
+      id: 1,
+      name: 'Downtown Main Branch',
+      address: '123 Coffee Street, Downtown District',
+      city: 'City, State 12345',
+      phone: '(555) 123-4567',
+      email: 'downtown@kaffeehaus.com',
+      hours: {
+        weekdays: '6:00 AM - 8:00 PM',
+        weekends: '7:00 AM - 9:00 PM'
+      },
+      features: ['WiFi', 'Outdoor Seating', 'Parking', 'Pet Friendly'],
+      coordinates: { lat: 40.7128, lng: -74.0060 },
+      isMain: true,
+      image: 'https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?w=600&h=400&fit=crop&crop=center&auto=format&q=80'
     },
     {
-      icon: Phone,
-      title: 'Call Us',
-      details: ['(555) 123-4567', '(555) 123-4568'],
-      color: 'from-green-500 to-emerald-600',
-      bgColor: 'from-green-50 to-emerald-100',
-      action: 'Call Now'
+      id: 2,
+      name: 'University Campus Branch',
+      address: '456 Student Plaza, University District',
+      city: 'City, State 12345',
+      phone: '(555) 123-4568',
+      email: 'university@kaffeehaus.com',
+      hours: {
+        weekdays: '5:30 AM - 10:00 PM',
+        weekends: '7:00 AM - 11:00 PM'
+      },
+      features: ['Study Areas', 'WiFi', 'Student Discounts', 'Late Hours'],
+      coordinates: { lat: 40.7589, lng: -73.9851 },
+      isMain: false,
+      image: 'https://images.unsplash.com/photo-1554118811-1e0d58224f24?w=600&h=400&fit=crop&crop=center&auto=format&q=80'
     },
     {
-      icon: Mail,
-      title: 'Email Us',
-      details: ['hello@kaffeehaus.com', 'orders@kaffeehaus.com'],
-      color: 'from-blue-500 to-indigo-600',
-      bgColor: 'from-blue-50 to-indigo-100',
-      action: 'Send Email'
+      id: 3,
+      name: 'Shopping Mall Branch',
+      address: '789 Mall Drive, Shopping District',
+      city: 'City, State 12345',
+      phone: '(555) 123-4569',
+      email: 'mall@kaffeehaus.com',
+      hours: {
+        weekdays: '8:00 AM - 9:00 PM',
+        weekends: '9:00 AM - 10:00 PM'
+      },
+      features: ['Mall Access', 'WiFi', 'Grab & Go', 'Family Friendly'],
+      coordinates: { lat: 40.7505, lng: -73.9934 },
+      isMain: false,
+      image: 'https://images.unsplash.com/photo-1447933601403-0c6688de566e?w=600&h=400&fit=crop&crop=center&auto=format&q=80'
     },
     {
-      icon: Clock,
-      title: 'Hours',
-      details: ['Mon-Fri: 6:00 AM - 8:00 PM', 'Sat-Sun: 7:00 AM - 9:00 PM'],
-      color: 'from-purple-500 to-violet-600',
-      bgColor: 'from-purple-50 to-violet-100',
-      action: 'View Hours'
+      id: 4,
+      name: 'Airport Terminal Branch',
+      address: 'Terminal 2, Gate A15, Airport Plaza',
+      city: 'City, State 12345',
+      phone: '(555) 123-4570',
+      email: 'airport@kaffeehaus.com',
+      hours: {
+        weekdays: '4:00 AM - 11:00 PM',
+        weekends: '4:00 AM - 11:00 PM'
+      },
+      features: ['24/7 Access', 'Quick Service', 'Travel Snacks', 'Mobile Ordering'],
+      coordinates: { lat: 40.6892, lng: -74.1745 },
+      isMain: false,
+      image: 'https://images.unsplash.com/photo-1572442388796-11668a67e53d?w=600&h=400&fit=crop&crop=center&auto=format&q=80'
     }
   ];
+
+  const [selectedBranch, setSelectedBranch] = useState(0);
+  const [mapLoaded, setMapLoaded] = useState(false);
 
   const socialLinks = [
     { icon: Instagram, href: '#', label: 'Instagram', color: 'from-pink-500 to-rose-600' },
@@ -158,7 +192,7 @@ export default function ContactPage() {
         </div>
       </section>
 
-      {/* Enhanced Contact Information */}
+      {/* Branches & Map Section */}
       <section className="py-20 bg-white relative">
         {/* Background Image */}
         <div className="absolute inset-0 z-0">
@@ -173,36 +207,137 @@ export default function ContactPage() {
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <div className="inline-flex items-center space-x-2 bg-amber-100 rounded-full px-6 py-3 text-amber-800 mb-6">
-              <Phone className="h-5 w-5" />
-              <span className="font-medium">Contact Information</span>
+              <MapPin className="h-5 w-5" />
+              <span className="font-medium">Our Locations</span>
             </div>
-            <h2 className="text-5xl font-bold text-gray-800 mb-6">Multiple Ways to Reach Us</h2>
+            <h2 className="text-5xl font-bold text-gray-800 mb-6">Find Us Near You</h2>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              Choose your preferred way to get in touch with our team
+              Visit any of our convenient locations across the city
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {contactInfo.map((info, index) => (
-              <div
-                key={info.title}
-                className={`bg-gradient-to-br ${info.bgColor} rounded-3xl p-8 text-center hover:shadow-2xl transition-all duration-300 hover:scale-105 cursor-pointer border border-white/50 ${
-                  selectedContact === index ? 'ring-2 ring-amber-500 shadow-2xl' : ''
-                }`}
-                onClick={() => setSelectedContact(index)}
-              >
-                <div className={`w-20 h-20 rounded-full bg-gradient-to-r ${info.color} flex items-center justify-center mx-auto mb-6 shadow-lg`}>
-                  <info.icon className="h-10 w-10 text-white" />
-                </div>
-                <h3 className="text-2xl font-bold text-gray-800 mb-4">{info.title}</h3>
-                <div className="space-y-2 mb-6">
-                  {info.details.map((detail, i) => (
-                    <p key={i} className="text-gray-600">{detail}</p>
+          {/* Interactive Map */}
+          <div className="mb-16">
+            <div className="bg-white rounded-3xl shadow-2xl overflow-hidden border border-amber-200/50">
+              <div className="p-6 bg-gradient-to-r from-amber-500 to-orange-500">
+                <h3 className="text-2xl font-bold text-white mb-2">Interactive Map</h3>
+                <p className="text-amber-100">Click on any branch to see details</p>
+              </div>
+              <div className="h-96 bg-gradient-to-br from-amber-100 to-orange-100 relative overflow-hidden">
+                {/* Map Placeholder with Branch Markers */}
+                <div className="absolute inset-0 bg-gradient-to-br from-amber-200 via-orange-200 to-amber-300">
+                  <div className="absolute inset-0 flex items-center justify-center">
+                    <div className="text-center">
+                      <MapPin className="h-16 w-16 text-amber-600 mx-auto mb-4" />
+                      <h4 className="text-2xl font-bold text-amber-800 mb-2">Interactive Map</h4>
+                      <p className="text-amber-700">Click on branch cards below to view locations</p>
+                    </div>
+                  </div>
+                  
+                  {/* Branch Markers on Map */}
+                  {branches.map((branch, index) => (
+                    <button
+                      key={branch.id}
+                      onClick={() => setSelectedBranch(index)}
+                      className={`absolute w-8 h-8 rounded-full border-4 transition-all duration-300 hover:scale-125 ${
+                        selectedBranch === index 
+                          ? 'bg-amber-500 border-amber-700 shadow-lg' 
+                          : 'bg-white border-amber-400 hover:bg-amber-100'
+                      }`}
+                      style={{
+                        left: `${20 + (index * 20)}%`,
+                        top: `${30 + (index % 2) * 30}%`
+                      }}
+                    >
+                      <div className="w-full h-full flex items-center justify-center">
+                        <Coffee className={`h-4 w-4 ${selectedBranch === index ? 'text-white' : 'text-amber-600'}`} />
+                      </div>
+                    </button>
                   ))}
                 </div>
-                <button className={`w-full bg-gradient-to-r ${info.color} text-white py-3 rounded-xl font-semibold transition-all duration-200 hover:scale-105 shadow-lg`}>
-                  {info.action}
-                </button>
+              </div>
+            </div>
+          </div>
+
+          {/* Branch Cards */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            {branches.map((branch, index) => (
+              <div
+                key={branch.id}
+                className={`bg-white rounded-3xl p-6 shadow-lg border-2 transition-all duration-300 hover:shadow-2xl hover:scale-105 cursor-pointer ${
+                  selectedBranch === index 
+                    ? 'border-amber-500 shadow-2xl ring-2 ring-amber-200' 
+                    : 'border-amber-200/50 hover:border-amber-300'
+                }`}
+                onClick={() => setSelectedBranch(index)}
+              >
+                {/* Branch Image */}
+                <div className="relative mb-4 rounded-2xl overflow-hidden">
+                  <img
+                    src={branch.image}
+                    alt={branch.name}
+                    className="w-full h-32 object-cover"
+                  />
+                  {branch.isMain && (
+                    <div className="absolute top-2 left-2 bg-amber-500 text-white px-2 py-1 rounded-full text-xs font-bold">
+                      Main Branch
+                    </div>
+                  )}
+                </div>
+
+                {/* Branch Info */}
+                <div className="space-y-3">
+                  <h3 className="text-xl font-bold text-gray-800">{branch.name}</h3>
+                  
+                  <div className="space-y-2 text-sm text-gray-600">
+                    <div className="flex items-start space-x-2">
+                      <MapPin className="h-4 w-4 text-amber-600 mt-0.5 flex-shrink-0" />
+                      <div>
+                        <p className="font-medium">{branch.address}</p>
+                        <p>{branch.city}</p>
+                      </div>
+                    </div>
+                    
+                    <div className="flex items-center space-x-2">
+                      <Phone className="h-4 w-4 text-amber-600" />
+                      <span>{branch.phone}</span>
+                    </div>
+                    
+                    <div className="flex items-center space-x-2">
+                      <Mail className="h-4 w-4 text-amber-600" />
+                      <span className="text-xs">{branch.email}</span>
+                    </div>
+                  </div>
+
+                  {/* Hours */}
+                  <div className="space-y-1">
+                    <div className="flex items-center space-x-2">
+                      <Clock className="h-4 w-4 text-amber-600" />
+                      <span className="text-sm font-medium text-gray-700">Hours</span>
+                    </div>
+                    <div className="text-xs text-gray-600 pl-6">
+                      <p>Mon-Fri: {branch.hours.weekdays}</p>
+                      <p>Sat-Sun: {branch.hours.weekends}</p>
+                    </div>
+                  </div>
+
+                  {/* Features */}
+                  <div className="flex flex-wrap gap-1">
+                    {branch.features.map((feature, i) => (
+                      <span
+                        key={i}
+                        className="text-xs bg-amber-100 text-amber-700 px-2 py-1 rounded-full"
+                      >
+                        {feature}
+                      </span>
+                    ))}
+                  </div>
+
+                  {/* Action Button */}
+                  <button className="w-full mt-4 bg-gradient-to-r from-amber-500 to-orange-500 hover:from-amber-600 hover:to-orange-600 text-white py-2 rounded-xl font-semibold transition-all duration-200 hover:scale-105 shadow-lg">
+                    Get Directions
+                  </button>
+                </div>
               </div>
             ))}
           </div>
@@ -337,24 +472,29 @@ export default function ContactPage() {
               </div>
             </div>
 
-            {/* Enhanced Map & Social */}
+            {/* Contact Information & Social */}
             <div className="space-y-8">
-              {/* Enhanced Map Placeholder */}
+              {/* General Contact Info */}
               <div className="bg-gradient-to-br from-amber-200 via-orange-200 to-amber-300 rounded-3xl p-10 text-center shadow-2xl border border-amber-300/50">
                 <div className="w-24 h-24 bg-white/50 rounded-full flex items-center justify-center mx-auto mb-6">
-                  <MapPin className="h-12 w-12 text-amber-600" />
+                  <MessageCircle className="h-12 w-12 text-amber-600" />
                 </div>
-                <h3 className="text-3xl font-bold text-amber-800 mb-4">Find Us</h3>
+                <h3 className="text-3xl font-bold text-amber-800 mb-4">General Inquiries</h3>
                 <p className="text-amber-700 text-lg mb-6">
-                  Located in the heart of downtown, we're easy to find and always welcoming.
+                  Have questions? We're here to help with any general inquiries.
                 </p>
-                <div className="bg-white/70 rounded-2xl p-6 space-y-2">
-                  <p className="text-amber-800 font-bold text-lg">123 Coffee Street</p>
-                  <p className="text-amber-700">Downtown District</p>
-                  <p className="text-amber-700">City, State 12345</p>
+                <div className="bg-white/70 rounded-2xl p-6 space-y-4">
+                  <div className="flex items-center justify-center space-x-3">
+                    <Phone className="h-5 w-5 text-amber-600" />
+                    <span className="text-amber-800 font-bold text-lg">(555) 123-4567</span>
+                  </div>
+                  <div className="flex items-center justify-center space-x-3">
+                    <Mail className="h-5 w-5 text-amber-600" />
+                    <span className="text-amber-800 font-bold text-lg">hello@kaffeehaus.com</span>
+                  </div>
                 </div>
                 <button className="mt-6 bg-white/50 hover:bg-white/70 text-amber-800 px-6 py-3 rounded-xl font-semibold transition-all duration-200 hover:scale-105">
-                  Get Directions
+                  Call Now
                 </button>
               </div>
 
