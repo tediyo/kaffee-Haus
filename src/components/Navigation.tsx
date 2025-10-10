@@ -2,16 +2,19 @@
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { Menu, X, Coffee, Home, Utensils, Users, MapPin, Search, HelpCircle } from 'lucide-react';
+import { Menu, X, Coffee, Home, Utensils, Users, MapPin, Search, HelpCircle, ShoppingCart } from 'lucide-react';
+import { useCart } from '@/contexts/CartContext';
 
 interface NavigationProps {
   onFAQClick?: () => void;
+  onCartClick?: () => void;
 }
 
-const Navigation = ({ onFAQClick }: NavigationProps) => {
+const Navigation = ({ onFAQClick, onCartClick }: NavigationProps) => {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
+  const { getTotalItems } = useCart();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -28,6 +31,8 @@ const Navigation = ({ onFAQClick }: NavigationProps) => {
     { name: 'About', href: '/about', icon: Users, color: 'text-blue-600' },
     { name: 'Contact', href: '/contact', icon: MapPin, color: 'text-green-600' },
   ];
+
+  const totalItems = getTotalItems();
 
   return (
     <nav className={`fixed top-0 left-0 right-0 z-50 ${
@@ -83,6 +88,20 @@ const Navigation = ({ onFAQClick }: NavigationProps) => {
               </Link>
             ))}
             
+            {/* Cart Button */}
+            <button
+              onClick={onCartClick}
+              className="relative p-2 text-gray-600 hover:text-amber-600 hover:bg-amber-50 rounded-xl transition-all duration-200"
+              title="Shopping Cart"
+            >
+              <ShoppingCart className="h-5 w-5" />
+              {totalItems > 0 && (
+                <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs font-bold rounded-full h-5 w-5 flex items-center justify-center">
+                  {totalItems}
+                </span>
+              )}
+            </button>
+            
             {/* FAQ Button */}
             {onFAQClick && (
               <button 
@@ -97,6 +116,20 @@ const Navigation = ({ onFAQClick }: NavigationProps) => {
 
           {/* Mobile menu button */}
           <div className="md:hidden flex items-center space-x-2">
+            {/* Mobile Cart Button */}
+            <button
+              onClick={onCartClick}
+              className="relative p-2 text-gray-700 hover:text-amber-600 hover:bg-amber-50 rounded-xl"
+              title="Shopping Cart"
+            >
+              <ShoppingCart className="h-6 w-6" />
+              {totalItems > 0 && (
+                <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs font-bold rounded-full h-5 w-5 flex items-center justify-center">
+                  {totalItems}
+                </span>
+              )}
+            </button>
+            
             <button
               onClick={() => setIsOpen(!isOpen)}
               className="p-2 text-gray-700 hover:text-amber-600 hover:bg-amber-50 rounded-xl"
