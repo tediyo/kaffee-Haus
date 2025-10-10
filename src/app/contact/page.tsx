@@ -139,18 +139,6 @@ export default function ContactPage() {
             <p className="text-2xl md:text-3xl text-amber-100 max-w-4xl mx-auto leading-relaxed animate-fade-in-up" style={{ animationDelay: '0.5s' }}>
               Find us across Addis Ababa! Visit our branches, connect with us online, or send us a message.
             </p>
-            
-            {/* Floating action buttons */}
-            <div className="flex flex-col sm:flex-row items-center justify-center space-y-4 sm:space-y-0 sm:space-x-6 mt-12 animate-fade-in-up" style={{ animationDelay: '1s' }}>
-              <button className="group bg-gradient-to-r from-amber-600 to-orange-600 hover:from-amber-700 hover:to-orange-700 text-white px-8 py-4 rounded-full font-bold text-lg shadow-2xl hover:shadow-amber-500/25 transition-all duration-300 hover:scale-105 flex items-center space-x-2">
-                <MapPin className="h-5 w-5 group-hover:animate-bounce" />
-                <span>Find Our Locations</span>
-              </button>
-              <button className="group bg-white/20 backdrop-blur-md hover:bg-white/30 text-white px-8 py-4 rounded-full font-bold text-lg border border-white/30 shadow-2xl transition-all duration-300 hover:scale-105 flex items-center space-x-2">
-                <MessageCircle className="h-5 w-5 group-hover:animate-pulse" />
-                <span>Send Message</span>
-              </button>
-            </div>
           </div>
         </div>
       </section>
@@ -255,10 +243,6 @@ export default function ContactPage() {
                     </div>
                   </div>
                   
-                  <button className="w-full bg-gradient-to-r from-amber-600 to-orange-600 hover:from-amber-700 hover:to-orange-700 text-white py-3 px-6 rounded-xl font-bold transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-amber-500/25 flex items-center justify-center space-x-2 group-hover:bg-gradient-to-r group-hover:from-amber-500 group-hover:to-orange-500">
-                    <MapPin className="h-4 w-4 group-hover:animate-bounce" />
-                    <span>Get Directions</span>
-                  </button>
                 </div>
               </div>
             ))}
