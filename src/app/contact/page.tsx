@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import Navigation from '@/components/Navigation';
 import InteractiveMap from '@/components/InteractiveMap';
-import { MessageCircle, Star, MapPin, Phone, Mail, Clock, Send, Instagram, Facebook, Twitter, CheckCircle, AlertCircle, Coffee, Users, Award, HelpCircle } from 'lucide-react';
+import { MessageCircle, Star, MapPin, Phone, Mail, Clock, Send, CheckCircle, AlertCircle, Coffee, HelpCircle } from 'lucide-react';
 
 export default function ContactPage() {
   const [formData, setFormData] = useState({
@@ -86,11 +86,6 @@ export default function ContactPage() {
     }
   ];
 
-  const socialLinks = [
-    { icon: Instagram, href: '#', label: 'Instagram', color: 'from-pink-500 to-rose-600' },
-    { icon: Facebook, href: '#', label: 'Facebook', color: 'from-blue-600 to-blue-700' },
-    { icon: Twitter, href: '#', label: 'Twitter', color: 'from-sky-500 to-blue-600' }
-  ];
 
   return (
     <main className="min-h-screen bg-gradient-to-br from-amber-50 via-orange-50 to-amber-100">
@@ -439,9 +434,9 @@ export default function ContactPage() {
               </div>
             </div>
 
-            {/* Social Media & Contact Info */}
+            {/* Contact Info */}
             <div className="space-y-8">
-              {/* Social Media */}
+              {/* Quick Contact */}
               <div className="bg-white/10 backdrop-blur-xl rounded-3xl p-8 shadow-2xl border border-white/20 relative overflow-hidden">
                 <div className="absolute top-0 left-0 w-24 h-24 bg-gradient-to-br from-amber-400/20 to-orange-400/20 rounded-full -translate-y-12 -translate-x-12 blur-xl"></div>
                 <div className="absolute bottom-0 right-0 w-32 h-32 bg-gradient-to-tl from-amber-400/20 to-orange-400/20 rounded-full translate-y-16 translate-x-16 blur-2xl"></div>
@@ -449,62 +444,38 @@ export default function ContactPage() {
                 <div className="relative z-10">
                   <div className="text-center mb-8">
                     <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-r from-amber-500 to-orange-500 rounded-full mb-4 shadow-2xl">
-                      <Users className="h-8 w-8 text-white" />
+                      <Phone className="h-8 w-8 text-white" />
                     </div>
-                    <h3 className="text-3xl font-bold text-white mb-4">Follow Us</h3>
-                    <p className="text-amber-100 text-lg">Stay updated with our latest news and special offers</p>
+                    <h3 className="text-3xl font-bold text-white mb-4">Quick Contact</h3>
+                    <p className="text-amber-100 text-lg">Get in touch with us directly</p>
                     <div className="w-16 h-1 bg-gradient-to-r from-amber-500 to-orange-500 rounded-full mx-auto mt-3"></div>
                   </div>
 
-                  <div className="grid grid-cols-1 gap-6 mb-8">
-                    {socialLinks.map((social, index) => (
-                      <a
-                        key={social.label}
-                        href={social.href}
-                        className={`group flex items-center space-x-4 p-6 rounded-2xl transition-all duration-300 hover:scale-105 bg-gradient-to-r ${social.color} text-white hover:shadow-2xl relative overflow-hidden`}
-                        style={{ animationDelay: `${index * 0.1}s` }}
-                      >
-                        <div className="absolute inset-0 bg-white/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                        <div className="w-14 h-14 bg-white/20 rounded-full flex items-center justify-center group-hover:scale-110 transition-transform duration-300 relative z-10">
-                          <social.icon className="h-7 w-7 group-hover:animate-pulse" />
-                        </div>
-                        <div className="relative z-10">
-                          <span className="font-bold text-xl group-hover:text-white/90">{social.label}</span>
-                          <p className="text-white/80 text-sm group-hover:text-white/90">Follow us for updates</p>
-                        </div>
-                        <div className="ml-auto relative z-10">
-                          <div className="w-8 h-8 bg-white/20 rounded-full flex items-center justify-center group-hover:bg-white/30 transition-colors duration-300">
-                            <span className="text-white font-bold">→</span>
-                          </div>
-                        </div>
-                      </a>
-                    ))}
-                  </div>
-
-                  <div className="text-center bg-white/5 backdrop-blur-sm rounded-2xl p-6 border border-white/10">
-                    <div className="flex items-center justify-center space-x-2 mb-4">
-                      <Award className="h-6 w-6 text-amber-400" />
-                      <span className="text-white font-bold text-lg">Quick Contact</span>
-                    </div>
-                    <div className="space-y-4">
-                      <div className="flex items-center justify-center space-x-3 group hover:scale-105 transition-transform duration-300">
-                        <div className="w-10 h-10 bg-gradient-to-r from-amber-500 to-orange-500 rounded-full flex items-center justify-center shadow-lg">
-                          <Phone className="h-5 w-5 text-white" />
-                        </div>
-                        <span className="text-white font-bold text-lg group-hover:text-amber-200 transition-colors duration-300">+251 11 123 4567</span>
+                  <div className="space-y-6">
+                    <div className="flex items-center space-x-4 p-6 rounded-2xl bg-white/5 backdrop-blur-sm border border-white/10 hover:bg-white/10 transition-all duration-300 group">
+                      <div className="w-14 h-14 bg-gradient-to-r from-amber-500 to-orange-500 rounded-full flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform duration-300">
+                        <Phone className="h-7 w-7 text-white" />
                       </div>
-                      <div className="flex items-center justify-center space-x-3 group hover:scale-105 transition-transform duration-300">
-                        <div className="w-10 h-10 bg-gradient-to-r from-amber-500 to-orange-500 rounded-full flex items-center justify-center shadow-lg">
-                          <Mail className="h-5 w-5 text-white" />
-                        </div>
-                        <span className="text-white font-bold text-lg group-hover:text-amber-200 transition-colors duration-300">hello@kaffeehaus.com</span>
+                      <div>
+                        <span className="text-white font-bold text-xl">Phone</span>
+                        <p className="text-amber-100 text-lg group-hover:text-white transition-colors duration-300">+251 11 123 4567</p>
+                      </div>
+                    </div>
+                    
+                    <div className="flex items-center space-x-4 p-6 rounded-2xl bg-white/5 backdrop-blur-sm border border-white/10 hover:bg-white/10 transition-all duration-300 group">
+                      <div className="w-14 h-14 bg-gradient-to-r from-amber-500 to-orange-500 rounded-full flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform duration-300">
+                        <Mail className="h-7 w-7 text-white" />
+                      </div>
+                      <div>
+                        <span className="text-white font-bold text-xl">Email</span>
+                        <p className="text-amber-100 text-lg group-hover:text-white transition-colors duration-300">hello@kaffeehaus.com</p>
                       </div>
                     </div>
                   </div>
                 </div>
               </div>
 
-              {/* Additional Contact Info */}
+              {/* Business Information */}
               <div className="bg-white/10 backdrop-blur-xl rounded-3xl p-8 shadow-2xl border border-white/20 relative overflow-hidden">
                 <div className="absolute top-0 right-0 w-20 h-20 bg-gradient-to-bl from-amber-400/20 to-orange-400/20 rounded-full -translate-y-10 translate-x-10 blur-xl"></div>
                 
@@ -513,30 +484,37 @@ export default function ContactPage() {
                     <div className="inline-flex items-center justify-center w-12 h-12 bg-gradient-to-r from-amber-500 to-orange-500 rounded-full mb-3 shadow-lg">
                       <HelpCircle className="h-6 w-6 text-white" />
                     </div>
-                    <h3 className="text-2xl font-bold text-white mb-2">Need Help?</h3>
-                    <p className="text-amber-100">We're here to assist you</p>
+                    <h3 className="text-2xl font-bold text-white mb-2">Business Information</h3>
+                    <p className="text-amber-100">Everything you need to know</p>
                   </div>
                   
                   <div className="space-y-4">
-                    <div className="flex items-center space-x-3 p-3 rounded-xl bg-white/5 hover:bg-white/10 transition-colors duration-300">
-                      <Clock className="h-5 w-5 text-amber-400" />
+                    <div className="flex items-center space-x-3 p-4 rounded-xl bg-white/5 hover:bg-white/10 transition-colors duration-300 group">
+                      <Clock className="h-6 w-6 text-amber-400 group-hover:animate-pulse" />
                       <div>
-                        <span className="text-white font-semibold">Business Hours</span>
-                        <p className="text-amber-100 text-sm">Mon-Fri: 6AM-10PM</p>
+                        <span className="text-white font-semibold text-lg">Business Hours</span>
+                        <p className="text-amber-100">Mon-Fri: 6AM-10PM, Sat-Sun: 7AM-11PM</p>
                       </div>
                     </div>
-                    <div className="flex items-center space-x-3 p-3 rounded-xl bg-white/5 hover:bg-white/10 transition-colors duration-300">
-                      <Coffee className="h-5 w-5 text-amber-400" />
+                    <div className="flex items-center space-x-3 p-4 rounded-xl bg-white/5 hover:bg-white/10 transition-colors duration-300 group">
+                      <Coffee className="h-6 w-6 text-amber-400 group-hover:animate-pulse" />
                       <div>
-                        <span className="text-white font-semibold">Special Orders</span>
-                        <p className="text-amber-100 text-sm">Available 24/7</p>
+                        <span className="text-white font-semibold text-lg">Special Orders</span>
+                        <p className="text-amber-100">Available 24/7 for delivery</p>
                       </div>
                     </div>
-                    <div className="flex items-center space-x-3 p-3 rounded-xl bg-white/5 hover:bg-white/10 transition-colors duration-300">
-                      <Star className="h-5 w-5 text-amber-400" />
+                    <div className="flex items-center space-x-3 p-4 rounded-xl bg-white/5 hover:bg-white/10 transition-colors duration-300 group">
+                      <Star className="h-6 w-6 text-amber-400 group-hover:animate-pulse" />
                       <div>
-                        <span className="text-white font-semibold">Customer Service</span>
-                        <p className="text-amber-100 text-sm">Always available</p>
+                        <span className="text-white font-semibold text-lg">Customer Service</span>
+                        <p className="text-amber-100">Always available to help</p>
+                      </div>
+                    </div>
+                    <div className="flex items-center space-x-3 p-4 rounded-xl bg-white/5 hover:bg-white/10 transition-colors duration-300 group">
+                      <MapPin className="h-6 w-6 text-amber-400 group-hover:animate-pulse" />
+                      <div>
+                        <span className="text-white font-semibold text-lg">Multiple Locations</span>
+                        <p className="text-amber-100">4 branches across Addis Ababa</p>
                       </div>
                     </div>
                   </div>
