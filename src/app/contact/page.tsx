@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import Navigation from '@/components/Navigation';
 import InteractiveMap from '@/components/InteractiveMap';
-import { MessageCircle, Star, MapPin, Phone, Mail, Clock, Send, Instagram, Facebook, Twitter, CheckCircle, AlertCircle, Coffee, Users, Award, HelpCircle } from 'lucide-react';
+import { MessageCircle, Star, MapPin, Phone, Mail, Clock, Send, CheckCircle, AlertCircle, Coffee, Instagram, Facebook, Twitter, Youtube, Linkedin } from 'lucide-react';
 
 export default function ContactPage() {
   const [formData, setFormData] = useState({
@@ -86,11 +86,6 @@ export default function ContactPage() {
     }
   ];
 
-  const socialLinks = [
-    { icon: Instagram, href: '#', label: 'Instagram', color: 'from-pink-500 to-rose-600' },
-    { icon: Facebook, href: '#', label: 'Facebook', color: 'from-blue-600 to-blue-700' },
-    { icon: Twitter, href: '#', label: 'Twitter', color: 'from-sky-500 to-blue-600' }
-  ];
 
   return (
     <main className="min-h-screen bg-gradient-to-br from-amber-50 via-orange-50 to-amber-100">
@@ -271,7 +266,7 @@ export default function ContactPage() {
         </div>
       </section>
 
-      {/* Contact Form & Social Media Section */}
+      {/* Contact Form & Map Section */}
       <section className="py-24 bg-gradient-to-br from-gray-900 via-amber-900 to-gray-900 relative overflow-hidden">
         <div className="absolute inset-0 z-0">
           <div 
@@ -298,17 +293,17 @@ export default function ContactPage() {
               <Star className="h-5 w-5 text-amber-300" />
             </div>
             <h2 className="text-6xl font-bold text-white mb-6">
-              Send Us a{' '}
+              Contact Us &{' '}
               <span className="bg-gradient-to-r from-amber-300 to-orange-200 bg-clip-text text-transparent">
-                Message
+                Find Us
               </span>
             </h2>
             <p className="text-xl text-amber-100 max-w-3xl mx-auto">
-              We'd love to hear from you! Send us a message and we'll respond as soon as possible.
+              Send us a message or explore our locations across Addis Ababa
             </p>
           </div>
           
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
             {/* Contact Form */}
             <div className="bg-white/10 backdrop-blur-xl rounded-3xl p-8 shadow-2xl border border-white/20 relative overflow-hidden">
               <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-amber-400/20 to-orange-400/20 rounded-full -translate-y-16 translate-x-16 blur-2xl"></div>
@@ -439,107 +434,23 @@ export default function ContactPage() {
               </div>
             </div>
 
-            {/* Social Media & Contact Info */}
-            <div className="space-y-8">
-              {/* Social Media */}
-              <div className="bg-white/10 backdrop-blur-xl rounded-3xl p-8 shadow-2xl border border-white/20 relative overflow-hidden">
-                <div className="absolute top-0 left-0 w-24 h-24 bg-gradient-to-br from-amber-400/20 to-orange-400/20 rounded-full -translate-y-12 -translate-x-12 blur-xl"></div>
-                <div className="absolute bottom-0 right-0 w-32 h-32 bg-gradient-to-tl from-amber-400/20 to-orange-400/20 rounded-full translate-y-16 translate-x-16 blur-2xl"></div>
-                
-                <div className="relative z-10">
-                  <div className="text-center mb-8">
-                    <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-r from-amber-500 to-orange-500 rounded-full mb-4 shadow-2xl">
-                      <Users className="h-8 w-8 text-white" />
-                    </div>
-                    <h3 className="text-3xl font-bold text-white mb-4">Follow Us</h3>
-                    <p className="text-amber-100 text-lg">Stay updated with our latest news and special offers</p>
-                    <div className="w-16 h-1 bg-gradient-to-r from-amber-500 to-orange-500 rounded-full mx-auto mt-3"></div>
+            {/* Map Section */}
+            <div className="bg-white/10 backdrop-blur-xl rounded-3xl p-8 shadow-2xl border border-white/20 relative overflow-hidden">
+              <div className="absolute top-0 left-0 w-32 h-32 bg-gradient-to-br from-amber-400/20 to-orange-400/20 rounded-full -translate-y-16 -translate-x-16 blur-2xl"></div>
+              <div className="absolute bottom-0 right-0 w-40 h-40 bg-gradient-to-tl from-amber-400/20 to-orange-400/20 rounded-full translate-y-20 translate-x-20 blur-3xl"></div>
+              
+              <div className="relative z-10">
+                <div className="text-center mb-8">
+                  <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-r from-amber-500 to-orange-500 rounded-full mb-4 shadow-2xl">
+                    <MapPin className="h-8 w-8 text-white" />
                   </div>
-
-                  <div className="grid grid-cols-1 gap-6 mb-8">
-                    {socialLinks.map((social, index) => (
-                      <a
-                        key={social.label}
-                        href={social.href}
-                        className={`group flex items-center space-x-4 p-6 rounded-2xl transition-all duration-300 hover:scale-105 bg-gradient-to-r ${social.color} text-white hover:shadow-2xl relative overflow-hidden`}
-                        style={{ animationDelay: `${index * 0.1}s` }}
-                      >
-                        <div className="absolute inset-0 bg-white/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                        <div className="w-14 h-14 bg-white/20 rounded-full flex items-center justify-center group-hover:scale-110 transition-transform duration-300 relative z-10">
-                          <social.icon className="h-7 w-7 group-hover:animate-pulse" />
-                        </div>
-                        <div className="relative z-10">
-                          <span className="font-bold text-xl group-hover:text-white/90">{social.label}</span>
-                          <p className="text-white/80 text-sm group-hover:text-white/90">Follow us for updates</p>
-                        </div>
-                        <div className="ml-auto relative z-10">
-                          <div className="w-8 h-8 bg-white/20 rounded-full flex items-center justify-center group-hover:bg-white/30 transition-colors duration-300">
-                            <span className="text-white font-bold">→</span>
-                          </div>
-                        </div>
-                      </a>
-                    ))}
-                  </div>
-
-                  <div className="text-center bg-white/5 backdrop-blur-sm rounded-2xl p-6 border border-white/10">
-                    <div className="flex items-center justify-center space-x-2 mb-4">
-                      <Award className="h-6 w-6 text-amber-400" />
-                      <span className="text-white font-bold text-lg">Quick Contact</span>
-                    </div>
-                    <div className="space-y-4">
-                      <div className="flex items-center justify-center space-x-3 group hover:scale-105 transition-transform duration-300">
-                        <div className="w-10 h-10 bg-gradient-to-r from-amber-500 to-orange-500 rounded-full flex items-center justify-center shadow-lg">
-                          <Phone className="h-5 w-5 text-white" />
-                        </div>
-                        <span className="text-white font-bold text-lg group-hover:text-amber-200 transition-colors duration-300">+251 11 123 4567</span>
-                      </div>
-                      <div className="flex items-center justify-center space-x-3 group hover:scale-105 transition-transform duration-300">
-                        <div className="w-10 h-10 bg-gradient-to-r from-amber-500 to-orange-500 rounded-full flex items-center justify-center shadow-lg">
-                          <Mail className="h-5 w-5 text-white" />
-                        </div>
-                        <span className="text-white font-bold text-lg group-hover:text-amber-200 transition-colors duration-300">hello@kaffeehaus.com</span>
-                      </div>
-                    </div>
-                  </div>
+                  <h3 className="text-2xl font-bold text-white mb-2">Find Our Locations</h3>
+                  <p className="text-amber-100">Explore our branches across Addis Ababa</p>
+                  <div className="w-16 h-1 bg-gradient-to-r from-amber-500 to-orange-500 rounded-full mx-auto mt-3"></div>
                 </div>
-              </div>
-
-              {/* Additional Contact Info */}
-              <div className="bg-white/10 backdrop-blur-xl rounded-3xl p-8 shadow-2xl border border-white/20 relative overflow-hidden">
-                <div className="absolute top-0 right-0 w-20 h-20 bg-gradient-to-bl from-amber-400/20 to-orange-400/20 rounded-full -translate-y-10 translate-x-10 blur-xl"></div>
                 
-                <div className="relative z-10">
-                  <div className="text-center mb-6">
-                    <div className="inline-flex items-center justify-center w-12 h-12 bg-gradient-to-r from-amber-500 to-orange-500 rounded-full mb-3 shadow-lg">
-                      <HelpCircle className="h-6 w-6 text-white" />
-                    </div>
-                    <h3 className="text-2xl font-bold text-white mb-2">Need Help?</h3>
-                    <p className="text-amber-100">We're here to assist you</p>
-                  </div>
-                  
-                  <div className="space-y-4">
-                    <div className="flex items-center space-x-3 p-3 rounded-xl bg-white/5 hover:bg-white/10 transition-colors duration-300">
-                      <Clock className="h-5 w-5 text-amber-400" />
-                      <div>
-                        <span className="text-white font-semibold">Business Hours</span>
-                        <p className="text-amber-100 text-sm">Mon-Fri: 6AM-10PM</p>
-                      </div>
-                    </div>
-                    <div className="flex items-center space-x-3 p-3 rounded-xl bg-white/5 hover:bg-white/10 transition-colors duration-300">
-                      <Coffee className="h-5 w-5 text-amber-400" />
-                      <div>
-                        <span className="text-white font-semibold">Special Orders</span>
-                        <p className="text-amber-100 text-sm">Available 24/7</p>
-                      </div>
-                    </div>
-                    <div className="flex items-center space-x-3 p-3 rounded-xl bg-white/5 hover:bg-white/10 transition-colors duration-300">
-                      <Star className="h-5 w-5 text-amber-400" />
-                      <div>
-                        <span className="text-white font-semibold">Customer Service</span>
-                        <p className="text-amber-100 text-sm">Always available</p>
-                      </div>
-                    </div>
-                  </div>
+                <div className="bg-white/20 backdrop-blur-sm rounded-2xl p-6 border border-white/10">
+                  <InteractiveMap branches={branches} />
                 </div>
               </div>
             </div>
@@ -547,70 +458,85 @@ export default function ContactPage() {
         </div>
       </section>
 
-      {/* Map Section */}
-      <section className="py-24 bg-gradient-to-br from-amber-50 via-orange-50 to-amber-100 relative overflow-hidden">
+      {/* Social Media Section */}
+      <section className="py-16 bg-gradient-to-r from-amber-600 to-orange-600 relative overflow-hidden">
         <div className="absolute inset-0 z-0">
           <div 
-            className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-30"
+            className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-20"
             style={{
-              backgroundImage: 'url("https://images.unsplash.com/photo-1559056199-641a0ac8b55e?w=1920&h=1080&fit=crop&crop=center&auto=format&q=80")'
+              backgroundImage: 'url("https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?w=1920&h=1080&fit=crop&crop=center&auto=format&q=80")'
             }}
           />
-          <div className="absolute inset-0 bg-gradient-to-br from-amber-50/90 via-orange-50/90 to-amber-100/90" />
+          <div className="absolute inset-0 bg-gradient-to-r from-amber-600/90 to-orange-600/90" />
         </div>
         
         {/* Decorative elements */}
         <div className="absolute inset-0 z-5 overflow-hidden">
-          <div className="absolute top-20 left-20 w-40 h-40 bg-amber-200/20 rounded-full blur-3xl animate-pulse" />
-          <div className="absolute bottom-20 right-20 w-32 h-32 bg-orange-200/25 rounded-full blur-2xl animate-pulse" style={{ animationDelay: '2s' }} />
-          <div className="absolute top-1/2 left-1/3 w-24 h-24 bg-amber-300/15 rounded-full blur-xl animate-bounce" style={{ animationDelay: '4s', animationDuration: '6s' }} />
+          <div className="absolute top-10 left-10 w-32 h-32 bg-white/10 rounded-full blur-2xl animate-pulse" />
+          <div className="absolute bottom-10 right-10 w-24 h-24 bg-white/15 rounded-full blur-xl animate-pulse" style={{ animationDelay: '2s' }} />
+          <div className="absolute top-1/2 left-1/4 w-20 h-20 bg-white/5 rounded-full blur-lg animate-bounce" style={{ animationDelay: '4s', animationDuration: '6s' }} />
         </div>
         
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <div className="inline-flex items-center space-x-2 bg-white/60 backdrop-blur-md rounded-full px-8 py-4 text-amber-800 mb-8 shadow-lg border border-amber-200/50">
-              <MapPin className="h-6 w-6 animate-pulse" />
-              <span className="font-semibold text-lg">Interactive Map</span>
-              <Star className="h-5 w-5 text-amber-600" />
-            </div>
-            <h2 className="text-6xl font-bold text-gray-800 mb-8 animate-fade-in-up">
-              Our{' '}
-              <span className="bg-gradient-to-r from-amber-600 to-orange-600 bg-clip-text text-transparent">
-                Locations
+          <div className="text-center mb-12">
+            <h2 className="text-4xl font-bold text-white mb-4">
+              Follow Us on{' '}
+              <span className="bg-gradient-to-r from-white to-amber-100 bg-clip-text text-transparent">
+                Social Media
               </span>
             </h2>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed animate-fade-in-up" style={{ animationDelay: '0.3s' }}>
-              Explore our branches across Addis Ababa on the interactive map below. Click on any location to get directions.
+            <p className="text-amber-100 text-lg max-w-2xl mx-auto">
+              Stay connected with us for the latest updates, special offers, and coffee culture content
             </p>
           </div>
+          
+          <div className="flex flex-wrap justify-center items-center gap-6">
+            {/* Instagram */}
+            <a
+              href="#"
+              className="group w-14 h-14 bg-gradient-to-br from-pink-500 to-purple-600 rounded-full flex items-center justify-center shadow-lg hover:scale-110 transition-all duration-300 hover:shadow-2xl"
+            >
+              <Instagram className="h-6 w-6 text-white" />
+            </a>
 
-          <div className="bg-white/80 backdrop-blur-sm rounded-3xl shadow-2xl border border-amber-200/50 overflow-hidden relative">
-            <div className="absolute top-0 left-0 w-32 h-32 bg-gradient-to-br from-amber-200/20 to-orange-200/20 rounded-full -translate-y-16 -translate-x-16 blur-2xl"></div>
-            <div className="absolute bottom-0 right-0 w-40 h-40 bg-gradient-to-tl from-amber-200/20 to-orange-200/20 rounded-full translate-y-20 translate-x-20 blur-3xl"></div>
-            
-            <div className="relative z-10 p-8">
-              <div className="text-center mb-8">
-                <h3 className="text-2xl font-bold text-gray-800 mb-2">Find Your Nearest Branch</h3>
-                <p className="text-gray-600">Click on any marker to view branch details and get directions</p>
-              </div>
-              
-              <InteractiveMap branches={branches} />
-              
-              <div className="mt-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-                {branches.map((branch, index) => (
-                  <div key={branch.id} className="bg-white/60 backdrop-blur-sm rounded-xl p-4 border border-amber-200/30 hover:bg-white/80 transition-all duration-300 hover:scale-105">
-                    <div className="flex items-center space-x-3">
-                      <div className="w-8 h-8 bg-gradient-to-r from-amber-500 to-orange-500 rounded-full flex items-center justify-center text-white font-bold text-sm">
-                        {index + 1}
-                      </div>
-                      <div>
-                        <h4 className="font-bold text-gray-800 text-sm">{branch.name}</h4>
-                        <p className="text-gray-600 text-xs">{branch.address}</p>
-                      </div>
-                    </div>
-                  </div>
-                ))}
-              </div>
+            {/* Facebook */}
+            <a
+              href="#"
+              className="group w-14 h-14 bg-gradient-to-br from-blue-600 to-blue-700 rounded-full flex items-center justify-center shadow-lg hover:scale-110 transition-all duration-300 hover:shadow-2xl"
+            >
+              <Facebook className="h-6 w-6 text-white" />
+            </a>
+
+            {/* Twitter */}
+            <a
+              href="#"
+              className="group w-14 h-14 bg-gradient-to-br from-sky-500 to-blue-600 rounded-full flex items-center justify-center shadow-lg hover:scale-110 transition-all duration-300 hover:shadow-2xl"
+            >
+              <Twitter className="h-6 w-6 text-white" />
+            </a>
+
+            {/* YouTube */}
+            <a
+              href="#"
+              className="group w-14 h-14 bg-gradient-to-br from-red-600 to-red-700 rounded-full flex items-center justify-center shadow-lg hover:scale-110 transition-all duration-300 hover:shadow-2xl"
+            >
+              <Youtube className="h-6 w-6 text-white" />
+            </a>
+
+            {/* LinkedIn */}
+            <a
+              href="#"
+              className="group w-14 h-14 bg-gradient-to-br from-blue-700 to-blue-800 rounded-full flex items-center justify-center shadow-lg hover:scale-110 transition-all duration-300 hover:shadow-2xl"
+            >
+              <Linkedin className="h-6 w-6 text-white" />
+            </a>
+          </div>
+          
+          <div className="text-center mt-12">
+            <div className="inline-flex items-center space-x-2 bg-white/10 backdrop-blur-sm rounded-full px-6 py-3 text-white/90 border border-white/20">
+              <Star className="h-5 w-5 text-amber-200" />
+              <span className="font-medium">Join our community of coffee lovers</span>
+              <Star className="h-5 w-5 text-amber-200" />
             </div>
           </div>
         </div>
