@@ -2,8 +2,9 @@
 
 import { useState } from 'react';
 import Navigation from '@/components/Navigation';
-import { Coffee, Plus, Minus, Star, Heart, ShoppingCart, Clock, Flame, Award, TrendingUp, X } from 'lucide-react';
+import { Coffee, Plus, Minus, Star, Heart, ShoppingCart, Clock, Flame, Award, TrendingUp } from 'lucide-react';
 import SignatureDrinks from '@/components/SignatureDrinks';
+import { useCart } from '@/contexts/CartContext';
 
 interface MenuItem {
   id: number;
@@ -166,20 +167,13 @@ const menuItems: MenuItem[] = [
 
 
 export default function MenuPage() {
-  const [quantities, setQuantities] = useState<{ [key: number]: number }>({});
+  const { addToCart } = useCart();
   const [favorites, setFavorites] = useState<number[]>([1, 2]);
 
   // Sort items by popularity by default
   const sortedItems = [...menuItems].sort((a, b) => {
     return (b.isPopular ? 1 : 0) - (a.isPopular ? 1 : 0);
   });
-
-  const updateQuantity = (itemId: number, change: number) => {
-    setQuantities(prev => ({
-      ...prev,
-      [itemId]: Math.max(0, (prev[itemId] || 0) + change)
-    }));
-  };
 
   const toggleFavorite = (itemId: number) => {
     setFavorites(prev => 
@@ -189,11 +183,9 @@ export default function MenuPage() {
     );
   };
 
-  const totalItems = Object.values(quantities).reduce((sum, qty) => sum + qty, 0);
-  const totalPrice = Object.entries(quantities).reduce((total, [itemId, qty]) => {
-    const item = menuItems.find(i => i.id === parseInt(itemId));
-    return total + (item ? item.price * qty : 0);
-  }, 0);
+  const handleAddToCart = (item: MenuItem) => {
+    addToCart(item, 1);
+  };
 
   return (
     <main className="min-h-screen bg-gradient-to-br from-amber-50 via-orange-50 to-amber-100">
@@ -356,31 +348,14 @@ export default function MenuPage() {
                     <span className="text-xs text-gray-400">• 127 reviews</span>
                   </div>
 
-                  {/* Enhanced Quantity Controls */}
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center space-x-3">
-                      <button
-                        onClick={() => updateQuantity(item.id, -1)}
-                        className="p-2 rounded-full bg-gray-100 hover:bg-gray-200 transition-colors duration-200 hover:scale-110"
-                      >
-                        <Minus className="h-4 w-4" />
-                      </button>
-                      <span className="text-lg font-semibold min-w-[2rem] text-center">
-                        {quantities[item.id] || 0}
-                      </span>
-                      <button
-                        onClick={() => updateQuantity(item.id, 1)}
-                        className="p-2 rounded-full bg-amber-100 hover:bg-amber-200 transition-colors duration-200 hover:scale-110"
-                      >
-                        <Plus className="h-4 w-4" />
-                      </button>
-                    </div>
-
-                    <button className="bg-gradient-to-r from-amber-600 to-amber-700 hover:from-amber-700 hover:to-amber-800 text-white px-6 py-2 rounded-xl font-semibold transition-all duration-200 flex items-center space-x-2 shadow-lg hover:shadow-amber-500/25 hover:scale-105">
-                      <ShoppingCart className="h-4 w-4" />
-                      <span>Add to Cart</span>
-                    </button>
-                  </div>
+                  {/* Add to Cart Button */}
+                  <button 
+                    onClick={() => handleAddToCart(item)}
+                    className="w-full bg-gradient-to-r from-amber-600 to-amber-700 hover:from-amber-700 hover:to-amber-800 text-white px-6 py-3 rounded-xl font-semibold transition-all duration-200 flex items-center justify-center space-x-2 shadow-lg hover:shadow-amber-500/25 hover:scale-105"
+                  >
+                    <ShoppingCart className="h-5 w-5" />
+                    <span>Add to Cart</span>
+                  </button>
                 </div>
               </div>
             ))}
@@ -388,56 +363,6 @@ export default function MenuPage() {
         </div>
       </section>
 
-      {/* Enhanced Cart Summary */}
-      {totalItems > 0 && (
-        <div className="fixed bottom-6 right-6 bg-white rounded-3xl shadow-2xl p-6 max-w-sm border border-amber-200/30 backdrop-blur-sm">
-          <div className="flex items-center justify-between mb-4">
-            <h3 className="text-lg font-bold text-gray-800 flex items-center space-x-2">
-              <ShoppingCart className="h-5 w-5 text-amber-600" />
-              <span>Your Order</span>
-              <span className="bg-amber-100 text-amber-800 text-xs px-2 py-1 rounded-full">{totalItems}</span>
-            </h3>
-            <button className="text-gray-400 hover:text-gray-600">
-              <X className="h-4 w-4" />
-            </button>
-          </div>
-          
-          <div className="space-y-3 mb-4 max-h-48 overflow-y-auto">
-            {Object.entries(quantities).map(([itemId, qty]) => {
-              if (qty === 0) return null;
-              const item = menuItems.find(i => i.id === parseInt(itemId));
-              if (!item) return null;
-              
-              return (
-                <div key={itemId} className="flex justify-between items-center bg-gray-50 rounded-xl p-3">
-                  <div className="flex items-center space-x-3">
-                    <img
-                      src={item.image}
-                      alt={item.name}
-                      className="w-12 h-12 rounded-lg object-cover"
-                    />
-                    <div>
-                      <span className="text-sm font-medium text-gray-800">{item.name}</span>
-                      <div className="text-xs text-gray-500">x{qty}</div>
-                    </div>
-                  </div>
-                  <span className="text-sm font-semibold text-amber-600">${(item.price * qty).toFixed(2)}</span>
-                </div>
-              );
-            })}
-          </div>
-          
-          <div className="border-t border-gray-200 pt-4">
-            <div className="flex justify-between items-center mb-4">
-              <span className="font-bold text-gray-800">Total:</span>
-              <span className="font-bold text-2xl text-amber-600">${totalPrice.toFixed(2)}</span>
-            </div>
-            <button className="w-full bg-gradient-to-r from-amber-600 to-amber-700 hover:from-amber-700 hover:to-amber-800 text-white py-3 rounded-xl font-semibold transition-all duration-200 shadow-lg hover:shadow-amber-500/25">
-              Proceed to Checkout
-            </button>
-          </div>
-        </div>
-      )}
     </main>
   );
 }
