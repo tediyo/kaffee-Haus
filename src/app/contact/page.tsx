@@ -449,34 +449,8 @@ export default function ContactPage() {
                   <div className="w-16 h-1 bg-gradient-to-r from-amber-500 to-orange-500 rounded-full mx-auto mt-3"></div>
                 </div>
                 
-                <div className="bg-white/20 backdrop-blur-sm rounded-2xl p-6 border border-white/10 mb-6">
+                <div className="bg-white/20 backdrop-blur-sm rounded-2xl p-6 border border-white/10">
                   <InteractiveMap branches={branches} />
-                </div>
-                
-                <div className="grid grid-cols-1 gap-3">
-                  {branches.map((branch, index) => (
-                    <div key={branch.id} className="bg-white/10 backdrop-blur-sm rounded-xl p-4 border border-white/20 hover:bg-white/20 transition-all duration-300 hover:scale-105">
-                      <div className="flex items-center space-x-3">
-                        <div className="w-8 h-8 bg-gradient-to-r from-amber-500 to-orange-500 rounded-full flex items-center justify-center text-white font-bold text-sm">
-                          {index + 1}
-                        </div>
-                        <div className="flex-1">
-                          <h4 className="font-bold text-white text-sm">{branch.name}</h4>
-                          <p className="text-amber-100 text-xs">{branch.address}</p>
-                          <div className="flex items-center space-x-4 mt-2">
-                            <div className="flex items-center space-x-1">
-                              <Phone className="h-3 w-3 text-amber-400" />
-                              <span className="text-amber-100 text-xs">{branch.phone}</span>
-                            </div>
-                            <div className="flex items-center space-x-1">
-                              <Clock className="h-3 w-3 text-amber-400" />
-                              <span className="text-amber-100 text-xs">{branch.hours}</span>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  ))}
                 </div>
               </div>
             </div>
