@@ -266,7 +266,7 @@ export default function ContactPage() {
         </div>
       </section>
 
-      {/* Contact Form & Social Media Section */}
+      {/* Contact Form & Map Section */}
       <section className="py-24 bg-gradient-to-br from-gray-900 via-amber-900 to-gray-900 relative overflow-hidden">
         <div className="absolute inset-0 z-0">
           <div 
@@ -293,17 +293,17 @@ export default function ContactPage() {
               <Star className="h-5 w-5 text-amber-300" />
             </div>
             <h2 className="text-6xl font-bold text-white mb-6">
-              Send Us a{' '}
+              Contact Us &{' '}
               <span className="bg-gradient-to-r from-amber-300 to-orange-200 bg-clip-text text-transparent">
-                Message
+                Find Us
               </span>
             </h2>
             <p className="text-xl text-amber-100 max-w-3xl mx-auto">
-              We'd love to hear from you! Send us a message and we'll respond as soon as possible.
+              Send us a message or explore our locations across Addis Ababa
             </p>
           </div>
           
-          <div className="max-w-4xl mx-auto">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
             {/* Contact Form */}
             <div className="bg-white/10 backdrop-blur-xl rounded-3xl p-8 shadow-2xl border border-white/20 relative overflow-hidden">
               <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-amber-400/20 to-orange-400/20 rounded-full -translate-y-16 translate-x-16 blur-2xl"></div>
@@ -434,73 +434,50 @@ export default function ContactPage() {
               </div>
             </div>
 
-          </div>
-        </div>
-      </section>
-
-      {/* Map Section */}
-      <section className="py-24 bg-gradient-to-br from-amber-50 via-orange-50 to-amber-100 relative overflow-hidden">
-        <div className="absolute inset-0 z-0">
-          <div 
-            className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-30"
-            style={{
-              backgroundImage: 'url("https://images.unsplash.com/photo-1559056199-641a0ac8b55e?w=1920&h=1080&fit=crop&crop=center&auto=format&q=80")'
-            }}
-          />
-          <div className="absolute inset-0 bg-gradient-to-br from-amber-50/90 via-orange-50/90 to-amber-100/90" />
-        </div>
-        
-        {/* Decorative elements */}
-        <div className="absolute inset-0 z-5 overflow-hidden">
-          <div className="absolute top-20 left-20 w-40 h-40 bg-amber-200/20 rounded-full blur-3xl animate-pulse" />
-          <div className="absolute bottom-20 right-20 w-32 h-32 bg-orange-200/25 rounded-full blur-2xl animate-pulse" style={{ animationDelay: '2s' }} />
-          <div className="absolute top-1/2 left-1/3 w-24 h-24 bg-amber-300/15 rounded-full blur-xl animate-bounce" style={{ animationDelay: '4s', animationDuration: '6s' }} />
-        </div>
-        
-        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <div className="inline-flex items-center space-x-2 bg-white/60 backdrop-blur-md rounded-full px-8 py-4 text-amber-800 mb-8 shadow-lg border border-amber-200/50">
-              <MapPin className="h-6 w-6 animate-pulse" />
-              <span className="font-semibold text-lg">Interactive Map</span>
-              <Star className="h-5 w-5 text-amber-600" />
-            </div>
-            <h2 className="text-6xl font-bold text-gray-800 mb-8 animate-fade-in-up">
-              Our{' '}
-              <span className="bg-gradient-to-r from-amber-600 to-orange-600 bg-clip-text text-transparent">
-                Locations
-              </span>
-            </h2>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed animate-fade-in-up" style={{ animationDelay: '0.3s' }}>
-              Explore our branches across Addis Ababa on the interactive map below. Click on any location to get directions.
-            </p>
-          </div>
-
-          <div className="bg-white/80 backdrop-blur-sm rounded-3xl shadow-2xl border border-amber-200/50 overflow-hidden relative">
-            <div className="absolute top-0 left-0 w-32 h-32 bg-gradient-to-br from-amber-200/20 to-orange-200/20 rounded-full -translate-y-16 -translate-x-16 blur-2xl"></div>
-            <div className="absolute bottom-0 right-0 w-40 h-40 bg-gradient-to-tl from-amber-200/20 to-orange-200/20 rounded-full translate-y-20 translate-x-20 blur-3xl"></div>
-            
-            <div className="relative z-10 p-8">
-              <div className="text-center mb-8">
-                <h3 className="text-2xl font-bold text-gray-800 mb-2">Find Your Nearest Branch</h3>
-                <p className="text-gray-600">Click on any marker to view branch details and get directions</p>
-              </div>
+            {/* Map Section */}
+            <div className="bg-white/10 backdrop-blur-xl rounded-3xl p-8 shadow-2xl border border-white/20 relative overflow-hidden">
+              <div className="absolute top-0 left-0 w-32 h-32 bg-gradient-to-br from-amber-400/20 to-orange-400/20 rounded-full -translate-y-16 -translate-x-16 blur-2xl"></div>
+              <div className="absolute bottom-0 right-0 w-40 h-40 bg-gradient-to-tl from-amber-400/20 to-orange-400/20 rounded-full translate-y-20 translate-x-20 blur-3xl"></div>
               
-              <InteractiveMap branches={branches} />
-              
-              <div className="mt-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-                {branches.map((branch, index) => (
-                  <div key={branch.id} className="bg-white/60 backdrop-blur-sm rounded-xl p-4 border border-amber-200/30 hover:bg-white/80 transition-all duration-300 hover:scale-105">
-                    <div className="flex items-center space-x-3">
-                      <div className="w-8 h-8 bg-gradient-to-r from-amber-500 to-orange-500 rounded-full flex items-center justify-center text-white font-bold text-sm">
-                        {index + 1}
-                      </div>
-                      <div>
-                        <h4 className="font-bold text-gray-800 text-sm">{branch.name}</h4>
-                        <p className="text-gray-600 text-xs">{branch.address}</p>
+              <div className="relative z-10">
+                <div className="text-center mb-8">
+                  <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-r from-amber-500 to-orange-500 rounded-full mb-4 shadow-2xl">
+                    <MapPin className="h-8 w-8 text-white" />
+                  </div>
+                  <h3 className="text-2xl font-bold text-white mb-2">Find Our Locations</h3>
+                  <p className="text-amber-100">Explore our branches across Addis Ababa</p>
+                  <div className="w-16 h-1 bg-gradient-to-r from-amber-500 to-orange-500 rounded-full mx-auto mt-3"></div>
+                </div>
+                
+                <div className="bg-white/20 backdrop-blur-sm rounded-2xl p-6 border border-white/10 mb-6">
+                  <InteractiveMap branches={branches} />
+                </div>
+                
+                <div className="grid grid-cols-1 gap-3">
+                  {branches.map((branch, index) => (
+                    <div key={branch.id} className="bg-white/10 backdrop-blur-sm rounded-xl p-4 border border-white/20 hover:bg-white/20 transition-all duration-300 hover:scale-105">
+                      <div className="flex items-center space-x-3">
+                        <div className="w-8 h-8 bg-gradient-to-r from-amber-500 to-orange-500 rounded-full flex items-center justify-center text-white font-bold text-sm">
+                          {index + 1}
+                        </div>
+                        <div className="flex-1">
+                          <h4 className="font-bold text-white text-sm">{branch.name}</h4>
+                          <p className="text-amber-100 text-xs">{branch.address}</p>
+                          <div className="flex items-center space-x-4 mt-2">
+                            <div className="flex items-center space-x-1">
+                              <Phone className="h-3 w-3 text-amber-400" />
+                              <span className="text-amber-100 text-xs">{branch.phone}</span>
+                            </div>
+                            <div className="flex items-center space-x-1">
+                              <Clock className="h-3 w-3 text-amber-400" />
+                              <span className="text-amber-100 text-xs">{branch.hours}</span>
+                            </div>
+                          </div>
+                        </div>
                       </div>
                     </div>
-                  </div>
-                ))}
+                  ))}
+                </div>
               </div>
             </div>
           </div>
