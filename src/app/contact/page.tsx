@@ -97,99 +97,172 @@ export default function ContactPage() {
       <Navigation />
       
       {/* Enhanced Hero Section with Coffee Background */}
-      <section className="pt-20 pb-20 relative overflow-hidden min-h-[80vh] flex items-center">
+      <section className="pt-20 pb-20 relative overflow-hidden min-h-[90vh] flex items-center">
         <div className="absolute inset-0 z-0">
           <div 
-            className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+            className="absolute inset-0 bg-cover bg-center bg-no-repeat transform scale-105"
             style={{
               backgroundImage: 'url("https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?w=1920&h=1080&fit=crop&crop=center&auto=format&q=80")'
             }}
           />
-          <div className="absolute inset-0 bg-gradient-to-br from-black/60 via-amber-900/70 to-black/60" />
-          <div className="absolute inset-0 bg-gradient-to-br from-amber-900/40 via-amber-800/30 to-amber-700/40" />
+          <div className="absolute inset-0 bg-gradient-to-br from-black/70 via-amber-900/80 to-black/70" />
+          <div className="absolute inset-0 bg-gradient-to-br from-amber-900/50 via-amber-800/40 to-amber-700/50" />
         </div>
         
+        {/* Animated floating elements */}
         <div className="absolute inset-0 z-5 overflow-hidden">
           <div className="absolute top-10 left-10 w-40 h-40 bg-amber-300/20 rounded-full blur-2xl animate-pulse" />
           <div className="absolute top-32 right-20 w-32 h-32 bg-orange-300/30 rounded-full blur-xl animate-pulse" style={{ animationDelay: '1s' }} />
           <div className="absolute bottom-20 left-1/4 w-48 h-48 bg-amber-400/20 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '2s' }} />
+          <div className="absolute top-1/2 right-1/4 w-24 h-24 bg-amber-200/25 rounded-full blur-lg animate-bounce" style={{ animationDelay: '3s', animationDuration: '4s' }} />
+          <div className="absolute bottom-1/3 right-10 w-36 h-36 bg-orange-200/20 rounded-full blur-2xl animate-pulse" style={{ animationDelay: '4s' }} />
+        </div>
+        
+        {/* Coffee bean particles */}
+        <div className="absolute inset-0 z-5 overflow-hidden">
+          <div className="absolute top-20 left-1/4 w-2 h-2 bg-amber-300/60 rounded-full animate-ping" style={{ animationDelay: '0.5s' }} />
+          <div className="absolute top-40 right-1/3 w-1.5 h-1.5 bg-orange-300/70 rounded-full animate-ping" style={{ animationDelay: '1.5s' }} />
+          <div className="absolute bottom-40 left-1/3 w-2.5 h-2.5 bg-amber-400/50 rounded-full animate-ping" style={{ animationDelay: '2.5s' }} />
+          <div className="absolute top-60 right-1/4 w-1 h-1 bg-orange-200/80 rounded-full animate-ping" style={{ animationDelay: '3.5s' }} />
         </div>
         
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <div className="space-y-8">
-            <div className="inline-flex items-center space-x-2 bg-white/20 backdrop-blur-sm rounded-full px-6 py-3 text-white/90 border border-white/30">
-              <MessageCircle className="h-5 w-5" />
-              <span className="font-medium">Get in Touch</span>
-              <Star className="h-4 w-4 text-amber-300" />
+            <div className="inline-flex items-center space-x-2 bg-white/20 backdrop-blur-md rounded-full px-8 py-4 text-white/90 border border-white/30 shadow-2xl hover:bg-white/30 transition-all duration-300 hover:scale-105">
+              <MessageCircle className="h-6 w-6 animate-pulse" />
+              <span className="font-semibold text-lg">Get in Touch</span>
+              <Star className="h-5 w-5 text-amber-300 animate-spin" style={{ animationDuration: '3s' }} />
             </div>
             
-            <h1 className="text-6xl md:text-7xl font-bold text-white leading-tight">
+            <h1 className="text-6xl md:text-8xl font-bold text-white leading-tight animate-fade-in-up">
               Contact{' '}
-              <span className="bg-gradient-to-r from-amber-300 to-orange-200 bg-clip-text text-transparent">
+              <span className="bg-gradient-to-r from-amber-300 via-orange-200 to-amber-300 bg-clip-text text-transparent animate-gradient-x">
                 Us
               </span>
             </h1>
             
-            <p className="text-2xl text-amber-100 max-w-4xl mx-auto leading-relaxed">
+            <p className="text-2xl md:text-3xl text-amber-100 max-w-4xl mx-auto leading-relaxed animate-fade-in-up" style={{ animationDelay: '0.5s' }}>
               Find us across Addis Ababa! Visit our branches, connect with us online, or send us a message.
             </p>
+            
+            {/* Floating action buttons */}
+            <div className="flex flex-col sm:flex-row items-center justify-center space-y-4 sm:space-y-0 sm:space-x-6 mt-12 animate-fade-in-up" style={{ animationDelay: '1s' }}>
+              <button className="group bg-gradient-to-r from-amber-600 to-orange-600 hover:from-amber-700 hover:to-orange-700 text-white px-8 py-4 rounded-full font-bold text-lg shadow-2xl hover:shadow-amber-500/25 transition-all duration-300 hover:scale-105 flex items-center space-x-2">
+                <MapPin className="h-5 w-5 group-hover:animate-bounce" />
+                <span>Find Our Locations</span>
+              </button>
+              <button className="group bg-white/20 backdrop-blur-md hover:bg-white/30 text-white px-8 py-4 rounded-full font-bold text-lg border border-white/30 shadow-2xl transition-all duration-300 hover:scale-105 flex items-center space-x-2">
+                <MessageCircle className="h-5 w-5 group-hover:animate-pulse" />
+                <span>Send Message</span>
+              </button>
+            </div>
           </div>
         </div>
       </section>
 
       {/* Branches Section */}
-      <section className="py-20 bg-white relative">
+      <section className="py-24 bg-gradient-to-br from-amber-50 via-white to-orange-50 relative overflow-hidden">
         <div className="absolute inset-0 z-0">
           <div 
-            className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+            className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-20"
             style={{
               backgroundImage: 'url("https://images.unsplash.com/photo-1447933601403-0c6688de566e?w=1920&h=1080&fit=crop&crop=center&auto=format&q=80")'
             }}
           />
-          <div className="absolute inset-0 bg-gradient-to-br from-white/90 to-white/80" />
+          <div className="absolute inset-0 bg-gradient-to-br from-amber-50/80 via-white/90 to-orange-50/80" />
         </div>
+        
+        {/* Decorative elements */}
+        <div className="absolute inset-0 z-5 overflow-hidden">
+          <div className="absolute top-20 left-10 w-32 h-32 bg-amber-200/20 rounded-full blur-2xl animate-pulse" />
+          <div className="absolute bottom-20 right-10 w-40 h-40 bg-orange-200/20 rounded-full blur-3xl animate-pulse" style={{ animationDelay: '2s' }} />
+          <div className="absolute top-1/2 left-1/4 w-24 h-24 bg-amber-300/15 rounded-full blur-xl animate-bounce" style={{ animationDelay: '4s', animationDuration: '6s' }} />
+        </div>
+        
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <div className="inline-flex items-center space-x-2 bg-amber-100 rounded-full px-6 py-3 text-amber-800 mb-6">
-              <MapPin className="h-5 w-5" />
-              <span className="font-medium">Our Branches</span>
+          <div className="text-center mb-20">
+            <div className="inline-flex items-center space-x-2 bg-gradient-to-r from-amber-100 to-orange-100 rounded-full px-8 py-4 text-amber-800 mb-8 shadow-lg border border-amber-200/50">
+              <MapPin className="h-6 w-6 animate-pulse" />
+              <span className="font-semibold text-lg">Our Branches</span>
+              <Star className="h-5 w-5 text-amber-600" />
             </div>
-            <h2 className="text-5xl font-bold text-gray-800 mb-6">Find Us Near You</h2>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              We have multiple locations across Addis Ababa to serve you better
+            <h2 className="text-6xl font-bold text-gray-800 mb-8 animate-fade-in-up">
+              Find Us{' '}
+              <span className="bg-gradient-to-r from-amber-600 to-orange-600 bg-clip-text text-transparent">
+                Near You
+              </span>
+            </h2>
+            <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed animate-fade-in-up" style={{ animationDelay: '0.3s' }}>
+              We have multiple locations across Addis Ababa to serve you better. Each branch offers a unique atmosphere and experience.
             </p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {branches.map((branch) => (
-              <div key={branch.id} className="bg-white rounded-2xl shadow-xl border border-amber-200/50 overflow-hidden hover:shadow-2xl transition-all duration-300 hover:scale-105">
-                <div className="relative h-48">
+            {branches.map((branch, index) => (
+              <div 
+                key={branch.id} 
+                className="group bg-white rounded-3xl shadow-2xl border border-amber-200/50 overflow-hidden hover:shadow-3xl transition-all duration-500 hover:scale-105 hover:-translate-y-2 relative"
+                style={{ animationDelay: `${index * 0.1}s` }}
+              >
+                {/* Hover gradient overlay */}
+                <div className="absolute inset-0 bg-gradient-to-br from-amber-500/5 to-orange-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-10" />
+                
+                <div className="relative h-56 overflow-hidden">
                   <img
                     src={branch.image}
                     alt={branch.name}
-                    className="w-full h-full object-cover"
+                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
-                  <div className="absolute bottom-4 left-4 right-4">
-                    <h3 className="text-white font-bold text-lg mb-1">{branch.name}</h3>
-                    <p className="text-amber-200 text-sm">{branch.address}</p>
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
+                  
+                  {/* Status indicator */}
+                  <div className="absolute top-4 right-4">
+                    <div className="bg-green-500 text-white px-3 py-1 rounded-full text-xs font-bold flex items-center space-x-1 shadow-lg">
+                      <div className="w-2 h-2 bg-white rounded-full animate-pulse" />
+                      <span>Open Now</span>
+                    </div>
+                  </div>
+                  
+                  <div className="absolute bottom-6 left-6 right-6 z-20">
+                    <h3 className="text-white font-bold text-xl mb-2 group-hover:text-amber-200 transition-colors duration-300">{branch.name}</h3>
+                    <p className="text-amber-100 text-sm leading-relaxed">{branch.address}</p>
                   </div>
                 </div>
-                <div className="p-6 space-y-4">
-                  <div className="flex items-center space-x-3">
-                    <Phone className="h-5 w-5 text-amber-600" />
-                    <span className="text-gray-700 font-medium">{branch.phone}</span>
+                
+                <div className="p-6 space-y-5 relative z-20">
+                  <div className="flex items-center space-x-3 group-hover:translate-x-1 transition-transform duration-300">
+                    <div className="w-10 h-10 bg-gradient-to-r from-amber-500 to-orange-500 rounded-full flex items-center justify-center shadow-lg">
+                      <Phone className="h-5 w-5 text-white" />
+                    </div>
+                    <div>
+                      <span className="text-gray-700 font-semibold text-sm">Phone</span>
+                      <p className="text-gray-800 font-bold">{branch.phone}</p>
+                    </div>
                   </div>
-                  <div className="flex items-center space-x-3">
-                    <Mail className="h-5 w-5 text-amber-600" />
-                    <span className="text-gray-700 text-sm">{branch.email}</span>
+                  
+                  <div className="flex items-center space-x-3 group-hover:translate-x-1 transition-transform duration-300" style={{ transitionDelay: '0.1s' }}>
+                    <div className="w-10 h-10 bg-gradient-to-r from-amber-500 to-orange-500 rounded-full flex items-center justify-center shadow-lg">
+                      <Mail className="h-5 w-5 text-white" />
+                    </div>
+                    <div>
+                      <span className="text-gray-700 font-semibold text-sm">Email</span>
+                      <p className="text-gray-800 font-bold text-sm">{branch.email}</p>
+                    </div>
                   </div>
-                  <div className="flex items-center space-x-3">
-                    <Clock className="h-5 w-5 text-amber-600" />
-                    <span className="text-gray-700 text-sm">{branch.hours}</span>
+                  
+                  <div className="flex items-center space-x-3 group-hover:translate-x-1 transition-transform duration-300" style={{ transitionDelay: '0.2s' }}>
+                    <div className="w-10 h-10 bg-gradient-to-r from-amber-500 to-orange-500 rounded-full flex items-center justify-center shadow-lg">
+                      <Clock className="h-5 w-5 text-white" />
+                    </div>
+                    <div>
+                      <span className="text-gray-700 font-semibold text-sm">Hours</span>
+                      <p className="text-gray-800 font-bold text-sm">{branch.hours}</p>
+                    </div>
                   </div>
-                  <button className="w-full bg-gradient-to-r from-amber-600 to-orange-600 hover:from-amber-700 hover:to-orange-700 text-white py-2 px-4 rounded-lg font-semibold transition-all duration-200 hover:scale-105">
-                    Get Directions
+                  
+                  <button className="w-full bg-gradient-to-r from-amber-600 to-orange-600 hover:from-amber-700 hover:to-orange-700 text-white py-3 px-6 rounded-xl font-bold transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-amber-500/25 flex items-center justify-center space-x-2 group-hover:bg-gradient-to-r group-hover:from-amber-500 group-hover:to-orange-500">
+                    <MapPin className="h-4 w-4 group-hover:animate-bounce" />
+                    <span>Get Directions</span>
                   </button>
                 </div>
               </div>
@@ -199,38 +272,63 @@ export default function ContactPage() {
       </section>
 
       {/* Contact Form & Social Media Section */}
-      <section className="py-20 bg-white relative">
+      <section className="py-24 bg-gradient-to-br from-gray-900 via-amber-900 to-gray-900 relative overflow-hidden">
         <div className="absolute inset-0 z-0">
           <div 
-            className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+            className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-30"
             style={{
               backgroundImage: 'url("https://images.unsplash.com/photo-1572442388796-11668a67e53d?w=1920&h=1080&fit=crop&crop=center&auto=format&q=80")'
             }}
           />
-          <div className="absolute inset-0 bg-gradient-to-br from-white/90 to-white/80" />
+          <div className="absolute inset-0 bg-gradient-to-br from-gray-900/90 via-amber-900/80 to-gray-900/90" />
         </div>
+        
+        {/* Animated background elements */}
+        <div className="absolute inset-0 z-5 overflow-hidden">
+          <div className="absolute top-20 left-20 w-40 h-40 bg-amber-400/10 rounded-full blur-3xl animate-pulse" />
+          <div className="absolute bottom-20 right-20 w-32 h-32 bg-orange-400/15 rounded-full blur-2xl animate-pulse" style={{ animationDelay: '2s' }} />
+          <div className="absolute top-1/2 left-1/2 w-48 h-48 bg-amber-300/5 rounded-full blur-3xl animate-bounce" style={{ animationDelay: '4s', animationDuration: '8s' }} />
+        </div>
+        
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-16">
+            <div className="inline-flex items-center space-x-2 bg-white/10 backdrop-blur-md rounded-full px-8 py-4 text-white/90 mb-8 border border-white/20">
+              <MessageCircle className="h-6 w-6 animate-pulse" />
+              <span className="font-semibold text-lg">Get in Touch</span>
+              <Star className="h-5 w-5 text-amber-300" />
+            </div>
+            <h2 className="text-6xl font-bold text-white mb-6">
+              Send Us a{' '}
+              <span className="bg-gradient-to-r from-amber-300 to-orange-200 bg-clip-text text-transparent">
+                Message
+              </span>
+            </h2>
+            <p className="text-xl text-amber-100 max-w-3xl mx-auto">
+              We'd love to hear from you! Send us a message and we'll respond as soon as possible.
+            </p>
+          </div>
+          
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16">
             {/* Contact Form */}
-            <div className="bg-black rounded-3xl p-4 h-145 shadow-2xl border border-amber-200/50 relative overflow-hidden">
-              <div className="absolute top-0 right-0 w-16 h-16 bg-gradient-to-br from-amber-100 to-orange-100 rounded-full -translate-y-8 translate-x-8 opacity-30"></div>
-              <div className="absolute bottom-0 left-0 w-12 h-12 bg-gradient-to-tr from-amber-100 to-orange-100 rounded-full translate-y-6 -translate-x-6 opacity-30"></div>
+            <div className="bg-white/10 backdrop-blur-xl rounded-3xl p-8 shadow-2xl border border-white/20 relative overflow-hidden">
+              <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-amber-400/20 to-orange-400/20 rounded-full -translate-y-16 translate-x-16 blur-2xl"></div>
+              <div className="absolute bottom-0 left-0 w-24 h-24 bg-gradient-to-tr from-amber-400/20 to-orange-400/20 rounded-full translate-y-12 -translate-x-12 blur-xl"></div>
               
               <div className="relative z-10">
-                <div className="text-center mb-4">
-                  <div className="inline-flex items-center justify-center w-10 h-10 bg-gradient-to-r from-amber-500 to-orange-500 rounded-full mb-2">
-                    <MessageCircle className="h-5 w-5 text-white" />
+                <div className="text-center mb-8">
+                  <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-r from-amber-500 to-orange-500 rounded-full mb-4 shadow-2xl">
+                    <MessageCircle className="h-8 w-8 text-white" />
                   </div>
-                  <h3 className="text-xl font-bold text-white mb-1">Send us a Message</h3>
-                  <p className="text-gray-300 text-xs">We'll get back to you within 24 hours</p>
-                  <div className="w-10 h-0.5 bg-gradient-to-r from-amber-500 to-orange-500 rounded-full mx-auto mt-1"></div>
+                  <h3 className="text-2xl font-bold text-white mb-2">Send us a Message</h3>
+                  <p className="text-amber-100">We'll get back to you within 24 hours</p>
+                  <div className="w-16 h-1 bg-gradient-to-r from-amber-500 to-orange-500 rounded-full mx-auto mt-3"></div>
                 </div>
                 
-                <form onSubmit={handleSubmit} className="space-y-3">
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-                    <div>
-                      <label htmlFor="name" className="block text-xs font-bold text-white mb-1 flex items-center">
-                        <span className="w-1 h-1 bg-amber-500 rounded-full mr-1"></span>
+                <form onSubmit={handleSubmit} className="space-y-6">
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div className="space-y-2">
+                      <label htmlFor="name" className="block text-sm font-bold text-white flex items-center">
+                        <span className="w-2 h-2 bg-amber-400 rounded-full mr-2"></span>
                         Full Name *
                       </label>
                       <input
@@ -240,13 +338,13 @@ export default function ContactPage() {
                         value={formData.name}
                         onChange={handleInputChange}
                         required
-                        className="w-full px-3 py-2 border border-gray-600 rounded-lg focus:ring-1 focus:ring-amber-500/20 focus:border-amber-500 transition-all duration-200 text-sm bg-gray-800 text-white placeholder-gray-400 hover:bg-gray-700"
+                        className="w-full px-4 py-3 border border-white/20 rounded-xl focus:ring-2 focus:ring-amber-500/50 focus:border-amber-500 transition-all duration-300 text-white bg-white/10 backdrop-blur-sm placeholder-white/60 hover:bg-white/15"
                         placeholder="Your full name"
                       />
                     </div>
-                    <div>
-                      <label htmlFor="email" className="block text-xs font-bold text-white mb-1 flex items-center">
-                        <span className="w-1 h-1 bg-amber-500 rounded-full mr-1"></span>
+                    <div className="space-y-2">
+                      <label htmlFor="email" className="block text-sm font-bold text-white flex items-center">
+                        <span className="w-2 h-2 bg-amber-400 rounded-full mr-2"></span>
                         Email Address *
                       </label>
                       <input
@@ -256,15 +354,15 @@ export default function ContactPage() {
                         value={formData.email}
                         onChange={handleInputChange}
                         required
-                        className="w-full px-3 py-2 border border-gray-600 rounded-lg focus:ring-1 focus:ring-amber-500/20 focus:border-amber-500 transition-all duration-200 text-sm bg-gray-800 text-white placeholder-gray-400 hover:bg-gray-700"
+                        className="w-full px-4 py-3 border border-white/20 rounded-xl focus:ring-2 focus:ring-amber-500/50 focus:border-amber-500 transition-all duration-300 text-white bg-white/10 backdrop-blur-sm placeholder-white/60 hover:bg-white/15"
                         placeholder="your@email.com"
                       />
                     </div>
                   </div>
 
-                  <div>
-                    <label htmlFor="subject" className="block text-xs font-bold text-white mb-1 flex items-center">
-                      <span className="w-1 h-1 bg-amber-500 rounded-full mr-1"></span>
+                  <div className="space-y-2">
+                    <label htmlFor="subject" className="block text-sm font-bold text-white flex items-center">
+                      <span className="w-2 h-2 bg-amber-400 rounded-full mr-2"></span>
                       Subject *
                     </label>
                     <input
@@ -274,14 +372,14 @@ export default function ContactPage() {
                       value={formData.subject}
                       onChange={handleInputChange}
                       required
-                      className="w-full px-3 py-2 border border-gray-600 rounded-lg focus:ring-1 focus:ring-amber-500/20 focus:border-amber-500 transition-all duration-200 text-sm bg-gray-800 text-white placeholder-gray-400 hover:bg-gray-700"
+                      className="w-full px-4 py-3 border border-white/20 rounded-xl focus:ring-2 focus:ring-amber-500/50 focus:border-amber-500 transition-all duration-300 text-white bg-white/10 backdrop-blur-sm placeholder-white/60 hover:bg-white/15"
                       placeholder="What's this about?"
                     />
                   </div>
 
-                  <div>
-                    <label htmlFor="message" className="block text-xs font-bold text-white mb-1 flex items-center">
-                      <span className="w-1 h-1 bg-amber-500 rounded-full mr-1"></span>
+                  <div className="space-y-2">
+                    <label htmlFor="message" className="block text-sm font-bold text-white flex items-center">
+                      <span className="w-2 h-2 bg-amber-400 rounded-full mr-2"></span>
                       Message *
                     </label>
                     <textarea
@@ -290,8 +388,8 @@ export default function ContactPage() {
                       value={formData.message}
                       onChange={handleInputChange}
                       required
-                      rows={2}
-                      className="w-full px-3 py-2 border border-gray-600 rounded-lg focus:ring-1 focus:ring-amber-500/20 focus:border-amber-500 transition-all duration-200 resize-none text-sm bg-gray-800 text-white placeholder-gray-400 hover:bg-gray-700"
+                      rows={4}
+                      className="w-full px-4 py-3 border border-white/20 rounded-xl focus:ring-2 focus:ring-amber-500/50 focus:border-amber-500 transition-all duration-300 resize-none text-white bg-white/10 backdrop-blur-sm placeholder-white/60 hover:bg-white/15"
                       placeholder="Tell us what's on your mind..."
                     />
                   </div>
@@ -299,24 +397,24 @@ export default function ContactPage() {
                   <button
                     type="submit"
                     disabled={isSubmitting}
-                    className={`w-full py-2 rounded-lg font-bold text-xs transition-all duration-200 flex items-center justify-center space-x-1 shadow-md transform relative overflow-hidden ${
+                    className={`w-full py-4 rounded-xl font-bold text-lg transition-all duration-300 flex items-center justify-center space-x-2 shadow-2xl transform relative overflow-hidden ${
                       isSubmitting
                         ? 'bg-gray-600 text-gray-300 cursor-not-allowed scale-95'
-                        : 'bg-gradient-to-r from-amber-600 to-orange-600 hover:from-amber-700 hover:to-orange-700 text-white hover:scale-105 hover:shadow-lg hover:shadow-amber-500/25 active:scale-95'
+                        : 'bg-gradient-to-r from-amber-600 to-orange-600 hover:from-amber-700 hover:to-orange-700 text-white hover:scale-105 hover:shadow-amber-500/25 active:scale-95'
                     }`}
                   >
                     {!isSubmitting && (
-                      <div className="absolute inset-0 bg-gradient-to-r from-amber-400 to-orange-400 opacity-0 hover:opacity-20 transition-opacity duration-200"></div>
+                      <div className="absolute inset-0 bg-gradient-to-r from-amber-400 to-orange-400 opacity-0 hover:opacity-20 transition-opacity duration-300"></div>
                     )}
-                    <div className="relative z-10 flex items-center space-x-1">
+                    <div className="relative z-10 flex items-center space-x-2">
                       {isSubmitting ? (
                         <>
-                          <div className="w-3 h-3 border border-white border-t-transparent rounded-full animate-spin" />
+                          <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin" />
                           <span>Sending...</span>
                         </>
                       ) : (
                         <>
-                          <Send className="h-3 w-3" />
+                          <Send className="h-5 w-5" />
                           <span>Send Message</span>
                         </>
                       )}
@@ -325,16 +423,16 @@ export default function ContactPage() {
 
                   {/* Status Messages */}
                   {submitStatus === 'success' && (
-                    <div className="flex items-center space-x-2 text-green-400 bg-gradient-to-r from-green-900/50 to-emerald-900/50 p-2 rounded-lg border border-green-600/30 shadow-sm">
-                      <CheckCircle className="h-3 w-3 text-green-400" />
-                      <span className="font-semibold text-xs">Message sent successfully! We'll get back to you soon.</span>
+                    <div className="flex items-center space-x-3 text-green-400 bg-gradient-to-r from-green-900/50 to-emerald-900/50 p-4 rounded-xl border border-green-600/30 shadow-lg">
+                      <CheckCircle className="h-5 w-5 text-green-400" />
+                      <span className="font-semibold">Message sent successfully! We'll get back to you soon.</span>
                     </div>
                   )}
                   
                   {submitStatus === 'error' && (
-                    <div className="flex items-center space-x-2 text-red-400 bg-gradient-to-r from-red-900/50 to-pink-900/50 p-2 rounded-lg border border-red-600/30 shadow-sm">
-                      <AlertCircle className="h-3 w-3 text-red-400" />
-                      <span className="font-semibold text-xs">Something went wrong. Please try again.</span>
+                    <div className="flex items-center space-x-3 text-red-400 bg-gradient-to-r from-red-900/50 to-pink-900/50 p-4 rounded-xl border border-red-600/30 shadow-lg">
+                      <AlertCircle className="h-5 w-5 text-red-400" />
+                      <span className="font-semibold">Something went wrong. Please try again.</span>
                     </div>
                   )}
                 </form>
@@ -344,74 +442,177 @@ export default function ContactPage() {
             {/* Social Media & Contact Info */}
             <div className="space-y-8">
               {/* Social Media */}
-              <div className="bg-white rounded-3xl p-8 shadow-2xl border border-amber-200/50">
-                <div className="text-center mb-8">
-                  <h3 className="text-3xl font-bold text-gray-800 mb-4">Follow Us</h3>
-                  <p className="text-gray-600 text-lg">Stay updated with our latest news and special offers</p>
-                </div>
-
-                <div className="grid grid-cols-1 gap-4 mb-8">
-                  {socialLinks.map((social, index) => (
-                    <a
-                      key={social.label}
-                      href={social.href}
-                      className={`group flex items-center space-x-4 p-4 rounded-2xl transition-all duration-200 hover:scale-105 bg-gradient-to-r ${social.color} text-white hover:shadow-lg`}
-                    >
-                      <div className="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center">
-                        <social.icon className="h-6 w-6" />
-                      </div>
-                      <div>
-                        <span className="font-semibold text-lg">{social.label}</span>
-                        <p className="text-white/80 text-sm">Follow us for updates</p>
-                      </div>
-                    </a>
-                  ))}
-                </div>
-
-                <div className="text-center">
-                  <p className="text-gray-600 mb-4">Quick Contact</p>
-                  <div className="space-y-3">
-                    <div className="flex items-center justify-center space-x-3">
-                      <Phone className="h-5 w-5 text-amber-600" />
-                      <span className="text-gray-800 font-bold">+251 11 123 4567</span>
+              <div className="bg-white/10 backdrop-blur-xl rounded-3xl p-8 shadow-2xl border border-white/20 relative overflow-hidden">
+                <div className="absolute top-0 left-0 w-24 h-24 bg-gradient-to-br from-amber-400/20 to-orange-400/20 rounded-full -translate-y-12 -translate-x-12 blur-xl"></div>
+                <div className="absolute bottom-0 right-0 w-32 h-32 bg-gradient-to-tl from-amber-400/20 to-orange-400/20 rounded-full translate-y-16 translate-x-16 blur-2xl"></div>
+                
+                <div className="relative z-10">
+                  <div className="text-center mb-8">
+                    <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-r from-amber-500 to-orange-500 rounded-full mb-4 shadow-2xl">
+                      <Users className="h-8 w-8 text-white" />
                     </div>
-                    <div className="flex items-center justify-center space-x-3">
-                      <Mail className="h-5 w-5 text-amber-600" />
-                      <span className="text-gray-800 font-bold">hello@kaffeehaus.com</span>
+                    <h3 className="text-3xl font-bold text-white mb-4">Follow Us</h3>
+                    <p className="text-amber-100 text-lg">Stay updated with our latest news and special offers</p>
+                    <div className="w-16 h-1 bg-gradient-to-r from-amber-500 to-orange-500 rounded-full mx-auto mt-3"></div>
+                  </div>
+
+                  <div className="grid grid-cols-1 gap-6 mb-8">
+                    {socialLinks.map((social, index) => (
+                      <a
+                        key={social.label}
+                        href={social.href}
+                        className={`group flex items-center space-x-4 p-6 rounded-2xl transition-all duration-300 hover:scale-105 bg-gradient-to-r ${social.color} text-white hover:shadow-2xl relative overflow-hidden`}
+                        style={{ animationDelay: `${index * 0.1}s` }}
+                      >
+                        <div className="absolute inset-0 bg-white/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                        <div className="w-14 h-14 bg-white/20 rounded-full flex items-center justify-center group-hover:scale-110 transition-transform duration-300 relative z-10">
+                          <social.icon className="h-7 w-7 group-hover:animate-pulse" />
+                        </div>
+                        <div className="relative z-10">
+                          <span className="font-bold text-xl group-hover:text-white/90">{social.label}</span>
+                          <p className="text-white/80 text-sm group-hover:text-white/90">Follow us for updates</p>
+                        </div>
+                        <div className="ml-auto relative z-10">
+                          <div className="w-8 h-8 bg-white/20 rounded-full flex items-center justify-center group-hover:bg-white/30 transition-colors duration-300">
+                            <span className="text-white font-bold">→</span>
+                          </div>
+                        </div>
+                      </a>
+                    ))}
+                  </div>
+
+                  <div className="text-center bg-white/5 backdrop-blur-sm rounded-2xl p-6 border border-white/10">
+                    <div className="flex items-center justify-center space-x-2 mb-4">
+                      <Award className="h-6 w-6 text-amber-400" />
+                      <span className="text-white font-bold text-lg">Quick Contact</span>
+                    </div>
+                    <div className="space-y-4">
+                      <div className="flex items-center justify-center space-x-3 group hover:scale-105 transition-transform duration-300">
+                        <div className="w-10 h-10 bg-gradient-to-r from-amber-500 to-orange-500 rounded-full flex items-center justify-center shadow-lg">
+                          <Phone className="h-5 w-5 text-white" />
+                        </div>
+                        <span className="text-white font-bold text-lg group-hover:text-amber-200 transition-colors duration-300">+251 11 123 4567</span>
+                      </div>
+                      <div className="flex items-center justify-center space-x-3 group hover:scale-105 transition-transform duration-300">
+                        <div className="w-10 h-10 bg-gradient-to-r from-amber-500 to-orange-500 rounded-full flex items-center justify-center shadow-lg">
+                          <Mail className="h-5 w-5 text-white" />
+                        </div>
+                        <span className="text-white font-bold text-lg group-hover:text-amber-200 transition-colors duration-300">hello@kaffeehaus.com</span>
+                      </div>
                     </div>
                   </div>
                 </div>
               </div>
 
+              {/* Additional Contact Info */}
+              <div className="bg-white/10 backdrop-blur-xl rounded-3xl p-8 shadow-2xl border border-white/20 relative overflow-hidden">
+                <div className="absolute top-0 right-0 w-20 h-20 bg-gradient-to-bl from-amber-400/20 to-orange-400/20 rounded-full -translate-y-10 translate-x-10 blur-xl"></div>
+                
+                <div className="relative z-10">
+                  <div className="text-center mb-6">
+                    <div className="inline-flex items-center justify-center w-12 h-12 bg-gradient-to-r from-amber-500 to-orange-500 rounded-full mb-3 shadow-lg">
+                      <HelpCircle className="h-6 w-6 text-white" />
+                    </div>
+                    <h3 className="text-2xl font-bold text-white mb-2">Need Help?</h3>
+                    <p className="text-amber-100">We're here to assist you</p>
+                  </div>
+                  
+                  <div className="space-y-4">
+                    <div className="flex items-center space-x-3 p-3 rounded-xl bg-white/5 hover:bg-white/10 transition-colors duration-300">
+                      <Clock className="h-5 w-5 text-amber-400" />
+                      <div>
+                        <span className="text-white font-semibold">Business Hours</span>
+                        <p className="text-amber-100 text-sm">Mon-Fri: 6AM-10PM</p>
+                      </div>
+                    </div>
+                    <div className="flex items-center space-x-3 p-3 rounded-xl bg-white/5 hover:bg-white/10 transition-colors duration-300">
+                      <Coffee className="h-5 w-5 text-amber-400" />
+                      <div>
+                        <span className="text-white font-semibold">Special Orders</span>
+                        <p className="text-amber-100 text-sm">Available 24/7</p>
+                      </div>
+                    </div>
+                    <div className="flex items-center space-x-3 p-3 rounded-xl bg-white/5 hover:bg-white/10 transition-colors duration-300">
+                      <Star className="h-5 w-5 text-amber-400" />
+                      <div>
+                        <span className="text-white font-semibold">Customer Service</span>
+                        <p className="text-amber-100 text-sm">Always available</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
       </section>
 
       {/* Map Section */}
-      <section className="py-20 bg-gradient-to-br from-amber-50 to-orange-100 relative">
+      <section className="py-24 bg-gradient-to-br from-amber-50 via-orange-50 to-amber-100 relative overflow-hidden">
         <div className="absolute inset-0 z-0">
           <div 
-            className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+            className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-30"
             style={{
               backgroundImage: 'url("https://images.unsplash.com/photo-1559056199-641a0ac8b55e?w=1920&h=1080&fit=crop&crop=center&auto=format&q=80")'
             }}
           />
-          <div className="absolute inset-0 bg-gradient-to-br from-amber-50/80 to-orange-100/80" />
+          <div className="absolute inset-0 bg-gradient-to-br from-amber-50/90 via-orange-50/90 to-amber-100/90" />
         </div>
-        <div className="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <div className="inline-flex items-center space-x-2 bg-white/50 backdrop-blur-sm rounded-full px-6 py-3 text-amber-800 mb-6">
-              <MapPin className="h-5 w-5" />
-              <span className="font-medium">Interactive Map</span>
+        
+        {/* Decorative elements */}
+        <div className="absolute inset-0 z-5 overflow-hidden">
+          <div className="absolute top-20 left-20 w-40 h-40 bg-amber-200/20 rounded-full blur-3xl animate-pulse" />
+          <div className="absolute bottom-20 right-20 w-32 h-32 bg-orange-200/25 rounded-full blur-2xl animate-pulse" style={{ animationDelay: '2s' }} />
+          <div className="absolute top-1/2 left-1/3 w-24 h-24 bg-amber-300/15 rounded-full blur-xl animate-bounce" style={{ animationDelay: '4s', animationDuration: '6s' }} />
+        </div>
+        
+        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-16">
+            <div className="inline-flex items-center space-x-2 bg-white/60 backdrop-blur-md rounded-full px-8 py-4 text-amber-800 mb-8 shadow-lg border border-amber-200/50">
+              <MapPin className="h-6 w-6 animate-pulse" />
+              <span className="font-semibold text-lg">Interactive Map</span>
+              <Star className="h-5 w-5 text-amber-600" />
             </div>
-            <h2 className="text-5xl font-bold text-gray-800 mb-6">Our Locations</h2>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              Explore our branches across Addis Ababa on the map below
+            <h2 className="text-6xl font-bold text-gray-800 mb-8 animate-fade-in-up">
+              Our{' '}
+              <span className="bg-gradient-to-r from-amber-600 to-orange-600 bg-clip-text text-transparent">
+                Locations
+              </span>
+            </h2>
+            <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed animate-fade-in-up" style={{ animationDelay: '0.3s' }}>
+              Explore our branches across Addis Ababa on the interactive map below. Click on any location to get directions.
             </p>
           </div>
 
-          <InteractiveMap branches={branches} />
+          <div className="bg-white/80 backdrop-blur-sm rounded-3xl shadow-2xl border border-amber-200/50 overflow-hidden relative">
+            <div className="absolute top-0 left-0 w-32 h-32 bg-gradient-to-br from-amber-200/20 to-orange-200/20 rounded-full -translate-y-16 -translate-x-16 blur-2xl"></div>
+            <div className="absolute bottom-0 right-0 w-40 h-40 bg-gradient-to-tl from-amber-200/20 to-orange-200/20 rounded-full translate-y-20 translate-x-20 blur-3xl"></div>
+            
+            <div className="relative z-10 p-8">
+              <div className="text-center mb-8">
+                <h3 className="text-2xl font-bold text-gray-800 mb-2">Find Your Nearest Branch</h3>
+                <p className="text-gray-600">Click on any marker to view branch details and get directions</p>
+              </div>
+              
+              <InteractiveMap branches={branches} />
+              
+              <div className="mt-8 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                {branches.map((branch, index) => (
+                  <div key={branch.id} className="bg-white/60 backdrop-blur-sm rounded-xl p-4 border border-amber-200/30 hover:bg-white/80 transition-all duration-300 hover:scale-105">
+                    <div className="flex items-center space-x-3">
+                      <div className="w-8 h-8 bg-gradient-to-r from-amber-500 to-orange-500 rounded-full flex items-center justify-center text-white font-bold text-sm">
+                        {index + 1}
+                      </div>
+                      <div>
+                        <h4 className="font-bold text-gray-800 text-sm">{branch.name}</h4>
+                        <p className="text-gray-600 text-xs">{branch.address}</p>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
         </div>
       </section>
     </main>
