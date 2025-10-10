@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import Navigation from '@/components/Navigation';
 import InteractiveMap from '@/components/InteractiveMap';
-import { MessageCircle, Star, MapPin, Phone, Mail, Clock, Send, CheckCircle, AlertCircle, Coffee } from 'lucide-react';
+import { MessageCircle, Star, MapPin, Phone, Mail, Clock, Send, CheckCircle, AlertCircle, Coffee, Instagram, Facebook, Twitter, Youtube, Linkedin } from 'lucide-react';
 
 export default function ContactPage() {
   const [formData, setFormData] = useState({
@@ -453,6 +453,120 @@ export default function ContactPage() {
                   <InteractiveMap branches={branches} />
                 </div>
               </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Social Media Section */}
+      <section className="py-16 bg-gradient-to-r from-amber-600 to-orange-600 relative overflow-hidden">
+        <div className="absolute inset-0 z-0">
+          <div 
+            className="absolute inset-0 bg-cover bg-center bg-no-repeat opacity-20"
+            style={{
+              backgroundImage: 'url("https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?w=1920&h=1080&fit=crop&crop=center&auto=format&q=80")'
+            }}
+          />
+          <div className="absolute inset-0 bg-gradient-to-r from-amber-600/90 to-orange-600/90" />
+        </div>
+        
+        {/* Decorative elements */}
+        <div className="absolute inset-0 z-5 overflow-hidden">
+          <div className="absolute top-10 left-10 w-32 h-32 bg-white/10 rounded-full blur-2xl animate-pulse" />
+          <div className="absolute bottom-10 right-10 w-24 h-24 bg-white/15 rounded-full blur-xl animate-pulse" style={{ animationDelay: '2s' }} />
+          <div className="absolute top-1/2 left-1/4 w-20 h-20 bg-white/5 rounded-full blur-lg animate-bounce" style={{ animationDelay: '4s', animationDuration: '6s' }} />
+        </div>
+        
+        <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-12">
+            <h2 className="text-4xl font-bold text-white mb-4">
+              Follow Us on{' '}
+              <span className="bg-gradient-to-r from-white to-amber-100 bg-clip-text text-transparent">
+                Social Media
+              </span>
+            </h2>
+            <p className="text-amber-100 text-lg max-w-2xl mx-auto">
+              Stay connected with us for the latest updates, special offers, and coffee culture content
+            </p>
+          </div>
+          
+          <div className="flex flex-wrap justify-center items-center gap-8">
+            {/* Instagram */}
+            <a
+              href="#"
+              className="group flex flex-col items-center space-y-3 p-6 bg-white/10 backdrop-blur-sm rounded-2xl border border-white/20 hover:bg-white/20 transition-all duration-300 hover:scale-105 hover:shadow-2xl"
+            >
+              <div className="w-16 h-16 bg-gradient-to-br from-pink-500 to-purple-600 rounded-full flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform duration-300">
+                <Instagram className="h-8 w-8 text-white" />
+              </div>
+              <div className="text-center">
+                <span className="text-white font-bold text-lg">Instagram</span>
+                <p className="text-amber-100 text-sm">@kaffeehaus</p>
+              </div>
+            </a>
+
+            {/* Facebook */}
+            <a
+              href="#"
+              className="group flex flex-col items-center space-y-3 p-6 bg-white/10 backdrop-blur-sm rounded-2xl border border-white/20 hover:bg-white/20 transition-all duration-300 hover:scale-105 hover:shadow-2xl"
+            >
+              <div className="w-16 h-16 bg-gradient-to-br from-blue-600 to-blue-700 rounded-full flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform duration-300">
+                <Facebook className="h-8 w-8 text-white" />
+              </div>
+              <div className="text-center">
+                <span className="text-white font-bold text-lg">Facebook</span>
+                <p className="text-amber-100 text-sm">KaffeeHaus</p>
+              </div>
+            </a>
+
+            {/* Twitter */}
+            <a
+              href="#"
+              className="group flex flex-col items-center space-y-3 p-6 bg-white/10 backdrop-blur-sm rounded-2xl border border-white/20 hover:bg-white/20 transition-all duration-300 hover:scale-105 hover:shadow-2xl"
+            >
+              <div className="w-16 h-16 bg-gradient-to-br from-sky-500 to-blue-600 rounded-full flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform duration-300">
+                <Twitter className="h-8 w-8 text-white" />
+              </div>
+              <div className="text-center">
+                <span className="text-white font-bold text-lg">Twitter</span>
+                <p className="text-amber-100 text-sm">@kaffeehaus</p>
+              </div>
+            </a>
+
+            {/* YouTube */}
+            <a
+              href="#"
+              className="group flex flex-col items-center space-y-3 p-6 bg-white/10 backdrop-blur-sm rounded-2xl border border-white/20 hover:bg-white/20 transition-all duration-300 hover:scale-105 hover:shadow-2xl"
+            >
+              <div className="w-16 h-16 bg-gradient-to-br from-red-600 to-red-700 rounded-full flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform duration-300">
+                <Youtube className="h-8 w-8 text-white" />
+              </div>
+              <div className="text-center">
+                <span className="text-white font-bold text-lg">YouTube</span>
+                <p className="text-amber-100 text-sm">KaffeeHaus TV</p>
+              </div>
+            </a>
+
+            {/* LinkedIn */}
+            <a
+              href="#"
+              className="group flex flex-col items-center space-y-3 p-6 bg-white/10 backdrop-blur-sm rounded-2xl border border-white/20 hover:bg-white/20 transition-all duration-300 hover:scale-105 hover:shadow-2xl"
+            >
+              <div className="w-16 h-16 bg-gradient-to-br from-blue-700 to-blue-800 rounded-full flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform duration-300">
+                <Linkedin className="h-8 w-8 text-white" />
+              </div>
+              <div className="text-center">
+                <span className="text-white font-bold text-lg">LinkedIn</span>
+                <p className="text-amber-100 text-sm">KaffeeHaus</p>
+              </div>
+            </a>
+          </div>
+          
+          <div className="text-center mt-12">
+            <div className="inline-flex items-center space-x-2 bg-white/10 backdrop-blur-sm rounded-full px-6 py-3 text-white/90 border border-white/20">
+              <Star className="h-5 w-5 text-amber-200" />
+              <span className="font-medium">Join our community of coffee lovers</span>
+              <Star className="h-5 w-5 text-amber-200" />
             </div>
           </div>
         </div>
