@@ -490,75 +490,45 @@ export default function ContactPage() {
             </p>
           </div>
           
-          <div className="flex flex-wrap justify-center items-center gap-8">
+          <div className="flex flex-wrap justify-center items-center gap-6">
             {/* Instagram */}
             <a
               href="#"
-              className="group flex flex-col items-center space-y-3 p-6 bg-white/10 backdrop-blur-sm rounded-2xl border border-white/20 hover:bg-white/20 transition-all duration-300 hover:scale-105 hover:shadow-2xl"
+              className="group w-14 h-14 bg-gradient-to-br from-pink-500 to-purple-600 rounded-full flex items-center justify-center shadow-lg hover:scale-110 transition-all duration-300 hover:shadow-2xl"
             >
-              <div className="w-16 h-16 bg-gradient-to-br from-pink-500 to-purple-600 rounded-full flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform duration-300">
-                <Instagram className="h-8 w-8 text-white" />
-              </div>
-              <div className="text-center">
-                <span className="text-white font-bold text-lg">Instagram</span>
-                <p className="text-amber-100 text-sm">@kaffeehaus</p>
-              </div>
+              <Instagram className="h-6 w-6 text-white" />
             </a>
 
             {/* Facebook */}
             <a
               href="#"
-              className="group flex flex-col items-center space-y-3 p-6 bg-white/10 backdrop-blur-sm rounded-2xl border border-white/20 hover:bg-white/20 transition-all duration-300 hover:scale-105 hover:shadow-2xl"
+              className="group w-14 h-14 bg-gradient-to-br from-blue-600 to-blue-700 rounded-full flex items-center justify-center shadow-lg hover:scale-110 transition-all duration-300 hover:shadow-2xl"
             >
-              <div className="w-16 h-16 bg-gradient-to-br from-blue-600 to-blue-700 rounded-full flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform duration-300">
-                <Facebook className="h-8 w-8 text-white" />
-              </div>
-              <div className="text-center">
-                <span className="text-white font-bold text-lg">Facebook</span>
-                <p className="text-amber-100 text-sm">KaffeeHaus</p>
-              </div>
+              <Facebook className="h-6 w-6 text-white" />
             </a>
 
             {/* Twitter */}
             <a
               href="#"
-              className="group flex flex-col items-center space-y-3 p-6 bg-white/10 backdrop-blur-sm rounded-2xl border border-white/20 hover:bg-white/20 transition-all duration-300 hover:scale-105 hover:shadow-2xl"
+              className="group w-14 h-14 bg-gradient-to-br from-sky-500 to-blue-600 rounded-full flex items-center justify-center shadow-lg hover:scale-110 transition-all duration-300 hover:shadow-2xl"
             >
-              <div className="w-16 h-16 bg-gradient-to-br from-sky-500 to-blue-600 rounded-full flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform duration-300">
-                <Twitter className="h-8 w-8 text-white" />
-              </div>
-              <div className="text-center">
-                <span className="text-white font-bold text-lg">Twitter</span>
-                <p className="text-amber-100 text-sm">@kaffeehaus</p>
-              </div>
+              <Twitter className="h-6 w-6 text-white" />
             </a>
 
             {/* YouTube */}
             <a
               href="#"
-              className="group flex flex-col items-center space-y-3 p-6 bg-white/10 backdrop-blur-sm rounded-2xl border border-white/20 hover:bg-white/20 transition-all duration-300 hover:scale-105 hover:shadow-2xl"
+              className="group w-14 h-14 bg-gradient-to-br from-red-600 to-red-700 rounded-full flex items-center justify-center shadow-lg hover:scale-110 transition-all duration-300 hover:shadow-2xl"
             >
-              <div className="w-16 h-16 bg-gradient-to-br from-red-600 to-red-700 rounded-full flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform duration-300">
-                <Youtube className="h-8 w-8 text-white" />
-              </div>
-              <div className="text-center">
-                <span className="text-white font-bold text-lg">YouTube</span>
-                <p className="text-amber-100 text-sm">KaffeeHaus TV</p>
-              </div>
+              <Youtube className="h-6 w-6 text-white" />
             </a>
 
             {/* LinkedIn */}
             <a
               href="#"
-              className="group flex flex-col items-center space-y-3 p-6 bg-white/10 backdrop-blur-sm rounded-2xl border border-white/20 hover:bg-white/20 transition-all duration-300 hover:scale-105 hover:shadow-2xl"
+              className="group w-14 h-14 bg-gradient-to-br from-blue-700 to-blue-800 rounded-full flex items-center justify-center shadow-lg hover:scale-110 transition-all duration-300 hover:shadow-2xl"
             >
-              <div className="w-16 h-16 bg-gradient-to-br from-blue-700 to-blue-800 rounded-full flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform duration-300">
-                <Linkedin className="h-8 w-8 text-white" />
-              </div>
-              <div className="text-center">
-                <span className="text-white font-bold text-lg">LinkedIn</span>
-                <p className="text-amber-100 text-sm">KaffeeHaus</p>
-              </div>
+              <Linkedin className="h-6 w-6 text-white" />
             </a>
           </div>
           
