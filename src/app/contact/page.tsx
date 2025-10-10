@@ -303,7 +303,7 @@ export default function ContactPage() {
             </p>
           </div>
           
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16">
+          <div className="max-w-4xl mx-auto">
             {/* Contact Form */}
             <div className="bg-white/10 backdrop-blur-xl rounded-3xl p-8 shadow-2xl border border-white/20 relative overflow-hidden">
               <div className="absolute top-0 right-0 w-32 h-32 bg-gradient-to-br from-amber-400/20 to-orange-400/20 rounded-full -translate-y-16 translate-x-16 blur-2xl"></div>
@@ -434,48 +434,6 @@ export default function ContactPage() {
               </div>
             </div>
 
-            {/* Contact Info */}
-            <div className="space-y-8">
-              {/* Quick Contact */}
-              <div className="bg-white/10 backdrop-blur-xl rounded-3xl p-8 shadow-2xl border border-white/20 relative overflow-hidden">
-                <div className="absolute top-0 left-0 w-24 h-24 bg-gradient-to-br from-amber-400/20 to-orange-400/20 rounded-full -translate-y-12 -translate-x-12 blur-xl"></div>
-                <div className="absolute bottom-0 right-0 w-32 h-32 bg-gradient-to-tl from-amber-400/20 to-orange-400/20 rounded-full translate-y-16 translate-x-16 blur-2xl"></div>
-                
-                <div className="relative z-10">
-                  <div className="text-center mb-8">
-                    <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-r from-amber-500 to-orange-500 rounded-full mb-4 shadow-2xl">
-                      <Phone className="h-8 w-8 text-white" />
-                    </div>
-                    <h3 className="text-3xl font-bold text-white mb-4">Quick Contact</h3>
-                    <p className="text-amber-100 text-lg">Get in touch with us directly</p>
-                    <div className="w-16 h-1 bg-gradient-to-r from-amber-500 to-orange-500 rounded-full mx-auto mt-3"></div>
-                  </div>
-
-                  <div className="space-y-6">
-                    <div className="flex items-center space-x-4 p-6 rounded-2xl bg-white/5 backdrop-blur-sm border border-white/10 hover:bg-white/10 transition-all duration-300 group">
-                      <div className="w-14 h-14 bg-gradient-to-r from-amber-500 to-orange-500 rounded-full flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform duration-300">
-                        <Phone className="h-7 w-7 text-white" />
-                      </div>
-                      <div>
-                        <span className="text-white font-bold text-xl">Phone</span>
-                        <p className="text-amber-100 text-lg group-hover:text-white transition-colors duration-300">+251 11 123 4567</p>
-                      </div>
-                    </div>
-                    
-                    <div className="flex items-center space-x-4 p-6 rounded-2xl bg-white/5 backdrop-blur-sm border border-white/10 hover:bg-white/10 transition-all duration-300 group">
-                      <div className="w-14 h-14 bg-gradient-to-r from-amber-500 to-orange-500 rounded-full flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform duration-300">
-                        <Mail className="h-7 w-7 text-white" />
-                      </div>
-                      <div>
-                        <span className="text-white font-bold text-xl">Email</span>
-                        <p className="text-amber-100 text-lg group-hover:text-white transition-colors duration-300">hello@kaffeehaus.com</p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-            </div>
           </div>
         </div>
       </section>
