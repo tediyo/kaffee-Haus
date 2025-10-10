@@ -2,7 +2,6 @@
 
 import { useState } from 'react';
 import Navigation from '@/components/Navigation';
-import InteractiveMap from '@/components/InteractiveMap';
 import { MessageCircle, Star, MapPin, Phone, Mail, Clock, Send, CheckCircle, AlertCircle, Coffee, Instagram, Facebook, Twitter, Youtube, Linkedin } from 'lucide-react';
 
 export default function ContactPage() {
@@ -434,7 +433,56 @@ export default function ContactPage() {
                 </div>
                 
                 <div className="bg-white/20 backdrop-blur-sm rounded-2xl p-6 border border-white/10">
-                  <InteractiveMap branches={branches} />
+                  <div className="h-96 relative">
+                    {/* Embedded Google Maps - Both Locations */}
+                    <iframe
+                      src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3940.5!2d38.8!3d9.0!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x164b8f8a8a8a8a8a%3A0x8a8a8a8a8a8a8a8a!2sMegenagna%2C%20Addis%20Ababa%2C%20Ethiopia!5e0!3m2!1sen!2set!4v1234567890123!5m2!1sen!2set"
+                      width="100%"
+                      height="100%"
+                      style={{ border: 0 }}
+                      allowFullScreen
+                      loading="lazy"
+                      referrerPolicy="no-referrer-when-downgrade"
+                      className="rounded-lg"
+                      title="Kaffee Haus Locations - Megenagna & Mexico Square, Addis Ababa"
+                    ></iframe>
+                    
+                    {/* Map Overlay Elements */}
+                    <div className="absolute top-4 left-4 bg-white/90 backdrop-blur-sm rounded-lg px-3 py-2">
+                      <div className="flex items-center space-x-2">
+                        <div className="w-3 h-3 bg-green-500 rounded-full"></div>
+                        <span className="text-sm font-medium text-gray-700">Open Now</span>
+                      </div>
+                    </div>
+                    
+                    <div className="absolute bottom-4 right-4 bg-white/90 backdrop-blur-sm rounded-lg px-3 py-2">
+                      <div className="flex items-center space-x-2">
+                        <Coffee className="h-4 w-4 text-amber-600" />
+                        <span className="text-sm font-medium text-gray-700">Coffee Shop</span>
+                      </div>
+                    </div>
+                    
+                    {/* Custom Map Markers for Both Locations */}
+                    {/* Megenagna Marker */}
+                    <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+                      <div className="bg-amber-500 text-white p-2 rounded-full shadow-lg">
+                        <MapPin className="h-6 w-6" />
+                      </div>
+                      <div className="absolute top-full left-1/2 transform -translate-x-1/2 mt-2 bg-amber-500 text-white px-3 py-1 rounded-lg text-sm font-semibold whitespace-nowrap">
+                        Megenagna Branch
+                      </div>
+                    </div>
+                    
+                    {/* Mexico Square Marker */}
+                    <div className="absolute top-1/3 right-1/4 transform -translate-x-1/2 -translate-y-1/2">
+                      <div className="bg-orange-500 text-white p-2 rounded-full shadow-lg">
+                        <MapPin className="h-6 w-6" />
+                      </div>
+                      <div className="absolute top-full left-1/2 transform -translate-x-1/2 mt-2 bg-orange-500 text-white px-3 py-1 rounded-lg text-sm font-semibold whitespace-nowrap">
+                        Mexico Square Branch
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
