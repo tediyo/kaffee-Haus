@@ -5,9 +5,13 @@ import { useCart } from '@/contexts/CartContext';
 import { ShoppingCart, Plus, Minus, X, Trash2, Edit3, Clock, MapPin } from 'lucide-react';
 import Link from 'next/link';
 
-const Cart: React.FC = () => {
+interface CartProps {
+  isOpen: boolean;
+  onClose: () => void;
+}
+
+const Cart: React.FC<CartProps> = ({ isOpen, onClose }) => {
   const { cartItems, updateQuantity, removeFromCart, getTotalItems, getTotalPrice } = useCart();
-  const [isOpen, setIsOpen] = useState(false);
   const [editingItem, setEditingItem] = useState<number | null>(null);
   const [specialInstructions, setSpecialInstructions] = useState<{ [key: number]: string }>({});
 
@@ -33,31 +37,16 @@ const Cart: React.FC = () => {
     setEditingItem(null);
   };
 
-  if (totalItems === 0) {
+  if (!isOpen) {
     return null;
   }
 
   return (
     <>
-      {/* Cart Toggle Button */}
-      <button
-        onClick={() => setIsOpen(true)}
-        className="fixed bottom-6 right-6 bg-gradient-to-r from-amber-600 to-orange-600 hover:from-amber-700 hover:to-orange-700 text-white p-4 rounded-full shadow-2xl hover:shadow-amber-500/25 transition-all duration-300 hover:scale-105 z-40"
-      >
-        <div className="relative">
-          <ShoppingCart className="h-6 w-6" />
-          {totalItems > 0 && (
-            <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs font-bold rounded-full h-6 w-6 flex items-center justify-center">
-              {totalItems}
-            </span>
-          )}
-        </div>
-      </button>
-
       {/* Cart Sidebar */}
       {isOpen && (
         <div className="fixed inset-0 z-50 overflow-hidden">
-          <div className="absolute inset-0 bg-black/50 backdrop-blur-sm" onClick={() => setIsOpen(false)} />
+          <div className="absolute inset-0 bg-black/50 backdrop-blur-sm" onClick={onClose} />
           
           <div className="absolute right-0 top-0 h-full w-full max-w-md bg-white shadow-2xl transform transition-transform duration-300 ease-in-out">
             <div className="flex flex-col h-full">
@@ -71,7 +60,7 @@ const Cart: React.FC = () => {
                   </span>
                 </div>
                 <button
-                  onClick={() => setIsOpen(false)}
+                  onClick={onClose}
                   className="p-2 hover:bg-gray-100 rounded-full transition-colors"
                 >
                   <X className="h-5 w-5 text-gray-500" />
@@ -193,7 +182,7 @@ const Cart: React.FC = () => {
                   <div className="space-y-3">
                     <Link
                       href="/checkout"
-                      onClick={() => setIsOpen(false)}
+                      onClick={onClose}
                       className="w-full bg-gradient-to-r from-amber-600 to-orange-600 hover:from-amber-700 hover:to-orange-700 text-white py-3 rounded-xl font-semibold transition-all duration-200 flex items-center justify-center space-x-2 shadow-lg hover:shadow-amber-500/25"
                     >
                       <ShoppingCart className="h-5 w-5" />
