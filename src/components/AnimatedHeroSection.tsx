@@ -6,16 +6,32 @@ import { Parallax } from 'react-parallax';
 import { Coffee, ArrowRight, Play, Star, Heart, MapPin, Gift } from 'lucide-react';
 import Link from 'next/link';
 import InteractiveTime from './InteractiveTime';
+import { useWebsiteData } from '@/contexts/WebsiteDataContext';
 
 const AnimatedHeroSection = () => {
+  const { getHomeValue, getDisplaySetting, loading } = useWebsiteData();
   const [currentHeadline, setCurrentHeadline] = useState(0);
   const [isHoveringOrder, setIsHoveringOrder] = useState(false);
   const [isHoveringMenu, setIsHoveringMenu] = useState(false);
 
+  // Get dynamic content from admin panel
+  const welcomeText = getHomeValue('hero', 'welcome_text') || 'Served with Love';
+  const mainHeading = getHomeValue('hero', 'main_heading') || 'Experience the perfect blend of tradition and innovation in every cup. From farm-fresh beans to expertly crafted beverages, we bring you the finest coffee experience.';
+  const rating = getHomeValue('hero', 'rating') || '4.9/5 from 500+ customers';
+  const ratingSubtitle = getHomeValue('hero', 'rating_subtitle') || 'Loved by many';
+  const primaryButtonText = getHomeValue('hero', 'primary_button_text') || 'Order Now';
+  const secondaryButtonText = getHomeValue('hero', 'secondary_button_text') || 'View Menu';
+  const showClocks = getDisplaySetting('show_clocks');
+
+  // Get dynamic headlines from admin panel
+  const headline1 = getHomeValue('hero', 'headline_1') || 'Brewed with Passion';
+  const headline2 = getHomeValue('hero', 'headline_2') || 'Roasted to Perfection';
+  const headline3 = getHomeValue('hero', 'headline_3') || welcomeText;
+
   const headlines = [
-    "Brewed with Passion",
-    "Roasted to Perfection", 
-    "Served with Love"
+    headline1,
+    headline2, 
+    headline3
   ];
 
   // Auto-rotate headlines
@@ -135,7 +151,7 @@ const AnimatedHeroSection = () => {
         transition={{ duration: 0.8 }}
         className="absolute top-8 right-8 z-30"
       >
-        <InteractiveTime />
+        {showClocks && <InteractiveTime />}
       </motion.div>
 
       {/* Content */}
@@ -168,9 +184,7 @@ const AnimatedHeroSection = () => {
               transition={{ duration: 0.8, delay: 0.3 }}
               className="text-2xl md:text-3xl text-white/90 max-w-4xl mx-auto leading-relaxed font-light"
             >
-              Experience the perfect blend of tradition and innovation in every cup. 
-              From farm-fresh beans to expertly crafted beverages, we bring you 
-              the finest coffee experience.
+              {mainHeading}
             </motion.p>
           </div>
 
@@ -193,10 +207,10 @@ const AnimatedHeroSection = () => {
                 </motion.div>
               ))}
             </div>
-            <span className="text-xl font-semibold">4.9/5 from 500+ customers</span>
+            <span className="text-xl font-semibold">{rating}</span>
             <div className="flex items-center space-x-1 bg-white/10 backdrop-blur-sm rounded-full px-3 py-1">
               <Heart className="h-4 w-4 text-red-400 fill-current" />
-              <span className="text-sm">Loved by many</span>
+              <span className="text-sm">{ratingSubtitle}</span>
             </div>
           </motion.div>
 
@@ -227,7 +241,7 @@ const AnimatedHeroSection = () => {
               >
                 <Coffee className="h-6 w-6" />
               </motion.div>
-              <span>Order Now</span>
+              <span>{primaryButtonText}</span>
               <motion.div
                 animate={{ 
                   x: isHoveringOrder ? 5 : 0,
@@ -275,7 +289,7 @@ const AnimatedHeroSection = () => {
               >
                 <Play className="h-6 w-6" />
               </motion.div>
-              <span>View Menu</span>
+              <span>{secondaryButtonText}</span>
               <motion.div
                 animate={{ 
                   x: isHoveringMenu ? 5 : 0
