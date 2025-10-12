@@ -47,6 +47,43 @@ export interface CoffeeFact {
   sort_order: number;
 }
 
+export interface MenuItem {
+  _id?: string;
+  id?: number;
+  name: string;
+  description: string;
+  price: number;
+  category: string;
+  rating: number;
+  image: string;
+  isPopular?: boolean;
+  isNew?: boolean;
+  prepTime?: number;
+  calories?: number;
+  isVegan?: boolean;
+  isGlutenFree?: boolean;
+  is_active: boolean;
+  sort_order: number;
+  created_at: Date;
+  updated_at: Date;
+}
+
+export interface MenuCategory {
+  _id?: string;
+  name: string;
+  description?: string;
+  sort_order: number;
+  is_active: boolean;
+  created_at: Date;
+  updated_at: Date;
+  items?: MenuItem[];
+}
+
+export interface MenuData {
+  categories: MenuCategory[];
+  allItems: MenuItem[];
+}
+
 // API functions
 export async function fetchHomeContent(): Promise<HomeContent[]> {
   try {
@@ -138,6 +175,44 @@ export async function fetchCoffeeFacts(): Promise<CoffeeFact[]> {
   }
 }
 
+export async function fetchMenuData(): Promise<MenuData | null> {
+  try {
+    const response = await fetch(`${ADMIN_API_BASE_URL}/api/public/menu`, {
+      next: { revalidate: 60 }
+    });
+    
+    if (!response.ok) {
+      throw new Error('Failed to fetch menu data');
+    }
+    
+    const data = await response.json();
+    return data.success ? data.data : null;
+  } catch (error) {
+    console.error('Error fetching menu data:', error);
+    return null;
+  }
+}
+
+export async function fetchMenuItems(): Promise<MenuItem[]> {
+  try {
+    const menuData = await fetchMenuData();
+    return menuData ? menuData.allItems : [];
+  } catch (error) {
+    console.error('Error fetching menu items:', error);
+    return [];
+  }
+}
+
+export async function fetchMenuCategories(): Promise<MenuCategory[]> {
+  try {
+    const menuData = await fetchMenuData();
+    return menuData ? menuData.categories : [];
+  } catch (error) {
+    console.error('Error fetching menu categories:', error);
+    return [];
+  }
+}
+
 // Helper functions
 export function getHomeContentValue(content: HomeContent[], section: string, field: string): string {
   const item = content.find(c => c.section === section && c.field === field);
@@ -147,6 +222,32 @@ export function getHomeContentValue(content: HomeContent[], section: string, fie
 export function getDisplaySetting(settings: DisplaySetting[], key: string): boolean {
   const setting = settings.find(s => s.setting_key === key);
   return setting ? setting.setting_value === 'true' : true; // Default to true if not found
+}
+
+// Menu helper functions
+export function getMenuItemsByCategory(menuData: MenuData | null, category: string): MenuItem[] {
+  if (!menuData) return [];
+  return menuData.allItems.filter(item => item.category === category);
+}
+
+export function getPopularMenuItems(menuData: MenuData | null): MenuItem[] {
+  if (!menuData) return [];
+  return menuData.allItems.filter(item => item.isPopular);
+}
+
+export function getNewMenuItems(menuData: MenuData | null): MenuItem[] {
+  if (!menuData) return [];
+  return menuData.allItems.filter(item => item.isNew);
+}
+
+export function sortMenuItemsByPopularity(items: MenuItem[]): MenuItem[] {
+  return [...items].sort((a, b) => {
+    // Sort by popularity first, then by sort_order
+    const aPopular = a.isPopular ? 1 : 0;
+    const bPopular = b.isPopular ? 1 : 0;
+    if (aPopular !== bPopular) return bPopular - aPopular;
+    return a.sort_order - b.sort_order;
+  });
 }
 
 
