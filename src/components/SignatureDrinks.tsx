@@ -3,19 +3,45 @@
 import { useState, useRef, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Coffee, Flame, Search, X, DollarSign } from 'lucide-react';
+import { fetchSignatureDrinks, SignatureDrink } from '@/lib/api';
 
-interface SignatureDrink {
-  id: number;
-  name: string;
-  span: string;
-  image: string;
-  ingredients: string[];
-  price: number;
-  rating: number;
-  prepTime: number;
-  description: string;
-  category: string;
-}
+// Using SignatureDrink from API types
+
+// Fallback signature drinks in case API fails
+const fallbackSignatureDrinks: SignatureDrink[] = [
+  {
+    id: 1,
+    name: 'Ethiopian',
+    span: 'Yirgacheffe',
+    image: 'https://images.unsplash.com/photo-1559056199-641a0ac8b55e?w=400&h=600&fit=crop&crop=center&auto=format&q=80',
+    ingredients: ['Single Origin Beans', 'Light Roast', 'Floral Notes', 'Citrus Finish'],
+    price: 4.50,
+    rating: 4.9,
+    prepTime: 3,
+    description: 'Premium single origin coffee with bright acidity and floral aromas',
+    category: 'coffee',
+    is_active: true,
+    sort_order: 1,
+    created_at: new Date(),
+    updated_at: new Date()
+  },
+  {
+    id: 2,
+    name: 'Colombian',
+    span: 'Supremo',
+    image: 'https://images.unsplash.com/photo-1572442388796-11668a67e53d?w=400&h=600&fit=crop&crop=center&auto=format&q=80',
+    ingredients: ['Colombian Beans', 'Medium Roast', 'Chocolate Notes', 'Nutty Finish'],
+    price: 4.25,
+    rating: 4.8,
+    prepTime: 4,
+    description: 'Rich and full-bodied with chocolate undertones',
+    category: 'coffee',
+    is_active: true,
+    sort_order: 2,
+    created_at: new Date(),
+    updated_at: new Date()
+  }
+];
 
 const signatureDrinks: SignatureDrink[] = [
   {
@@ -128,18 +154,43 @@ const SignatureDrinks = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const [priceRange, setPriceRange] = useState({ min: 0, max: 10 });
   const [isDragging, setIsDragging] = useState<'min' | 'max' | null>(null);
+  const [drinks, setDrinks] = useState<SignatureDrink[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
   const sliderRef = useRef<HTMLDivElement>(null);
 
+  // Load signature drinks from API
+  useEffect(() => {
+    const loadSignatureDrinks = async () => {
+      try {
+        setLoading(true);
+        setError(null);
+        const data = await fetchSignatureDrinks();
+        setDrinks(data.length > 0 ? data : fallbackSignatureDrinks);
+      } catch (err) {
+        console.error('Error loading signature drinks:', err);
+        setError('Failed to load signature drinks');
+        setDrinks(fallbackSignatureDrinks);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    loadSignatureDrinks();
+  }, []);
+
   // Calculate min and max prices from all drinks
-  const minPrice = Math.min(...signatureDrinks.map(drink => drink.price));
-  const maxPrice = Math.max(...signatureDrinks.map(drink => drink.price));
+  const minPrice = drinks.length > 0 ? Math.min(...drinks.map(drink => drink.price)) : 0;
+  const maxPrice = drinks.length > 0 ? Math.max(...drinks.map(drink => drink.price)) : 10;
 
   // Initialize price range
   useEffect(() => {
-    setPriceRange({ min: minPrice, max: maxPrice });
-  }, [minPrice, maxPrice]);
+    if (drinks.length > 0) {
+      setPriceRange({ min: minPrice, max: maxPrice });
+    }
+  }, [minPrice, maxPrice, drinks.length]);
 
-  const filteredDrinks = signatureDrinks.filter(drink => {
+  const filteredDrinks = drinks.filter(drink => {
     const matchesCategory = selectedCategory === 'all' || drink.category === selectedCategory;
     const matchesSearch = searchQuery === '' || 
       drink.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
@@ -192,9 +243,39 @@ const SignatureDrinks = () => {
     }
   }, [isDragging]);
 
+  // Loading state
+  if (loading) {
+    return (
+      <section className="py-20 bg-gradient-to-br from-amber-50 via-orange-50 to-amber-100">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex items-center justify-center min-h-[60vh]">
+            <div className="text-center">
+              <div className="w-12 h-12 border-4 border-amber-600 border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
+              <p className="text-amber-700 text-lg">Loading signature drinks...</p>
+            </div>
+          </div>
+        </div>
+      </section>
+    );
+  }
+
   return (
     <section className="py-20 bg-gradient-to-br from-amber-50 via-orange-50 to-amber-100">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        {/* Error Message */}
+        {error && (
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="mb-8"
+          >
+            <div className="bg-red-50 border border-red-200 rounded-xl p-6 text-center">
+              <p className="text-red-700 font-semibold">{error}</p>
+              <p className="text-red-600 text-sm mt-2">Using fallback signature drinks</p>
+            </div>
+          </motion.div>
+        )}
 
         {/* Search Bar */}
         <motion.div
@@ -363,7 +444,7 @@ const SignatureDrinks = () => {
         <div className="flex flex-wrap justify-center gap-8">
           {filteredDrinks.length > 0 ? (
             filteredDrinks.map((drink, index) => (
-              <div key={drink.id} className="slideshow-container">
+              <div key={drink._id || drink.id || index} className="slideshow-container">
                 <div className="slideshow">
                   <div
                     className="slide"
@@ -373,7 +454,13 @@ const SignatureDrinks = () => {
                       {drink.name}
                       <span>{drink.span}</span>
                     </h2>
-                    <img src={drink.image} alt={drink.name} />
+                    {drink.image && drink.image.trim() !== '' ? (
+                      <img src={drink.image} alt={drink.name} />
+                    ) : (
+                      <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-amber-200 to-orange-200 rounded-lg">
+                        <Coffee className="h-16 w-16 text-amber-600" />
+                      </div>
+                    )}
                   </div>
                 </div>
               </div>

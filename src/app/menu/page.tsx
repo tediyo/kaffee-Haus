@@ -1,28 +1,20 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Navigation from '@/components/Navigation';
 import { Coffee, Plus, Minus, Star, Heart, ShoppingCart, Clock, Flame, Award, TrendingUp } from 'lucide-react';
 import SignatureDrinks from '@/components/SignatureDrinks';
 import { useCart } from '@/contexts/CartContext';
+import { 
+  fetchMenuData, 
+  MenuItem, 
+  MenuData, 
+  sortMenuItemsByPopularity,
+  getMenuItemsByCategory 
+} from '@/lib/api';
 
-interface MenuItem {
-  id: number;
-  name: string;
-  description: string;
-  price: number;
-  category: string;
-  rating: number;
-  image: string;
-  isPopular?: boolean;
-  isNew?: boolean;
-  prepTime?: number;
-  calories?: number;
-  isVegan?: boolean;
-  isGlutenFree?: boolean;
-}
-
-const menuItems: MenuItem[] = [
+// Fallback menu items in case API fails
+const fallbackMenuItems: MenuItem[] = [
   {
     id: 1,
     name: 'Espresso',
@@ -34,7 +26,11 @@ const menuItems: MenuItem[] = [
     isPopular: true,
     prepTime: 2,
     calories: 5,
-    isVegan: true
+    isVegan: true,
+    is_active: true,
+    sort_order: 1,
+    created_at: new Date(),
+    updated_at: new Date()
   },
   {
     id: 2,
@@ -46,122 +42,11 @@ const menuItems: MenuItem[] = [
     image: 'https://images.unsplash.com/photo-1572442388796-11668a67e53d?w=400&h=300&fit=crop&crop=center&auto=format&q=80',
     isPopular: true,
     prepTime: 3,
-    calories: 120
-  },
-  {
-    id: 3,
-    name: 'Latte',
-    description: 'Smooth espresso with steamed milk and light foam',
-    price: 4.50,
-    category: 'coffee',
-    rating: 4.7,
-    image: 'https://images.unsplash.com/photo-1561047029-3000c68339ca?w=400&h=300&fit=crop&crop=center&auto=format&q=80',
-    prepTime: 4,
-    calories: 150
-  },
-  {
-    id: 4,
-    name: 'Mocha',
-    description: 'Espresso with chocolate and steamed milk',
-    price: 5.00,
-    category: 'coffee',
-    rating: 4.6,
-    image: 'https://images.unsplash.com/photo-1544787219-7f47ccb76574?w=400&h=300&fit=crop&crop=center&auto=format&q=80',
-    prepTime: 5,
-    calories: 250
-  },
-  {
-    id: 5,
-    name: 'Americano',
-    description: 'Espresso with hot water for a clean taste',
-    price: 3.75,
-    category: 'coffee',
-    rating: 4.5,
-    image: 'https://images.unsplash.com/photo-1559056199-641a0ac8b55e?w=400&h=300&fit=crop&crop=center&auto=format&q=80',
-    prepTime: 2,
-    calories: 10,
-    isVegan: true
-  },
-  {
-    id: 6,
-    name: 'Macchiato',
-    description: 'Espresso with a dollop of foam',
-    price: 4.00,
-    category: 'coffee',
-    rating: 4.7,
-    image: 'https://images.unsplash.com/photo-1572442388796-11668a67e53d?w=400&h=300&fit=crop&crop=center&auto=format&q=80',
-    isNew: true,
-    prepTime: 3,
-    calories: 80,
-    isVegan: true
-  },
-  {
-    id: 7,
-    name: 'Cold Brew',
-    description: 'Smooth, cold-extracted coffee',
-    price: 4.25,
-    category: 'cold',
-    rating: 4.8,
-    image: 'https://images.unsplash.com/photo-1517701604599-bb29b565090a?w=400&h=300&fit=crop&crop=center&auto=format&q=80',
-    prepTime: 1,
-    calories: 5,
-    isVegan: true
-  },
-  {
-    id: 8,
-    name: 'Iced Latte',
-    description: 'Cold espresso with milk over ice',
-    price: 4.75,
-    category: 'cold',
-    rating: 4.6,
-    image: 'https://images.unsplash.com/photo-1517701604599-bb29b565090a?w=400&h=300&fit=crop&crop=center&auto=format&q=80',
-    prepTime: 2,
-    calories: 120
-  },
-  {
-    id: 9,
-    name: 'Frappé',
-    description: 'Blended coffee with ice and cream',
-    price: 5.50,
-    category: 'cold',
-    rating: 4.4,
-    image: 'https://images.unsplash.com/photo-1517701604599-bb29b565090a?w=400&h=300&fit=crop&crop=center&auto=format&q=80',
-    prepTime: 4,
-    calories: 350
-  },
-  {
-    id: 10,
-    name: 'Croissant',
-    description: 'Buttery, flaky pastry',
-    price: 3.25,
-    category: 'pastry',
-    rating: 4.5,
-    image: 'https://images.unsplash.com/photo-1555507036-ab1f4038808a?w=400&h=300&fit=crop&crop=center&auto=format&q=80',
-    prepTime: 1,
-    calories: 280,
-    isGlutenFree: false
-  },
-  {
-    id: 11,
-    name: 'Muffin',
-    description: 'Fresh baked blueberry muffin',
-    price: 2.75,
-    category: 'pastry',
-    rating: 4.3,
-    image: 'https://images.unsplash.com/photo-1555507036-ab1f4038808a?w=400&h=300&fit=crop&crop=center&auto=format&q=80',
-    prepTime: 1,
-    calories: 320
-  },
-  {
-    id: 12,
-    name: 'Bagel',
-    description: 'Fresh bagel with cream cheese',
-    price: 3.50,
-    category: 'pastry',
-    rating: 4.4,
-    image: 'https://images.unsplash.com/photo-1555507036-ab1f4038808a?w=400&h=300&fit=crop&crop=center&auto=format&q=80',
-    prepTime: 2,
-    calories: 300
+    calories: 120,
+    is_active: true,
+    sort_order: 2,
+    created_at: new Date(),
+    updated_at: new Date()
   }
 ];
 
@@ -169,11 +54,47 @@ const menuItems: MenuItem[] = [
 export default function MenuPage() {
   const { addToCart } = useCart();
   const [favorites, setFavorites] = useState<number[]>([1, 2]);
+  const [menuData, setMenuData] = useState<MenuData | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+  const [selectedCategory, setSelectedCategory] = useState<string>('all');
+
+  useEffect(() => {
+    const loadMenuData = async () => {
+      try {
+        setLoading(true);
+        setError(null);
+        const data = await fetchMenuData();
+        setMenuData(data);
+      } catch (err) {
+        console.error('Error loading menu data:', err);
+        setError('Failed to load menu data');
+        // Use fallback data
+        setMenuData({
+          categories: [],
+          allItems: fallbackMenuItems
+        });
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    loadMenuData();
+  }, []);
+
+  // Get menu items based on selected category
+  const getMenuItems = () => {
+    if (!menuData) return fallbackMenuItems;
+    
+    if (selectedCategory === 'all') {
+      return menuData.allItems;
+    }
+    
+    return getMenuItemsByCategory(menuData, selectedCategory);
+  };
 
   // Sort items by popularity by default
-  const sortedItems = [...menuItems].sort((a, b) => {
-    return (b.isPopular ? 1 : 0) - (a.isPopular ? 1 : 0);
-  });
+  const sortedItems = sortMenuItemsByPopularity(getMenuItems());
 
   const toggleFavorite = (itemId: number) => {
     setFavorites(prev => 
@@ -186,6 +107,21 @@ export default function MenuPage() {
   const handleAddToCart = (item: MenuItem) => {
     addToCart(item, 1);
   };
+
+  // Loading state
+  if (loading) {
+    return (
+      <main className="min-h-screen bg-gradient-to-br from-amber-50 via-orange-50 to-amber-100">
+        <Navigation />
+        <div className="flex items-center justify-center min-h-[60vh]">
+          <div className="text-center">
+            <div className="w-12 h-12 border-4 border-amber-600 border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
+            <p className="text-amber-700 text-lg">Loading menu...</p>
+          </div>
+        </div>
+      </main>
+    );
+  }
 
   return (
     <main className="min-h-screen bg-gradient-to-br from-amber-50 via-orange-50 to-amber-100">
@@ -240,6 +176,51 @@ export default function MenuPage() {
       {/* Signature Drinks Section */}
       <SignatureDrinks />
 
+      {/* Error Message */}
+      {error && (
+        <section className="py-8">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="bg-red-50 border border-red-200 rounded-xl p-6 text-center">
+              <p className="text-red-700 font-semibold">{error}</p>
+              <p className="text-red-600 text-sm mt-2">Using fallback menu data</p>
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* Category Filter */}
+      {menuData && menuData.categories.length > 0 && (
+        <section className="py-8">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="flex flex-wrap justify-center gap-4">
+              <button
+                onClick={() => setSelectedCategory('all')}
+                className={`px-6 py-3 rounded-full font-semibold transition-all duration-200 ${
+                  selectedCategory === 'all'
+                    ? 'bg-amber-600 text-white shadow-lg'
+                    : 'bg-white text-amber-700 hover:bg-amber-50 border border-amber-200'
+                }`}
+              >
+                All Items
+              </button>
+              {menuData.categories.map((category) => (
+                <button
+                  key={category.name}
+                  onClick={() => setSelectedCategory(category.name)}
+                  className={`px-6 py-3 rounded-full font-semibold transition-all duration-200 ${
+                    selectedCategory === category.name
+                      ? 'bg-amber-600 text-white shadow-lg'
+                      : 'bg-white text-amber-700 hover:bg-amber-50 border border-amber-200'
+                  }`}
+                >
+                  {category.name.charAt(0).toUpperCase() + category.name.slice(1)}
+                </button>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
+
       {/* Enhanced Menu Items */}
       <section className="py-12 relative">
         {/* Background Image */}
@@ -253,12 +234,24 @@ export default function MenuPage() {
           <div className="absolute inset-0 bg-gradient-to-br from-amber-50/90 to-orange-50/90" />
         </div>
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {sortedItems.map((item, index) => (
-              <div
-                key={item.id}
-                className="group bg-white rounded-3xl shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden border border-gray-100 hover:border-amber-200 hover:scale-105"
-              >
+          {sortedItems.length === 0 ? (
+            <div className="text-center py-16">
+              <Coffee className="h-16 w-16 text-amber-400 mx-auto mb-4" />
+              <h3 className="text-2xl font-bold text-gray-800 mb-2">No items found</h3>
+              <p className="text-gray-600">
+                {selectedCategory === 'all' 
+                  ? 'No menu items available at the moment.' 
+                  : `No items found in the ${selectedCategory} category.`
+                }
+              </p>
+            </div>
+          ) : (
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {sortedItems.map((item, index) => (
+                <div
+                  key={item._id || item.id || index}
+                  className="group bg-white rounded-3xl shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden border border-gray-100 hover:border-amber-200 hover:scale-105"
+                >
                 {/* Enhanced Item Image */}
                 <div className="relative h-56 bg-gradient-to-br from-amber-100 via-orange-100 to-amber-200 flex items-center justify-center overflow-hidden">
                   <img
@@ -358,8 +351,9 @@ export default function MenuPage() {
                   </button>
                 </div>
               </div>
-            ))}
-          </div>
+              ))}
+            </div>
+          )}
         </div>
       </section>
 
