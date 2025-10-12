@@ -444,7 +444,7 @@ const SignatureDrinks = () => {
         <div className="flex flex-wrap justify-center gap-8">
           {filteredDrinks.length > 0 ? (
             filteredDrinks.map((drink, index) => (
-              <div key={drink.id} className="slideshow-container">
+              <div key={drink._id || drink.id || index} className="slideshow-container">
                 <div className="slideshow">
                   <div
                     className="slide"
