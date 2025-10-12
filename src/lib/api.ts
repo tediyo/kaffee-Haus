@@ -84,6 +84,24 @@ export interface MenuData {
   allItems: MenuItem[];
 }
 
+export interface SignatureDrink {
+  _id?: string;
+  id?: number;
+  name: string;
+  span: string;
+  image: string;
+  ingredients: string[];
+  price: number;
+  rating: number;
+  prepTime: number;
+  description: string;
+  category: string;
+  is_active: boolean;
+  sort_order: number;
+  created_at: Date;
+  updated_at: Date;
+}
+
 // API functions
 export async function fetchHomeContent(): Promise<HomeContent[]> {
   try {
@@ -209,6 +227,24 @@ export async function fetchMenuCategories(): Promise<MenuCategory[]> {
     return menuData ? menuData.categories : [];
   } catch (error) {
     console.error('Error fetching menu categories:', error);
+    return [];
+  }
+}
+
+export async function fetchSignatureDrinks(): Promise<SignatureDrink[]> {
+  try {
+    const response = await fetch(`${ADMIN_API_BASE_URL}/api/public/signature-drinks`, {
+      next: { revalidate: 60 }
+    });
+    
+    if (!response.ok) {
+      throw new Error('Failed to fetch signature drinks');
+    }
+    
+    const data = await response.json();
+    return data.success ? data.data : [];
+  } catch (error) {
+    console.error('Error fetching signature drinks:', error);
     return [];
   }
 }
