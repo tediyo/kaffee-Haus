@@ -1,12 +1,14 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Navigation from '@/components/Navigation';
 import FAQModal from '@/components/FAQModal';
 import { Coffee, Award, Heart, Sparkles, Leaf, Users, MessageCircle, Star, HelpCircle } from 'lucide-react';
+import { fetchAboutData, AboutData, AboutValue, AboutMilestone, AboutFAQ } from '@/lib/api';
 
 
-const values = [
+// Fallback data
+const fallbackValues = [
   {
     icon: Coffee,
     title: 'Quality First',
@@ -37,8 +39,7 @@ const values = [
   }
 ];
 
-
-const milestones = [
+const fallbackMilestones = [
   { year: '2008', title: 'Founded', description: 'Started as a small corner shop with big dreams' },
   { year: '2012', title: 'Expansion', description: 'Opened our second location downtown' },
   { year: '2016', title: 'Award Winner', description: 'Best Coffee Shop in the city' },
@@ -46,7 +47,7 @@ const milestones = [
   { year: '2024', title: 'Innovation', description: 'Leading sustainable coffee practices' }
 ];
 
-const faqs = [
+const fallbackFaqs = [
   {
     question: "Do you offer delivery services?",
     answer: "Yes! We offer delivery within a 5-mile radius. Orders over $25 qualify for free delivery.",
@@ -77,6 +78,68 @@ const faqs = [
 
 export default function AboutPage() {
   const [faqModalOpen, setFaqModalOpen] = useState(false);
+  const [aboutData, setAboutData] = useState<AboutData | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    const loadAboutData = async () => {
+      try {
+        setLoading(true);
+        const data = await fetchAboutData();
+        setAboutData(data);
+      } catch (err) {
+        console.error('Error loading about data:', err);
+        setError('Failed to load about content');
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    loadAboutData();
+  }, []);
+
+  // Use dynamic data or fallback
+  const values = aboutData?.values.length ? aboutData.values : fallbackValues;
+  const milestones = aboutData?.milestones.length ? aboutData.milestones : fallbackMilestones;
+  const faqs = aboutData?.faqs.length ? aboutData.faqs : fallbackFaqs;
+  const content = aboutData?.content || {};
+
+  // Helper function to get icon component
+  const getIconComponent = (iconName: string) => {
+    const iconMap: { [key: string]: any } = {
+      Coffee, Award, Heart, Sparkles, Leaf, Users, MessageCircle, Star, HelpCircle
+    };
+    return iconMap[iconName] || Coffee;
+  };
+
+  if (loading) {
+    return (
+      <main className="min-h-screen bg-gradient-to-br from-amber-50 via-orange-50 to-amber-100">
+        <Navigation />
+        <div className="flex items-center justify-center h-64">
+          <div className="text-center">
+            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-amber-600 mx-auto mb-4"></div>
+            <p className="text-gray-600">Loading about content...</p>
+          </div>
+        </div>
+      </main>
+    );
+  }
+
+  if (error) {
+    return (
+      <main className="min-h-screen bg-gradient-to-br from-amber-50 via-orange-50 to-amber-100">
+        <Navigation />
+        <div className="flex items-center justify-center h-64">
+          <div className="text-center">
+            <p className="text-red-600 mb-4">{error}</p>
+            <p className="text-gray-600">Using fallback content...</p>
+          </div>
+        </div>
+      </main>
+    );
+  }
 
   return (
     <main className="min-h-screen bg-gradient-to-br from-amber-50 via-orange-50 to-amber-100">
@@ -114,15 +177,14 @@ export default function AboutPage() {
             </div>
             
             <h1 className="text-6xl md:text-7xl font-bold text-white leading-tight">
-              Our{' '}
+              {content.hero?.title || 'Our'}{' '}
               <span className="bg-gradient-to-r from-amber-300 to-orange-200 bg-clip-text text-transparent">
-                Story
+                {content.hero?.title ? '' : 'Story'}
               </span>
             </h1>
             
             <p className="text-2xl text-amber-100 max-w-4xl mx-auto leading-relaxed">
-              From humble beginnings to becoming a beloved community gathering place, 
-              discover the passion and dedication behind Kaffee Haus.
+              {content.hero?.subtitle || 'From humble beginnings to becoming a beloved community gathering place, discover the passion and dedication behind Kaffee Haus.'}
             </p>
           </div>
         </div>
@@ -144,26 +206,19 @@ export default function AboutPage() {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
             <div className="space-y-8">
               <div className="space-y-4">
-                <h2 className="text-5xl font-bold text-gray-800">A Coffee Journey</h2>
+                <h2 className="text-5xl font-bold text-gray-800">{content.story?.title || 'A Coffee Journey'}</h2>
                 <div className="w-20 h-1 bg-gradient-to-r from-amber-500 to-orange-500 rounded-full" />
               </div>
               
               <div className="space-y-6 text-gray-600 leading-relaxed text-lg">
                 <p>
-                  Founded in 2008 by coffee enthusiasts Maria and Carlos Rodriguez, 
-                  Kaffee Haus began as a small corner shop with a big dream: to bring 
-                  exceptional coffee to our community.
+                  {content.story?.description1 || 'Founded in 2008 by coffee enthusiasts Maria and Carlos Rodriguez, Kaffee Haus began as a small corner shop with a big dream: to bring exceptional coffee to our community.'}
                 </p>
                 <p>
-                  What started as a passion project has grown into a beloved gathering 
-                  place where friends meet, ideas are born, and the perfect cup of coffee 
-                  is always within reach. Our commitment to quality and community has 
-                  remained unchanged throughout the years.
+                  {content.story?.description2 || 'What started as a passion project has grown into a beloved gathering place where friends meet, ideas are born, and the perfect cup of coffee is always within reach. Our commitment to quality and community has remained unchanged throughout the years.'}
                 </p>
                 <p>
-                  Today, we continue to source the finest beans from around the world, 
-                  roast them to perfection, and serve them with love and attention to detail 
-                  that our customers have come to expect.
+                  {content.story?.description3 || 'Today, we continue to source the finest beans from around the world, roast them to perfection, and serve them with love and attention to detail that our customers have come to expect.'}
                 </p>
               </div>
 
@@ -234,10 +289,9 @@ export default function AboutPage() {
                 <div className="absolute inset-0 bg-gradient-to-br from-amber-900/80 via-amber-800/70 to-orange-900/80" />
                 <div className="absolute inset-0 p-8 flex flex-col justify-center text-center">
                   <div className="text-6xl mb-4">☕</div>
-                  <h3 className="text-3xl font-bold text-white mb-4">Our Mission</h3>
+                  <h3 className="text-3xl font-bold text-white mb-4">{content.mission?.title || 'Our Mission'}</h3>
                   <p className="text-amber-100 italic text-lg leading-relaxed">
-                    &ldquo;To create exceptional coffee experiences that bring people together 
-                    and celebrate the simple joy of a perfect cup.&rdquo;
+                    &ldquo;{content.mission?.description || 'To create exceptional coffee experiences that bring people together and celebrate the simple joy of a perfect cup.'}&rdquo;
                   </p>
                   <div className="mt-8 flex justify-center space-x-4">
                     <div className="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center backdrop-blur-sm">
@@ -301,9 +355,9 @@ export default function AboutPage() {
               <Award className="h-5 w-5" />
               <span className="font-medium">Our Values</span>
             </div>
-            <h2 className="text-5xl font-bold text-gray-800 mb-6">What Drives Us</h2>
+            <h2 className="text-5xl font-bold text-gray-800 mb-6">{content.values?.title || 'What Drives Us'}</h2>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              The principles that guide everything we do at Kaffee Haus
+              {content.values?.subtitle || 'The principles that guide everything we do at Kaffee Haus'}
             </p>
           </div>
 
@@ -317,20 +371,23 @@ export default function AboutPage() {
                 'https://images.unsplash.com/photo-1572442388796-11668a67e53d?w=400&h=300&fit=crop&crop=center&auto=format&q=80'  // Expert Team - Barista at work
               ];
               
+              const IconComponent = getIconComponent(value.icon);
+              const backgroundImage = value.image || backgroundImages[index];
+              
               return (
                 <div
-                  key={value.title}
+                  key={value._id || value.id || index}
                   className={`bg-gradient-to-br ${value.bgColor} rounded-3xl p-8 text-center hover:shadow-2xl transition-all duration-300 hover:scale-105 border border-white/50 group relative overflow-hidden`}
                 >
                   <div className="absolute inset-0 opacity-20 group-hover:opacity-30 transition-opacity duration-300">
                     <img
-                      src={backgroundImages[index]}
+                      src={backgroundImage}
                       alt={`${value.title} background`}
                       className="w-full h-full object-cover"
                     />
                   </div>
                   <div className={`w-20 h-20 rounded-full bg-gradient-to-r ${value.color} flex items-center justify-center mx-auto mb-6 shadow-lg group-hover:scale-110 transition-transform duration-300 relative z-10`}>
-                    <value.icon className="h-10 w-10 text-white" />
+                    <IconComponent className="h-10 w-10 text-white" />
                   </div>
                   <h3 className="text-2xl font-bold text-gray-800 mb-4 relative z-10">{value.title}</h3>
                   <p className="text-gray-600 leading-relaxed relative z-10">{value.description}</p>
@@ -359,9 +416,9 @@ export default function AboutPage() {
               <MessageCircle className="h-5 w-5" />
               <span className="font-medium">Frequently Asked Questions</span>
             </div>
-            <h2 className="text-5xl font-bold text-gray-800 mb-6">Quick Answers</h2>
+            <h2 className="text-5xl font-bold text-gray-800 mb-6">{content.faq?.title || 'Quick Answers'}</h2>
             <p className="text-xl text-gray-600 mb-8">
-              Find answers to the most common questions about our services
+              {content.faq?.subtitle || 'Find answers to the most common questions about our services'}
             </p>
             
             {/* Interactive FAQ Button */}
@@ -375,24 +432,27 @@ export default function AboutPage() {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            {faqs.slice(0, 4).map((faq, index) => (
-              <div
-                key={index}
-                className="bg-gradient-to-r from-amber-50 to-orange-50 rounded-2xl p-6 border border-amber-200/50 hover:shadow-lg transition-all duration-300 hover:scale-105 cursor-pointer"
-                onClick={() => setFaqModalOpen(true)}
-              >
-                <div className="flex items-start space-x-4">
-                  <div className="w-10 h-10 bg-gradient-to-r from-amber-500 to-orange-500 rounded-full flex items-center justify-center flex-shrink-0">
-                    <faq.icon className="h-5 w-5 text-white" />
-                  </div>
-                  <div className="flex-1">
-                    <h3 className="text-lg font-bold text-gray-800 mb-2">{faq.question}</h3>
-                    <p className="text-gray-600 text-sm leading-relaxed line-clamp-2">{faq.answer}</p>
-                    <p className="text-amber-600 text-sm font-medium mt-2">Click to read more →</p>
+            {faqs.slice(0, 4).map((faq, index) => {
+              const IconComponent = getIconComponent(faq.icon);
+              return (
+                <div
+                  key={faq._id || faq.id || index}
+                  className="bg-gradient-to-r from-amber-50 to-orange-50 rounded-2xl p-6 border border-amber-200/50 hover:shadow-lg transition-all duration-300 hover:scale-105 cursor-pointer"
+                  onClick={() => setFaqModalOpen(true)}
+                >
+                  <div className="flex items-start space-x-4">
+                    <div className="w-10 h-10 bg-gradient-to-r from-amber-500 to-orange-500 rounded-full flex items-center justify-center flex-shrink-0">
+                      <IconComponent className="h-5 w-5 text-white" />
+                    </div>
+                    <div className="flex-1">
+                      <h3 className="text-lg font-bold text-gray-800 mb-2">{faq.question}</h3>
+                      <p className="text-gray-600 text-sm leading-relaxed line-clamp-2">{faq.answer}</p>
+                      <p className="text-amber-600 text-sm font-medium mt-2">Click to read more →</p>
+                    </div>
                   </div>
                 </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
         </div>
       </section>
