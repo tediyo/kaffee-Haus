@@ -102,6 +102,67 @@ export interface SignatureDrink {
   updated_at: Date;
 }
 
+export interface AboutValue {
+  _id?: string;
+  id?: number;
+  title: string;
+  description: string;
+  icon: string;
+  color: string;
+  bgColor: string;
+  image?: string;
+  is_active: boolean;
+  sort_order: number;
+  created_at: Date;
+  updated_at: Date;
+}
+
+export interface AboutMilestone {
+  _id?: string;
+  id?: number;
+  year: string;
+  title: string;
+  description: string;
+  is_active: boolean;
+  sort_order: number;
+  created_at: Date;
+  updated_at: Date;
+}
+
+export interface AboutFAQ {
+  _id?: string;
+  id?: number;
+  question: string;
+  answer: string;
+  category: string;
+  icon: string;
+  helpful: number;
+  tags: string[];
+  is_active: boolean;
+  sort_order: number;
+  created_at: Date;
+  updated_at: Date;
+}
+
+export interface AboutContent {
+  _id?: string;
+  id?: number;
+  section: string;
+  field: string;
+  value: string;
+  is_active: boolean;
+  created_at: Date;
+  updated_at: Date;
+}
+
+export interface AboutData {
+  values: AboutValue[];
+  milestones: AboutMilestone[];
+  faqs: AboutFAQ[];
+  content: { [section: string]: { [field: string]: string } };
+  sectionVisibility: { [section: string]: boolean };
+}
+
 // API functions
 export async function fetchHomeContent(): Promise<HomeContent[]> {
   try {
@@ -284,6 +345,31 @@ export function sortMenuItemsByPopularity(items: MenuItem[]): MenuItem[] {
     if (aPopular !== bPopular) return bPopular - aPopular;
     return a.sort_order - b.sort_order;
   });
+}
+
+// About section API functions
+export async function fetchAboutData(): Promise<AboutData> {
+  try {
+    const response = await fetch(`${ADMIN_API_BASE_URL}/api/public/about`, {
+      next: { revalidate: 60 } // Revalidate every minute
+    });
+    
+    if (!response.ok) {
+      throw new Error('Failed to fetch about data');
+    }
+    
+    const result = await response.json();
+    return result.data;
+  } catch (error) {
+    console.error('Error fetching about data:', error);
+    // Return fallback data
+    return {
+      values: [],
+      milestones: [],
+      faqs: [],
+      content: {}
+    };
+  }
 }
 
 

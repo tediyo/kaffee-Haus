@@ -1,7 +1,8 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { X, ChevronDown, ChevronUp, Search, HelpCircle, MessageCircle, Phone, Mail, Star, Coffee, Clock, Award } from 'lucide-react';
+import { fetchAboutData, AboutFAQ } from '@/lib/api';
 
 interface FAQItem {
   id: number;
@@ -100,10 +101,53 @@ const FAQModal = ({ isOpen, onClose }: FAQModalProps) => {
   const [selectedCategory, setSelectedCategory] = useState('All');
   const [expandedItems, setExpandedItems] = useState<number[]>([]);
   const [helpfulVotes, setHelpfulVotes] = useState<{ [key: number]: boolean }>({});
+  const [faqs, setFaqs] = useState<AboutFAQ[]>([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const loadFAQs = async () => {
+      try {
+        setLoading(true);
+        const aboutData = await fetchAboutData();
+        setFaqs(aboutData.faqs);
+      } catch (error) {
+        console.error('Error loading FAQs:', error);
+        // Use fallback data
+        setFaqs(faqData.map(faq => ({
+          _id: faq.id.toString(),
+          id: faq.id,
+          question: faq.question,
+          answer: faq.answer,
+          category: faq.category,
+          icon: faq.icon.name,
+          helpful: faq.helpful,
+          tags: faq.tags,
+          is_active: true,
+          sort_order: faq.id,
+          created_at: new Date(),
+          updated_at: new Date()
+        })));
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    if (isOpen) {
+      loadFAQs();
+    }
+  }, [isOpen]);
+
+  // Helper function to get icon component
+  const getIconComponent = (iconName: string) => {
+    const iconMap: { [key: string]: any } = {
+      Coffee, Award, Heart, Sparkles, Leaf, Users, MessageCircle, Star, HelpCircle, Clock
+    };
+    return iconMap[iconName] || HelpCircle;
+  };
 
   if (!isOpen) return null;
 
-  const filteredFAQs = faqData.filter(faq => {
+  const filteredFAQs = faqs.filter(faq => {
     const matchesSearch = faq.question.toLowerCase().includes(searchQuery.toLowerCase()) ||
                          faq.answer.toLowerCase().includes(searchQuery.toLowerCase()) ||
                          faq.tags.some(tag => tag.toLowerCase().includes(searchQuery.toLowerCase()));
@@ -128,7 +172,7 @@ const FAQModal = ({ isOpen, onClose }: FAQModalProps) => {
 
   const getSearchSuggestions = () => {
     if (searchQuery.length < 2) return [];
-    const suggestions = faqData
+    const suggestions = faqs
       .flatMap(faq => faq.tags)
       .filter(tag => tag.toLowerCase().includes(searchQuery.toLowerCase()))
       .slice(0, 5);
@@ -210,7 +254,12 @@ const FAQModal = ({ isOpen, onClose }: FAQModalProps) => {
 
         {/* FAQ Content */}
         <div className="p-6 max-h-96 overflow-y-auto">
-          {filteredFAQs.length === 0 ? (
+          {loading ? (
+            <div className="text-center py-12">
+              <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-amber-600 mx-auto mb-4"></div>
+              <p className="text-gray-600">Loading FAQs...</p>
+            </div>
+          ) : filteredFAQs.length === 0 ? (
             <div className="text-center py-12">
               <HelpCircle className="h-16 w-16 text-gray-300 mx-auto mb-4" />
               <h3 className="text-xl font-semibold text-gray-600 mb-2">No questions found</h3>
@@ -218,87 +267,91 @@ const FAQModal = ({ isOpen, onClose }: FAQModalProps) => {
             </div>
           ) : (
             <div className="space-y-4">
-              {filteredFAQs.map((faq) => (
-                <div
-                  key={faq.id}
-                  className="bg-white border border-gray-200 rounded-2xl overflow-hidden hover:shadow-lg"
-                >
-                  <button
-                    onClick={() => toggleExpanded(faq.id)}
-                    className="w-full p-6 text-left flex items-center justify-between hover:bg-gray-50"
+              {filteredFAQs.map((faq) => {
+                const IconComponent = getIconComponent(faq.icon);
+                const faqId = faq._id || faq.id;
+                return (
+                  <div
+                    key={faqId}
+                    className="bg-white border border-gray-200 rounded-2xl overflow-hidden hover:shadow-lg"
                   >
-                    <div className="flex items-center space-x-4">
-                      <div className="w-10 h-10 bg-amber-100 rounded-full flex items-center justify-center">
-                        <faq.icon className="h-5 w-5 text-amber-600" />
-                      </div>
-                      <div>
-                        <h3 className="text-lg font-semibold text-gray-800 mb-1">{faq.question}</h3>
-                        <div className="flex items-center space-x-4 text-sm text-gray-500">
-                          <span className="bg-amber-100 text-amber-700 px-2 py-1 rounded-full">
-                            {faq.category}
-                          </span>
-                          <span className="flex items-center space-x-1">
-                            <Star className="h-4 w-4" />
-                            <span>{faq.helpful} found helpful</span>
-                          </span>
+                    <button
+                      onClick={() => toggleExpanded(faqId)}
+                      className="w-full p-6 text-left flex items-center justify-between hover:bg-gray-50"
+                    >
+                      <div className="flex items-center space-x-4">
+                        <div className="w-10 h-10 bg-amber-100 rounded-full flex items-center justify-center">
+                          <IconComponent className="h-5 w-5 text-amber-600" />
                         </div>
-                      </div>
-                    </div>
-                    {expandedItems.includes(faq.id) ? (
-                      <ChevronUp className="h-5 w-5 text-gray-400" />
-                    ) : (
-                      <ChevronDown className="h-5 w-5 text-gray-400" />
-                    )}
-                  </button>
-
-                  {expandedItems.includes(faq.id) && (
-                    <div className="px-6 pb-6 border-t bg-gray-50">
-                      <div className="pt-4">
-                        <p className="text-gray-700 leading-relaxed mb-4">{faq.answer}</p>
-                        
-                        {/* Tags */}
-                        <div className="flex flex-wrap gap-2 mb-4">
-                          {faq.tags.map((tag, index) => (
-                            <span
-                              key={index}
-                              className="bg-gray-200 text-gray-600 px-2 py-1 rounded-full text-xs"
-                            >
-                              #{tag}
+                        <div>
+                          <h3 className="text-lg font-semibold text-gray-800 mb-1">{faq.question}</h3>
+                          <div className="flex items-center space-x-4 text-sm text-gray-500">
+                            <span className="bg-amber-100 text-amber-700 px-2 py-1 rounded-full">
+                              {faq.category}
                             </span>
-                          ))}
-                        </div>
-
-                        {/* Helpful Button */}
-                        <div className="flex items-center justify-between">
-                          <button
-                            onClick={() => toggleHelpful(faq.id)}
-                            className={`flex items-center space-x-2 px-4 py-2 rounded-full text-sm font-medium ${
-                              helpfulVotes[faq.id]
-                                ? 'bg-green-100 text-green-700'
-                                : 'bg-gray-100 text-gray-600 hover:bg-green-50 hover:text-green-700'
-                            }`}
-                          >
-                            <Star className={`h-4 w-4 ${helpfulVotes[faq.id] ? 'fill-current' : ''}`} />
-                            <span>{helpfulVotes[faq.id] ? 'Thanks!' : 'Was this helpful?'}</span>
-                          </button>
-
-                          <div className="flex space-x-2">
-                            <button className="p-2 text-gray-400 hover:text-gray-600">
-                              <MessageCircle className="h-4 w-4" />
-                            </button>
-                            <button className="p-2 text-gray-400 hover:text-gray-600">
-                              <Phone className="h-4 w-4" />
-                            </button>
-                            <button className="p-2 text-gray-400 hover:text-gray-600">
-                              <Mail className="h-4 w-4" />
-                            </button>
+                            <span className="flex items-center space-x-1">
+                              <Star className="h-4 w-4" />
+                              <span>{faq.helpful} found helpful</span>
+                            </span>
                           </div>
                         </div>
                       </div>
-                    </div>
-                  )}
-                </div>
-              ))}
+                      {expandedItems.includes(faqId) ? (
+                        <ChevronUp className="h-5 w-5 text-gray-400" />
+                      ) : (
+                        <ChevronDown className="h-5 w-5 text-gray-400" />
+                      )}
+                    </button>
+
+                    {expandedItems.includes(faqId) && (
+                      <div className="px-6 pb-6 border-t bg-gray-50">
+                        <div className="pt-4">
+                          <p className="text-gray-700 leading-relaxed mb-4">{faq.answer}</p>
+                          
+                          {/* Tags */}
+                          <div className="flex flex-wrap gap-2 mb-4">
+                            {faq.tags.map((tag, index) => (
+                              <span
+                                key={index}
+                                className="bg-gray-200 text-gray-600 px-2 py-1 rounded-full text-xs"
+                              >
+                                #{tag}
+                              </span>
+                            ))}
+                          </div>
+
+                          {/* Helpful Button */}
+                          <div className="flex items-center justify-between">
+                            <button
+                              onClick={() => toggleHelpful(faqId)}
+                              className={`flex items-center space-x-2 px-4 py-2 rounded-full text-sm font-medium ${
+                                helpfulVotes[faqId]
+                                  ? 'bg-green-100 text-green-700'
+                                  : 'bg-gray-100 text-gray-600 hover:bg-green-50 hover:text-green-700'
+                              }`}
+                            >
+                              <Star className={`h-4 w-4 ${helpfulVotes[faqId] ? 'fill-current' : ''}`} />
+                              <span>{helpfulVotes[faqId] ? 'Thanks!' : 'Was this helpful?'}</span>
+                            </button>
+
+                            <div className="flex space-x-2">
+                              <button className="p-2 text-gray-400 hover:text-gray-600">
+                                <MessageCircle className="h-4 w-4" />
+                              </button>
+                              <button className="p-2 text-gray-400 hover:text-gray-600">
+                                <Phone className="h-4 w-4" />
+                              </button>
+                              <button className="p-2 text-gray-400 hover:text-gray-600">
+                                <Mail className="h-4 w-4" />
+                              </button>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                );
+              })}
             </div>
           )}
         </div>
