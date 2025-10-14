@@ -163,6 +163,34 @@ export interface AboutData {
   sectionVisibility: { [section: string]: boolean };
 }
 
+export interface Branch {
+  _id?: string;
+  id?: number;
+  name: string;
+  address: string;
+  phone: string;
+  email: string;
+  hours: string;
+  coordinates: {
+    lat: number;
+    lng: number;
+  };
+  image: string;
+  description?: string;
+  amenities?: string[];
+  is_main_branch?: boolean;
+  is_active: boolean;
+  sort_order: number;
+  created_at: Date;
+  updated_at: Date;
+}
+
+export interface ContactData {
+  branches: Branch[];
+  content: { [section: string]: { [field: string]: string } };
+  sectionVisibility: { [section: string]: boolean };
+}
+
 // API functions
 export async function fetchHomeContent(): Promise<HomeContent[]> {
   try {
@@ -367,9 +395,33 @@ export async function fetchAboutData(): Promise<AboutData> {
       values: [],
       milestones: [],
       faqs: [],
-      content: {}
+      content: {},
+      sectionVisibility: {}
     };
   }
 }
 
+// Contact section API functions
+export async function fetchContactData(): Promise<ContactData> {
+  try {
+    const response = await fetch(`${ADMIN_API_BASE_URL}/api/public/contact`, {
+      next: { revalidate: 60 } // Revalidate every minute
+    });
+
+    if (!response.ok) {
+      throw new Error('Failed to fetch contact data');
+    }
+
+    const result = await response.json();
+    return result.data;
+  } catch (error) {
+    console.error('Error fetching contact data:', error);
+    // Return fallback data
+    return {
+      branches: [],
+      content: {},
+      sectionVisibility: {}
+    };
+  }
+}
 

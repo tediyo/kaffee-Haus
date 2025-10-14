@@ -1,8 +1,9 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Navigation from '@/components/Navigation';
-import { MessageCircle, Star, MapPin, Phone, Mail, Clock, Send, CheckCircle, AlertCircle, Coffee, Instagram, Facebook, Twitter, Youtube, Linkedin } from 'lucide-react';
+import { MessageCircle, Star, MapPin, Phone, Mail, Clock, Send, CheckCircle, AlertCircle, Coffee, Instagram, Facebook, Twitter, Youtube, Linkedin, Wifi, Car, BookOpen, Users } from 'lucide-react';
+import { fetchContactData, Branch, ContactData } from '@/lib/api';
 
 export default function ContactPage() {
   const [formData, setFormData] = useState({
@@ -13,6 +14,25 @@ export default function ContactPage() {
   });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
+  const [contactData, setContactData] = useState<ContactData | null>(null);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    const loadContactData = async () => {
+      try {
+        setLoading(true);
+        const data = await fetchContactData();
+        setContactData(data);
+      } catch (err) {
+        console.error('Error loading contact data:', err);
+        setError('Failed to load contact content');
+      } finally {
+        setLoading(false);
+      }
+    };
+    loadContactData();
+  }, []);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setFormData({
@@ -42,56 +62,131 @@ export default function ContactPage() {
     setTimeout(() => setSubmitStatus('idle'), 3000);
   };
 
-  const branches = [
+  // Fallback branches data
+  const fallbackBranches: Branch[] = [
     {
-      id: 1,
       name: "Main Branch - Bole",
       address: "Bole Road, Addis Ababa, Ethiopia",
       phone: "+251 11 123 4567",
       email: "bole@kaffeehaus.com",
       hours: "Mon-Fri: 6AM-10PM, Sat-Sun: 7AM-11PM",
       coordinates: { lat: 8.9806, lng: 38.7578 },
-      image: "https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?w=400&h=300&fit=crop&crop=center&auto=format&q=80"
+      image: "https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?w=400&h=300&fit=crop&crop=center&auto=format&q=80",
+      description: "Our flagship location in the heart of Bole district",
+      amenities: ["WiFi", "Parking", "Outdoor Seating", "Air Conditioning"],
+      is_main_branch: true,
+      is_active: true,
+      sort_order: 1,
+      created_at: new Date(),
+      updated_at: new Date()
     },
     {
-      id: 2,
       name: "Downtown Branch - Piazza",
       address: "Piazza District, Addis Ababa, Ethiopia",
       phone: "+251 11 234 5678",
       email: "piazza@kaffeehaus.com",
       hours: "Mon-Fri: 6AM-9PM, Sat-Sun: 8AM-10PM",
       coordinates: { lat: 9.0333, lng: 38.7500 },
-      image: "https://images.unsplash.com/photo-1554118811-1e0d58224f24?w=400&h=300&fit=crop&crop=center&auto=format&q=80"
+      image: "https://images.unsplash.com/photo-1554118811-1e0d58224f24?w=400&h=300&fit=crop&crop=center&auto=format&q=80",
+      description: "Historic location in the bustling Piazza district",
+      amenities: ["WiFi", "Parking", "Indoor Seating"],
+      is_main_branch: false,
+      is_active: true,
+      sort_order: 2,
+      created_at: new Date(),
+      updated_at: new Date()
     },
     {
-      id: 3,
       name: "Airport Branch - Bole Airport",
       address: "Bole International Airport, Addis Ababa, Ethiopia",
       phone: "+251 11 345 6789",
       email: "airport@kaffeehaus.com",
       hours: "24/7 Open",
       coordinates: { lat: 8.9779, lng: 38.7993 },
-      image: "https://images.unsplash.com/photo-1447933601403-0c6688de566e?w=400&h=300&fit=crop&crop=center&auto=format&q=80"
+      image: "https://images.unsplash.com/photo-1447933601403-0c6688de566e?w=400&h=300&fit=crop&crop=center&auto=format&q=80",
+      description: "Convenient location for travelers at the airport",
+      amenities: ["WiFi", "Quick Service", "Takeaway"],
+      is_main_branch: false,
+      is_active: true,
+      sort_order: 3,
+      created_at: new Date(),
+      updated_at: new Date()
     },
     {
-      id: 4,
       name: "University Branch - Arat Kilo",
       address: "Arat Kilo, Addis Ababa, Ethiopia",
       phone: "+251 11 456 7890",
       email: "university@kaffeehaus.com",
       hours: "Mon-Fri: 7AM-8PM, Sat-Sun: 8AM-9PM",
       coordinates: { lat: 9.0333, lng: 38.7500 },
-      image: "https://images.unsplash.com/photo-1572442388796-11668a67e53d?w=400&h=300&fit=crop&crop=center&auto=format&q=80"
+      image: "https://images.unsplash.com/photo-1572442388796-11668a67e53d?w=400&h=300&fit=crop&crop=center&auto=format&q=80",
+      description: "Student-friendly location near university area",
+      amenities: ["WiFi", "Study Space", "Quiet Environment", "Student Discounts"],
+      is_main_branch: false,
+      is_active: true,
+      sort_order: 4,
+      created_at: new Date(),
+      updated_at: new Date()
     }
   ];
 
+  const branches = contactData?.branches.length ? contactData.branches : fallbackBranches;
+  const content = contactData?.content || {};
+  const sectionVisibility = contactData?.sectionVisibility || {};
+
+  const isSectionVisible = (section: string) => {
+    return sectionVisibility[section] !== false; // Default to true if not set
+  };
+
+  // Helper function to get amenity icon
+  const getAmenityIcon = (amenity: string) => {
+    switch (amenity) {
+      case 'WiFi': return Wifi;
+      case 'Parking': return Car;
+      case 'Study Space': return BookOpen;
+      case 'Student Discounts': return Users;
+      default: return Coffee;
+    }
+  };
+
+
+  if (loading) {
+    return (
+      <main className="min-h-screen bg-gradient-to-br from-amber-50 via-orange-50 to-amber-100">
+        <Navigation />
+        <div className="flex items-center justify-center h-96">
+          <div className="text-center">
+            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-amber-600 mx-auto mb-4"></div>
+            <p className="text-gray-600">Loading contact information...</p>
+          </div>
+        </div>
+      </main>
+    );
+  }
+
+  if (error) {
+    return (
+      <main className="min-h-screen bg-gradient-to-br from-amber-50 via-orange-50 to-amber-100">
+        <Navigation />
+        <div className="flex items-center justify-center h-96">
+          <div className="text-center">
+            <div className="text-red-500 mb-4">
+              <AlertCircle className="h-12 w-12 mx-auto" />
+            </div>
+            <p className="text-gray-600">{error}</p>
+          </div>
+        </div>
+      </main>
+    );
+  }
 
   return (
     <main className="min-h-screen bg-gradient-to-br from-amber-50 via-orange-50 to-amber-100">
       <Navigation />
       
       {/* Enhanced Hero Section with Coffee Background */}
-      <section className="pt-20 pb-20 relative overflow-hidden min-h-[90vh] flex items-center">
+      {isSectionVisible('hero') && (
+        <section className="pt-20 pb-20 relative overflow-hidden min-h-[90vh] flex items-center">
         <div className="absolute inset-0 z-0">
           <div 
             className="absolute inset-0 bg-cover bg-center bg-no-repeat transform scale-105"
@@ -129,20 +224,22 @@ export default function ContactPage() {
             </div>
             
             <h1 className="text-6xl md:text-8xl font-bold text-white leading-tight animate-fade-in-up">
-              Contact{' '}
+              {content.hero?.title || 'Contact'}{' '}
               <span className="bg-gradient-to-r from-amber-300 via-orange-200 to-amber-300 bg-clip-text text-transparent animate-gradient-x">
                 Us
               </span>
             </h1>
             
             <p className="text-2xl md:text-3xl text-amber-100 max-w-4xl mx-auto leading-relaxed animate-fade-in-up" style={{ animationDelay: '0.5s' }}>
-              Find us across Addis Ababa! Visit our branches, connect with us online, or send us a message.
+              {content.hero?.subtitle || 'Find us across Addis Ababa! Visit our branches, connect with us online, or send us a message.'}
             </p>
           </div>
         </div>
-      </section>
+        </section>
+      )}
 
       {/* Branches Section */}
+      {isSectionVisible('branches') && (
       <section className="py-24 bg-gradient-to-br from-amber-50 via-white to-orange-50 relative overflow-hidden">
         <div className="absolute inset-0 z-0">
           <div 
@@ -169,23 +266,25 @@ export default function ContactPage() {
               <Star className="h-5 w-5 text-amber-600" />
             </div>
             <h2 className="text-6xl font-bold text-gray-800 mb-8 animate-fade-in-up">
-              Find Us{' '}
+              {content.branches?.title || 'Find Us'}{' '}
               <span className="bg-gradient-to-r from-amber-600 to-orange-600 bg-clip-text text-transparent">
                 Near You
               </span>
             </h2>
             <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed animate-fade-in-up" style={{ animationDelay: '0.3s' }}>
-              We have multiple locations across Addis Ababa to serve you better. Each branch offers a unique atmosphere and experience.
+              {content.branches?.subtitle || 'We have multiple locations across Addis Ababa to serve you better. Each branch offers a unique atmosphere and experience.'}
             </p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {branches.map((branch, index) => (
-              <div 
-                key={branch.id} 
-                className="group bg-white rounded-3xl shadow-2xl border border-amber-200/50 overflow-hidden hover:shadow-3xl transition-all duration-500 hover:scale-105 hover:-translate-y-2 relative"
-                style={{ animationDelay: `${index * 0.1}s` }}
-              >
+            {branches.map((branch, index) => {
+              const branchId = branch._id || branch.id || index;
+              return (
+                <div 
+                  key={branchId} 
+                  className="group bg-white rounded-3xl shadow-2xl border border-amber-200/50 overflow-hidden hover:shadow-3xl transition-all duration-500 hover:scale-105 hover:-translate-y-2 relative"
+                  style={{ animationDelay: `${index * 0.1}s` }}
+                >
                 {/* Hover gradient overlay */}
                 <div className="absolute inset-0 bg-gradient-to-br from-amber-500/5 to-orange-500/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500 z-10" />
                 
@@ -241,15 +340,42 @@ export default function ContactPage() {
                       <p className="text-gray-800 font-bold text-sm">{branch.hours}</p>
                     </div>
                   </div>
+
+                  {branch.amenities && branch.amenities.length > 0 && (
+                    <div className="mt-4">
+                      <p className="text-sm font-medium text-gray-700 mb-2">Amenities:</p>
+                      <div className="flex flex-wrap gap-1">
+                        {branch.amenities.map((amenity, amenityIndex) => {
+                          const AmenityIcon = getAmenityIcon(amenity);
+                          return (
+                            <span
+                              key={amenityIndex}
+                              className="inline-flex items-center px-2 py-1 rounded-full text-xs font-medium bg-amber-100 text-amber-800"
+                            >
+                              <AmenityIcon className="h-3 w-3 mr-1" />
+                              {amenity}
+                            </span>
+                          );
+                        })}
+                      </div>
+                    </div>
+                  )}
+
+                  {branch.description && (
+                    <p className="text-gray-600 text-sm mt-3">{branch.description}</p>
+                  )}
                   
                 </div>
               </div>
-            ))}
+              );
+            })}
           </div>
         </div>
-      </section>
+        </section>
+      )}
 
       {/* Contact Form & Map Section */}
+      {isSectionVisible('form') && (
       <section className="py-24 bg-gradient-to-br from-gray-900 via-amber-900 to-gray-900 relative overflow-hidden">
         <div className="absolute inset-0 z-0">
           <div 
@@ -276,13 +402,13 @@ export default function ContactPage() {
               <Star className="h-5 w-5 text-amber-300" />
             </div>
             <h2 className="text-6xl font-bold text-white mb-6">
-              Contact Us &{' '}
+              {content.form?.title || 'Contact Us &'}{' '}
               <span className="bg-gradient-to-r from-amber-300 to-orange-200 bg-clip-text text-transparent">
                 Find Us
               </span>
             </h2>
             <p className="text-xl text-amber-100 max-w-3xl mx-auto">
-              Send us a message or explore our locations across Addis Ababa
+              {content.form?.subtitle || 'Send us a message or explore our locations across Addis Ababa'}
             </p>
           </div>
           
@@ -298,7 +424,7 @@ export default function ContactPage() {
                     <MessageCircle className="h-8 w-8 text-white" />
                   </div>
                   <h3 className="text-2xl font-bold text-white mb-2">Send us a Message</h3>
-                  <p className="text-amber-100">We'll get back to you within 24 hours</p>
+                  <p className="text-amber-100">{content.form?.description || "We'll get back to you within 24 hours"}</p>
                   <div className="w-16 h-1 bg-gradient-to-r from-amber-500 to-orange-500 rounded-full mx-auto mt-3"></div>
                 </div>
                 
@@ -418,6 +544,7 @@ export default function ContactPage() {
             </div>
 
             {/* Map Section */}
+            {isSectionVisible('map') && (
             <div className="bg-white/10 backdrop-blur-xl rounded-3xl p-8 shadow-2xl border border-white/20 relative overflow-hidden">
               <div className="absolute top-0 left-0 w-32 h-32 bg-gradient-to-br from-amber-400/20 to-orange-400/20 rounded-full -translate-y-16 -translate-x-16 blur-2xl"></div>
               <div className="absolute bottom-0 right-0 w-40 h-40 bg-gradient-to-tl from-amber-400/20 to-orange-400/20 rounded-full translate-y-20 translate-x-20 blur-3xl"></div>
@@ -427,8 +554,8 @@ export default function ContactPage() {
                   <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-r from-amber-500 to-orange-500 rounded-full mb-4 shadow-2xl">
                     <MapPin className="h-8 w-8 text-white" />
                   </div>
-                  <h3 className="text-2xl font-bold text-white mb-2">Find Our Locations</h3>
-                  <p className="text-amber-100">Explore our branches across Addis Ababa</p>
+                  <h3 className="text-2xl font-bold text-white mb-2">{content.map?.title || 'Find Our Locations'}</h3>
+                  <p className="text-amber-100">{content.map?.subtitle || 'Explore our branches across Addis Ababa'}</p>
                   <div className="w-16 h-1 bg-gradient-to-r from-amber-500 to-orange-500 rounded-full mx-auto mt-3"></div>
                 </div>
                 
@@ -486,6 +613,7 @@ export default function ContactPage() {
                 </div>
               </div>
             </div>
+            )}
           </div>
           
           {/* Social Media Icons */}
@@ -524,7 +652,8 @@ export default function ContactPage() {
             </div>
           </div>
         </div>
-      </section>
+        </section>
+      )}
 
     </main>
   );
