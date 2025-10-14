@@ -160,6 +160,7 @@ export interface AboutData {
   milestones: AboutMilestone[];
   faqs: AboutFAQ[];
   content: { [section: string]: { [field: string]: string } };
+  sectionVisibility: { [section: string]: boolean };
 }
 
 // API functions

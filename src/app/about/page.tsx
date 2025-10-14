@@ -104,6 +104,12 @@ export default function AboutPage() {
   const milestones = aboutData?.milestones.length ? aboutData.milestones : fallbackMilestones;
   const faqs = aboutData?.faqs.length ? aboutData.faqs : fallbackFaqs;
   const content = aboutData?.content || {};
+  const sectionVisibility = aboutData?.sectionVisibility || {};
+
+  // Helper function to check if section should be visible
+  const isSectionVisible = (section: string) => {
+    return sectionVisibility[section] !== false; // Default to true if not set
+  };
 
   // Helper function to get icon component
   const getIconComponent = (iconName: string) => {
@@ -191,6 +197,7 @@ export default function AboutPage() {
       </section>
 
       {/* Enhanced Story Section */}
+      {isSectionVisible('story') && (
       <section className="py-20 bg-white relative">
         {/* Background Image */}
         <div className="absolute inset-0 z-0">
@@ -336,8 +343,10 @@ export default function AboutPage() {
           </div>
         </div>
       </section>
+      )}
 
       {/* Enhanced Values Section */}
+      {isSectionVisible('values') && (
       <section className="py-20 bg-gradient-to-br from-amber-50 to-orange-100 relative">
         {/* Background Image */}
         <div className="absolute inset-0 z-0">
@@ -397,8 +406,10 @@ export default function AboutPage() {
           </div>
         </div>
       </section>
+      )}
 
       {/* Enhanced FAQ Section */}
+      {isSectionVisible('faq') && (
       <section className="py-20 bg-white relative">
         {/* Background Image */}
         <div className="absolute inset-0 z-0">
@@ -456,6 +467,7 @@ export default function AboutPage() {
           </div>
         </div>
       </section>
+      )}
 
       {/* FAQ Modal */}
       <FAQModal
