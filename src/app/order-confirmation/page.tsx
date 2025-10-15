@@ -16,7 +16,7 @@ export default function OrderConfirmationPage() {
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    const loadOrder = async () => {
+    const loadOrder = async (retryCount = 0) => {
       try {
         setLoading(true);
         const orderNumber = searchParams.get('orderNumber');
@@ -43,6 +43,14 @@ export default function OrderConfirmationPage() {
               setOrder(localOrder);
             } else {
               console.log('Available orders:', orders.map(o => ({ id: o.id, orderNumber: o.orderNumber })));
+              
+              // If this is the first attempt and we have no orders yet, retry after a short delay
+              if (retryCount === 0 && orders.length === 0) {
+                console.log('No orders found yet, retrying in 500ms...');
+                setTimeout(() => loadOrder(1), 500);
+                return;
+              }
+              
               throw new Error('Order not found in local storage');
             }
           }
@@ -60,7 +68,8 @@ export default function OrderConfirmationPage() {
         }
       } catch (err) {
         console.error('Error loading order:', err);
-        setError('Order not found');
+        const errorMessage = err instanceof Error ? err.message : 'Order not found';
+        setError(errorMessage);
       } finally {
         setLoading(false);
       }
