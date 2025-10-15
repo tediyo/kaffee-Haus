@@ -3,7 +3,8 @@
 import React, { createContext, useContext, useState, useEffect } from 'react';
 
 export interface MenuItem {
-  id: number;
+  _id?: string;
+  id?: number;
   name: string;
   description: string;
   price: number;
@@ -16,6 +17,10 @@ export interface MenuItem {
   calories?: number;
   isVegan?: boolean;
   isGlutenFree?: boolean;
+  is_active?: boolean;
+  sort_order?: number;
+  created_at?: Date;
+  updated_at?: Date;
 }
 
 export interface CartItem {
@@ -26,6 +31,7 @@ export interface CartItem {
 
 export interface Order {
   id: string;
+  orderNumber?: string;
   items: CartItem[];
   total: number;
   status: 'pending' | 'confirmed' | 'preparing' | 'ready' | 'completed' | 'cancelled';
@@ -94,36 +100,45 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
 
   const addToCart = (item: MenuItem, quantity: number = 1, specialInstructions?: string) => {
     setCartItems(prev => {
-      const existingItem = prev.find(cartItem => cartItem.item.id === item.id);
+      const itemId = item._id || item.id;
+      const existingItem = prev.find(cartItem => {
+        const cartItemId = cartItem.item._id || cartItem.item.id;
+        return cartItemId === itemId;
+      });
       
       if (existingItem) {
-        return prev.map(cartItem =>
-          cartItem.item.id === item.id
+        return prev.map(cartItem => {
+          const cartItemId = cartItem.item._id || cartItem.item.id;
+          return cartItemId === itemId
             ? { ...cartItem, quantity: cartItem.quantity + quantity, specialInstructions }
-            : cartItem
-        );
+            : cartItem;
+        });
       } else {
         return [...prev, { item, quantity, specialInstructions }];
       }
     });
   };
 
-  const removeFromCart = (itemId: number) => {
-    setCartItems(prev => prev.filter(cartItem => cartItem.item.id !== itemId));
+  const removeFromCart = (itemId: string | number) => {
+    setCartItems(prev => prev.filter(cartItem => {
+      const cartItemId = cartItem.item._id || cartItem.item.id;
+      return cartItemId !== itemId;
+    }));
   };
 
-  const updateQuantity = (itemId: number, quantity: number) => {
+  const updateQuantity = (itemId: string | number, quantity: number) => {
     if (quantity <= 0) {
       removeFromCart(itemId);
       return;
     }
     
     setCartItems(prev =>
-      prev.map(cartItem =>
-        cartItem.item.id === itemId
+      prev.map(cartItem => {
+        const cartItemId = cartItem.item._id || cartItem.item.id;
+        return cartItemId === itemId
           ? { ...cartItem, quantity }
-          : cartItem
-      )
+          : cartItem;
+      })
     );
   };
 

@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { motion, useInView } from 'framer-motion';
 import { useRef } from 'react';
 import Image from 'next/image';
-import Navigation from '@/components/Navigation';
+import NavigationWrapper from '@/components/NavigationWrapper';
 import AnimatedHeroSection from '@/components/AnimatedHeroSection';
 import CoffeeShopScene from '@/components/CoffeeShopScene';
 import InteractiveModal from '@/components/InteractiveModal';
@@ -25,7 +25,7 @@ export default function Home() {
 
   return (
     <main className="min-h-screen">
-      <Navigation />
+      <NavigationWrapper>
       
       {/* Animated Hero Section */}
       <div className="pt-20">
@@ -48,6 +48,7 @@ export default function Home() {
         onClose={() => setModalOpen(false)}
         type={modalType}
       />
+      </NavigationWrapper>
     </main>
   );
 }

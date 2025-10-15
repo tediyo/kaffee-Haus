@@ -18,20 +18,23 @@ const Cart: React.FC<CartProps> = ({ isOpen, onClose }) => {
   const totalItems = getTotalItems();
   const totalPrice = getTotalPrice();
 
-  const handleQuantityChange = (itemId: number, change: number) => {
-    const currentQuantity = cartItems.find(item => item.item.id === itemId)?.quantity || 0;
+  const handleQuantityChange = (itemId: string | number, change: number) => {
+    const currentQuantity = cartItems.find(item => {
+      const cartItemId = item.item._id || item.item.id;
+      return cartItemId === itemId;
+    })?.quantity || 0;
     const newQuantity = Math.max(0, currentQuantity + change);
     updateQuantity(itemId, newQuantity);
   };
 
-  const handleSpecialInstructionsChange = (itemId: number, instructions: string) => {
+  const handleSpecialInstructionsChange = (itemId: string | number, instructions: string) => {
     setSpecialInstructions(prev => ({
       ...prev,
       [itemId]: instructions
     }));
   };
 
-  const saveSpecialInstructions = (itemId: number) => {
+  const saveSpecialInstructions = (itemId: string | number) => {
     const instructions = specialInstructions[itemId] || '';
     // Here you would typically update the cart item with special instructions
     setEditingItem(null);
@@ -77,8 +80,10 @@ const Cart: React.FC<CartProps> = ({ isOpen, onClose }) => {
                   </div>
                 ) : (
                   <div className="space-y-4">
-                    {cartItems.map((cartItem) => (
-                      <div key={cartItem.item.id} className="bg-gray-50 rounded-xl p-4 border border-gray-100">
+                    {cartItems.map((cartItem, index) => {
+                      const itemId = cartItem.item._id || cartItem.item.id || index;
+                      return (
+                      <div key={itemId} className="bg-gray-50 rounded-xl p-4 border border-gray-100">
                         <div className="flex items-start space-x-3">
                           <img
                             src={cartItem.item.image}
@@ -90,18 +95,18 @@ const Cart: React.FC<CartProps> = ({ isOpen, onClose }) => {
                             <p className="text-gray-600 text-xs mt-1">${cartItem.item.price.toFixed(2)} each</p>
                             
                             {/* Special Instructions */}
-                            {editingItem === cartItem.item.id ? (
+                            {editingItem === itemId ? (
                               <div className="mt-2">
                                 <textarea
-                                  value={specialInstructions[cartItem.item.id] || ''}
-                                  onChange={(e) => handleSpecialInstructionsChange(cartItem.item.id, e.target.value)}
+                                  value={specialInstructions[itemId] || ''}
+                                  onChange={(e) => handleSpecialInstructionsChange(itemId, e.target.value)}
                                   placeholder="Special instructions..."
                                   className="w-full text-xs p-2 border border-gray-300 rounded-lg resize-none"
                                   rows={2}
                                 />
                                 <div className="flex space-x-2 mt-2">
                                   <button
-                                    onClick={() => saveSpecialInstructions(cartItem.item.id)}
+                                    onClick={() => saveSpecialInstructions(itemId)}
                                     className="text-xs bg-amber-600 text-white px-3 py-1 rounded-lg hover:bg-amber-700"
                                   >
                                     Save
@@ -122,7 +127,7 @@ const Cart: React.FC<CartProps> = ({ isOpen, onClose }) => {
                                   </p>
                                 )}
                                 <button
-                                  onClick={() => setEditingItem(cartItem.item.id)}
+                                  onClick={() => setEditingItem(itemId)}
                                   className="text-xs text-amber-600 hover:text-amber-700 flex items-center space-x-1 mt-1"
                                 >
                                   <Edit3 className="h-3 w-3" />
@@ -137,7 +142,7 @@ const Cart: React.FC<CartProps> = ({ isOpen, onClose }) => {
                         <div className="flex items-center justify-between mt-3">
                           <div className="flex items-center space-x-3">
                             <button
-                              onClick={() => handleQuantityChange(cartItem.item.id, -1)}
+                              onClick={() => handleQuantityChange(itemId, -1)}
                               className="p-1 rounded-full bg-gray-200 hover:bg-gray-300 transition-colors"
                             >
                               <Minus className="h-4 w-4" />
@@ -146,7 +151,7 @@ const Cart: React.FC<CartProps> = ({ isOpen, onClose }) => {
                               {cartItem.quantity}
                             </span>
                             <button
-                              onClick={() => handleQuantityChange(cartItem.item.id, 1)}
+                              onClick={() => handleQuantityChange(itemId, 1)}
                               className="p-1 rounded-full bg-amber-100 hover:bg-amber-200 transition-colors"
                             >
                               <Plus className="h-4 w-4" />
@@ -158,7 +163,7 @@ const Cart: React.FC<CartProps> = ({ isOpen, onClose }) => {
                               ${(cartItem.item.price * cartItem.quantity).toFixed(2)}
                             </span>
                             <button
-                              onClick={() => removeFromCart(cartItem.item.id)}
+                              onClick={() => removeFromCart(itemId)}
                               className="p-1 text-red-500 hover:bg-red-50 rounded-full transition-colors"
                             >
                               <Trash2 className="h-4 w-4" />
@@ -166,7 +171,8 @@ const Cart: React.FC<CartProps> = ({ isOpen, onClose }) => {
                           </div>
                         </div>
                       </div>
-                    ))}
+                    );
+                  })}
                   </div>
                 )}
               </div>
