@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import Navigation from '@/components/Navigation';
+import NavigationWrapper from '@/components/NavigationWrapper';
 import { Coffee, Plus, Minus, Star, Heart, ShoppingCart, Clock, Flame, Award, TrendingUp } from 'lucide-react';
 import SignatureDrinks from '@/components/SignatureDrinks';
 import { useCart } from '@/contexts/CartContext';
@@ -112,20 +112,21 @@ export default function MenuPage() {
   if (loading) {
     return (
       <main className="min-h-screen bg-gradient-to-br from-amber-50 via-orange-50 to-amber-100">
-        <Navigation />
-        <div className="flex items-center justify-center min-h-[60vh]">
-          <div className="text-center">
-            <div className="w-12 h-12 border-4 border-amber-600 border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
-            <p className="text-amber-700 text-lg">Loading menu...</p>
+        <NavigationWrapper>
+          <div className="flex items-center justify-center min-h-[60vh]">
+            <div className="text-center">
+              <div className="w-12 h-12 border-4 border-amber-600 border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
+              <p className="text-amber-700 text-lg">Loading menu...</p>
+            </div>
           </div>
-        </div>
+        </NavigationWrapper>
       </main>
     );
   }
 
   return (
     <main className="min-h-screen bg-gradient-to-br from-amber-50 via-orange-50 to-amber-100">
-      <Navigation />
+      <NavigationWrapper>
       
       {/* Enhanced Hero Section with Background Image */}
       <section className="pt-20 pb-16 relative overflow-hidden min-h-[70vh] flex items-center">
@@ -357,6 +358,7 @@ export default function MenuPage() {
         </div>
       </section>
 
+      </NavigationWrapper>
     </main>
   );
 }

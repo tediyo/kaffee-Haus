@@ -191,6 +191,59 @@ export interface ContactData {
   sectionVisibility: { [section: string]: boolean };
 }
 
+export interface OrderItem {
+  menuItemId: string;
+  name: string;
+  description: string;
+  price: number;
+  quantity: number;
+  specialInstructions?: string;
+  category: string;
+  image: string;
+  isVegan?: boolean;
+  isGlutenFree?: boolean;
+  calories?: number;
+  prepTime?: number;
+}
+
+export interface Order {
+  _id?: string;
+  orderNumber: string;
+  items: OrderItem[];
+  subtotal: number;
+  deliveryFee: number;
+  tax: number;
+  total: number;
+  status: 'pending' | 'confirmed' | 'preparing' | 'ready' | 'completed' | 'cancelled';
+  orderType: 'pickup' | 'delivery';
+  customerInfo: {
+    name: string;
+    email: string;
+    phone: string;
+    address?: string;
+  };
+  specialInstructions?: string;
+  orderTime: Date;
+  estimatedReadyTime?: Date;
+  actualReadyTime?: Date;
+  completedTime?: Date;
+  branchId?: string;
+  notes?: string;
+  paymentMethod?: 'cash' | 'card' | 'mobile';
+  paymentStatus?: 'pending' | 'paid' | 'refunded';
+}
+
+export interface OrderResponse {
+  success: boolean;
+  message: string;
+  data: {
+    orderId: string;
+    orderNumber: string;
+    estimatedReadyTime: Date;
+    total: number;
+  };
+}
+
 // API functions
 export async function fetchHomeContent(): Promise<HomeContent[]> {
   try {
@@ -422,6 +475,47 @@ export async function fetchContactData(): Promise<ContactData> {
       content: {},
       sectionVisibility: {}
     };
+  }
+}
+
+// Order API functions
+export async function placeOrder(orderData: Omit<Order, '_id' | 'orderNumber' | 'orderTime' | 'estimatedReadyTime'>): Promise<OrderResponse> {
+  try {
+    const response = await fetch(`${ADMIN_API_BASE_URL}/api/public/orders`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(orderData)
+    });
+
+    if (!response.ok) {
+      const errorData = await response.json().catch(() => ({}));
+      throw new Error(errorData.error || `Server error: ${response.status}`);
+    }
+
+    const result = await response.json();
+    return result;
+  } catch (error) {
+    console.error('Error placing order:', error);
+    if (error instanceof Error) {
+      throw error;
+    }
+    throw new Error('Network error: Unable to connect to server');
+  }
+}
+
+export async function getOrderByNumber(orderNumber: string, email: string): Promise<Order> {
+  try {
+    const response = await fetch(`${ADMIN_API_BASE_URL}/api/public/orders?orderNumber=${orderNumber}&email=${email}`);
+
+    if (!response.ok) {
+      throw new Error('Failed to fetch order');
+    }
+
+    const result = await response.json();
+    return result.data;
+  } catch (error) {
+    console.error('Error fetching order:', error);
+    throw error;
   }
 }
 

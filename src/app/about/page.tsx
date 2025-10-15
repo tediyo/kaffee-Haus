@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import Navigation from '@/components/Navigation';
+import NavigationWrapper from '@/components/NavigationWrapper';
 import FAQModal from '@/components/FAQModal';
 import { Coffee, Award, Heart, Sparkles, Leaf, Users, MessageCircle, Star, HelpCircle } from 'lucide-react';
 import { fetchAboutData, AboutData, AboutValue, AboutMilestone, AboutFAQ } from '@/lib/api';
@@ -122,13 +122,14 @@ export default function AboutPage() {
   if (loading) {
     return (
       <main className="min-h-screen bg-gradient-to-br from-amber-50 via-orange-50 to-amber-100">
-        <Navigation />
-        <div className="flex items-center justify-center h-64">
-          <div className="text-center">
-            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-amber-600 mx-auto mb-4"></div>
-            <p className="text-gray-600">Loading about content...</p>
+        <NavigationWrapper>
+          <div className="flex items-center justify-center h-64">
+            <div className="text-center">
+              <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-amber-600 mx-auto mb-4"></div>
+              <p className="text-gray-600">Loading about content...</p>
+            </div>
           </div>
-        </div>
+        </NavigationWrapper>
       </main>
     );
   }
@@ -136,20 +137,21 @@ export default function AboutPage() {
   if (error) {
     return (
       <main className="min-h-screen bg-gradient-to-br from-amber-50 via-orange-50 to-amber-100">
-        <Navigation />
-        <div className="flex items-center justify-center h-64">
-          <div className="text-center">
-            <p className="text-red-600 mb-4">{error}</p>
-            <p className="text-gray-600">Using fallback content...</p>
+        <NavigationWrapper>
+          <div className="flex items-center justify-center h-64">
+            <div className="text-center">
+              <p className="text-red-600 mb-4">{error}</p>
+              <p className="text-gray-600">Using fallback content...</p>
+            </div>
           </div>
-        </div>
+        </NavigationWrapper>
       </main>
     );
   }
 
   return (
     <main className="min-h-screen bg-gradient-to-br from-amber-50 via-orange-50 to-amber-100">
-      <Navigation />
+      <NavigationWrapper>
       
       {/* Enhanced Hero Section with Background Image */}
       <section className="pt-20 pb-20 relative overflow-hidden min-h-[80vh] flex items-center">
@@ -475,6 +477,7 @@ export default function AboutPage() {
         onClose={() => setFaqModalOpen(false)}
       />
 
+      </NavigationWrapper>
     </main>
   );
 }

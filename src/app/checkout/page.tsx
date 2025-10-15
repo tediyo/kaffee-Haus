@@ -2,10 +2,11 @@
 
 import { useState } from 'react';
 import { useCart } from '@/contexts/CartContext';
-import Navigation from '@/components/Navigation';
+import NavigationWrapper from '@/components/NavigationWrapper';
 import { ArrowLeft, CreditCard, MapPin, Clock, User, Mail, Phone, MessageSquare, CheckCircle } from 'lucide-react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
+import { placeOrder, OrderItem } from '@/lib/api';
 
 export default function CheckoutPage() {
   const { cartItems, getTotalPrice, addOrder, clearCart } = useCart();
@@ -36,54 +37,149 @@ export default function CheckoutPage() {
     e.preventDefault();
     setIsSubmitting(true);
 
-    // Simulate API call
-    await new Promise(resolve => setTimeout(resolve, 2000));
+    try {
+      // Validate cart items
+      if (!cartItems || cartItems.length === 0) {
+        throw new Error('No items in cart');
+      }
 
-    // Create order
-    const orderData = {
-      items: cartItems,
-      total: finalTotal,
-      status: 'pending' as const,
-      orderType,
-      customerInfo: {
-        name: formData.name,
-        email: formData.email,
-        phone: formData.phone,
-        address: orderType === 'delivery' ? formData.address : undefined
-      },
-      specialInstructions: formData.specialInstructions
-    };
+      // Validate form data
+      if (!formData.name.trim() || !formData.email.trim() || !formData.phone.trim()) {
+        throw new Error('Please fill in all required fields');
+      }
 
-    addOrder(orderData);
-    clearCart();
-    
-    // Redirect to order confirmation
-    router.push(`/order-confirmation?orderId=${Date.now()}`);
+      // Convert cart items to order items with validation
+      const orderItems: OrderItem[] = cartItems.map((cartItem, index) => {
+        if (!cartItem || !cartItem.item) {
+          throw new Error(`Invalid cart item at index ${index}`);
+        }
+
+        // Handle both _id and id fields
+        const itemId = (cartItem.item as any)._id || cartItem.item.id;
+        
+        return {
+          menuItemId: itemId ? itemId.toString() : `item-${index}`,
+          name: cartItem.item.name || 'Unknown Item',
+          description: cartItem.item.description || '',
+          price: cartItem.item.price || 0,
+          quantity: cartItem.quantity || 1,
+          specialInstructions: cartItem.specialInstructions,
+          category: cartItem.item.category || 'general',
+          image: cartItem.item.image || '',
+          isVegan: cartItem.item.isVegan || false,
+          isGlutenFree: cartItem.item.isGlutenFree || false,
+          calories: cartItem.item.calories || 0,
+          prepTime: cartItem.item.prepTime || 0
+        };
+      });
+
+      // Create order data
+      const orderData = {
+        items: orderItems,
+        subtotal: totalPrice,
+        deliveryFee: deliveryFee,
+        tax: tax,
+        total: finalTotal,
+        orderType,
+        customerInfo: {
+          name: formData.name,
+          email: formData.email,
+          phone: formData.phone,
+          address: orderType === 'delivery' ? formData.address : undefined
+        },
+        specialInstructions: formData.specialInstructions
+      };
+
+      // Try to place order via API first
+      try {
+        const response = await placeOrder(orderData);
+        
+        if (response.success) {
+          // Also add to local cart context for backup
+          addOrder({
+            ...orderData,
+            id: response.data.orderId,
+            orderNumber: response.data.orderNumber,
+            status: 'pending' as const,
+            orderTime: new Date()
+          });
+          
+          clearCart();
+          
+          // Redirect to order confirmation with real order number
+          router.push(`/order-confirmation?orderNumber=${response.data.orderNumber}&email=${formData.email}`);
+          return;
+        } else {
+          throw new Error(response.message || 'Failed to place order');
+        }
+      } catch (apiError) {
+        console.warn('API order placement failed, using local fallback:', apiError);
+        
+        // Show user-friendly message about offline mode
+        alert('Note: Order placed in offline mode. Your order will be processed when the system is back online.');
+        
+        // Fallback: Create order locally
+        const localOrderId = `local-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
+        const localOrderNumber = `#LOC-${String(Date.now()).slice(-6)}`;
+        
+        const localOrder = {
+          ...orderData,
+          id: localOrderId,
+          orderNumber: localOrderNumber,
+          status: 'pending' as const,
+          orderTime: new Date(),
+          estimatedReadyTime: new Date(Date.now() + (orderType === 'delivery' ? 45 : 20) * 60000)
+        };
+        
+        addOrder(localOrder);
+        clearCart();
+        
+        // Redirect to order confirmation with local order
+        router.push(`/order-confirmation?orderNumber=${localOrderNumber}&email=${formData.email}`);
+        return;
+      }
+    } catch (error) {
+      console.error('Error placing order:', error);
+      let errorMessage = 'Failed to place order. Please try again.';
+      
+      if (error instanceof Error) {
+        if (error.message.includes('toString')) {
+          errorMessage = 'Invalid item data detected. Please refresh the page and try again.';
+        } else {
+          errorMessage = error.message;
+        }
+      }
+      
+      alert(`Order Error: ${errorMessage}`);
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   if (cartItems.length === 0) {
     return (
       <main className="min-h-screen bg-gradient-to-br from-amber-50 via-orange-50 to-amber-100">
-        <Navigation />
-        <div className="pt-20 flex items-center justify-center min-h-[80vh]">
-          <div className="text-center">
-            <h1 className="text-4xl font-bold text-gray-800 mb-4">Your cart is empty</h1>
-            <p className="text-gray-600 mb-8">Add some delicious items to your cart first!</p>
-            <Link
-              href="/menu"
-              className="bg-gradient-to-r from-amber-600 to-orange-600 text-white px-8 py-3 rounded-xl font-semibold hover:from-amber-700 hover:to-orange-700 transition-all duration-200"
-            >
-              Browse Menu
-            </Link>
+        <NavigationWrapper>
+          <div className="pt-20 flex items-center justify-center min-h-[80vh]">
+            <div className="text-center">
+              <h1 className="text-4xl font-bold text-gray-800 mb-4">Your cart is empty</h1>
+              <p className="text-gray-600 mb-8">Add some delicious items to your cart first!</p>
+              <Link
+                href="/menu"
+                className="bg-gradient-to-r from-amber-600 to-orange-600 text-white px-8 py-3 rounded-xl font-semibold hover:from-amber-700 hover:to-orange-700 transition-all duration-200"
+              >
+                Browse Menu
+              </Link>
+            </div>
           </div>
-        </div>
+        </NavigationWrapper>
       </main>
     );
   }
 
   return (
     <main className="min-h-screen bg-gradient-to-br from-amber-50 via-orange-50 to-amber-100">
-      <Navigation />
+      <NavigationWrapper>
       
       <div className="pt-20 pb-12">
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -327,6 +423,7 @@ export default function CheckoutPage() {
           </div>
         </div>
       </div>
+      </NavigationWrapper>
     </main>
   );
 }

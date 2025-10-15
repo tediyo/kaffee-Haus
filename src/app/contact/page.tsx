@@ -1,7 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import Navigation from '@/components/Navigation';
+import NavigationWrapper from '@/components/NavigationWrapper';
 import { MessageCircle, Star, MapPin, Phone, Mail, Clock, Send, CheckCircle, AlertCircle, Coffee, Instagram, Facebook, Twitter, Youtube, Linkedin, Wifi, Car, BookOpen, Users } from 'lucide-react';
 import { fetchContactData, Branch, ContactData } from '@/lib/api';
 
@@ -153,13 +153,14 @@ export default function ContactPage() {
   if (loading) {
     return (
       <main className="min-h-screen bg-gradient-to-br from-amber-50 via-orange-50 to-amber-100">
-        <Navigation />
-        <div className="flex items-center justify-center h-96">
-          <div className="text-center">
-            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-amber-600 mx-auto mb-4"></div>
-            <p className="text-gray-600">Loading contact information...</p>
+        <NavigationWrapper>
+          <div className="flex items-center justify-center h-96">
+            <div className="text-center">
+              <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-amber-600 mx-auto mb-4"></div>
+              <p className="text-gray-600">Loading contact information...</p>
+            </div>
           </div>
-        </div>
+        </NavigationWrapper>
       </main>
     );
   }
@@ -167,22 +168,23 @@ export default function ContactPage() {
   if (error) {
     return (
       <main className="min-h-screen bg-gradient-to-br from-amber-50 via-orange-50 to-amber-100">
-        <Navigation />
-        <div className="flex items-center justify-center h-96">
-          <div className="text-center">
-            <div className="text-red-500 mb-4">
-              <AlertCircle className="h-12 w-12 mx-auto" />
+        <NavigationWrapper>
+          <div className="flex items-center justify-center h-96">
+            <div className="text-center">
+              <div className="text-red-500 mb-4">
+                <AlertCircle className="h-12 w-12 mx-auto" />
+              </div>
+              <p className="text-gray-600">{error}</p>
             </div>
-            <p className="text-gray-600">{error}</p>
           </div>
-        </div>
+        </NavigationWrapper>
       </main>
     );
   }
 
   return (
     <main className="min-h-screen bg-gradient-to-br from-amber-50 via-orange-50 to-amber-100">
-      <Navigation />
+      <NavigationWrapper>
       
       {/* Enhanced Hero Section with Coffee Background */}
       {isSectionVisible('hero') && (
@@ -655,6 +657,7 @@ export default function ContactPage() {
         </section>
       )}
 
+      </NavigationWrapper>
     </main>
   );
 }
