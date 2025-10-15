@@ -106,8 +106,11 @@ export default function CheckoutPage() {
           
           clearCart();
           
-          // Redirect to order confirmation with real order number
-          router.push(`/order-confirmation?orderNumber=${response.data.orderNumber}&email=${formData.email}`);
+          // Small delay to ensure order is saved
+          setTimeout(() => {
+            // Redirect to order confirmation with real order number
+            router.push(`/order-confirmation?orderNumber=${response.data.orderNumber}&email=${formData.email}`);
+          }, 100);
           return;
         } else {
           throw new Error(response.message || 'Failed to place order');
@@ -134,8 +137,11 @@ export default function CheckoutPage() {
         addOrder(localOrder);
         clearCart();
         
-        // Redirect to order confirmation with local order
-        router.push(`/order-confirmation?orderNumber=${localOrderNumber}&email=${formData.email}`);
+        // Small delay to ensure order is saved
+        setTimeout(() => {
+          // Redirect to order confirmation with local order
+          router.push(`/order-confirmation?orderNumber=${localOrderNumber}&email=${formData.email}`);
+        }, 100);
         return;
       }
     } catch (error) {

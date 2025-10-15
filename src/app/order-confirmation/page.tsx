@@ -22,6 +22,9 @@ export default function OrderConfirmationPage() {
         const orderNumber = searchParams.get('orderNumber');
         const email = searchParams.get('email');
         
+        console.log('URL parameters:', { orderNumber, email });
+        console.log('All search params:', Object.fromEntries(searchParams.entries()));
+        
         if (orderNumber && email) {
           console.log('Looking for order:', { orderNumber, email });
           console.log('Available local orders:', orders.length);
@@ -44,13 +47,15 @@ export default function OrderConfirmationPage() {
             }
           }
         } else {
-          // Fallback to local storage for old URLs
-          const orderId = searchParams.get('orderId');
-          if (orderId && orders.length > 0) {
+          // Fallback to local storage - show most recent order
+          console.log('No URL parameters, showing most recent order');
+          if (orders.length > 0) {
             const latestOrder = orders[0];
+            console.log('Showing latest order:', latestOrder);
             setOrder(latestOrder);
           } else {
-            throw new Error('Order not found');
+            console.log('No orders found in local storage');
+            throw new Error('No orders found. Please place an order first.');
           }
         }
       } catch (err) {
