@@ -234,107 +234,131 @@ export default function OrderTrackingModal({ isOpen, onClose, initialOrderNumber
   const StatusIcon = currentStatus?.icon;
 
   const modalContent = (
-    <div className="fixed inset-0 bg-black bg-opacity-60 flex items-center justify-center p-4 z-[9999] backdrop-blur-sm">
-      <div className="bg-white rounded-2xl max-w-4xl w-full max-h-[90vh] overflow-y-auto relative shadow-2xl border border-amber-200/30">
-        {/* Coffee Background Pattern */}
-        <div className="absolute inset-0 bg-gradient-to-br from-amber-50 via-orange-50 to-amber-100 rounded-2xl overflow-hidden">
-          <div className="absolute top-0 right-0 w-32 h-32 bg-amber-200/20 rounded-full -translate-y-16 translate-x-16"></div>
-          <div className="absolute bottom-0 left-0 w-24 h-24 bg-orange-200/20 rounded-full translate-y-12 -translate-x-12"></div>
-          <div className="absolute top-1/2 left-1/2 w-16 h-16 bg-amber-300/10 rounded-full -translate-x-8 -translate-y-8"></div>
+    <div className="fixed inset-0 bg-black/70 flex items-center justify-center p-4 z-[9999] backdrop-blur-md animate-fadeIn">
+      <div className="bg-white rounded-3xl max-w-5xl w-full max-h-[95vh] overflow-hidden relative shadow-2xl border border-amber-200/50 animate-slideUp">
+        {/* Professional Background Pattern */}
+        <div className="absolute inset-0 bg-gradient-to-br from-slate-50 via-amber-50 to-orange-50 rounded-3xl overflow-hidden">
+          <div className="absolute top-0 right-0 w-40 h-40 bg-gradient-to-br from-amber-200/30 to-orange-300/20 rounded-full -translate-y-20 translate-x-20 animate-pulse"></div>
+          <div className="absolute bottom-0 left-0 w-32 h-32 bg-gradient-to-tr from-orange-200/30 to-amber-300/20 rounded-full translate-y-16 -translate-x-16 animate-pulse" style={{animationDelay: '1s'}}></div>
+          <div className="absolute top-1/2 left-1/2 w-20 h-20 bg-gradient-to-br from-amber-300/20 to-orange-400/10 rounded-full -translate-x-10 -translate-y-10 animate-pulse" style={{animationDelay: '2s'}}></div>
         </div>
         
-        {/* Coffee Bean Decoration */}
-        <div className="absolute top-4 right-4 text-amber-300/30 animate-float">
-          <Package className="h-8 w-8" />
+        {/* Animated Coffee Bean Decoration */}
+        <div className="absolute top-6 right-6 text-amber-400/40 animate-float">
+          <Package className="h-10 w-10" />
+        </div>
+        <div className="absolute bottom-6 left-6 text-orange-400/30 animate-float" style={{animationDelay: '1.5s'}}>
+          <Coffee className="h-8 w-8" />
         </div>
         
-        <div className="p-6 border-b border-amber-200/30 relative">
+        <div className="p-8 border-b border-gradient-to-r from-amber-200/50 to-orange-200/50 relative bg-gradient-to-r from-white/90 to-amber-50/30">
           <div className="flex justify-between items-center">
-            <div className="flex items-center space-x-3">
-              <div className="w-10 h-10 bg-gradient-to-br from-amber-500 to-orange-600 rounded-full flex items-center justify-center">
-                <Package className="h-5 w-5 text-white" />
+            <div className="flex items-center space-x-4">
+              <div className="w-14 h-14 bg-gradient-to-br from-amber-500 via-orange-500 to-amber-600 rounded-2xl flex items-center justify-center shadow-lg hover-glow">
+                <Package className="h-7 w-7 text-white" />
               </div>
               <div>
-                <h3 className="text-2xl font-bold text-gray-800">Track Your Order</h3>
-                <p className="text-sm text-amber-600 font-medium">
+                <h3 className="text-3xl font-bold bg-gradient-to-r from-gray-800 to-gray-600 bg-clip-text text-transparent">
+                  Order Tracking
+                </h3>
+                <p className="text-sm text-amber-600 font-medium mt-1">
                   {order ? `Order #${order.orderNumber}` : 'Enter your order details to track your order status'}
                 </p>
+                {order && (
+                  <div className="mt-2 flex items-center space-x-2">
+                    <div className={`px-3 py-1 rounded-full text-xs font-semibold ${currentStatus?.bgColor} ${currentStatus?.color}`}>
+                      {currentStatus?.label}
+                    </div>
+                    <div className="text-xs text-gray-500">
+                      {formatDate(order.orderTime)}
+                    </div>
+                  </div>
+                )}
               </div>
             </div>
             <button
               onClick={handleClose}
-              className="text-gray-400 hover:text-gray-600 hover:bg-gray-100 rounded-full p-2 transition-colors"
+              className="text-gray-400 hover:text-gray-600 hover:bg-gray-100 rounded-xl p-3 transition-all duration-200 hover-lift"
             >
-              <X className="h-5 w-5" />
+              <X className="h-6 w-6" />
             </button>
           </div>
         </div>
 
-        <div className="p-6 space-y-6 relative">
+        <div className="p-8 space-y-8 relative">
           {/* Search Form */}
           {!order && (
-            <form onSubmit={handleTrackOrder} className="space-y-5">
-              {error && (
-                <div className="bg-red-50 border border-red-200 rounded-xl p-4 text-red-700 text-sm flex items-center space-x-2 animate-shake">
-                  <AlertCircle className="h-4 w-4" />
-                  <span>{error}</span>
-                </div>
-              )}
-
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div className="group">
-                  <label className="block text-sm font-semibold text-gray-700 mb-2">
-                    Order Number
-                  </label>
-                  <div className="relative">
-                    <Package className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-amber-500 group-focus-within:text-amber-600 transition-colors" />
-                    <input
-                      type="text"
-                      value={orderNumber}
-                      onChange={(e) => setOrderNumber(e.target.value)}
-                      className="w-full pl-10 pr-3 py-3 border-2 border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-amber-500 transition-all duration-200 bg-white/60 backdrop-blur-sm"
-                      placeholder="e.g., #ORD-008"
-                      required
-                    />
-                  </div>
-                </div>
-
-                <div className="group">
-                  <label className="block text-sm font-semibold text-gray-700 mb-2">
-                    Email Address
-                  </label>
-                  <div className="relative">
-                    <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-amber-500 group-focus-within:text-amber-600 transition-colors" />
-                    <input
-                      type="email"
-                      value={email}
-                      onChange={(e) => setEmail(e.target.value)}
-                      className="w-full pl-10 pr-3 py-3 border-2 border-gray-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-amber-500 transition-all duration-200 bg-white/60 backdrop-blur-sm"
-                      placeholder="Enter your email address"
-                      required
-                    />
-                  </div>
-                </div>
+            <div className="bg-gradient-to-br from-white to-amber-50/30 rounded-2xl p-8 border border-amber-200/50 shadow-lg">
+              <div className="text-center mb-8">
+                <h4 className="text-2xl font-bold text-gray-800 mb-2">Find Your Order</h4>
+                <p className="text-gray-600">Enter your order details to track your order status</p>
               </div>
-
-              <button
-                type="submit"
-                disabled={loading}
-                className="w-full bg-gradient-to-r from-amber-600 to-orange-600 text-white py-3 px-6 rounded-xl hover:from-amber-700 hover:to-orange-700 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-200 font-semibold text-lg shadow-lg hover:shadow-xl transform hover:scale-[1.02] active:scale-[0.98]"
-              >
-                {loading ? (
-                  <div className="flex items-center justify-center space-x-2">
-                    <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
-                    <span>Searching...</span>
-                  </div>
-                ) : (
-                  <div className="flex items-center justify-center space-x-2">
-                    <Package className="h-5 w-5" />
-                    <span>Track Order</span>
+              
+              <form onSubmit={handleTrackOrder} className="space-y-6">
+                {error && (
+                  <div className="bg-red-50 border-l-4 border-red-400 rounded-xl p-4 text-red-700 text-sm flex items-center space-x-3 animate-shake">
+                    <AlertCircle className="h-5 w-5 flex-shrink-0" />
+                    <span className="font-medium">{error}</span>
                   </div>
                 )}
-              </button>
-            </form>
+
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <div className="group">
+                    <label className="block text-sm font-bold text-gray-700 mb-3 flex items-center space-x-2">
+                      <Package className="h-4 w-4 text-amber-500" />
+                      <span>Order Number</span>
+                    </label>
+                    <div className="relative">
+                      <input
+                        type="text"
+                        value={orderNumber}
+                        onChange={(e) => setOrderNumber(e.target.value)}
+                        className="w-full pl-12 pr-4 py-4 border-2 border-gray-200 rounded-xl focus:outline-none focus:ring-4 focus:ring-amber-500/20 focus:border-amber-500 transition-all duration-300 bg-white/80 backdrop-blur-sm text-lg font-medium hover-lift"
+                        placeholder="e.g., #ORD-008"
+                        required
+                      />
+                      <Package className="absolute left-4 top-1/2 transform -translate-y-1/2 h-5 w-5 text-amber-500 group-focus-within:text-amber-600 transition-colors" />
+                    </div>
+                  </div>
+
+                  <div className="group">
+                    <label className="block text-sm font-bold text-gray-700 mb-3 flex items-center space-x-2">
+                      <Search className="h-4 w-4 text-amber-500" />
+                      <span>Email Address</span>
+                    </label>
+                    <div className="relative">
+                      <input
+                        type="email"
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                        className="w-full pl-12 pr-4 py-4 border-2 border-gray-200 rounded-xl focus:outline-none focus:ring-4 focus:ring-amber-500/20 focus:border-amber-500 transition-all duration-300 bg-white/80 backdrop-blur-sm text-lg font-medium hover-lift"
+                        placeholder="Enter your email address"
+                        required
+                      />
+                      <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 h-5 w-5 text-amber-500 group-focus-within:text-amber-600 transition-colors" />
+                    </div>
+                  </div>
+                </div>
+
+                <button
+                  type="submit"
+                  disabled={loading}
+                  className="w-full gradient-primary text-white py-4 px-8 rounded-xl hover:shadow-xl disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-300 font-bold text-lg hover-lift hover-glow"
+                >
+                  {loading ? (
+                    <div className="flex items-center justify-center space-x-3">
+                      <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+                      <span>Searching Order...</span>
+                    </div>
+                  ) : (
+                    <div className="flex items-center justify-center space-x-3">
+                      <Package className="h-6 w-6" />
+                      <span>Track My Order</span>
+                    </div>
+                  )}
+                </button>
+              </form>
+            </div>
           )}
 
           {/* Order Details */}
@@ -342,85 +366,102 @@ export default function OrderTrackingModal({ isOpen, onClose, initialOrderNumber
             <>
               {/* Success Message */}
               {successMessage && (
-                <div className="bg-green-50 border border-green-200 rounded-xl p-4">
-                  <div className="flex items-center space-x-2">
-                    <CheckCircle className="h-5 w-5 text-green-600" />
-                    <p className="text-green-800 font-medium">{successMessage}</p>
+                <div className="bg-gradient-to-r from-green-50 to-emerald-50 border-l-4 border-green-400 rounded-xl p-6 shadow-lg animate-bounce">
+                  <div className="flex items-center space-x-3">
+                    <div className="w-10 h-10 bg-green-100 rounded-full flex items-center justify-center">
+                      <CheckCircle className="h-6 w-6 text-green-600" />
+                    </div>
+                    <div>
+                      <p className="text-green-800 font-bold text-lg">{successMessage}</p>
+                      <p className="text-green-600 text-sm">Your order status has been updated</p>
+                    </div>
                   </div>
                 </div>
               )}
 
               {/* Error Message */}
               {error && (
-                <div className="bg-red-50 border border-red-200 rounded-xl p-4">
-                  <div className="flex items-center space-x-2">
-                    <AlertCircle className="h-5 w-5 text-red-600" />
-                    <p className="text-red-800 font-medium">{error}</p>
+                <div className="bg-gradient-to-r from-red-50 to-pink-50 border-l-4 border-red-400 rounded-xl p-6 shadow-lg animate-shake">
+                  <div className="flex items-center space-x-3">
+                    <div className="w-10 h-10 bg-red-100 rounded-full flex items-center justify-center">
+                      <AlertCircle className="h-6 w-6 text-red-600" />
+                    </div>
+                    <div>
+                      <p className="text-red-800 font-bold text-lg">{error}</p>
+                      <p className="text-red-600 text-sm">Please try again or contact support</p>
+                    </div>
                   </div>
                 </div>
               )}
 
-              {/* Order Status */}
-              <div className="bg-white rounded-xl shadow-lg p-6 border border-amber-200/50">
-                <div className="flex items-center justify-between mb-4">
+              {/* Order Status Card */}
+              <div className="bg-gradient-to-br from-white to-amber-50/30 rounded-2xl shadow-xl p-8 border border-amber-200/50 hover-lift">
+                <div className="flex items-center justify-between mb-6">
                   <div>
-                    <h2 className="text-xl font-bold text-gray-800">Order Status</h2>
-                    <p className="text-gray-600">Order #{order.orderNumber}</p>
+                    <h2 className="text-2xl font-bold text-gray-800 mb-2">Order Status</h2>
+                    <p className="text-gray-600 text-lg">Order #{order.orderNumber}</p>
                   </div>
-                  <div className={`inline-flex items-center px-4 py-2 rounded-full ${currentStatus?.bgColor} ${currentStatus?.color}`}>
-                    {StatusIcon && <StatusIcon className="h-4 w-4 mr-2" />}
-                    <span className="font-medium">{currentStatus?.label}</span>
+                  <div className={`inline-flex items-center px-6 py-3 rounded-2xl ${currentStatus?.bgColor} ${currentStatus?.color} shadow-lg`}>
+                    {StatusIcon && <StatusIcon className="h-6 w-6 mr-3" />}
+                    <span className="font-bold text-lg">{currentStatus?.label}</span>
                   </div>
                 </div>
-                <p className="text-gray-600">{currentStatus?.description}</p>
+                <div className="bg-white/60 rounded-xl p-4 border border-amber-200/30">
+                  <p className="text-gray-700 text-lg font-medium">{currentStatus?.description}</p>
+                </div>
               </div>
 
               {/* Order Details Grid */}
-              <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
                 {/* Customer Info */}
-                <div className="bg-white rounded-xl shadow-lg p-6 border border-amber-200/50">
-                  <h3 className="text-lg font-semibold text-gray-800 mb-4">Customer Information</h3>
-                  <div className="space-y-3">
-                    <div className="flex items-center space-x-3">
-                      <User className="h-5 w-5 text-gray-500" />
+                <div className="bg-gradient-to-br from-white to-blue-50/30 rounded-2xl shadow-xl p-8 border border-blue-200/50 hover-lift">
+                  <div className="flex items-center space-x-3 mb-6">
+                    <div className="w-10 h-10 bg-blue-100 rounded-xl flex items-center justify-center">
+                      <User className="h-6 w-6 text-blue-600" />
+                    </div>
+                    <h3 className="text-xl font-bold text-gray-800">Customer Information</h3>
+                  </div>
+                  <div className="space-y-4">
+                    <div className="flex items-center space-x-4 p-4 bg-white/60 rounded-xl border border-blue-200/30">
+                      <User className="h-6 w-6 text-blue-500" />
                       <div>
-                        <div className="font-medium text-gray-800">{order.customerInfo.name}</div>
-                        <div className="text-sm text-gray-600">Customer</div>
+                        <div className="font-bold text-gray-800 text-lg">{order.customerInfo.name}</div>
+                        <div className="text-sm text-blue-600 font-medium">Customer Name</div>
                       </div>
                     </div>
                     
-                    <div className="flex items-center space-x-3">
-                      <Mail className="h-5 w-5 text-gray-500" />
+                    <div className="flex items-center space-x-4 p-4 bg-white/60 rounded-xl border border-blue-200/30">
+                      <Mail className="h-6 w-6 text-blue-500" />
                       <div>
-                        <div className="font-medium text-gray-800">{order.customerInfo.email}</div>
-                        <div className="text-sm text-gray-600">Email</div>
+                        <div className="font-bold text-gray-800 text-lg">{order.customerInfo.email}</div>
+                        <div className="text-sm text-blue-600 font-medium">Email Address</div>
                       </div>
                     </div>
                     
-                    <div className="flex items-center space-x-3">
-                      <Phone className="h-5 w-5 text-gray-500" />
+                    <div className="flex items-center space-x-4 p-4 bg-white/60 rounded-xl border border-blue-200/30">
+                      <Phone className="h-6 w-6 text-blue-500" />
                       <div>
-                        <div className="font-medium text-gray-800">{order.customerInfo.phone}</div>
-                        <div className="text-sm text-gray-600">Phone</div>
+                        <div className="font-bold text-gray-800 text-lg">{order.customerInfo.phone}</div>
+                        <div className="text-sm text-blue-600 font-medium">Phone Number</div>
                       </div>
                     </div>
                     
-                    <div className="flex items-center space-x-3">
-                      {order.orderType === 'pickup' ? <Home className="h-5 w-5 text-gray-500" /> : <Truck className="h-5 w-5 text-gray-500" />}
+                    <div className="flex items-center space-x-4 p-4 bg-white/60 rounded-xl border border-blue-200/30">
+                      {order.orderType === 'pickup' ? <Home className="h-6 w-6 text-blue-500" /> : <Truck className="h-6 w-6 text-blue-500" />}
                       <div>
-                        <div className="font-medium text-gray-800">
+                        <div className="font-bold text-gray-800 text-lg">
                           {order.orderType === 'pickup' ? 'Pickup' : 'Delivery'}
                         </div>
-                        <div className="text-sm text-gray-600">Order Type</div>
+                        <div className="text-sm text-blue-600 font-medium">Order Type</div>
                       </div>
                     </div>
                     
                     {order.customerInfo.address && (
-                      <div className="flex items-start space-x-3">
-                        <MapPin className="h-5 w-5 text-gray-500 mt-1" />
+                      <div className="flex items-start space-x-4 p-4 bg-white/60 rounded-xl border border-blue-200/30">
+                        <MapPin className="h-6 w-6 text-blue-500 mt-1" />
                         <div>
-                          <div className="font-medium text-gray-800">{order.customerInfo.address}</div>
-                          <div className="text-sm text-gray-600">Delivery Address</div>
+                          <div className="font-bold text-gray-800 text-lg">{order.customerInfo.address}</div>
+                          <div className="text-sm text-blue-600 font-medium">Delivery Address</div>
                         </div>
                       </div>
                     )}
@@ -428,34 +469,40 @@ export default function OrderTrackingModal({ isOpen, onClose, initialOrderNumber
                 </div>
 
                 {/* Order Items */}
-                <div className="bg-white rounded-xl shadow-lg p-6 border border-amber-200/50">
-                  <h3 className="text-lg font-semibold text-gray-800 mb-4">Order Items</h3>
+                <div className="bg-gradient-to-br from-white to-amber-50/30 rounded-2xl shadow-xl p-8 border border-amber-200/50 hover-lift">
+                  <div className="flex items-center space-x-3 mb-6">
+                    <div className="w-10 h-10 bg-amber-100 rounded-xl flex items-center justify-center">
+                      <Package className="h-6 w-6 text-amber-600" />
+                    </div>
+                    <h3 className="text-xl font-bold text-gray-800">Order Items</h3>
+                  </div>
                   
-                  <div className="space-y-3">
+                  <div className="space-y-4">
                     {order.items.map((item, index) => (
-                      <div key={index} className="flex items-center space-x-3 p-3 bg-gray-50 rounded-lg">
+                      <div key={index} className="flex items-center space-x-4 p-4 bg-white/60 rounded-xl border border-amber-200/30 hover-lift">
                         <img
                           src={item.image}
                           alt={item.name}
-                          className="w-12 h-12 rounded-lg object-cover"
+                          className="w-16 h-16 rounded-xl object-cover shadow-md"
                         />
                         <div className="flex-1">
-                          <div className="font-medium text-gray-800">{item.name}</div>
-                          <div className="text-sm text-gray-600">Qty: {item.quantity}</div>
+                          <div className="font-bold text-gray-800 text-lg">{item.name}</div>
+                          <div className="text-sm text-amber-600 font-medium">Quantity: {item.quantity}</div>
                         </div>
                         <div className="text-right">
-                          <div className="font-medium text-gray-800">
+                          <div className="font-bold text-gray-800 text-lg">
                             ${(item.price * item.quantity).toFixed(2)}
                           </div>
+                          <div className="text-sm text-amber-600 font-medium">Total</div>
                         </div>
                       </div>
                     ))}
                   </div>
 
-                  <div className="mt-6 pt-6 border-t border-gray-200">
-                    <div className="flex justify-between items-center">
-                      <span className="text-lg font-semibold text-gray-800">Total</span>
-                      <span className="text-2xl font-bold text-amber-600">
+                  <div className="mt-8 pt-6 border-t-2 border-amber-200/50">
+                    <div className="flex justify-between items-center bg-gradient-to-r from-amber-100 to-orange-100 p-6 rounded-xl">
+                      <span className="text-xl font-bold text-gray-800">Total Amount</span>
+                      <span className="text-3xl font-bold gradient-primary bg-clip-text text-transparent">
                         ${order.total.toFixed(2)}
                       </span>
                     </div>
@@ -464,44 +511,56 @@ export default function OrderTrackingModal({ isOpen, onClose, initialOrderNumber
               </div>
 
               {/* Tracking Timeline */}
-              <div className="bg-white rounded-xl shadow-lg p-6 border border-amber-200/50">
-                <h3 className="text-lg font-semibold text-gray-800 mb-4">Order Timeline</h3>
+              <div className="bg-gradient-to-br from-white to-green-50/30 rounded-2xl shadow-xl p-8 border border-green-200/50 hover-lift">
+                <div className="flex items-center space-x-3 mb-8">
+                  <div className="w-10 h-10 bg-green-100 rounded-xl flex items-center justify-center">
+                    <Clock className="h-6 w-6 text-green-600" />
+                  </div>
+                  <h3 className="text-2xl font-bold text-gray-800">Order Timeline</h3>
+                </div>
                 
-                <div className="space-y-4">
+                <div className="space-y-6">
                   {tracking.map((entry, index) => {
                     const entryStatus = statusConfig[entry.status];
                     const EntryIcon = entryStatus.icon;
                     const isLast = index === tracking.length - 1;
                     
                     return (
-                      <div key={entry._id} className="flex items-start space-x-4">
-                        <div className={`flex-shrink-0 w-8 h-8 rounded-full ${entryStatus.bgColor} flex items-center justify-center`}>
-                          <EntryIcon className={`h-4 w-4 ${entryStatus.color}`} />
+                      <div key={entry._id} className="flex items-start space-x-6">
+                        <div className={`w-14 h-14 rounded-2xl flex items-center justify-center ${entryStatus.bgColor} ${entryStatus.color} ${isLast ? 'ring-4 ring-green-200 shadow-lg' : ''} transition-all duration-300 hover-lift`}>
+                          <EntryIcon className="h-7 w-7" />
                         </div>
-                        <div className="flex-1 min-w-0">
-                          <div className="flex items-center justify-between">
-                            <div className="font-medium text-gray-800">{entryStatus.label}</div>
-                            <div className="text-sm text-gray-500">
+                        <div className="flex-1 bg-white/60 rounded-xl p-6 border border-green-200/30">
+                          <div className="flex items-center justify-between mb-2">
+                            <span className="font-bold text-gray-800 text-lg">{entryStatus.label}</span>
+                            <span className="text-sm text-green-600 font-medium bg-green-100 px-3 py-1 rounded-full">
                               {formatDate(entry.statusChangedAt)}
-                            </div>
+                            </span>
                           </div>
-                          <div className="text-sm text-gray-600 mt-1">
-                            {entryStatus.description}
-                          </div>
+                          <p className="text-gray-700 font-medium">{entryStatus.description}</p>
                           {entry.adminNotes && (
-                            <div className="mt-2 p-2 bg-blue-50 rounded-lg text-sm text-blue-800">
-                              <strong>Admin Note:</strong> {entry.adminNotes}
+                            <div className="mt-3 p-4 bg-blue-50 rounded-xl border border-blue-200/30">
+                              <div className="flex items-start space-x-2">
+                                <AlertCircle className="h-5 w-5 text-blue-600 mt-0.5" />
+                                <div>
+                                  <div className="font-bold text-blue-800 text-sm">Admin Note</div>
+                                  <div className="text-blue-700 text-sm mt-1">{entry.adminNotes}</div>
+                                </div>
+                              </div>
                             </div>
                           )}
                           {entry.customerNotes && (
-                            <div className="mt-2 p-2 bg-green-50 rounded-lg text-sm text-green-800">
-                              <strong>Your Note:</strong> {entry.customerNotes}
+                            <div className="mt-3 p-4 bg-green-50 rounded-xl border border-green-200/30">
+                              <div className="flex items-start space-x-2">
+                                <CheckCircle className="h-5 w-5 text-green-600 mt-0.5" />
+                                <div>
+                                  <div className="font-bold text-green-800 text-sm">Your Note</div>
+                                  <div className="text-green-700 text-sm mt-1">{entry.customerNotes}</div>
+                                </div>
+                              </div>
                             </div>
                           )}
                         </div>
-                        {!isLast && (
-                          <div className="absolute left-4 top-8 w-0.5 h-8 bg-gray-200"></div>
-                        )}
                       </div>
                     );
                   })}
@@ -510,34 +569,37 @@ export default function OrderTrackingModal({ isOpen, onClose, initialOrderNumber
 
               {/* Delivery/Pickup Confirmation */}
               {order.status === 'ready' && (
-                <div className="bg-white rounded-xl shadow-lg p-6 border border-amber-200/50">
+                <div className="bg-gradient-to-br from-green-50 to-emerald-50 rounded-2xl shadow-xl p-8 border border-green-200/50 hover-lift">
                   <div className="text-center">
-                    <h3 className="text-lg font-semibold text-gray-800 mb-2">
+                    <div className="w-20 h-20 bg-gradient-to-br from-green-100 to-emerald-100 rounded-3xl flex items-center justify-center mx-auto mb-6 shadow-lg animate-pulse">
+                      <CheckCircle className="h-10 w-10 text-green-600" />
+                    </div>
+                    <h3 className="text-3xl font-bold text-gray-800 mb-4">
                       Order Ready for {order.orderType === 'pickup' ? 'Pickup' : 'Delivery'}!
                     </h3>
-                    <p className="text-gray-600 mb-4">
+                    <p className="text-gray-600 mb-8 text-lg max-w-2xl mx-auto">
                       {order.orderType === 'pickup' 
-                        ? 'Your order is ready for pickup. Please come to our location to collect it.'
-                        : 'Your order is ready for delivery. Please confirm when you receive it.'
+                        ? 'Your order is ready for pickup. Please come to our location to collect it. We\'re excited to serve you!'
+                        : 'Your order is ready for delivery. Please confirm when you receive it. Thank you for choosing us!'
                       }
                     </p>
                     <button
                       onClick={handleDeliveryConfirmation}
                       disabled={confirmingDelivery}
-                      className={`px-6 py-3 rounded-lg text-white font-semibold transition-all duration-200 flex items-center space-x-2 mx-auto ${
+                      className={`px-12 py-4 rounded-2xl text-white font-bold text-xl transition-all duration-300 flex items-center space-x-3 mx-auto hover-lift hover-glow ${
                         order.orderType === 'pickup' 
-                          ? 'bg-blue-600 hover:bg-blue-700' 
-                          : 'bg-green-600 hover:bg-green-700'
+                          ? 'gradient-info' 
+                          : 'gradient-success'
                       } disabled:opacity-50 disabled:cursor-not-allowed`}
                     >
                       {confirmingDelivery ? (
                         <>
-                          <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+                          <div className="w-6 h-6 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
                           <span>Confirming...</span>
                         </>
                       ) : (
                         <>
-                          <CheckCircle className="h-4 w-4" />
+                          <CheckCircle className="h-6 w-6" />
                           <span>Confirm {order.orderType === 'pickup' ? 'Pickup' : 'Delivery'}</span>
                         </>
                       )}
@@ -547,7 +609,7 @@ export default function OrderTrackingModal({ isOpen, onClose, initialOrderNumber
               )}
 
               {/* Action Buttons */}
-              <div className="flex items-center justify-center space-x-4">
+              <div className="flex items-center justify-center space-x-6 pt-6">
                 <button
                   onClick={() => {
                     setOrder(null);
@@ -557,15 +619,21 @@ export default function OrderTrackingModal({ isOpen, onClose, initialOrderNumber
                     setError('');
                     setSuccessMessage('');
                   }}
-                  className="bg-white border-2 border-amber-500 text-amber-600 px-6 py-2 rounded-lg hover:bg-amber-50 transition-all duration-200 font-semibold"
+                  className="bg-white border-2 border-amber-500 text-amber-600 px-8 py-3 rounded-xl hover:bg-amber-50 transition-all duration-300 font-bold text-lg hover-lift shadow-lg"
                 >
-                  Track Another Order
+                  <div className="flex items-center space-x-2">
+                    <Search className="h-5 w-5" />
+                    <span>Track Another Order</span>
+                  </div>
                 </button>
                 <button
                   onClick={handleClose}
-                  className="bg-gradient-to-r from-amber-600 to-orange-600 text-white px-6 py-2 rounded-lg hover:from-amber-700 hover:to-orange-700 transition-all duration-200 font-semibold"
+                  className="gradient-primary text-white px-8 py-3 rounded-xl hover:shadow-xl transition-all duration-300 font-bold text-lg hover-lift hover-glow"
                 >
-                  Close
+                  <div className="flex items-center space-x-2">
+                    <X className="h-5 w-5" />
+                    <span>Close</span>
+                  </div>
                 </button>
               </div>
             </>

@@ -122,10 +122,10 @@ const Navigation = ({ onFAQClick, onCartClick }: NavigationProps) => {
             {/* Track Order Button */}
             <button
               onClick={() => setShowTrackOrderModal(true)}
-              className="p-2 text-gray-600 hover:text-amber-600 hover:bg-amber-50 rounded-xl"
+              className="p-3 text-gray-600 hover:text-amber-600 hover:bg-amber-50 rounded-xl transition-all duration-300 hover-lift"
               title="Track Your Order"
             >
-              <Package className="h-5 w-5" />
+              <Package className="h-6 w-6" />
             </button>
 
             {/* Authentication */}
@@ -218,10 +218,10 @@ const Navigation = ({ onFAQClick, onCartClick }: NavigationProps) => {
                 setShowTrackOrderModal(true);
                 setIsOpen(false);
               }}
-              className="group flex items-center space-x-3 px-4 py-3 text-gray-700 hover:text-amber-600 hover:bg-gradient-to-r hover:from-amber-50 hover:to-amber-100 rounded-xl relative overflow-hidden w-full"
+              className="group flex items-center space-x-3 px-6 py-4 text-gray-700 hover:text-amber-600 hover:bg-gradient-to-r hover:from-amber-50 hover:to-amber-100 rounded-xl relative overflow-hidden w-full transition-all duration-300 hover-lift"
             >
-              <Package className="h-5 w-5 text-purple-600" />
-              <span className="font-medium">Track Order</span>
+              <Package className="h-6 w-6 text-amber-600" />
+              <span className="font-bold text-lg">Track Order</span>
             </button>
           </div>
         </div>
