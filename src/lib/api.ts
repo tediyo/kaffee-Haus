@@ -252,14 +252,51 @@ export async function fetchHomeContent(): Promise<HomeContent[]> {
     });
     
     if (!response.ok) {
-      throw new Error('Failed to fetch home content');
+      console.warn('Failed to fetch home content from API, using fallback data');
+      // Return fallback data instead of throwing error
+      return [
+        {
+          section: 'hero',
+          field: 'title',
+          value: 'Welcome to Our Coffee Shop',
+          is_active: true,
+          created_at: new Date(),
+          updated_at: new Date()
+        },
+        {
+          section: 'hero',
+          field: 'subtitle',
+          value: 'Experience the perfect blend of tradition and innovation',
+          is_active: true,
+          created_at: new Date(),
+          updated_at: new Date()
+        }
+      ];
     }
     
     const data = await response.json();
     return data.success ? data.data : [];
   } catch (error) {
     console.error('Error fetching home content:', error);
-    return [];
+    // Return fallback data instead of empty array
+    return [
+      {
+        section: 'hero',
+        field: 'title',
+        value: 'Welcome to Our Coffee Shop',
+        is_active: true,
+        created_at: new Date(),
+        updated_at: new Date()
+      },
+      {
+        section: 'hero',
+        field: 'subtitle',
+        value: 'Experience the perfect blend of tradition and innovation',
+        is_active: true,
+        created_at: new Date(),
+        updated_at: new Date()
+      }
+    ];
   }
 }
 
@@ -270,14 +307,31 @@ export async function fetchDisplaySettings(): Promise<DisplaySetting[]> {
     });
     
     if (!response.ok) {
-      throw new Error('Failed to fetch display settings');
+      console.warn('Failed to fetch display settings from API, using fallback data');
+      return [
+        {
+          setting_key: 'show_hero',
+          setting_value: 'true',
+          description: 'Show hero section',
+          created_at: new Date(),
+          updated_at: new Date()
+        }
+      ]; 
     }
     
     const data = await response.json();
     return data.success ? data.data : [];
   } catch (error) {
     console.error('Error fetching display settings:', error);
-    return [];
+    return [
+      {
+        setting_key: 'show_hero',
+        setting_value: 'true',
+        description: 'Show hero section',
+        created_at: new Date(),
+        updated_at: new Date()
+      }
+    ];
   }
 }
 
@@ -288,14 +342,95 @@ export async function fetchHighlightCards(): Promise<HighlightCard[]> {
     });
     
     if (!response.ok) {
-      throw new Error('Failed to fetch highlight cards');
+      console.warn('Failed to fetch highlight cards from API, using fallback data');
+      return [
+        {
+          title: 'Premium Coffee Beans',
+          description: 'Sourced from the finest coffee regions around the world',
+          image_url: '',
+          price: 'From $12',
+          badge: 'Premium',
+          is_popular: true,
+          is_seasonal: false,
+          is_active: true,
+          sort_order: 1,
+          created_at: new Date(),
+          updated_at: new Date()
+        },
+        {
+          title: 'Artisan Roasting',
+          description: 'Expertly roasted to bring out the perfect flavor profile',
+          image_url: '',
+          price: 'Custom',
+          badge: 'Artisan',
+          is_popular: false,
+          is_seasonal: false,
+          is_active: true,
+          sort_order: 2,
+          created_at: new Date(),
+          updated_at: new Date()
+        },
+        {
+          title: 'Fresh Daily',
+          description: 'Brewed fresh every day with care and attention to detail',
+          image_url: '',
+          price: 'Daily',
+          badge: 'Fresh',
+          is_popular: true,
+          is_seasonal: false,
+          is_active: true,
+          sort_order: 3,
+          created_at: new Date(),
+          updated_at: new Date()
+        }
+      ];
     }
     
     const data = await response.json();
     return data.success ? data.data.filter((card: HighlightCard) => card.is_active) : [];
   } catch (error) {
     console.error('Error fetching highlight cards:', error);
-    return [];
+    return [
+      {
+        title: 'Premium Coffee Beans',
+        description: 'Sourced from the finest coffee regions around the world',
+        image_url: '',
+        price: 'From $12',
+        badge: 'Premium',
+        is_popular: true,
+        is_seasonal: false,
+        is_active: true,
+        sort_order: 1,
+        created_at: new Date(),
+        updated_at: new Date()
+      },
+      {
+        title: 'Artisan Roasting',
+        description: 'Expertly roasted to bring out the perfect flavor profile',
+        image_url: '',
+        price: 'Custom',
+        badge: 'Artisan',
+        is_popular: false,
+        is_seasonal: false,
+        is_active: true,
+        sort_order: 2,
+        created_at: new Date(),
+        updated_at: new Date()
+      },
+      {
+        title: 'Fresh Daily',
+        description: 'Brewed fresh every day with care and attention to detail',
+        image_url: '',
+        price: 'Daily',
+        badge: 'Fresh',
+        is_popular: true,
+        is_seasonal: false,
+        is_active: true,
+        sort_order: 3,
+        created_at: new Date(),
+        updated_at: new Date()
+      }
+    ];
   }
 }
 
@@ -306,14 +441,77 @@ export async function fetchCoffeeHistory(): Promise<CoffeeHistory[]> {
     });
     
     if (!response.ok) {
-      throw new Error('Failed to fetch coffee history');
+      console.warn('Failed to fetch coffee history from API, using fallback data');
+      return [
+        {
+          year: '850 AD',
+          title: 'Discovery of Coffee',
+          description: 'Legend says a goat herder named Kaldi discovered coffee when his goats became energetic after eating coffee berries.',
+          image_url: '',
+          is_active: true,
+          sort_order: 1,
+          created_at: new Date(),
+          updated_at: new Date()
+        },
+        {
+          year: '1500s',
+          title: 'Coffee Spreads to Arabia',
+          description: 'Coffee cultivation and trade began in the Arabian Peninsula, particularly in Yemen.',
+          image_url: '',
+          is_active: true,
+          sort_order: 2,
+          created_at: new Date(),
+          updated_at: new Date()
+        },
+        {
+          year: '1600s',
+          title: 'Coffee Reaches Europe',
+          description: 'Coffee houses opened in major European cities, becoming centers of social and intellectual activity.',
+          image_url: '',
+          is_active: true,
+          sort_order: 3,
+          created_at: new Date(),
+          updated_at: new Date()
+        }
+      ];
     }
     
     const data = await response.json();
     return data.success ? data.data.filter((item: CoffeeHistory) => item.is_active) : [];
   } catch (error) {
     console.error('Error fetching coffee history:', error);
-    return [];
+    return [
+      {
+        year: '850 AD',
+        title: 'Discovery of Coffee',
+        description: 'Legend says a goat herder named Kaldi discovered coffee when his goats became energetic after eating coffee berries.',
+        image_url: '',
+        is_active: true,
+        sort_order: 1,
+        created_at: new Date(),
+        updated_at: new Date()
+      },
+      {
+        year: '1500s',
+        title: 'Coffee Spreads to Arabia',
+        description: 'Coffee cultivation and trade began in the Arabian Peninsula, particularly in Yemen.',
+        image_url: '',
+        is_active: true,
+        sort_order: 2,
+        created_at: new Date(),
+        updated_at: new Date()
+      },
+      {
+        year: '1600s',
+        title: 'Coffee Reaches Europe',
+        description: 'Coffee houses opened in major European cities, becoming centers of social and intellectual activity.',
+        image_url: '',
+        is_active: true,
+        sort_order: 3,
+        created_at: new Date(),
+        updated_at: new Date()
+      }
+    ];
   }
 }
 
@@ -324,14 +522,59 @@ export async function fetchCoffeeFacts(): Promise<CoffeeFact[]> {
     });
     
     if (!response.ok) {
-      throw new Error('Failed to fetch coffee facts');
+      console.warn('Failed to fetch coffee facts from API, using fallback data');
+      return [
+        {
+          fact: 'Coffee is the second most traded commodity in the world, after oil.',
+          is_active: true,
+          sort_order: 1,
+          created_at: new Date(),
+          updated_at: new Date()
+        },
+        {
+          fact: 'The average coffee drinker consumes 3.1 cups of coffee per day.',
+          is_active: true,
+          sort_order: 2,
+          created_at: new Date(),
+          updated_at: new Date()
+        },
+        {
+          fact: 'Coffee beans are actually seeds from the coffee cherry fruit.',
+          is_active: true,
+          sort_order: 3,
+          created_at: new Date(),
+          updated_at: new Date()
+        }
+      ];
     }
     
     const data = await response.json();
     return data.success ? data.data.filter((fact: CoffeeFact) => fact.is_active) : [];
   } catch (error) {
     console.error('Error fetching coffee facts:', error);
-    return [];
+    return [
+      {
+        fact: 'Coffee is the second most traded commodity in the world, after oil.',
+        is_active: true,
+        sort_order: 1,
+        created_at: new Date(),
+        updated_at: new Date()
+      },
+      {
+        fact: 'The average coffee drinker consumes 3.1 cups of coffee per day.',
+        is_active: true,
+        sort_order: 2,
+        created_at: new Date(),
+        updated_at: new Date()
+      },
+      {
+        fact: 'Coffee beans are actually seeds from the coffee cherry fruit.',
+        is_active: true,
+        sort_order: 3,
+        created_at: new Date(),
+        updated_at: new Date()
+      }
+    ];
   }
 }
 
@@ -342,14 +585,137 @@ export async function fetchMenuData(): Promise<MenuData | null> {
     });
     
     if (!response.ok) {
-      throw new Error('Failed to fetch menu data');
+      console.warn('Failed to fetch menu data from API, using fallback data');
+      return {
+        allItems: [
+          {
+            _id: '1',
+            name: 'Espresso',
+            description: 'Rich and bold coffee shot',
+            price: 2.50,
+            category: 'Hot Coffee',
+            rating: 4.5,
+            image: '/coffee-cup.png',
+            isPopular: true,
+            isNew: false,
+            prepTime: 2,
+            calories: 5,
+            isVegan: true,
+            isGlutenFree: true,
+            is_active: true,
+            sort_order: 1,
+            created_at: new Date(),
+            updated_at: new Date()
+          },
+          {
+            _id: '2',
+            name: 'Cappuccino',
+            description: 'Espresso with steamed milk and foam',
+            price: 3.50,
+            category: 'Hot Coffee',
+            rating: 4.7,
+            image: '/coffee-cup.png',
+            isPopular: true,
+            isNew: false,
+            prepTime: 3,
+            calories: 80,
+            isVegan: false,
+            isGlutenFree: true,
+            is_active: true,
+            sort_order: 2,
+            created_at: new Date(),
+            updated_at: new Date()
+          }
+        ],
+        categories: [
+          {
+            _id: '1',
+            name: 'Hot Coffee',
+            description: 'Warm and comforting coffee drinks',
+            sort_order: 1,
+            is_active: true,
+            created_at: new Date(),
+            updated_at: new Date()
+          },
+          {
+            _id: '2',
+            name: 'Cold Drinks',
+            description: 'Refreshing cold beverages',
+            sort_order: 2,
+            is_active: true,
+            created_at: new Date(),
+            updated_at: new Date()
+          }
+        ]
+      };
     }
     
     const data = await response.json();
     return data.success ? data.data : null;
   } catch (error) {
     console.error('Error fetching menu data:', error);
-    return null;
+    return {
+      allItems: [
+        {
+          _id: '1',
+          name: 'Espresso',
+          description: 'Rich and bold coffee shot',
+          price: 2.50,
+          category: 'Hot Coffee',
+          rating: 4.5,
+          image: '/coffee-cup.png',
+          isPopular: true,
+          isNew: false,
+          prepTime: 2,
+          calories: 5,
+          isVegan: true,
+          isGlutenFree: true,
+          is_active: true,
+          sort_order: 1,
+          created_at: new Date(),
+          updated_at: new Date()
+        },
+        {
+          _id: '2',
+          name: 'Cappuccino',
+          description: 'Espresso with steamed milk and foam',
+          price: 3.50,
+          category: 'Hot Coffee',
+          rating: 4.7,
+          image: '/coffee-cup.png',
+          isPopular: true,
+          isNew: false,
+          prepTime: 3,
+          calories: 80,
+          isVegan: false,
+          isGlutenFree: true,
+          is_active: true,
+          sort_order: 2,
+          created_at: new Date(),
+          updated_at: new Date()
+        }
+      ],
+      categories: [
+        {
+          _id: '1',
+          name: 'Hot Coffee',
+          description: 'Warm and comforting coffee drinks',
+          sort_order: 1,
+          is_active: true,
+          created_at: new Date(),
+          updated_at: new Date()
+        },
+        {
+          _id: '2',
+          name: 'Cold Drinks',
+          description: 'Refreshing cold beverages',
+          sort_order: 2,
+          is_active: true,
+          created_at: new Date(),
+          updated_at: new Date()
+        }
+      ]
+    };
   }
 }
 
@@ -479,11 +845,16 @@ export async function fetchContactData(): Promise<ContactData> {
 }
 
 // Order API functions
-export async function placeOrder(orderData: Omit<Order, '_id' | 'orderNumber' | 'orderTime' | 'estimatedReadyTime'>): Promise<OrderResponse> {
+export async function placeOrder(orderData: Omit<Order, '_id' | 'orderNumber' | 'orderTime' | 'estimatedReadyTime'>, token?: string): Promise<OrderResponse> {
   try {
+    const headers: { [key: string]: string } = { 'Content-Type': 'application/json' };
+    if (token) {
+      headers['Authorization'] = `Bearer ${token}`;
+    }
+
     const response = await fetch(`${ADMIN_API_BASE_URL}/api/public/orders`, {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      headers,
       body: JSON.stringify(orderData)
     });
 
@@ -503,9 +874,16 @@ export async function placeOrder(orderData: Omit<Order, '_id' | 'orderNumber' | 
   }
 }
 
-export async function getOrderByNumber(orderNumber: string, email: string): Promise<Order> {
+export async function getOrderByNumber(orderNumber: string, email: string, token?: string): Promise<Order> {
   try {
-    const response = await fetch(`${ADMIN_API_BASE_URL}/api/public/orders?orderNumber=${orderNumber}&email=${email}`);
+    const headers: { [key: string]: string } = {};
+    if (token) {
+      headers['Authorization'] = `Bearer ${token}`;
+    }
+
+    const response = await fetch(`${ADMIN_API_BASE_URL}/api/public/orders?orderNumber=${orderNumber}&email=${email}`, {
+      headers
+    });
 
     if (!response.ok) {
       throw new Error('Failed to fetch order');

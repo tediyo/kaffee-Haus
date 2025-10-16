@@ -2,8 +2,10 @@
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { Menu, X, Coffee, Home, Utensils, Users, MapPin, Search, HelpCircle, ShoppingCart } from 'lucide-react';
+import { Menu, X, Coffee, Home, Utensils, Users, MapPin, Search, HelpCircle, ShoppingCart, User, LogOut } from 'lucide-react';
 import { useCart } from '@/contexts/CartContext';
+import { useAuth } from '@/contexts/AuthContext';
+import AuthModal from './AuthModal';
 
 interface NavigationProps {
   onFAQClick?: () => void;
@@ -14,7 +16,9 @@ const Navigation = ({ onFAQClick, onCartClick }: NavigationProps) => {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
+  const [showAuthModal, setShowAuthModal] = useState(false);
   const { getTotalItems } = useCart();
+  const { customer, isAuthenticated, login, logout } = useAuth();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -112,6 +116,28 @@ const Navigation = ({ onFAQClick, onCartClick }: NavigationProps) => {
                 <HelpCircle className="h-5 w-5" />
               </button>
             )}
+
+            {/* Authentication */}
+            {isAuthenticated ? (
+              <div className="flex items-center space-x-2">
+                <span className="text-sm text-gray-600">Hi, {customer?.name}</span>
+                <button
+                  onClick={logout}
+                  className="p-2 text-gray-600 hover:text-red-600 hover:bg-red-50 rounded-xl"
+                  title="Logout"
+                >
+                  <LogOut className="h-5 w-5" />
+                </button>
+              </div>
+            ) : (
+              <button
+                onClick={() => setShowAuthModal(true)}
+                className="flex items-center space-x-2 px-4 py-2 bg-amber-600 text-white rounded-xl hover:bg-amber-700 transition-colors"
+              >
+                <User className="h-5 w-5" />
+                <span>Login</span>
+              </button>
+            )}
           </div>
 
           {/* Mobile menu button */}
@@ -177,6 +203,13 @@ const Navigation = ({ onFAQClick, onCartClick }: NavigationProps) => {
           </div>
         </div>
       </div>
+
+      {/* Auth Modal */}
+      <AuthModal
+        isOpen={showAuthModal}
+        onClose={() => setShowAuthModal(false)}
+        onLogin={login}
+      />
     </nav>
   );
 };

@@ -10,3 +10,4 @@ timeout /t 5 /nobreak > nul
 echo Starting coffee shop frontend on port 3000...
 cd ..\coffee-shop
 npm run dev
+

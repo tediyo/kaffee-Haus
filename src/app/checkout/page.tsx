@@ -1,18 +1,22 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useCart } from '@/contexts/CartContext';
+import { useAuth } from '@/contexts/AuthContext';
 import NavigationWrapper from '@/components/NavigationWrapper';
-import { ArrowLeft, CreditCard, MapPin, Clock, User, Mail, Phone, MessageSquare, CheckCircle } from 'lucide-react';
+import AuthModal from '@/components/AuthModal';
+import { ArrowLeft, CreditCard, MapPin, Clock, User, Mail, Phone, MessageSquare, CheckCircle, Lock } from 'lucide-react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { placeOrder, OrderItem } from '@/lib/api';
 
 export default function CheckoutPage() {
   const { cartItems, getTotalPrice, addOrder, clearCart } = useCart();
+  const { isAuthenticated, customer, token, login } = useAuth();
   const router = useRouter();
   const [orderType, setOrderType] = useState<'pickup' | 'delivery'>('pickup');
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [showAuthModal, setShowAuthModal] = useState(false);
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -20,6 +24,26 @@ export default function CheckoutPage() {
     address: '',
     specialInstructions: ''
   });
+
+  // Pre-fill form data if user is authenticated
+  useEffect(() => {
+    if (isAuthenticated && customer) {
+      setFormData({
+        name: customer.name || '',
+        email: customer.email || '',
+        phone: customer.phone || '',
+        address: customer.address || '',
+        specialInstructions: ''
+      });
+    }
+  }, [isAuthenticated, customer]);
+
+  // Show login modal if not authenticated
+  useEffect(() => {
+    if (!isAuthenticated) {
+      setShowAuthModal(true);
+    }
+  }, [isAuthenticated]);
 
   const totalPrice = getTotalPrice();
   const deliveryFee = orderType === 'delivery' ? 2.50 : 0;
@@ -90,9 +114,9 @@ export default function CheckoutPage() {
         specialInstructions: formData.specialInstructions
       };
 
-      // Try to place order via API first
-      try {
-        const response = await placeOrder(orderData);
+          // Try to place order via API first
+          try {
+            const response = await placeOrder(orderData, token);
         
         if (response.success) {
           // Also add to local cart context for backup
@@ -106,11 +130,11 @@ export default function CheckoutPage() {
           
           clearCart();
           
-          // Small delay to ensure order is saved
-          setTimeout(() => {
-            // Redirect to order confirmation with real order number
-            router.push(`/order-confirmation?orderNumber=${response.data.orderNumber}&email=${formData.email}`);
-          }, 100);
+              // Small delay to ensure order is saved
+              setTimeout(() => {
+                // Redirect to order tracking with real order number
+                router.push(`/order-tracking?orderNumber=${response.data.orderNumber}&email=${formData.email}`);
+              }, 100);
           return;
         } else {
           throw new Error(response.message || 'Failed to place order');
@@ -137,11 +161,11 @@ export default function CheckoutPage() {
         addOrder(localOrder);
         clearCart();
         
-        // Small delay to ensure order is saved
-        setTimeout(() => {
-          // Redirect to order confirmation with local order
-          router.push(`/order-confirmation?orderNumber=${localOrderNumber}&email=${formData.email}`);
-        }, 100);
+            // Small delay to ensure order is saved
+            setTimeout(() => {
+              // Redirect to order tracking with local order
+              router.push(`/order-tracking?orderNumber=${localOrderNumber}&email=${formData.email}`);
+            }, 100);
         return;
       }
     } catch (error) {
@@ -179,6 +203,48 @@ export default function CheckoutPage() {
             </div>
           </div>
         </NavigationWrapper>
+      </main>
+    );
+  }
+
+  // Show login prompt if not authenticated
+  if (!isAuthenticated) {
+    return (
+      <main className="min-h-screen bg-gradient-to-br from-amber-50 via-orange-50 to-amber-100">
+        <NavigationWrapper>
+          <div className="pt-20 flex items-center justify-center min-h-[80vh]">
+            <div className="text-center max-w-md mx-auto">
+              <div className="bg-white rounded-2xl shadow-xl p-8 border border-amber-200/50">
+                <div className="w-16 h-16 bg-amber-100 rounded-full flex items-center justify-center mx-auto mb-6">
+                  <Lock className="h-8 w-8 text-amber-600" />
+                </div>
+                <h1 className="text-2xl font-bold text-gray-800 mb-4">Login Required</h1>
+                <p className="text-gray-600 mb-6">
+                  Please login to your account to proceed with checkout and track your orders.
+                </p>
+                <button
+                  onClick={() => setShowAuthModal(true)}
+                  className="w-full bg-gradient-to-r from-amber-600 to-orange-600 text-white px-6 py-3 rounded-xl font-semibold hover:from-amber-700 hover:to-orange-700 transition-all duration-200 mb-4"
+                >
+                  Login / Register
+                </button>
+                <Link
+                  href="/"
+                  className="text-amber-600 hover:text-amber-700 text-sm font-medium"
+                >
+                  ← Back to Home
+                </Link>
+              </div>
+            </div>
+          </div>
+        </NavigationWrapper>
+        
+        {/* Auth Modal */}
+        <AuthModal
+          isOpen={showAuthModal}
+          onClose={() => setShowAuthModal(false)}
+          onLogin={login}
+        />
       </main>
     );
   }
@@ -375,8 +441,8 @@ export default function CheckoutPage() {
               
               {/* Order Items */}
               <div className="space-y-4 mb-6">
-                {cartItems.map((cartItem) => (
-                  <div key={cartItem.item.id} className="flex items-center space-x-3 p-3 bg-gray-50 rounded-xl">
+                {cartItems.map((cartItem, index) => (
+                  <div key={cartItem.item._id || cartItem.item.id || `item-${index}`} className="flex items-center space-x-3 p-3 bg-gray-50 rounded-xl">
                     <img
                       src={cartItem.item.image}
                       alt={cartItem.item.name}
@@ -430,6 +496,13 @@ export default function CheckoutPage() {
         </div>
       </div>
       </NavigationWrapper>
+      
+      {/* Auth Modal */}
+      <AuthModal
+        isOpen={showAuthModal}
+        onClose={() => setShowAuthModal(false)}
+        onLogin={login}
+      />
     </main>
   );
 }
