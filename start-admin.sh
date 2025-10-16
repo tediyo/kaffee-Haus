@@ -26,3 +26,4 @@ trap cleanup INT
 
 # Wait for user to stop
 wait
+

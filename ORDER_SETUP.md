@@ -69,3 +69,4 @@ Coffee shop will run on http://localhost:3000
 - Manage order settings (delivery fees, tax rates, prep times)
 - Order filtering and search
 - Customer information and order details
+

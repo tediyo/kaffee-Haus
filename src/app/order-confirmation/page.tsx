@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { useCart } from '@/contexts/CartContext';
+import { useAuth } from '@/contexts/AuthContext';
 import NavigationWrapper from '@/components/NavigationWrapper';
 import { CheckCircle, Clock, MapPin, Phone, Mail, ArrowRight, Coffee, Star } from 'lucide-react';
 import Link from 'next/link';
@@ -11,6 +12,7 @@ import { getOrderByNumber, Order } from '@/lib/api';
 export default function OrderConfirmationPage() {
   const searchParams = useSearchParams();
   const { orders } = useCart();
+  const { token } = useAuth();
   const [order, setOrder] = useState<Order | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -31,7 +33,7 @@ export default function OrderConfirmationPage() {
           
           // Try to fetch from API first
           try {
-            const apiOrder = await getOrderByNumber(orderNumber, email);
+            const apiOrder = await getOrderByNumber(orderNumber, email, token);
             console.log('Found order in API:', apiOrder);
             setOrder(apiOrder);
           } catch (apiError) {
