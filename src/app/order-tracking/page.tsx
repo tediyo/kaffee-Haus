@@ -3,6 +3,7 @@
 import { useState, useEffect } from 'react';
 import { useSearchParams } from 'next/navigation';
 import NavigationWrapper from '@/components/NavigationWrapper';
+import OrderTrackingModal from '@/components/OrderTrackingModal';
 import { useAuth } from '@/contexts/AuthContext';
 import { 
   Clock, 
@@ -105,11 +106,14 @@ const statusConfig = {
 
 export default function OrderTrackingPage() {
   const searchParams = useSearchParams();
-  const { token, isAuthenticated } = useAuth();
+  const { token, isAuthenticated, customer } = useAuth();
   const [order, setOrder] = useState<Order | null>(null);
   const [tracking, setTracking] = useState<OrderTracking[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [confirmingDelivery, setConfirmingDelivery] = useState(false);
+  const [successMessage, setSuccessMessage] = useState<string | null>(null);
+  const [showTrackOrderModal, setShowTrackOrderModal] = useState(false);
 
   useEffect(() => {
     if (!isAuthenticated) {
@@ -118,12 +122,13 @@ export default function OrderTrackingPage() {
       return;
     }
 
-    const orderNumber = searchParams.get('orderNumber');
-    const email = searchParams.get('email');
+    const orderNumber = (searchParams.get('orderNumber') || '').trim();
+    const email = (searchParams.get('email') || '').trim();
 
     if (!orderNumber || !email) {
       setError('Order number and email are required');
       setLoading(false);
+      setShowTrackOrderModal(true);
       return;
     }
 
@@ -135,7 +140,13 @@ export default function OrderTrackingPage() {
       setLoading(true);
       const adminApiUrl = process.env.NEXT_PUBLIC_ADMIN_API_URL || 'http://localhost:3002';
       
-      const response = await fetch(`${adminApiUrl}/api/order-tracking?orderNumber=${orderNumber}&email=${email}`, {
+      const trimmedOrder = (orderNumber || '').trim();
+      const trimmedEmail = (email || '').trim();
+      if (!trimmedOrder || !trimmedEmail) {
+        throw new Error('Order number and email are required');
+      }
+
+      const response = await fetch(`${adminApiUrl}/api/order-tracking?orderNumber=${encodeURIComponent(trimmedOrder)}&email=${encodeURIComponent(trimmedEmail)}`, {
         headers: {
           'Authorization': `Bearer ${token}`
         }
@@ -161,6 +172,10 @@ export default function OrderTrackingPage() {
     if (!order) return;
 
     try {
+      setConfirmingDelivery(true);
+      setSuccessMessage(null);
+      setError(null);
+
       const adminApiUrl = process.env.NEXT_PUBLIC_ADMIN_API_URL || 'http://localhost:3002';
       
       const response = await fetch(`${adminApiUrl}/api/order-tracking`, {
@@ -179,6 +194,13 @@ export default function OrderTrackingPage() {
       const result = await response.json();
       
       if (result.success) {
+        setSuccessMessage('Order confirmed as delivered! Thank you for your order.');
+        
+        // Clear success message after 5 seconds
+        setTimeout(() => {
+          setSuccessMessage(null);
+        }, 5000);
+        
         // Refresh tracking data
         const orderNumber = searchParams.get('orderNumber');
         const email = searchParams.get('email');
@@ -186,11 +208,13 @@ export default function OrderTrackingPage() {
           await fetchOrderTracking(orderNumber, email);
         }
       } else {
-        alert(result.error || 'Failed to confirm delivery');
+        setError(result.error || 'Failed to confirm delivery');
       }
     } catch (error) {
       console.error('Error confirming delivery:', error);
-      alert('Failed to confirm delivery');
+      setError('Failed to confirm delivery. Please try again.');
+    } finally {
+      setConfirmingDelivery(false);
     }
   };
 
@@ -228,14 +252,28 @@ export default function OrderTrackingPage() {
               <XCircle className="h-16 w-16 text-red-500 mx-auto mb-4" />
               <h1 className="text-2xl font-bold text-gray-800 mb-2">Error</h1>
               <p className="text-gray-600 mb-6">{error}</p>
-              <button
-                onClick={() => window.history.back()}
-                className="bg-amber-600 text-white px-6 py-2 rounded-lg hover:bg-amber-700"
-              >
-                Go Back
-              </button>
+              <div className="flex items-center justify-center space-x-3">
+                <button
+                  onClick={() => setShowTrackOrderModal(true)}
+                  className="bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700 text-white px-6 py-2 rounded-lg"
+                >
+                  Track Order
+                </button>
+                <button
+                  onClick={() => window.history.back()}
+                  className="bg-white border-2 border-amber-500 text-amber-600 px-6 py-2 rounded-lg hover:bg-amber-50"
+                >
+                  Go Back
+                </button>
+              </div>
             </div>
           </div>
+          <OrderTrackingModal
+            isOpen={showTrackOrderModal}
+            onClose={() => setShowTrackOrderModal(false)}
+            initialOrderNumber={typeof window !== 'undefined' ? (localStorage.getItem('lastOrderNumber') || '') : ''}
+            initialEmail={customer?.email || ''}
+          />
         </NavigationWrapper>
       </main>
     );
@@ -287,6 +325,26 @@ export default function OrderTrackingPage() {
               </div>
               <p className="text-gray-600">{currentStatus.description}</p>
             </div>
+
+            {/* Success Message */}
+            {successMessage && (
+              <div className="bg-green-50 border border-green-200 rounded-xl p-4 mb-6">
+                <div className="flex items-center space-x-2">
+                  <CheckCircle className="h-5 w-5 text-green-600" />
+                  <p className="text-green-800 font-medium">{successMessage}</p>
+                </div>
+              </div>
+            )}
+
+            {/* Error Message */}
+            {error && (
+              <div className="bg-red-50 border border-red-200 rounded-xl p-4 mb-6">
+                <div className="flex items-center space-x-2">
+                  <XCircle className="h-5 w-5 text-red-600" />
+                  <p className="text-red-800 font-medium">{error}</p>
+                </div>
+              </div>
+            )}
 
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
               {/* Order Details */}
@@ -431,9 +489,20 @@ export default function OrderTrackingPage() {
                   </p>
                   <button
                     onClick={handleDeliveryConfirmation}
-                    className="bg-green-600 text-white px-6 py-2 rounded-lg hover:bg-green-700 transition-colors"
+                    disabled={confirmingDelivery}
+                    className="bg-green-600 text-white px-6 py-2 rounded-lg hover:bg-green-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center space-x-2"
                   >
-                    Confirm Delivery
+                    {confirmingDelivery ? (
+                      <>
+                        <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+                        <span>Confirming...</span>
+                      </>
+                    ) : (
+                      <>
+                        <CheckCircle className="h-4 w-4" />
+                        <span>Confirm Delivery</span>
+                      </>
+                    )}
                   </button>
                 </div>
               </div>
@@ -449,9 +518,20 @@ export default function OrderTrackingPage() {
                   </p>
                   <button
                     onClick={handleDeliveryConfirmation}
-                    className="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition-colors"
+                    disabled={confirmingDelivery}
+                    className="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center space-x-2"
                   >
-                    Confirm Pickup
+                    {confirmingDelivery ? (
+                      <>
+                        <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
+                        <span>Confirming...</span>
+                      </>
+                    ) : (
+                      <>
+                        <Package className="h-4 w-4" />
+                        <span>Confirm Pickup</span>
+                      </>
+                    )}
                   </button>
                 </div>
               </div>

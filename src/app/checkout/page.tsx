@@ -5,6 +5,7 @@ import { useCart } from '@/contexts/CartContext';
 import { useAuth } from '@/contexts/AuthContext';
 import NavigationWrapper from '@/components/NavigationWrapper';
 import AuthModal from '@/components/AuthModal';
+import OrderTrackingModal from '@/components/OrderTrackingModal';
 import { ArrowLeft, CreditCard, MapPin, Clock, User, Mail, Phone, MessageSquare, CheckCircle, Lock } from 'lucide-react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
@@ -17,6 +18,8 @@ export default function CheckoutPage() {
   const [orderType, setOrderType] = useState<'pickup' | 'delivery'>('pickup');
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [showAuthModal, setShowAuthModal] = useState(false);
+  const [showTrackOrderModal, setShowTrackOrderModal] = useState(false);
+  const [lastOrderNumber, setLastOrderNumber] = useState<string | null>(null);
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -130,11 +133,14 @@ export default function CheckoutPage() {
           
           clearCart();
           
-              // Small delay to ensure order is saved
-              setTimeout(() => {
-                // Redirect to order tracking with real order number
-                router.push(`/order-tracking?orderNumber=${response.data.orderNumber}&email=${formData.email}`);
-              }, 100);
+          // Store last order number for quick tracking
+          try {
+            localStorage.setItem('lastOrderNumber', response.data.orderNumber);
+          } catch {}
+
+          // Open pre-filled Track Order modal instead of redirecting
+          setLastOrderNumber(response.data.orderNumber);
+          setShowTrackOrderModal(true);
           return;
         } else {
           throw new Error(response.message || 'Failed to place order');
@@ -161,11 +167,14 @@ export default function CheckoutPage() {
         addOrder(localOrder);
         clearCart();
         
-            // Small delay to ensure order is saved
-            setTimeout(() => {
-              // Redirect to order tracking with local order
-              router.push(`/order-tracking?orderNumber=${localOrderNumber}&email=${formData.email}`);
-            }, 100);
+        // Store last order number for quick tracking
+        try {
+          localStorage.setItem('lastOrderNumber', localOrderNumber);
+        } catch {}
+
+        // Open pre-filled Track Order modal instead of redirecting
+        setLastOrderNumber(localOrderNumber);
+        setShowTrackOrderModal(true);
         return;
       }
     } catch (error) {
@@ -186,7 +195,7 @@ export default function CheckoutPage() {
     }
   };
 
-  if (cartItems.length === 0) {
+  if (cartItems.length === 0 && !showTrackOrderModal) {
     return (
       <main className="min-h-screen bg-gradient-to-br from-amber-50 via-orange-50 to-amber-100">
         <NavigationWrapper>
@@ -502,6 +511,14 @@ export default function CheckoutPage() {
         isOpen={showAuthModal}
         onClose={() => setShowAuthModal(false)}
         onLogin={login}
+      />
+
+      {/* Order Tracking Modal (opens after placing order) */}
+      <OrderTrackingModal
+        isOpen={showTrackOrderModal}
+        onClose={() => setShowTrackOrderModal(false)}
+        initialOrderNumber={lastOrderNumber || ''}
+        initialEmail={formData.email}
       />
     </main>
   );

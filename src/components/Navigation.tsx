@@ -2,10 +2,11 @@
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { Menu, X, Coffee, Home, Utensils, Users, MapPin, Search, HelpCircle, ShoppingCart, User, LogOut } from 'lucide-react';
+import { Menu, X, Coffee, Home, Utensils, Users, MapPin, Search, HelpCircle, ShoppingCart, User, LogOut, Package } from 'lucide-react';
 import { useCart } from '@/contexts/CartContext';
 import { useAuth } from '@/contexts/AuthContext';
 import AuthModal from './AuthModal';
+import OrderTrackingModal from './OrderTrackingModal';
 
 interface NavigationProps {
   onFAQClick?: () => void;
@@ -17,6 +18,7 @@ const Navigation = ({ onFAQClick, onCartClick }: NavigationProps) => {
   const [scrolled, setScrolled] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
   const [showAuthModal, setShowAuthModal] = useState(false);
+  const [showTrackOrderModal, setShowTrackOrderModal] = useState(false);
   const { getTotalItems } = useCart();
   const { customer, isAuthenticated, login, logout } = useAuth();
 
@@ -117,6 +119,15 @@ const Navigation = ({ onFAQClick, onCartClick }: NavigationProps) => {
               </button>
             )}
 
+            {/* Track Order Button */}
+            <button
+              onClick={() => setShowTrackOrderModal(true)}
+              className="p-2 text-gray-600 hover:text-amber-600 hover:bg-amber-50 rounded-xl"
+              title="Track Your Order"
+            >
+              <Package className="h-5 w-5" />
+            </button>
+
             {/* Authentication */}
             {isAuthenticated ? (
               <div className="flex items-center space-x-2">
@@ -200,6 +211,18 @@ const Navigation = ({ onFAQClick, onCartClick }: NavigationProps) => {
                 <span className="font-medium">{item.name}</span>
               </Link>
             ))}
+
+            {/* Mobile Track Order Button */}
+            <button
+              onClick={() => {
+                setShowTrackOrderModal(true);
+                setIsOpen(false);
+              }}
+              className="group flex items-center space-x-3 px-4 py-3 text-gray-700 hover:text-amber-600 hover:bg-gradient-to-r hover:from-amber-50 hover:to-amber-100 rounded-xl relative overflow-hidden w-full"
+            >
+              <Package className="h-5 w-5 text-purple-600" />
+              <span className="font-medium">Track Order</span>
+            </button>
           </div>
         </div>
       </div>
@@ -209,6 +232,14 @@ const Navigation = ({ onFAQClick, onCartClick }: NavigationProps) => {
         isOpen={showAuthModal}
         onClose={() => setShowAuthModal(false)}
         onLogin={login}
+      />
+
+      {/* Order Tracking Modal */}
+      <OrderTrackingModal
+        isOpen={showTrackOrderModal}
+        onClose={() => setShowTrackOrderModal(false)}
+        initialOrderNumber={typeof window !== 'undefined' ? (localStorage.getItem('lastOrderNumber') || '') : ''}
+        initialEmail={isAuthenticated ? (customer?.email || '') : ''}
       />
     </nav>
   );
