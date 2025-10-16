@@ -163,22 +163,101 @@ body {
   100% { opacity: 0; transform: translateY(-20px) scale(1.2); }
 }
 
-.animate-coffee-steam {
-  animation: coffee-steam 2s ease-in-out infinite;
-}
+  .animate-coffee-steam {
+    animation: coffee-steam 2s ease-in-out infinite;
+  }
 
-/* Enhanced backdrop blur */
-.backdrop-blur-sm {
-  backdrop-filter: blur(4px);
-}
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
 
-.backdrop-blur-md {
-  backdrop-filter: blur(8px);
-}
+  .animate-fadeIn {
+    animation: fadeIn 0.3s ease-out;
+  }
 
-.backdrop-blur-lg {
-  backdrop-filter: blur(12px);
-}
+  @keyframes slideUp {
+    from { 
+      opacity: 0; 
+      transform: translateY(20px) scale(0.95); 
+    }
+    to { 
+      opacity: 1; 
+      transform: translateY(0) scale(1); 
+    }
+  }
+
+  .animate-slideUp {
+    animation: slideUp 0.4s ease-out;
+  }
+
+  @keyframes pulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+  }
+
+  .animate-pulse {
+    animation: pulse 2s ease-in-out infinite;
+  }
+
+  @keyframes bounce {
+    0%, 20%, 53%, 80%, 100% { transform: translate3d(0,0,0); }
+    40%, 43% { transform: translate3d(0, -8px, 0); }
+    70% { transform: translate3d(0, -4px, 0); }
+    90% { transform: translate3d(0, -2px, 0); }
+  }
+
+  .animate-bounce {
+    animation: bounce 1s ease-in-out;
+  }
+
+  /* Enhanced backdrop blur */
+  .backdrop-blur-sm {
+    backdrop-filter: blur(4px);
+  }
+
+  .backdrop-blur-md {
+    backdrop-filter: blur(8px);
+  }
+
+  .backdrop-blur-lg {
+    backdrop-filter: blur(12px);
+  }
+
+  /* Professional gradients */
+  .gradient-primary {
+    background: linear-gradient(135deg, #f59e0b 0%, #ea580c 100%);
+  }
+
+  .gradient-success {
+    background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+  }
+
+  .gradient-danger {
+    background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+  }
+
+  .gradient-info {
+    background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+  }
+
+  /* Interactive hover effects */
+  .hover-lift {
+    transition: all 0.3s ease;
+  }
+
+  .hover-lift:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+  }
+
+  .hover-glow {
+    transition: all 0.3s ease;
+  }
+
+  .hover-glow:hover {
+    box-shadow: 0 0 20px rgba(245, 158, 11, 0.3);
+  }
 
 /* Coffee-themed gradient backgrounds */
 .bg-coffee-gradient {
