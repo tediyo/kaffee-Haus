@@ -316,7 +316,7 @@ export async function fetchDisplaySettings(): Promise<DisplaySetting[]> {
           created_at: new Date(),
           updated_at: new Date()
         }
-      ];
+      ]; 
     }
     
     const data = await response.json();

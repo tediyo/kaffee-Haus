@@ -133,7 +133,7 @@ export default function OrderTrackingPage() {
   const fetchOrderTracking = async (orderNumber: string, email: string) => {
     try {
       setLoading(true);
-      const adminApiUrl = process.env.NEXT_PUBLIC_ADMIN_API_URL || 'http://localhost:3001';
+      const adminApiUrl = process.env.NEXT_PUBLIC_ADMIN_API_URL || 'http://localhost:3002';
       
       const response = await fetch(`${adminApiUrl}/api/order-tracking?orderNumber=${orderNumber}&email=${email}`, {
         headers: {
@@ -161,7 +161,7 @@ export default function OrderTrackingPage() {
     if (!order) return;
 
     try {
-      const adminApiUrl = process.env.NEXT_PUBLIC_ADMIN_API_URL || 'http://localhost:3001';
+      const adminApiUrl = process.env.NEXT_PUBLIC_ADMIN_API_URL || 'http://localhost:3002';
       
       const response = await fetch(`${adminApiUrl}/api/order-tracking`, {
         method: 'POST',
