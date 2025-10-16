@@ -5,7 +5,7 @@ import { useSearchParams } from 'next/navigation';
 import { useCart } from '@/contexts/CartContext';
 import { useAuth } from '@/contexts/AuthContext';
 import NavigationWrapper from '@/components/NavigationWrapper';
-import { CheckCircle, Clock, MapPin, Phone, Mail, ArrowRight, Coffee, Star } from 'lucide-react';
+import { CheckCircle, Clock, MapPin, Phone, Mail, ArrowRight, Coffee, Star, Package } from 'lucide-react';
 import Link from 'next/link';
 import { getOrderByNumber, Order } from '@/lib/api';
 
@@ -294,6 +294,14 @@ export default function OrderConfirmationPage() {
           {/* Action Buttons */}
           <div className="mt-12 text-center">
             <div className="flex flex-col sm:flex-row items-center justify-center space-y-4 sm:space-y-0 sm:space-x-4">
+              <Link
+                href={`/order-tracking?orderNumber=${order.orderNumber}&email=${order.customerInfo.email}`}
+                className="bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700 text-white px-8 py-3 rounded-xl font-semibold transition-all duration-200 flex items-center space-x-2"
+              >
+                <Package className="h-5 w-5" />
+                <span>Track Order</span>
+              </Link>
+              
               <Link
                 href="/menu"
                 className="bg-white border-2 border-amber-500 text-amber-600 hover:bg-amber-50 px-8 py-3 rounded-xl font-semibold transition-all duration-200 flex items-center space-x-2"
